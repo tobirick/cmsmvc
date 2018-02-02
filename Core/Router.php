@@ -1,0 +1,45 @@
+<?php
+namespace Core;
+
+use \App\Models\DefaultPage;
+
+class Router {
+    private $controller;
+    private $method;
+    private $params;
+    private $namespace;
+    private $defaultPages = ['App\Controllers\DefaultPageController', 'App\Controllers\DefaultPostController'];
+
+    public function __construct($router) {
+        $this->namespace = 'App\Controllers\\';
+        $match = $router->match();
+
+        $this->matchRoute($match);
+    }
+
+    private function matchRoute($match) {
+        if($match) {
+            $details = explode("@", $match['target']);
+            $this->controller = $this->namespace . $details[0];
+            $this->method = $details[1];
+
+            $this->params = [
+                'params' => $match['params']
+            ];
+
+            if(in_array($this->controller, $this->defaultPages)) {
+                $slug = substr($_SERVER['REQUEST_URI'],1);
+                $data = [
+                    'slug' => $slug
+                ];
+                $page = new DefaultPage($data);
+                $this->params['page-args'] = $page->getPageBySlug();
+            }
+
+            call_user_func([$this->controller, $this->method], $this->params);
+        } else {
+            $view = new View();
+            $view->render('error/404');
+        }
+    }
+}

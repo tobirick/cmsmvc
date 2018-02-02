@@ -1,0 +1,18 @@
+{
+    "require": {
+        "altorouter/altorouter": "^1.2",
+        "philo/laravel-blade": "^3.1",
+        "jenssegers/blade": "^1.1",
+        "filp/whoops": "^2.1",
+        "vlucas/phpdotenv": "^2.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Core\\": "Core/",
+            "App\\": "App/"
+        },
+        "files": [
+            "Core/helpers.php"
+        ]
+    }
+}

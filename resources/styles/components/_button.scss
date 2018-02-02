@@ -1,0 +1,4 @@
+@include button($primary-color, 'primary');
+@include button($error-color, 'error');
+@include button($success-color, 'success');
+@include button($warning-color, 'warning');
