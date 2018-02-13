@@ -17,10 +17,12 @@
                 <span></span>
             </div>
                 <h2><?php echo $__env->yieldContent('content-title'); ?></h2>
+                <?php if(isset($user['name'])): ?>
                 <div class="main-content__header-info">
                     <a href="/admin/logout">Logout</a>
                     <a href="/admin/users/<?php echo e($user['name']); ?>"><?php echo e($user['name']); ?></a>
                 </div>
+                <?php endif; ?>
         </div>
 
         <?php echo $__env->yieldContent('content'); ?>

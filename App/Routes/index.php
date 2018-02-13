@@ -28,6 +28,7 @@ require_once(__DIR__ . '/PostsAdmin.php');
 require_once(__DIR__ . '/MenusAdmin.php');
 require_once(__DIR__ . '/PagebuilderAdmin.php');
 require_once(__DIR__ . '/ThemesAdmin.php');
+require_once(__DIR__ . '/SettingsAdmin.php');
 
 ## Public ##
 require_once(__DIR__ . '/PagesPublic.php');

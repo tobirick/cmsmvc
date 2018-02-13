@@ -17,10 +17,12 @@
                 <span></span>
             </div>
                 <h2>@yield('content-title')</h2>
+                @if(isset($user['name']))
                 <div class="main-content__header-info">
                     <a href="/admin/logout">Logout</a>
                     <a href="/admin/users/{{$user['name']}}">{{$user['name']}}</a>
                 </div>
+                @endif
         </div>
 
         @yield('content')
