@@ -19,7 +19,7 @@
                 <h2><?php echo $__env->yieldContent('content-title'); ?></h2>
                 <div class="main-content__header-info">
                     <a href="/admin/logout">Logout</a>
-                    <a href="/admin/profiles/<?php echo e($user['name']); ?>"><?php echo e($user['name']); ?></a>
+                    <a href="/admin/users/<?php echo e($user['name']); ?>"><?php echo e($user['name']); ?></a>
                 </div>
         </div>
 

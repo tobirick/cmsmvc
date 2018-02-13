@@ -4,7 +4,7 @@
     top: 0;
     height: 100%;
     width: 20rem;
-    background-color: $secondary-color;
+    background-color: #eee;
     @include transition(.2s ease-in all);
 
     &__title {
@@ -12,7 +12,7 @@
         text-align: center;
 
         h1 {
-            color: #fff;
+            color: $default-text-color;
             & span {
                 font-size: 75%;
                 opacity: .85;
@@ -29,13 +29,15 @@
         display: block;
         margin: 1rem 2rem 1rem 2rem;
         border-radius: 3px;
-        @include transition(.2s ease-in all);
+        @include transition(.2s ease-in background-color);
 
         &:hover, &.active {
             background-color: #fff;
+            @include box-shadow();
 
             & > .main-sidebar__nav-item-link {
                 color: $default-text-color;
+                font-weight: bold;
 
                 & i {
                     color: $secondary-color;
@@ -45,21 +47,21 @@
     }
 
     &__nav-item-link {
-        color: #fff;
+        color: $default-text-color;
         text-decoration: none !important;
         display: block;
         padding: 0.8rem 1.5rem;
-        @include transition(.2s ease-in all);
+        @include transition(.2s ease-in opacity);
 
         & span {
-            @include transition(.2s ease-in all);
+            @include transition(.2s ease-in opacity);
         }
 
         & i {
-            color: #fff;
+            color:$secondary-color;
             font-size: 2rem;
             padding-right: 1rem;
-            @include transition(.2s ease-in all);
+            @include transition(.2s ease-in opacity);
         }
     }
 }
