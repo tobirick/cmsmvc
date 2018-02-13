@@ -112,4 +112,39 @@ class Menu extends Model {
 
         return true;
     }
+
+    public static function getActiveMenuID() {
+        $db = static::getDB();
+        $stmt = $db->prepare('SELECT active_menu_id FROM config');
+        $stmt->execute();
+        $id = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $id;
+    }
+
+    public static function getActiveMenu() {
+        $id = self::getActiveMenuID()['active_menu_id'];
+
+        $db = static::getDB();
+        $stmt = $db->prepare('SELECT * FROM menus WHERE id = :id');
+        $stmt->execute([
+            ':id' => $id
+        ]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
+    public static function getActiveMenuPages() {
+        $id = self::getActiveMenuID()['active_menu_id'];
+
+        $db = static::getDB();
+        $stmt = $db->prepare('SELECT mi.name, p.slug FROM menu_items as mi INNER JOIN pages as p ON p.id = mi.page_id WHERE menu_id = :id');
+        $stmt->execute([
+            ':id' => $id
+        ]);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
 }
