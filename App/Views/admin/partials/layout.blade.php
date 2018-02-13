@@ -19,7 +19,7 @@
                 <h2>@yield('content-title')</h2>
                 <div class="main-content__header-info">
                     <a href="/admin/logout">Logout</a>
-                    <a href="/admin/profiles/{{$user['name']}}">{{$user['name']}}</a>
+                    <a href="/admin/users/{{$user['name']}}">{{$user['name']}}</a>
                 </div>
         </div>
 
