@@ -19,7 +19,7 @@ class MenuItemsController extends BaseController {
         CSRF::checkToken();
         if(isset($_POST)) {
             if($_POST['_METHOD'] === 'DELETE') {
-                self::delete($params);
+                self::destroy($params);
             } else if ($_POST['_METHOD'] === 'PUT') {
                 self::update($params, $_POST);
             }
