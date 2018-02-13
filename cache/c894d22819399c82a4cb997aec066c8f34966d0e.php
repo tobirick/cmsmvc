@@ -11,14 +11,14 @@
     <?php $__env->endSlot(); ?>
 <?php echo $__env->renderComponent(); ?>
 <div id="content">
-<div class="container">
-    Create Menu
-    <form action="/admin/menus" method="POST">
-        <input name="csrf_token" type="hidden" value="<?php echo e($csrf); ?>">
-        <input type="text" placeholder="Name" name="menu[name]">
-        <button>Add Menu</button>
-    </form>
-</div>
+    <div class="container">
+        Create Menu
+        <form action="/admin/menus" method="POST">
+            <input name="csrf_token" type="hidden" value="<?php echo e($csrf); ?>">
+            <input type="text" placeholder="Name" name="menu[name]">
+            <button>Add Menu</button>
+        </form>
+    </div>
 </div>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('admin.partials.layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
