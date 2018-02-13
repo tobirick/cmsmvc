@@ -29,6 +29,7 @@
         display: block;
         margin: 1rem 2rem 1rem 2rem;
         border-radius: 3px;
+        white-space: nowrap;
         @include transition(.2s ease-in background-color);
 
         &:hover, &.active {
@@ -61,6 +62,7 @@
             color:$secondary-color;
             font-size: 2rem;
             padding-right: 1rem;
+            width: 3rem;
             @include transition(.2s ease-in opacity);
         }
     }
@@ -78,6 +80,7 @@
 
         & i {
             padding-right: 0;
+            width: auto;
         }
     }
 
