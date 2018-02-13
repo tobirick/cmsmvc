@@ -19,7 +19,7 @@ class LoginController extends BaseController {
                 $user = User::startLogin($_POST['user']);
                 if($user) {
                     User::doLogin($user);
-                    self::redirect('/admin');
+                    self::redirect('/admin/dashboard');
                 } else {
                     self::render('admin/login/index', [
                        'error' => 'There was an error'
@@ -35,6 +35,6 @@ class LoginController extends BaseController {
 
     public function logout() {
         User::doLogout();
-        self::redirect('/admin');
+        self::redirect('/admin/dashboard');
     }
 }
