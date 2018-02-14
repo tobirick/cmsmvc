@@ -12,7 +12,7 @@
 <div class="container">
     <div>
         @foreach ($themes as $theme)
-            <div>
+            <div {{$theme['name'] === $activetheme ? 'class="active"' : ''}}>
             {{$theme['name']}}
             <form action="/admin/themes/{{$theme['name']}}/{{$theme['id']}}" method="POST">
                 <input type="hidden" name='_METHOD' value="DELETE">

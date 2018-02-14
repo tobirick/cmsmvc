@@ -11,7 +11,7 @@
 <div class="container">
     <div>
         <?php $__currentLoopData = $themes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $theme): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-            <div>
+            <div <?php echo e($theme['name'] === $activetheme ? 'class="active"' : ''); ?>>
             <?php echo e($theme['name']); ?>
 
             <form action="/admin/themes/<?php echo e($theme['name']); ?>/<?php echo e($theme['id']); ?>" method="POST">
