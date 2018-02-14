@@ -4,6 +4,7 @@ const sass = require('gulp-sass');
 const sourcemaps = require('gulp-sourcemaps');
 const babel = require('gulp-babel');
 const browserSync = require('browser-sync');
+const webpack = require('gulp-webpack');
 
 gulp.task('styles', function() {
   // place code for your default task here
@@ -17,9 +18,7 @@ gulp.task('styles', function() {
 gulp.task('scripts', function() {
   gulp.src('./resources/scripts/app.js')
     .pipe(sourcemaps.init())
-    .pipe(babel({
-      presets: ['es2015']
-    }))
+    .pipe(webpack(require('./webpack.config.js')))
     .pipe(sourcemaps.write())
     .pipe(gulp.dest('./public/admin/js'))
 });
