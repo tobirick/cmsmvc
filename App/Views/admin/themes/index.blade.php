@@ -11,7 +11,21 @@
 <div id="content">
 <div class="container">
     <div>
-        
+        @foreach ($themes as $theme)
+            <div>
+            {{$theme}}
+            <form action="/admin/themes/{{$theme}}" method="POST">
+                <input type="hidden" name='_METHOD' value="DELETE">
+                <input name="csrf_token" type="hidden" value="{{$csrf}}">
+                <button>Delete</button>
+            </form>
+            <form action="/admin/themes/{{$theme}}" method="POST">
+                <input type="hidden" name='_METHOD' value="PUT">
+                <input name="csrf_token" type="hidden" value="{{$csrf}}">
+                <button>Activate</button>
+            </form>
+            </div>
+        @endforeach
     </div>
 </div>
 </div>

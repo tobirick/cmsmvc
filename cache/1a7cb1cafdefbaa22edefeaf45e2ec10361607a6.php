@@ -10,7 +10,22 @@
 <div id="content">
 <div class="container">
     <div>
-        
+        <?php $__currentLoopData = $themes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $theme): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <div>
+            <?php echo e($theme); ?>
+
+            <form action="/admin/themes/<?php echo e($theme); ?>" method="POST">
+                <input type="hidden" name='_METHOD' value="DELETE">
+                <input name="csrf_token" type="hidden" value="<?php echo e($csrf); ?>">
+                <button>Delete</button>
+            </form>
+            <form action="/admin/themes/<?php echo e($theme); ?>" method="POST">
+                <input type="hidden" name='_METHOD' value="PUT">
+                <input name="csrf_token" type="hidden" value="<?php echo e($csrf); ?>">
+                <button>Activate</button>
+            </form>
+            </div>
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     </div>
 </div>
 </div>

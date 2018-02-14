@@ -115,15 +115,17 @@ class Menu extends Model {
 
     public static function getActiveMenuID() {
         $db = static::getDB();
-        $stmt = $db->prepare('SELECT active_menu_id FROM config');
-        $stmt->execute();
+        $stmt = $db->prepare('SELECT * FROM config WHERE name = :name');
+        $stmt->execute([
+            ':name' => 'active_menu_id'
+        ]);
         $id = $stmt->fetch(PDO::FETCH_ASSOC);
 
         return $id;
     }
 
     public static function getActiveMenu() {
-        $id = self::getActiveMenuID()['active_menu_id'];
+        $id = self::getActiveMenuID()['value'];
 
         $db = static::getDB();
         $stmt = $db->prepare('SELECT * FROM menus WHERE id = :id');
@@ -136,7 +138,7 @@ class Menu extends Model {
     }
 
     public static function getActiveMenuPages() {
-        $id = self::getActiveMenuID()['active_menu_id'];
+        $id = self::getActiveMenuID()['value'];
 
         $db = static::getDB();
         $stmt = $db->prepare('SELECT mi.name, p.slug FROM menu_items as mi INNER JOIN pages as p ON p.id = mi.page_id WHERE menu_id = :id');
