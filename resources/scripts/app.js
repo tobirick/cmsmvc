@@ -1,4 +1,3 @@
-console.log("test");
 const toggleSidebarEl = document.querySelector('.main-content__toggle-sidebar');
 
 toggleSidebarEl.addEventListener('click', () => {

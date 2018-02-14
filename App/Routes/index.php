@@ -19,7 +19,7 @@ function requireLogin($ctrl) {
 
 ## Base URLs ##
 $router->map('GET', '/', 'IndexController@index');
-$router->map('GET', '/admin/dashboard', requireLogin('Admin\DashboardController@index'));
+$router->map('GET', '/admin', requireLogin('Admin\DashboardController@index'));
 
 ## Admin ##
 require_once(__DIR__ . '/Auth.php');
