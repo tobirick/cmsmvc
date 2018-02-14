@@ -11,7 +11,7 @@ gulp.task('styles', function() {
     .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest('./public/css'))
+    .pipe(gulp.dest('./public/admin/css'))
 });
 
 gulp.task('scripts', function() {
@@ -21,7 +21,7 @@ gulp.task('scripts', function() {
       presets: ['es2015']
     }))
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest('./public/js'))
+    .pipe(gulp.dest('./public/admin/js'))
 });
 
 browserSync.init({

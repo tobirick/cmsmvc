@@ -7,7 +7,7 @@ use \App\Models\Theme;
 class IndexController extends BaseController {  
     public function index() {
         $activeThemePath = Theme::getActiveTheme();
-        self::render($activeThemePath . '/index', [
+        self::render('public/themes/' . $activeThemePath . '/index', [
             'test' => 'test'
         ]);
     }

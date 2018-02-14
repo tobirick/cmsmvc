@@ -1,1 +1,1 @@
-<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/{{$activetheme}}/css/main.css">

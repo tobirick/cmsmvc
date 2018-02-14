@@ -25,8 +25,8 @@ class Theme extends Model {
         $db = static::getDB();
         $stmt = $db->prepare('UPDATE config SET value = :value WHERE name = :name');
         $stmt->execute([
-            ':value' => 'public/themes/' . $themeName,
-            ':name' => 'active_theme_path'
+            ':value' => $themeName,
+            ':name' => 'active_theme_name'
         ]);
 
         return true;
@@ -36,7 +36,7 @@ class Theme extends Model {
         $db = static::getDB();
         $stmt = $db->prepare('SELECT * FROM config WHERE name = :name');
         $stmt->execute([
-            ':name' => 'active_theme_path'
+            ':name' => 'active_theme_name'
         ]);
         $path = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -47,12 +47,12 @@ class Theme extends Model {
         $dir = opendir($src); 
         @mkdir($dst); 
         while(false !== ( $file = readdir($dir)) ) { 
-            if (( $file != '.' ) && ( $file != '..' )) { 
-                if ( is_dir($src . '/' . $file) ) { 
-                    self::copyBaseTheme($src . '/' . $file,$dst . '/' . $file); 
+            if (($file != '.') && ($file != '..')) { 
+                if (is_dir($src . '/' . $file)) { 
+                    self::copyBaseTheme($src . '/' . $file, $dst . '/' . $file); 
                 } 
                 else { 
-                    copy($src . '/' . $file,$dst . '/' . $file); 
+                    copy($src . '/' . $file, $dst . '/' . $file); 
                 } 
             } 
         } 
