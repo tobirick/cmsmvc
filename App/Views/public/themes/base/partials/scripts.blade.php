@@ -1,1 +1,0 @@
-<script src="/{{$activetheme}}/js/app.js"></script>

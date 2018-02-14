@@ -1,2 +1,0 @@
-Folder name same as Theme Name
-CSS and JS Files

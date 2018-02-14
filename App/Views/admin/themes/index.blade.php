@@ -13,13 +13,13 @@
     <div>
         @foreach ($themes as $theme)
             <div>
-            {{$theme}}
-            <form action="/admin/themes/{{$theme}}" method="POST">
+            {{$theme['name']}}
+            <form action="/admin/themes/{{$theme['name']}}/{{$theme['id']}}" method="POST">
                 <input type="hidden" name='_METHOD' value="DELETE">
                 <input name="csrf_token" type="hidden" value="{{$csrf}}">
                 <button>Delete</button>
             </form>
-            <form action="/admin/themes/{{$theme}}" method="POST">
+            <form action="/admin/themes/{{$theme['name']}}/{{$theme['id']}}" method="POST">
                 <input type="hidden" name='_METHOD' value="PUT">
                 <input name="csrf_token" type="hidden" value="{{$csrf}}">
                 <button>Activate</button>

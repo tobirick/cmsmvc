@@ -28,7 +28,8 @@ class ThemesController extends BaseController {
             $themePath = realpath(__DIR__ . '/../../Views/public/themes');
             mkdir($themePath . '/' . $_POST['theme']['name'], 0777, true);
 
-            Theme::copyBaseTheme(__DIR__ . '/../../../Core/basetheme', $themePath . '/' . $_POST['theme']['name']);
+            Theme::copyBaseTheme(__DIR__ . '/../../../Core/basetheme', $themePath . '/' . $_POST['theme']['name'], $_POST['theme']['name']);
+            Theme::addTheme($_POST['theme']['name']);
 
             self::redirect('/admin/themes');
         }
@@ -46,13 +47,13 @@ class ThemesController extends BaseController {
     }
 
     public function update($params, $post) {
-        Theme::activateTheme($params['params']['name']);
+        Theme::activateTheme($params['params']['id']);
         self::redirect('/admin/themes');
     }
 
     public function delete($params) {
         $themePath = realpath(__DIR__ . '/../../Views/public/themes');
-        Theme::deleteTheme($themePath . '/' . $params['params']['name']);
+        Theme::deleteTheme($themePath . '/' . $params['params']['name'], $params['params']['name'], $params['params']['id']);
         self::redirect('/admin/themes');
     }
 }

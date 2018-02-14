@@ -1,9 +1,8 @@
-@extends('public.themes.trtheme.partials.layout')
-@section('title', 'Home')
+<?php $__env->startSection('title', 'Home'); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div class="container">
-    Hi wie gehts <strong>{{$user ? $user['name'] : 'unbekannter user'}}</strong><br>
+    Hi wie gehts <strong><?php echo e($user ? $user['name'] : 'unbekannter user'); ?></strong><br>
     
     <div class="icon"></div>
 
@@ -81,4 +80,5 @@
         </div>
     </div>
 </div>
-@stop
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('public.themes.trtheme.partials.layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
