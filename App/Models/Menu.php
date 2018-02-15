@@ -43,8 +43,48 @@ class Menu extends Model {
 
         return true;
     }
+
+    public static function getAllMenuTypeNames() {
+        $db = static::getDB();
+        $stmt = $db->prepare('SELECT name, value FROM config WHERE name LIKE "%menu%"');
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $types = array();
+        foreach($result as $r) {
+            $types[] = [
+                'name' => $r['name'],
+                'value' => $r['value'],
+            ];
+        }
+
+        return $types;
+    }
     
     public function updateMenu($menuid, $menu) {
+        $arraykeys = array_keys($menu);
+
+        $selectedMenutypes = array();
+        $menutypesFromDB = self::getAllMenuTypeNames();
+
+        foreach ($arraykeys as $arraykey) {
+            if(strpos($arraykey, 'menu')) {
+                $selectedMenutypes[] = $arraykey;
+            }
+        }
+
+        // Set all menu types from this menu inactive
+        foreach($menutypesFromDB as $menutype) {
+            if($menuid === $menutype['value']) {
+                self::unsetActiveMenu($menutype['name']);
+            }
+        }
+
+        // set selected menu types as active menu
+        foreach($selectedMenutypes as $menutype) {
+            self::setActiveMenu($menu, $menutype);
+        }
+
         $db = static::getDB();
         $stmt = $db->prepare('UPDATE menus SET name = :name WHERE id = :id');
         $stmt->execute([
@@ -108,6 +148,27 @@ class Menu extends Model {
             ':name' => $menuitem['name'],
             ':page_id' => $menuitem['page'],
             ':id' => $menuitemid
+        ]);
+
+        return true;
+    }
+
+    public static function setActiveMenu($menu, $menutype) {
+        $db = static::getDB();
+        $stmt = $db->prepare('UPDATE CONFIG SET value = :value WHERE name = :name');
+        $stmt->execute([
+            ':name' => $menutype,
+            ':value' => $menu[$menutype]
+        ]);
+
+        return true;
+    }
+
+    public static function unsetActiveMenu($menutype) {
+        $db = static::getDB();
+        $stmt = $db->prepare('UPDATE CONFIG SET value = "" WHERE name = :name');
+        $stmt->execute([
+            ':name' => $menutype
         ]);
 
         return true;

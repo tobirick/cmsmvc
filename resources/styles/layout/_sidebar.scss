@@ -4,7 +4,8 @@
     top: 0;
     height: 100%;
     width: 20rem;
-    background-color: #eee;
+    background-color: #fff;
+    border-right: 1px solid #eee;
     @include transition(.2s ease-in all);
 
     &__title {
@@ -33,7 +34,7 @@
         @include transition(.2s ease-in background-color);
 
         &:hover, &.active {
-            background-color: #fff;
+            background-color: #f1f1f1;
             @include box-shadow();
 
             & > .main-sidebar__nav-item-link {

@@ -7,14 +7,17 @@ class BaseController {
     public function render($template, $args = []) {
         $csrf = new CSRF();
         $pages = \App\Models\DefaultPage::getAllPages();
-        $mainmenupages = \App\Models\Menu::getActiveMenuPages();
+        $mainMenuPages = \App\Models\Menu::getActiveMenuPages();
+        $getAllMenuNames = \App\Models\Menu::getAllMenuTypeNames();
         $activeThemePath = \App\Models\Theme::getActiveTheme();
         $shares = [
             ['key' => 'user', 'value' =>  self::getUser()],
             ['key' => 'csrf', 'value' => $csrf->getToken()],
             ['key' => 'pages', 'value' => $pages],
-            ['key' => 'mainmenupages', 'value' => $mainmenupages],
-            ['key' => 'activetheme', 'value' => $activeThemePath]
+            ['key' => 'mainmenupages', 'value' => $mainMenuPages],
+            ['key' => 'activetheme', 'value' => $activeThemePath],
+            ['key' => 'allmenus', 'value' => $getAllMenuNames]
+
         ];
         $view = new View();
         $view->render($template, $args, $shares);

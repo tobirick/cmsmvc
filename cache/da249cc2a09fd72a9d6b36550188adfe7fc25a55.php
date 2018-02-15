@@ -20,8 +20,11 @@ Edit '<?php echo e($menu['name']); ?>'
         <input type="hidden" name='_METHOD' value="PUT">
         <input name="csrf_token" type="hidden" value="<?php echo e($csrf); ?>">
         <input value="<?php echo e($menu['name']); ?>" type="text" placeholder="Name" name="menu[name]">
-        <input name="main-menu" type="checkbox" value="<?php echo e($menu['id']); ?>"> Main Menu
-        <input name="footer-menu" type="checkbox" value="<?php echo e($menu['id']); ?>"> Footer Menu
+
+        <?php $__currentLoopData = $allmenus; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $allmenu): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <input <?php echo e($menu['id'] === $allmenu['value'] ? 'checked' : ''); ?> name="menu[<?php echo e($allmenu['name']); ?>]" type="checkbox" value="<?php echo e($menu['id']); ?>"> <?php echo e($allmenu['name']); ?>
+
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         <button>Update Menu</button>
     </form>
 

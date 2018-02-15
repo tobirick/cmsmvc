@@ -21,8 +21,10 @@ Edit '{{$menu['name']}}'
         <input type="hidden" name='_METHOD' value="PUT">
         <input name="csrf_token" type="hidden" value="{{$csrf}}">
         <input value="{{$menu['name']}}" type="text" placeholder="Name" name="menu[name]">
-        <input name="main-menu" type="checkbox" value="{{$menu['id']}}"> Main Menu
-        <input name="footer-menu" type="checkbox" value="{{$menu['id']}}"> Footer Menu
+
+        @foreach ($allmenus as $allmenu)
+            <input {{$menu['id'] === $allmenu['value'] ? 'checked' : ''}} name="menu[{{$allmenu['name']}}]" type="checkbox" value="{{$menu['id']}}"> {{$allmenu['name']}}
+        @endforeach
         <button>Update Menu</button>
     </form>
 

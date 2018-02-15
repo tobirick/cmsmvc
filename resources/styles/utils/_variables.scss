@@ -27,10 +27,10 @@ $shadow-color: adjust-color($dark, $blue: 20);
 
 // FORMS
 $formInputColor: $default-text-color;
-$formInputBackgroundColor: transparent;
-$formInputRadius: 2px;
-$formInputBorder: lighten($default-text-color, 30%);
-$formInputBorderFocus: $default-text-color;
+$formInputBackgroundColor: #eee;
+$formInputRadius: 4px;
+$formInputBorder: lighten($default-text-color, 40%);
+$formInputBorderFocus: $formInputBorder;
 
 // BUTTONS
 $button-normal-font-size: $default-font-size;
