@@ -45,3 +45,6 @@
         display:none !important;
     }
 }
+
+.light-text { color: lighten($default-text-color, 50%) }
+.smaller-text { font-size: 85% };

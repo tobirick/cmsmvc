@@ -2,7 +2,6 @@
 @mixin col($size, $columns) {
     flex-grow: 1;
     flex: 0 0 percentage($size / $columns);
-    border: 1px solid;
     max-width: 100%;
 }
 

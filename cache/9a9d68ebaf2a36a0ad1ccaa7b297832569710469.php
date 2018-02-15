@@ -12,15 +12,30 @@
 <?php echo $__env->renderComponent(); ?>
 <div id="content">
 <div class="container">
-    Create Page
-    <form action="/admin/pages" method="POST">
-        <input name="csrf_token" type="hidden" value="<?php echo e($csrf); ?>">
-        <input type="text" placeholder="Slug" name="page[slug]">
-        <input type="text" placeholder="Name" name="page[name]">
-        <input type="text" placeholder="Title" name="page[title]">
-        <textarea name="page[content]"></textarea>
-        <button>Add Page</button>
-    </form>
+    <div class="row">
+        <div class="col-12">
+            <div class="admin-box">
+                <form action="/admin/pages" method="POST">
+                    <input name="csrf_token" type="hidden" value="<?php echo e($csrf); ?>">
+                    <div class="form-row">
+                        <input class="form-input" type="text" placeholder="Slug" name="page[slug]">
+                    </div>
+                    <div class="form-row">
+                        <input class="form-input" type="text" placeholder="Name" name="page[name]">
+                    </div>
+                    <div class="form-row">
+                        <input class="form-input" type="text" placeholder="Title" name="page[title]">
+                    </div>
+                    <div class="form-row">
+                        <textarea class="form-input" name="page[content]"></textarea>
+                    </div>
+                    <div class="form-row">
+                        <button>Add Page</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 </div>
 <?php $__env->stopSection(); ?>

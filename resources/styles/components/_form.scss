@@ -6,3 +6,39 @@
 //      - Form Radio Buttons
 //      - Form Selects
 //      - Form Upload Area
+
+textarea.form-input {
+    resize: vertical;
+    min-height: 7rem;
+}
+
+.form-input {
+    font-family: inherit;
+    outline: none;
+    display: block;
+    width: 100%;
+    @include transition(.2s ease-in all);
+    color: $formInputColor;
+    background-color: $formInputBackgroundColor;
+    border-radius: $formInputRadius;
+    border: 1px solid $formInputBorder;
+    padding: 1.1rem .75rem;
+    margin-bottom: 1.5rem;
+
+    &::-webkit-input-placeholder,
+    &::-moz-placeholder,
+    &:-ms-input-placeholder,
+    &:-moz-placeholder {
+        color: $formInputColor;
+    }
+
+    &:focus {
+        outline: none;
+        border-color: $formInputBorderFocus;
+    }
+}
+
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+}

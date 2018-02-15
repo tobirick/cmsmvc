@@ -1,0 +1,5 @@
+.admin-box {
+    background-color: #fbf9f9;
+    padding: 2rem;
+    @include box-shadow();
+}

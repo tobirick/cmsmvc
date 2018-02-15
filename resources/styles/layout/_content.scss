@@ -6,7 +6,8 @@
         background-color: #fff;
         position: relative;
         top: 3px;
-        height: calc(100vh - 12rem);
+        height: 100vh;
+        padding: 2rem 0;
         overflow-y: scroll;
 
         &::-webkit-scrollbar-track

@@ -2,6 +2,7 @@
 @section('title', 'Login')
 
 @section('content')
+<div id="content">
 <div class="container">
     @if(isset($formErrors))
     @foreach ($formErrors as $formError)
@@ -18,5 +19,6 @@
         <input type="password" name="user[password]">
         <button>Login</button>
     </form>
+</div>
 </div>
 @stop

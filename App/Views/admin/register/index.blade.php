@@ -2,6 +2,7 @@
 @section('title', 'Register')
 
 @section('content')
+<div id="content">
 <div class="container">
     @if(isset($formErrors))
     @foreach ($formErrors as $formError)
@@ -19,5 +20,6 @@
         <input placeholder="Password" type="password" name="user[password]">
         <button>Register</button>
     </form>
+</div>
 </div>
 @stop

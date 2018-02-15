@@ -1,3 +1,3 @@
-import {SidebarToggle} from './sidebar';
+import Sidebar from './sidebar';
 
-const sidebar = new SidebarToggle();
+const sidebar = new Sidebar();

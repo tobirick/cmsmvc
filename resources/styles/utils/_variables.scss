@@ -25,6 +25,13 @@ $dark: #161b21;
 
 $shadow-color: adjust-color($dark, $blue: 20);
 
+// FORMS
+$formInputColor: $default-text-color;
+$formInputBackgroundColor: transparent;
+$formInputRadius: 2px;
+$formInputBorder: lighten($default-text-color, 30%);
+$formInputBorderFocus: $default-text-color;
+
 // BUTTONS
 $button-normal-font-size: $default-font-size;
 $button-small-font-size: 1.4rem;

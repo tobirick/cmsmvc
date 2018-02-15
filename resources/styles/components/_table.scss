@@ -1,0 +1,46 @@
+.table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1rem;
+    background-color: transparent;
+    border-collapse: collapse;
+
+    & th, & td {
+      vertical-align: middle;
+      text-align: left;
+      padding: .75rem;
+    }
+
+    & td {
+        border-top: 1px solid #d6d6d6;
+
+        &.action {
+            text-align: right;
+
+            & a, & form button {
+                color: inherit;
+                opacity: .4;
+                border: none;
+                background: transparent;
+                @include transition(0.2s ease-in all);
+                
+                &:not(:last-child) {
+                    padding-right: 1.75rem;
+                }
+
+                & i {
+                    font-size: 1.8rem;
+                }
+
+                &:hover {
+                    color: $primary-color;
+                    opacity: 1;
+                }
+            }
+
+            & form {
+                display: inline-block;
+            }
+        }
+    }
+}

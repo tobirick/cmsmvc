@@ -10,19 +10,37 @@
 @endcomponent
 <div id="content">
 <div class="container">
-    <div>
-        @foreach($pages as $page)
-            <div>
-                {{$page['name']}}
-                <a href="/admin/pages/{{$page['id']}}/edit">Edit</a>
-                <a target="_blank" href="/{{$page['slug']}}">Zur Seite</a>
-                <form action="/admin/pages/{{$page['id']}}" method="POST">
-                    <input type="hidden" name='_METHOD' value="DELETE">
-                    <input name="csrf_token" type="hidden" value="{{$csrf}}">
-                    <button>Delete</button>
-                </form>
+    <div class="row">
+        <div class="col-12">
+            <div class="admin-box">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($pages as $page)
+                        <tr>
+                            <td>{{$page['id']}}</td>
+                            <td><strong>{{$page['name']}}</strong><br><span class="light-text smaller-text">/{{$page['slug']}}</span></td>
+                            <td class="action">
+                                <a href="/admin/pages/{{$page['id']}}/edit"><i class="fa fa-pencil"></i></a>
+                                <a target="_blank" href="/{{$page['slug']}}"><i class="fa fa-arrow-right"></i></a>
+                                <form action="/admin/pages/{{$page['id']}}" method="POST">
+                                    <input type="hidden" name='_METHOD' value="DELETE">
+                                    <input name="csrf_token" type="hidden" value="{{$csrf}}">
+                                    <button><i class="fa fa-trash"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
             </div>
-        @endforeach
+        </div>
     </div>
 </div>
 </div>

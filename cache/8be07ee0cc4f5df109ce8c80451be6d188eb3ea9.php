@@ -9,20 +9,37 @@
 <?php echo $__env->renderComponent(); ?>
 <div id="content">
 <div class="container">
-    <div>
-        <?php $__currentLoopData = $pages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $page): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-            <div>
-                <?php echo e($page['name']); ?>
-
-                <a href="/admin/pages/<?php echo e($page['id']); ?>/edit">Edit</a>
-                <a target="_blank" href="/<?php echo e($page['slug']); ?>">Zur Seite</a>
-                <form action="/admin/pages/<?php echo e($page['id']); ?>" method="POST">
-                    <input type="hidden" name='_METHOD' value="DELETE">
-                    <input name="csrf_token" type="hidden" value="<?php echo e($csrf); ?>">
-                    <button>Delete</button>
-                </form>
+    <div class="row">
+        <div class="col-12">
+            <div class="admin-box">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php $__currentLoopData = $pages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $page): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <tr>
+                            <td><?php echo e($page['id']); ?></td>
+                            <td><strong><?php echo e($page['name']); ?></strong><br><span class="light-text smaller-text">/<?php echo e($page['slug']); ?></span></td>
+                            <td class="action">
+                                <a href="/admin/pages/<?php echo e($page['id']); ?>/edit"><i class="fa fa-pencil"></i></a>
+                                <a target="_blank" href="/<?php echo e($page['slug']); ?>"><i class="fa fa-arrow-right"></i></a>
+                                <form action="/admin/pages/<?php echo e($page['id']); ?>" method="POST">
+                                    <input type="hidden" name='_METHOD' value="DELETE">
+                                    <input name="csrf_token" type="hidden" value="<?php echo e($csrf); ?>">
+                                    <button><i class="fa fa-trash"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    </tbody>
+                </table>
             </div>
-        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        </div>
     </div>
 </div>
 </div>
