@@ -1,4 +1,9 @@
 .admin-box {
     background-color: #fff;
     padding: 2rem;
+    margin-bottom: 4rem;
+
+    &__title {
+        margin-bottom: 2rem;
+    }
 }

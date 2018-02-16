@@ -8,7 +8,7 @@
     <?php $__env->endSlot(); ?>
 <?php echo $__env->renderComponent(); ?>
 <div id="content">
-<div class="container">
+    <div class="container">
         <div class="row">
             <div class="col-12">
                 <div class="admin-box">
@@ -21,7 +21,7 @@
                                         <form action="/admin/themes/<?php echo e($theme['name']); ?>/<?php echo e($theme['id']); ?>" method="POST">
                                             <input type="hidden" name='_METHOD' value="PUT">
                                             <input name="csrf_token" type="hidden" value="<?php echo e($csrf); ?>">
-                                            <button><i class="fa fa-check"></i></button>
+                                            <button><i class="fa fa-check <?php echo e($theme['name'] === $activetheme ? 'active' : ''); ?>"></i></button>
                                         </form>
                                         <form action="/admin/themes/<?php echo e($theme['name']); ?>/<?php echo e($theme['id']); ?>" method="POST">
                                             <input type="hidden" name='_METHOD' value="DELETE">

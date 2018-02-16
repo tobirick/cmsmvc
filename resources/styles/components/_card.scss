@@ -59,6 +59,11 @@
             & i {
                 font-size: 1.8rem;
                 padding: 0.5rem;
+
+                &.active  {
+                    color: $primary-color;
+                    opacity: 1;
+                }
             }
 
             &:hover {

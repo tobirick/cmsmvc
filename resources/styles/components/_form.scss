@@ -26,7 +26,6 @@ textarea.form-input {
     border: 1px solid;
     border-color: transparent;
     padding: 1.1rem .75rem;
-    margin-bottom: 1.5rem;
 
     &::-webkit-input-placeholder,
     &::-moz-placeholder,
@@ -44,4 +43,5 @@ textarea.form-input {
 .form-row {
     display: flex;
     flex-wrap: wrap;
+    margin-bottom: 1.5rem;
 }

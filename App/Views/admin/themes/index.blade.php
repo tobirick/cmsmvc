@@ -9,7 +9,7 @@
     @endslot
 @endcomponent
 <div id="content">
-<div class="container">
+    <div class="container">
         <div class="row">
             <div class="col-12">
                 <div class="admin-box">
@@ -22,7 +22,7 @@
                                         <form action="/admin/themes/{{$theme['name']}}/{{$theme['id']}}" method="POST">
                                             <input type="hidden" name='_METHOD' value="PUT">
                                             <input name="csrf_token" type="hidden" value="{{$csrf}}">
-                                            <button><i class="fa fa-check"></i></button>
+                                            <button><i class="fa fa-check {{$theme['name'] === $activetheme ? 'active' : ''}}"></i></button>
                                         </form>
                                         <form action="/admin/themes/{{$theme['name']}}/{{$theme['id']}}" method="POST">
                                             <input type="hidden" name='_METHOD' value="DELETE">
