@@ -8,7 +8,7 @@
         <a href="/admin/pages" class="button-primary-border">Go back</a>
     @endslot
     @slot('right')
-        <a href="#" class="button-primary">Save</a>
+        <a id="submit-form-btn" href="#" class="button-primary">Save</a>
     @endslot
 @endcomponent
 <div id="content">
@@ -16,7 +16,7 @@
     <div class="row">
         <div class="col-12">
             <div class="admin-box">
-                <form action="/admin/pages" method="POST">
+                <form id="submit-form" action="/admin/pages" method="POST">
                     <input name="csrf_token" type="hidden" value="{{$csrf}}">
                     <div class="form-row">
                         <input class="form-input" type="text" placeholder="Slug" name="page[slug]">
@@ -29,9 +29,6 @@
                     </div>
                     <div class="form-row">
                         <textarea class="form-input" name="page[content]"></textarea>
-                    </div>
-                    <div class="form-row">
-                        <button>Add Page</button>
                     </div>
                 </form>
             </div>

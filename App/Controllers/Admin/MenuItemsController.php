@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Controllers\Admin;
 
 use \Core\BaseController;
@@ -8,31 +7,33 @@ use \Core\CSRF;
 
 class MenuItemsController extends BaseController {
     public function store($params) {
-        CSRF::checkToken();
-        if(isset($_POST)) {
-            Menu::addMenuItem($params['params']['id'], $_POST['menuitem']);
-            self::redirect('/admin/menus/' . $params['params']['id'] . '/edit');
-        }
+        $content = trim(file_get_contents("php://input"));
+        $decoded = json_decode($content, true);
+
+        CSRF::checkTokenAjax($decoded['csrf_token']);
+        Menu::addMenuItem($params['params']['id'], $decoded['menuitem']);
+        //self::redirect('/admin/menus/' . $params['params']['id'] . '/edit');
     }
 
     public function updatedestroy($params) {
-        CSRF::checkToken();
-        if(isset($_POST)) {
-            if($_POST['_METHOD'] === 'DELETE') {
-                self::destroy($params);
-            } else if ($_POST['_METHOD'] === 'PUT') {
-                self::update($params, $_POST);
-            }
+        $content = trim(file_get_contents("php://input"));
+        $decoded = json_decode($content, true);
+
+        CSRF::checkTokenAjax($decoded['csrf_token']);
+        if($decoded['_METHOD'] === 'DELETE') {
+            self::destroy($params);
+        } else if ($decoded['_METHOD'] === 'PUT') {
+            self::update($params, $decoded);
         }
     }
 
     public function update($params, $post) {
         Menu::updateMenuItem($params['params']['menuitemid'], $post['menuitem']);
-        self::redirect('/admin/menus/' . $params['params']['id'] . '/edit');
+        //self::redirect('/admin/menus/' . $params['params']['id'] . '/edit');
     }
 
     public function destroy($params) {
         Menu::deleteMenuItem($params['params']['menuitemid']);
-        self::redirect('/admin/menus/' . $params['params']['id'] . '/edit');
+        //self::redirect('/admin/menus/' . $params['params']['id'] . '/edit');
     }
 }

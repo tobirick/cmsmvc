@@ -9,7 +9,7 @@ export default class Sidebar {
             }
         };
 
-        this.toggleSidebarEl.addEventListener('click', this.toggleSidebar.bind(this));
+        if(this.toggleSidebarEl) this.toggleSidebarEl.addEventListener('click', this.toggleSidebar.bind(this));
     }
 
     toggleSidebar() {

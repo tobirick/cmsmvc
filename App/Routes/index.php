@@ -1,5 +1,4 @@
 <?php
-
 $router = new AltoRouter();
 
 ## Middlewares ##

@@ -55,6 +55,6 @@ class MenusController extends BaseController {
 
     public function update($params, $post) {
         Menu::updateMenu($params['params']['id'], $post['menu']);
-        self::redirect('/admin/menus/' . $params['params']['id'] . '/edit' );
+        self::redirect('/admin/menus');
     }
 }

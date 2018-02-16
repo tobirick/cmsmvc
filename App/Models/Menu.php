@@ -128,7 +128,8 @@ class Menu extends Model {
             ':page_id' => $menuitem['page']
         ]);
 
-        return true;
+        $lastID = $db->lastInsertId();
+        return $lastID;
     }
 
     public static function deleteMenuItem($menuitemid) {

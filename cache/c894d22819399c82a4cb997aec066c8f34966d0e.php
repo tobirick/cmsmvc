@@ -7,16 +7,15 @@
         <a href="/admin/menus" class="button-primary-border">Go back</a>
     <?php $__env->endSlot(); ?>
     <?php $__env->slot('right'); ?>
-        <a href="#" class="button-primary">Save</a>
+        <a id="submit-form-btn" href="#" class="button-primary">Save</a>
     <?php $__env->endSlot(); ?>
 <?php echo $__env->renderComponent(); ?>
 <div id="content">
     <div class="container">
         Create Menu
-        <form action="/admin/menus" method="POST">
+        <form id="submit-form" action="/admin/menus" method="POST">
             <input name="csrf_token" type="hidden" value="<?php echo e($csrf); ?>">
             <input type="text" placeholder="Name" name="menu[name]">
-            <button>Add Menu</button>
         </form>
     </div>
 </div>
