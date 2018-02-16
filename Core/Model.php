@@ -12,7 +12,7 @@ abstract class Model {
                 $dsn = 'mysql:host=' . getenv('DB_HOST') . ';dbname=' . getenv('DB_NAME') . ';charset=utf8';
                 $db = new PDO($dsn, getenv('DB_USER'), getenv('DB_PASSWORD'));
             } catch( PDOException $Exception ) {
-                //throw new MyDatabaseException( $Exception->getMessage( ) , $Exception->getCode( ) );
+                echo $Exception->getMessage() . ': ' . $Exception->getCode();
             }
         }
 
