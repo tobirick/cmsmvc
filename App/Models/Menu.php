@@ -52,7 +52,7 @@ class Menu extends Model {
 
         $types = array();
         foreach($result as $r) {
-            $types[] = [
+            $types[$r['name']] = [
                 'name' => $r['name'],
                 'value' => $r['value'],
             ];

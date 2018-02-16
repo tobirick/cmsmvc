@@ -12,11 +12,18 @@
 <?php echo $__env->renderComponent(); ?>
 <div id="content">
     <div class="container">
-        Create Menu
-        <form id="submit-form" action="/admin/menus" method="POST">
-            <input name="csrf_token" type="hidden" value="<?php echo e($csrf); ?>">
-            <input type="text" placeholder="Name" name="menu[name]">
-        </form>
+        <div class="row">
+            <div class="col-12">
+                <div class="admin-box">
+                    <form id="submit-form" action="/admin/menus" method="POST">
+                        <input name="csrf_token" type="hidden" value="<?php echo e($csrf); ?>">
+                        <div class="form-row">
+                            <input class="form-input" type="text" placeholder="Name" name="menu[name]">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <?php $__env->stopSection(); ?>

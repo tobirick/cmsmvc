@@ -10,23 +10,33 @@
 @endcomponent
 <div id="content">
 <div class="container">
-    <div>
-        @foreach ($themes as $theme)
-            <div {{$theme['name'] === $activetheme ? 'class="active"' : ''}}>
-            {{$theme['name']}}
-            <form action="/admin/themes/{{$theme['name']}}/{{$theme['id']}}" method="POST">
-                <input type="hidden" name='_METHOD' value="DELETE">
-                <input name="csrf_token" type="hidden" value="{{$csrf}}">
-                <button>Delete</button>
-            </form>
-            <form action="/admin/themes/{{$theme['name']}}/{{$theme['id']}}" method="POST">
-                <input type="hidden" name='_METHOD' value="PUT">
-                <input name="csrf_token" type="hidden" value="{{$csrf}}">
-                <button>Activate</button>
-            </form>
+        <div class="row">
+            <div class="col-12">
+                <div class="admin-box">
+                    <div class="row">
+                        @foreach ($themes as $theme)
+                            <div class="col-12 col-md-4 col-lg-3 col-xl-2">
+                                <div class="card {{$theme['name'] === $activetheme ? 'active-theme' : ''}}">
+                                    <div class="card__title">{{$theme['name']}}</div>
+                                    <div class="card__actions">
+                                        <form action="/admin/themes/{{$theme['name']}}/{{$theme['id']}}" method="POST">
+                                            <input type="hidden" name='_METHOD' value="PUT">
+                                            <input name="csrf_token" type="hidden" value="{{$csrf}}">
+                                            <button><i class="fa fa-check"></i></button>
+                                        </form>
+                                        <form action="/admin/themes/{{$theme['name']}}/{{$theme['id']}}" method="POST">
+                                            <input type="hidden" name='_METHOD' value="DELETE">
+                                            <input name="csrf_token" type="hidden" value="{{$csrf}}">
+                                            <button><i class="fa fa-trash"></i></button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
             </div>
-        @endforeach
+        </div>
     </div>
-</div>
 </div>
 @stop

@@ -27,10 +27,6 @@ Edit '<?php echo e($menu['name']); ?>'
         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     </form>
 
-    <div id="app">
- 
-</div>
-
     Add Menu Item
     <form id="add-menu-item" action="/admin/menus/<?php echo e($menu['id']); ?>/menuitems" method="POST">
         <input name="csrf_token" type="hidden" value="<?php echo e($csrf); ?>">

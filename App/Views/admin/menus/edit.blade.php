@@ -27,10 +27,6 @@ Edit '{{$menu['name']}}'
         @endforeach
     </form>
 
-    <div id="app">
- 
-</div>
-
     Add Menu Item
     <form id="add-menu-item" action="/admin/menus/{{$menu['id']}}/menuitems" method="POST">
         <input name="csrf_token" type="hidden" value="{{$csrf}}">

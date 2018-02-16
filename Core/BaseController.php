@@ -17,7 +17,6 @@ class BaseController {
             ['key' => 'mainmenupages', 'value' => $mainMenuPages],
             ['key' => 'activetheme', 'value' => $activeThemePath],
             ['key' => 'allmenus', 'value' => $getAllMenuNames]
-
         ];
         $view = new View();
         $view->render($template, $args, $shares);

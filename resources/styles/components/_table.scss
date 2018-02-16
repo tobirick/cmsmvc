@@ -22,14 +22,11 @@
                 opacity: .4;
                 border: none;
                 background: transparent;
-                @include transition(0.2s ease-in all);
-                
-                &:not(:last-child) {
-                    padding-right: 1.75rem;
-                }
+                @include transition(.2s ease-in all);
 
                 & i {
                     font-size: 1.8rem;
+                    padding: 1rem;
                 }
 
                 &:hover {
