@@ -1,14 +1,16 @@
-import {updateCSRF} from './helpers';
+import { updateCSRF } from './helpers';
 
 export default class Menu {
     constructor() {
         this.addMenuItemFormEl = document.getElementById('add-menu-item');
         this.menuListEl = document.getElementById('menu-list');
 
-        this.addMenuItemFormEl.addEventListener('submit', function (e) {
-            this.add(e);
-        }.bind(this), false);
-        this.loadElements();
+        if(this.addMenuItemFormEl && this.menuListEl) {
+            this.addMenuItemFormEl.addEventListener('submit', function (e) {
+                this.add(e);
+            }.bind(this), false);
+            this.loadElements();
+        }
     }
 
     loadElements() {

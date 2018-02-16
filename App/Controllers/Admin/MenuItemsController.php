@@ -12,7 +12,6 @@ class MenuItemsController extends BaseController {
 
         CSRF::checkTokenAjax($decoded['csrf_token']);
         Menu::addMenuItem($params['params']['id'], $decoded['menuitem']);
-        //self::redirect('/admin/menus/' . $params['params']['id'] . '/edit');
     }
 
     public function updatedestroy($params) {
@@ -29,11 +28,9 @@ class MenuItemsController extends BaseController {
 
     public function update($params, $post) {
         Menu::updateMenuItem($params['params']['menuitemid'], $post['menuitem']);
-        //self::redirect('/admin/menus/' . $params['params']['id'] . '/edit');
     }
 
     public function destroy($params) {
         Menu::deleteMenuItem($params['params']['menuitemid']);
-        //self::redirect('/admin/menus/' . $params['params']['id'] . '/edit');
     }
 }
