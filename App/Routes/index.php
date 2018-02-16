@@ -18,6 +18,7 @@ function requireLogin($ctrl) {
 
 ## Base URLs ##
 $router->map('GET', '/', 'IndexController@index');
+$router->map('POST', '/csrf', requireLogin('CSRFController@index'));
 $router->map('GET', '/admin/dashboard', requireLogin('Admin\DashboardController@index'));
 
 ## Admin ##

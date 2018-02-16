@@ -28,5 +28,6 @@
         @yield('content')
     </div>
     @include('admin.partials.scripts')
+    <input type="hidden" name="csrf_token" id="csrf" value="{{$csrf}}">
 </body>
 </html>
