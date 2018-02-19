@@ -5,7 +5,7 @@ import MenuListItemViewModel from './MenuListItemViewModel';
 class MainViewModel {
     constructor() {
         this.menuListItems = ko.observableArray([]);
-        this.pages = ko.observableArray([]);
+        this.pagesList = ko.observableArray([]);
 
         this.loadPageItems();
         this.loadMenuListItems(2);
@@ -22,7 +22,7 @@ class MainViewModel {
 
         data.forEach((dataItem) => {
             const page = new PageItemViewModel(dataItem);
-            this.pages.push(page);
+            this.pagesList.push(page);
         });
     }
 

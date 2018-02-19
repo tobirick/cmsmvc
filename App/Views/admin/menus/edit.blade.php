@@ -62,22 +62,33 @@ Edit '{{$menu['name']}}'
         <tbody data-bind="foreach: menuListItems">
             <tr>
                 <td>#</td>
-                <td data-bind="text: name"></td>
                 <td>
-                 <form id="update-menu-item" method="POST">
+                                     <div class="row">
+                                     <div class="col-10">
+                    <form method="POST">
                      <input type="hidden" name='_METHOD' value="PUT">
                      <input name="csrf_token" type="hidden" value="{{$csrf}}">
-                     <div class="row">
-                          <div class="col-5">
+                     <div class="form-row">
+                     <div class="col-5">
                               <input class="form-input" data-bind="value: name" type="text" placeholder="Name" name="menuitem[name]">
-                          </div>
-                          <div class="col-5">
-                              <select class="form-input" data-bind="options: $root.pages, optionsText: 'name', value: id" name="menuitem[page]">
-                            </select>
-                         </div>
+                              </div>
+                              <div class="col-5">
+                              <select class="form-input" data-bind="options: $root.pagesList, optionsText: 'name', value: selectedPage, optionsValue: 'id'" name="menuitem[page]"></select>
+                              </div>
+                              <div class="col-2">
                         <button class="button-primary-icon"><i class="fa fa-check"></i></button>
-                    </div>
-                </form>
+                        </div>
+                        </div>
+                        </form>
+                        </div>
+                        <div class="col-2">
+                        <form method="POST">
+                            <input type="hidden" name='_METHOD' value="DELETE">
+                            <input name="csrf_token" type="hidden" value="{{$csrf}}">
+                            <button class="button-error-icon"><i class="fa fa-trash"></i></button>
+                        </form>
+                        </div>
+                </div>
             </td>
             </tr>
         </tbody>
