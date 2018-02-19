@@ -154,6 +154,13 @@
         }
     }
 
+    .button-#{$name}-icon {
+        @extend .button-#{$name};
+        height: 4.2rem;
+        width: 4.2rem;
+        padding: 0;
+    }
+
     .button-#{$name}-border {
         @extend .button-#{$name};
         background-color: transparent;

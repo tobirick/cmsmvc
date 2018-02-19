@@ -1,7 +1,9 @@
 const path = require('path');
 
 module.exports = {
-    entry: './resources/scripts/app.js',
+    entry: {
+        index: ['babel-polyfill', './resources/scripts/app.js']
+    },
     output: {
         filename: "app.js",
         sourceMapFilename: "app.map",
@@ -13,7 +15,7 @@ module.exports = {
                 loader: 'babel-loader',
                 test: /\.js?$/,
                 query: {
-                    presets: ['es2015']
+                    presets: ['es2015', 'es2017']
                 }
             }
         ]

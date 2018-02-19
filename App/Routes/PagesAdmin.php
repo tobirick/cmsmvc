@@ -8,3 +8,6 @@ $router->map('GET', '/admin/pages/[i:id]/edit', requireLogin('Admin\PagesControl
 
 $router->map('POST', '/admin/pages', requireLogin('Admin\PagesController@store'));
 $router->map('POST', '/admin/pages/[i:id]', requireLogin('Admin\PagesController@updatedestroy'));
+
+// Knockout
+$router->map('POST', '/pages', requireLogin('Admin\PagesController@getAllPages'));

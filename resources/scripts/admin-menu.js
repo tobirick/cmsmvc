@@ -1,6 +1,6 @@
 import { updateCSRF } from './helpers';
-
-export default class Menu {
+import ko from 'knockout';
+export class Menu {
     constructor() {
         this.addMenuItemFormEl = document.getElementById('add-menu-item');
         this.menuListEl = document.getElementById('menu-list');
@@ -34,7 +34,7 @@ export default class Menu {
         });
     }
 
-    loadMenuList(newCsrfToken) {
+    loadDOM(newCsrfToken) {
         const url = window.location.href;
         fetch(url, {
             credentials: 'include'
@@ -68,7 +68,7 @@ export default class Menu {
             credentials: 'include',
             method: 'POST'
         })
-            .then(data => this.loadMenuList());
+            .then(data => this.loadDOM());
     }
 
     delete(e) {
@@ -86,7 +86,7 @@ export default class Menu {
             credentials: 'include',
             method: 'POST'
         })
-            .then(data => this.loadMenuList());
+            .then(data => this.loadDOM());
     }
 
     update(e) {
@@ -108,6 +108,6 @@ export default class Menu {
             credentials: 'include',
             method: 'POST'
         })
-            .then(data => this.loadMenuList());
+            .then(data => this.loadDOM('update'));
     }
 }

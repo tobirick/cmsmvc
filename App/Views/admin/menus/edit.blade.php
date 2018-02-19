@@ -41,7 +41,7 @@ Edit '{{$menu['name']}}'
                         <div class="col-6">
                             <input class="form-input" type="text" placeholder="Name" name="menuitem[name]">
                         </div>
-                        <div class="col-5">
+                        <div class="col-4">
                             <select class="form-input" name="menuitem[page]">
                                 @foreach($pages as $page)
                                     <option value="{{$page['id']}}">{{$page['name']}}</option>
@@ -49,12 +49,39 @@ Edit '{{$menu['name']}}'
                             </select>
                         </div>
                         <div class="col-1">
-                            <button class="button-primary"><i class="fa fa-check"></i></button>
+                            <button class="button-primary-icon"><i class="fa fa-check"></i></button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
+    </div>
+    
+    <div>
+    <table class="table">
+        <tbody data-bind="foreach: menuListItems">
+            <tr>
+                <td>#</td>
+                <td data-bind="text: name"></td>
+                <td>
+                 <form id="update-menu-item" method="POST">
+                     <input type="hidden" name='_METHOD' value="PUT">
+                     <input name="csrf_token" type="hidden" value="{{$csrf}}">
+                     <div class="row">
+                          <div class="col-5">
+                              <input class="form-input" data-bind="value: name" type="text" placeholder="Name" name="menuitem[name]">
+                          </div>
+                          <div class="col-5">
+                              <select class="form-input" data-bind="options: $root.pages, optionsText: 'name', value: id" name="menuitem[page]">
+                            </select>
+                         </div>
+                        <button class="button-primary-icon"><i class="fa fa-check"></i></button>
+                    </div>
+                </form>
+            </td>
+            </tr>
+        </tbody>
+    </table>
     </div>
     
     <div class="row">
@@ -63,29 +90,42 @@ Edit '{{$menu['name']}}'
                 <h3 class="admin-box__title">Menu Item's</h3>
                 @if(isset($menuitems))
                     <div id="menu-list">
-                     @foreach ($menuitems as $menuitem)
-                    <div>
-                        <form id="update-menu-item" action="/admin/menus/{{$menu['id']}}/menuitems/{{$menuitem['id']}}" method="POST">
-                            <input type="hidden" name='_METHOD' value="PUT">
-                            <input name="csrf_token" type="hidden" value="{{$csrf}}">
-                            <div class="form-row">
-                                <input value="{{$menuitem['name']}}" type="text" placeholder="Name" name="menuitem[name]">
-                                <select name="menuitem[page]">
-                                    @foreach($pages as $page)
-                                        <option value="{{$page['id']}}" {{ $menuitem['page_id'] === $page['id'] ? 'selected' : ''}}>{{$page['name']}}</option>
-                                    @endforeach
-                                </select>
-                                <button><i class="fa fa-check"></i></button>
-                            </div>
-                        </form>
-
-                        <form id="delete-menu-item" action="/admin/menus/{{$menu['id']}}/menuitems/{{$menuitem['id']}}" method="POST">
-                            <input type="hidden" name='_METHOD' value="DELETE">
-                            <input name="csrf_token" type="hidden" value="{{$csrf}}">
-                            <button>Delete Menu Item</button>
-                        </form>
+                        <table class="table">
+                        <tbody>
+                            @foreach ($menuitems as $menuitem)
+                                <tr>
+                                <td>#</td>
+                                <td>
+                                    <form id="update-menu-item" action="/admin/menus/{{$menu['id']}}/menuitems/{{$menuitem['id']}}" method="POST">
+                                        <input type="hidden" name='_METHOD' value="PUT">
+                                        <input name="csrf_token" type="hidden" value="{{$csrf}}">
+                                        <div class="row">
+                                            <div class="col-5">
+                                                <input class="form-input" value="{{$menuitem['name']}}" type="text" placeholder="Name" name="menuitem[name]">
+                                            </div>
+                                            <div class="col-5">
+                                                <select class="form-input" name="menuitem[page]">
+                                                    @foreach($pages as $page)
+                                                        <option value="{{$page['id']}}" {{ $menuitem['page_id'] === $page['id'] ? 'selected' : ''}}>{{$page['name']}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <button class="button-primary-icon"><i class="fa fa-check"></i></button>
+                                        </div>
+                                    </form>
+                                </td>
+                                <td>
+                                    <form id="delete-menu-item" action="/admin/menus/{{$menu['id']}}/menuitems/{{$menuitem['id']}}" method="POST">
+                                        <input type="hidden" name='_METHOD' value="DELETE">
+                                        <input name="csrf_token" type="hidden" value="{{$csrf}}">
+                                        <button class="button-error-icon"><i class="fa fa-trash"></i></button>
+                                    </form>
+                                </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
                     </div>
-                    @endforeach
                 @endif
             </div>
         </div>

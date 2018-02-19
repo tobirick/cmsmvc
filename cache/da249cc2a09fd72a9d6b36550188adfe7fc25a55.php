@@ -41,7 +41,7 @@ Edit '<?php echo e($menu['name']); ?>'
                         <div class="col-6">
                             <input class="form-input" type="text" placeholder="Name" name="menuitem[name]">
                         </div>
-                        <div class="col-5">
+                        <div class="col-4">
                             <select class="form-input" name="menuitem[page]">
                                 <?php $__currentLoopData = $pages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $page): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <option value="<?php echo e($page['id']); ?>"><?php echo e($page['name']); ?></option>
@@ -49,12 +49,39 @@ Edit '<?php echo e($menu['name']); ?>'
                             </select>
                         </div>
                         <div class="col-1">
-                            <button class="button-primary"><i class="fa fa-check"></i></button>
+                            <button class="button-primary-icon"><i class="fa fa-check"></i></button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
+    </div>
+    
+    <div>
+    <table class="table">
+        <tbody data-bind="foreach: menuListItems">
+            <tr>
+                <td>#</td>
+                <td data-bind="text: name"></td>
+                <td>
+                 <form id="update-menu-item" method="POST">
+                     <input type="hidden" name='_METHOD' value="PUT">
+                     <input name="csrf_token" type="hidden" value="<?php echo e($csrf); ?>">
+                     <div class="row">
+                          <div class="col-5">
+                              <input class="form-input" data-bind="value: name" type="text" placeholder="Name" name="menuitem[name]">
+                          </div>
+                          <div class="col-5">
+                              <select class="form-input" data-bind="options: $root.pages, optionsText: 'name', value: id" name="menuitem[page]">
+                            </select>
+                         </div>
+                        <button class="button-primary-icon"><i class="fa fa-check"></i></button>
+                    </div>
+                </form>
+            </td>
+            </tr>
+        </tbody>
+    </table>
     </div>
     
     <div class="row">
@@ -63,29 +90,42 @@ Edit '<?php echo e($menu['name']); ?>'
                 <h3 class="admin-box__title">Menu Item's</h3>
                 <?php if(isset($menuitems)): ?>
                     <div id="menu-list">
-                     <?php $__currentLoopData = $menuitems; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $menuitem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <div>
-                        <form id="update-menu-item" action="/admin/menus/<?php echo e($menu['id']); ?>/menuitems/<?php echo e($menuitem['id']); ?>" method="POST">
-                            <input type="hidden" name='_METHOD' value="PUT">
-                            <input name="csrf_token" type="hidden" value="<?php echo e($csrf); ?>">
-                            <div class="form-row">
-                                <input value="<?php echo e($menuitem['name']); ?>" type="text" placeholder="Name" name="menuitem[name]">
-                                <select name="menuitem[page]">
-                                    <?php $__currentLoopData = $pages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $page): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <option value="<?php echo e($page['id']); ?>" <?php echo e($menuitem['page_id'] === $page['id'] ? 'selected' : ''); ?>><?php echo e($page['name']); ?></option>
-                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                </select>
-                                <button><i class="fa fa-check"></i></button>
-                            </div>
-                        </form>
-
-                        <form id="delete-menu-item" action="/admin/menus/<?php echo e($menu['id']); ?>/menuitems/<?php echo e($menuitem['id']); ?>" method="POST">
-                            <input type="hidden" name='_METHOD' value="DELETE">
-                            <input name="csrf_token" type="hidden" value="<?php echo e($csrf); ?>">
-                            <button>Delete Menu Item</button>
-                        </form>
+                        <table class="table">
+                        <tbody>
+                            <?php $__currentLoopData = $menuitems; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $menuitem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <tr>
+                                <td>#</td>
+                                <td>
+                                    <form id="update-menu-item" action="/admin/menus/<?php echo e($menu['id']); ?>/menuitems/<?php echo e($menuitem['id']); ?>" method="POST">
+                                        <input type="hidden" name='_METHOD' value="PUT">
+                                        <input name="csrf_token" type="hidden" value="<?php echo e($csrf); ?>">
+                                        <div class="row">
+                                            <div class="col-5">
+                                                <input class="form-input" value="<?php echo e($menuitem['name']); ?>" type="text" placeholder="Name" name="menuitem[name]">
+                                            </div>
+                                            <div class="col-5">
+                                                <select class="form-input" name="menuitem[page]">
+                                                    <?php $__currentLoopData = $pages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $page): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                        <option value="<?php echo e($page['id']); ?>" <?php echo e($menuitem['page_id'] === $page['id'] ? 'selected' : ''); ?>><?php echo e($page['name']); ?></option>
+                                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                </select>
+                                            </div>
+                                            <button class="button-primary-icon"><i class="fa fa-check"></i></button>
+                                        </div>
+                                    </form>
+                                </td>
+                                <td>
+                                    <form id="delete-menu-item" action="/admin/menus/<?php echo e($menu['id']); ?>/menuitems/<?php echo e($menuitem['id']); ?>" method="POST">
+                                        <input type="hidden" name='_METHOD' value="DELETE">
+                                        <input name="csrf_token" type="hidden" value="<?php echo e($csrf); ?>">
+                                        <button class="button-error-icon"><i class="fa fa-trash"></i></button>
+                                    </form>
+                                </td>
+                                </tr>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            </tbody>
+                        </table>
                     </div>
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 <?php endif; ?>
             </div>
         </div>

@@ -15,6 +15,13 @@ class PagesController extends BaseController {
         ]);
     }
 
+    public function getAllPages() {
+        $pages = DefaultPage::getAllPages();
+
+        header('Content-type: application/json');
+        echo json_encode($pages);
+    }
+
     public function edit($params) {
         $id = $params['params']['id'];
         $page = DefaultPage::getPageById($id);

@@ -14,6 +14,13 @@ class MenuItemsController extends BaseController {
         Menu::addMenuItem($params['params']['id'], $decoded['menuitem']);
     }
 
+    public function getAllListItems($params) {
+        $listItems = Menu::getMenuItemsByMenuId($params['params']['id']);
+
+        header('Content-type: application/json');
+        echo json_encode($listItems);
+    }
+
     public function updatedestroy($params) {
         $content = trim(file_get_contents("php://input"));
         $decoded = json_decode($content, true);
