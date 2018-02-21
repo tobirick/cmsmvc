@@ -3,7 +3,7 @@
 <?php $__env->startSection('content'); ?>
 <div class="container">
     Admin Pagebuilder
-    <a href="/admin/pagebuilder/create">New Pagebuilder Item</a>
+    <a href="/<?php echo e($curLang); ?>/admin/pagebuilder/create">New Pagebuilder Item</a>
     <div>
         
     </div>

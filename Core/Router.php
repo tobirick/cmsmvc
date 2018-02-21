@@ -25,8 +25,8 @@ class Router {
 
     private function matchRoute($match) {
         if($match) {
-            $language = $match['params']['language'] ? $match['params']['language'] : $language->getCurrentLanguage();
-            if(isset(self::$language)) self::$language->setLanguage($language);
+            $language = isset($match['params']['language']) ? $match['params']['language'] : self::$language->getCurrentLanguage();
+            self::$language->setLanguage($language);
             $details = explode("@", $match['target']);
             $this->controller = $this->namespace . $details[0];
             $this->method = $details[1];

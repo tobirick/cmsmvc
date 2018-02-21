@@ -4,8 +4,6 @@ namespace Core;
 use \App\Models\User;
 
 class BaseController {
-    private static $language;
-
     public function render($template, $args = []) {
         $csrf = new CSRF();
         $pages = \App\Models\DefaultPage::getAllPages();
@@ -13,9 +11,9 @@ class BaseController {
         $getAllMenuNames = \App\Models\Menu::getAllMenuTypeNames();
         $activeThemePath = \App\Models\Theme::getActiveTheme();
         // Language
-        self::$language = Router::getLanguage();
-        $languagesArray = self::$language->getLanguagesArray();
-        $currentLanguage = self::$language->getCurrentLanguage();
+        $language = Router::getLanguage();
+        $languagesArray = $language->getLanguagesArray();
+        $currentLanguage = $language->getCurrentLanguage();
         $shares = [
             ['key' => 'user', 'value' =>  self::getUser()],
             ['key' => 'csrf', 'value' => $csrf->getToken()],
@@ -32,7 +30,8 @@ class BaseController {
 
     public function redirect($url) {
         $language = Router::getLanguage();
-        header('Location: /' . $language->getCurrentLanguage() . $url );
+        $redirectTo = '/' . $language->getCurrentLanguage() . $url;
+        header('Location: ' . $redirectTo  );
     }
 
     public function getUser() {
