@@ -7,8 +7,8 @@ class Language {
     protected $languageArray = [];
     protected $allLanguagesArray = [];
 
-    public function __construct() {
-        $this->setLanguage('en');
+    public function __construct($lang = 'en') {
+        $this->setLanguage($lang);
     }
 
     public function setLanguage($lang) {
