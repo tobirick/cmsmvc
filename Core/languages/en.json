@@ -1,9 +1,20 @@
 {
-    "Go back": "Go back",
-    "Save": "Save",
-    "New Page": "New Page",
-    "Add new Page": "Add new Page",
-    "Edit": "Edit",
-    "Main Settings": "Main Settings",
-    "Add new Menu Item": "Add new Menu Item"
+    "settings": {
+        "name": "English"
+    },
+    "translations": {
+        "Go back": "Go back",
+        "Save": "Save",
+        "New Page": "New Page",
+        "Add new Page": "Add new Page",
+        "Edit": "Edit",
+        "Main Settings": "Main Settings",
+        "New Menu": "New Menu",
+        "New Menu Item": "Add new Menu Item",
+        "New Theme": "New Theme",
+        "Pages": "Pages",
+        "Menus": "Menus",
+        "Themes": "Themes",
+        "Settings": "Settings"
+    }
 }

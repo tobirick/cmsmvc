@@ -4,7 +4,7 @@
 <?php $__env->startSection('content'); ?>
 <?php $__env->startComponent('admin.partials.secondary-navigation'); ?>
     <?php $__env->slot('left'); ?>
-        <a href="/<?php echo e($curLang); ?>/admin/menus/create" class="button-primary">New Menu</a>
+        <a href="/<?php echo e($curLang); ?>/admin/menus/create" class="button-primary"><?php echo e($lang['New Menu']); ?></a>
     <?php $__env->endSlot(); ?>
 <?php echo $__env->renderComponent(); ?>
 <div id="content">

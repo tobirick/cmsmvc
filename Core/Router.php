@@ -25,8 +25,11 @@ class Router {
 
     private function matchRoute($match) {
         if($match) {
-            $_SESSION['lang'] = self::$language->getCurrentLanguage();
-            $language = isset($match['params']['language']) ? $match['params']['language'] : $_SESSION['lang'];
+            if($_SESSION['lang']) {
+                self::$language->setLanguage($_SESSION['lang']);
+            }
+            
+            $language = self::$language->getCurrentLanguage();
             $_SESSION['lang'] = $language;
             self::$language->setLanguage($language);
             

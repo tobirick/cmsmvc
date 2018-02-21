@@ -14,3 +14,30 @@ const pathName = window.location.pathname;
 if(pathName.includes('/admin/menus/')) {
     ko.applyBindings(new MenuListMainViewModel());
 }
+
+//Languages
+const changeLangEl = document.getElementById('langChange');
+const currentLang = changeLangEl.value;
+const changeLanguage = (e) => {
+    const newLang = changeLangEl.value;
+    const url = '/changelang';
+
+    fetch(url, {
+        body: JSON.stringify(newLang),
+        headers: {
+            'content-type': 'application/json'
+        },
+        credentials: 'include',
+        method: 'POST'
+    })
+        .then(response => response.json())
+        .then(newLang => {
+            window.location.href = window.location.href.replace(currentLang, newLang);
+            /*
+            setTimeout(() => {
+                window.location.reload();
+            }, 2000);
+            */
+        });
+}
+changeLangEl.addEventListener('change', changeLanguage);

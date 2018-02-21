@@ -5,7 +5,7 @@
 @section('content')
 @component('admin.partials.secondary-navigation')
     @slot('left')
-        <a href="/admin/themes/create" class="button-primary">New Theme</a>
+        <a href="/{{$curLang}}/admin/themes/create" class="button-primary">{{$lang['New Theme']}}</a>
     @endslot
 @endcomponent
 <div id="content">

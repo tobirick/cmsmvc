@@ -20,8 +20,8 @@ function requireLogin($ctrl) {
 
 ## Base URLs ##
 $router->map('GET', '/', 'IndexController@index');
-$router->map('POST', '/csrf', requireLogin('CSRFController@index'));
 $router->map('GET', $langString . '/admin/dashboard', requireLogin('Admin\DashboardController@index'));
+$router->map('POST', '/changelang', requireLogin('Admin\LanguageController@changeLang'));
 
 ## Admin ##
 require_once(__DIR__ . '/Auth.php');

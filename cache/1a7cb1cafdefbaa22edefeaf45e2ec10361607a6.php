@@ -4,7 +4,7 @@
 <?php $__env->startSection('content'); ?>
 <?php $__env->startComponent('admin.partials.secondary-navigation'); ?>
     <?php $__env->slot('left'); ?>
-        <a href="/admin/themes/create" class="button-primary">New Theme</a>
+        <a href="/<?php echo e($curLang); ?>/admin/themes/create" class="button-primary"><?php echo e($lang['New Theme']); ?></a>
     <?php $__env->endSlot(); ?>
 <?php echo $__env->renderComponent(); ?>
 <div id="content">

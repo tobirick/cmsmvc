@@ -1,5 +1,7 @@
 .main-sidebar {
     position: fixed;
+    display: flex;
+    flex-direction: column;
     left: 0;
     top: 0;
     height: 100%;
@@ -7,6 +9,11 @@
     background-color: #fff;
     border-right: 1px solid #eee;
     @include transition(.2s ease-in all);
+
+    &__language-changer {
+        margin: 1rem 2rem 1rem 2rem;
+        margin-top: auto;
+    }
 
     &__title {
         text-decoration: none !important;

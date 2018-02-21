@@ -2,6 +2,8 @@
 
 namespace Core;
 
+use DirectoryIterator;
+
 class Language {
     protected $currentLanguage = '';
     protected $languageArray = [];
@@ -19,7 +21,7 @@ class Language {
     }
 
     public function getLanguagesArray() {
-        return $this->languageArray;
+        return $this->languageArray['translations'];
     }
 
     public function getCurrentLanguage() {
@@ -33,6 +35,16 @@ class Language {
     }
 
     public function getAllLanguages() {
-        // TODO: Get all Languages
+        foreach (new DirectoryIterator(__DIR__ . '/languages') as $lang) {
+            if($lang->isDot()) continue;
+            $fileContent = json_decode(file_get_contents(__DIR__ . '/languages/' . $lang->getBasename('.json') . '.json'), true);
+
+            $this->allLanguagesArray[] = [
+                'shortName' => $lang->getBasename('.json'),
+                'longName' => $fileContent['settings']['name']
+            ];
+        }
+
+        return $this->allLanguagesArray;
     }
 }

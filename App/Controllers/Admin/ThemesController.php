@@ -14,10 +14,6 @@ class ThemesController extends BaseController {
         ]);
     }
 
-    public function edit() {
-        self::render('admin/themes/edit');
-    }
-
     public function create() {
         self::render('admin/themes/create');
     }

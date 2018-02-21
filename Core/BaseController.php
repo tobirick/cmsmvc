@@ -14,6 +14,7 @@ class BaseController {
         $language = Router::getLanguage();
         $languagesArray = $language->getLanguagesArray();
         $currentLanguage = $language->getCurrentLanguage();
+        $allLanguages = $language->getAllLanguages();
         $shares = [
             ['key' => 'user', 'value' =>  self::getUser()],
             ['key' => 'csrf', 'value' => $csrf->getToken()],
@@ -22,7 +23,8 @@ class BaseController {
             ['key' => 'activetheme', 'value' => $activeThemePath],
             ['key' => 'allmenus', 'value' => $getAllMenuNames],
             ['key' => 'lang', 'value' => $languagesArray],
-            ['key' => 'curLang', 'value' => $currentLanguage]
+            ['key' => 'curLang', 'value' => $currentLanguage],
+            ['key' => 'allLanguages', 'value' => $allLanguages]
         ];
         $view = new View();
         $view->render($template, $args, $shares);

@@ -17,7 +17,7 @@ Edit '<?php echo e($menu['name']); ?>'
     <div class="row">
         <div class="col-6">
             <div class="admin-box">
-                <h3 class="admin-box__title">Main Settings</h3>
+                <h3 class="admin-box__title"><?php echo e($lang['Main Settings']); ?></h3>
                 <form id="submit-form" action="/admin/menus/<?php echo e($menu['id']); ?>" method="POST">
                     <input type="hidden" name='_METHOD' value="PUT">
                     <input name="csrf_token" type="hidden" value="<?php echo e($csrf); ?>">
@@ -33,7 +33,7 @@ Edit '<?php echo e($menu['name']); ?>'
         </div>
     <div class="col-6">
             <div class="admin-box">
-                <h3 class="admin-box__title">Add new Menu Item</h3>
+                <h3 class="admin-box__title"><?php echo e($lang['New Menu Item']); ?></h3>
                 <form data-bind="submit: addMenuListItem">
                     <input name="csrf_token" type="hidden" value="<?php echo e($csrf); ?>">
                     <input name="menu_id" type="hidden" value="<?php echo e($menu['id']); ?>">
