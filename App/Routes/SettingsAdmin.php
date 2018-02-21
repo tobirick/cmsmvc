@@ -2,4 +2,4 @@
 
 namespace App\Routes;
 
-$router->map('GET', '/admin/settings', requireLogin('Admin\SettingsController@index'));
+$router->map('GET', $langString . '/admin/settings', requireLogin('Admin\SettingsController@index'));

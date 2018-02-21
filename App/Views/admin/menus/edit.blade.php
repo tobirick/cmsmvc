@@ -7,10 +7,10 @@ Edit '{{$menu['name']}}'
 @section('content')
 @component('admin.partials.secondary-navigation')
     @slot('left')
-        <a href="/admin/menus" class="button-primary-border">Go back</a>
+        <a href="/{{$curLang}}/admin/menus" class="button-primary-border">{{$lang['Go back']}}</a>
     @endslot
     @slot('right')
-        <a id="submit-form-btn" href="#" class="button-primary">Save</a>
+        <a id="submit-form-btn" href="#" class="button-primary">{{$lang['Save']}}</a>
     @endslot
 @endcomponent
 <div id="content">

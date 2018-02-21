@@ -4,7 +4,7 @@
 <?php $__env->startSection('content'); ?>
 <?php $__env->startComponent('admin.partials.secondary-navigation'); ?>
     <?php $__env->slot('left'); ?>
-        <a href="/admin/menus/create" class="button-primary">New Menu</a>
+        <a href="/<?php echo e($curLang); ?>/admin/menus/create" class="button-primary">New Menu</a>
     <?php $__env->endSlot(); ?>
 <?php echo $__env->renderComponent(); ?>
 <div id="content">
@@ -19,7 +19,7 @@
                                 <div class="card <?php echo e($menu['id'] === $allmenus['active_menu_id']['value'] ? 'active-menu' : ''); ?>">
                                     <div class="card__title"><?php echo e($menu['name']); ?></div>
                                     <div class="card__actions">
-                                        <a href="/admin/menus/<?php echo e($menu['id']); ?>/edit"><i class="fa fa-pencil"></i></a>
+                                        <a href="/<?php echo e($curLang); ?>/admin/menus/<?php echo e($menu['id']); ?>/edit"><i class="fa fa-pencil"></i></a>
                                         <form action="/admin/menus/<?php echo e($menu['id']); ?>" method="POST">
                                             <input type="hidden" name='_METHOD' value="DELETE">
                                             <input name="csrf_token" type="hidden" value="<?php echo e($csrf); ?>">

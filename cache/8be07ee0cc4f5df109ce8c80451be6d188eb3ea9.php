@@ -4,7 +4,7 @@
 <?php $__env->startSection('content'); ?>
 <?php $__env->startComponent('admin.partials.secondary-navigation'); ?>
     <?php $__env->slot('left'); ?>
-        <a href="/admin/pages/create" class="button-primary">New Page</a>
+        <a href="/<?php echo e($curLang); ?>/admin/pages/create" class="button-primary">New Page</a>
     <?php $__env->endSlot(); ?>
 <?php echo $__env->renderComponent(); ?>
 <div id="content">
@@ -26,7 +26,7 @@
                             <td><?php echo e($page['id']); ?></td>
                             <td><strong><?php echo e($page['name']); ?></strong><br><span class="light-text smaller-text">/<?php echo e($page['slug']); ?></span></td>
                             <td class="action">
-                                <a href="/admin/pages/<?php echo e($page['id']); ?>/edit"><i class="fa fa-pencil"></i></a>
+                                <a href="/<?php echo e($curLang); ?>/admin/pages/<?php echo e($page['id']); ?>/edit"><i class="fa fa-pencil"></i></a>
                                 <a target="_blank" href="/<?php echo e($page['slug']); ?>"><i class="fa fa-arrow-right"></i></a>
                                 <form action="/admin/pages/<?php echo e($page['id']); ?>" method="POST">
                                     <input type="hidden" name='_METHOD' value="DELETE">

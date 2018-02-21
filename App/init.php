@@ -17,4 +17,5 @@ if($requestURL === '/admin/' || $requestURL === '/admin') {
 // Routes
 require_once(__DIR__ . '/Routes/index.php');
 use \Core\Router;
-$routeDispatcher = new Router($router);
+$language = new \Core\Language();
+$routeDispatcher = new Router($router, $language);

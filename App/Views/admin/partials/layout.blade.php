@@ -20,7 +20,7 @@
                 @if(isset($user['name']))
                 <div class="main-content__header-info">
                     <a href="/admin/logout">Logout</a>
-                    <a href="/admin/users/{{$user['name']}}">{{$user['name']}}</a>
+                    <a href="/{{$curLang}}/admin/users/{{$user['name']}}">{{$user['name']}}</a>
                 </div>
                 @endif
         </div>

@@ -6,7 +6,7 @@ Edit '<?php echo e($name); ?>'
 <?php $__env->startSection('content'); ?>
 <?php $__env->startComponent('admin.partials.secondary-navigation'); ?>
     <?php $__env->slot('left'); ?>
-        <a href="/admin/pages" class="button-primary-border">Go back</a>
+        <a href="/<?php echo e($curLang); ?>/admin/pages" class="button-primary-border">Go back</a>
     <?php $__env->endSlot(); ?>
     <?php $__env->slot('right'); ?>
         <a id="submit-form-btn" href="#" class="button-primary">Save</a>

@@ -5,7 +5,7 @@
 @section('content')
 @component('admin.partials.secondary-navigation')
     @slot('left')
-        <a href="/admin/menus/create" class="button-primary">New Menu</a>
+        <a href="/{{$curLang}}/admin/menus/create" class="button-primary">New Menu</a>
     @endslot
 @endcomponent
 <div id="content">
@@ -20,7 +20,7 @@
                                 <div class="card {{$menu['id'] === $allmenus['active_menu_id']['value'] ? 'active-menu' : ''}}">
                                     <div class="card__title">{{$menu['name']}}</div>
                                     <div class="card__actions">
-                                        <a href="/admin/menus/{{$menu['id']}}/edit"><i class="fa fa-pencil"></i></a>
+                                        <a href="/{{$curLang}}/admin/menus/{{$menu['id']}}/edit"><i class="fa fa-pencil"></i></a>
                                         <form action="/admin/menus/{{$menu['id']}}" method="POST">
                                             <input type="hidden" name='_METHOD' value="DELETE">
                                             <input name="csrf_token" type="hidden" value="{{$csrf}}">

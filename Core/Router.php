@@ -8,17 +8,25 @@ class Router {
     private $method;
     private $params;
     private $namespace;
+    private static $language;
     private $defaultPages = ['App\Controllers\DefaultPageController', 'App\Controllers\DefaultPostController'];
 
-    public function __construct($router) {
+    public function __construct($router, $language) {
         $this->namespace = 'App\Controllers\\';
+        self::$language = $language;
         $match = $router->match();
 
         $this->matchRoute($match);
     }
 
+    public static function getLanguage() {
+        return self::$language;
+    }
+
     private function matchRoute($match) {
         if($match) {
+            $language = $match['params']['language'] ? $match['params']['language'] : $language->getCurrentLanguage();
+            if(isset(self::$language)) self::$language->setLanguage($language);
             $details = explode("@", $match['target']);
             $this->controller = $this->namespace . $details[0];
             $this->method = $details[1];

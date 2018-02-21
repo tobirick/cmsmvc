@@ -5,7 +5,7 @@
 @section('content')
 @component('admin.partials.secondary-navigation')
     @slot('left')
-        <a href="/admin/pages/create" class="button-primary">New Page</a>
+        <a href="/{{$curLang}}/admin/pages/create" class="button-primary">New Page</a>
     @endslot
 @endcomponent
 <div id="content">
@@ -27,7 +27,7 @@
                             <td>{{$page['id']}}</td>
                             <td><strong>{{$page['name']}}</strong><br><span class="light-text smaller-text">/{{$page['slug']}}</span></td>
                             <td class="action">
-                                <a href="/admin/pages/{{$page['id']}}/edit"><i class="fa fa-pencil"></i></a>
+                                <a href="/{{$curLang}}/admin/pages/{{$page['id']}}/edit"><i class="fa fa-pencil"></i></a>
                                 <a target="_blank" href="/{{$page['slug']}}"><i class="fa fa-arrow-right"></i></a>
                                 <form action="/admin/pages/{{$page['id']}}" method="POST">
                                     <input type="hidden" name='_METHOD' value="DELETE">

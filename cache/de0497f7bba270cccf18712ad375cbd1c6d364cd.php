@@ -20,7 +20,7 @@
                 <?php if(isset($user['name'])): ?>
                 <div class="main-content__header-info">
                     <a href="/admin/logout">Logout</a>
-                    <a href="/admin/users/<?php echo e($user['name']); ?>"><?php echo e($user['name']); ?></a>
+                    <a href="/<?php echo e($curLang); ?>/admin/users/<?php echo e($user['name']); ?>"><?php echo e($user['name']); ?></a>
                 </div>
                 <?php endif; ?>
         </div>

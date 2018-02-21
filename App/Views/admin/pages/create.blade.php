@@ -5,7 +5,7 @@
 @section('content')
 @component('admin.partials.secondary-navigation')
     @slot('left')
-        <a href="/admin/pages" class="button-primary-border">Go back</a>
+        <a href="/{{$curLang}}/admin/pages" class="button-primary-border">Go back</a>
     @endslot
     @slot('right')
         <a id="submit-form-btn" href="#" class="button-primary">Save</a>

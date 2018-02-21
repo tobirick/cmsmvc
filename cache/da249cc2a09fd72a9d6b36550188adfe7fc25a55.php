@@ -6,10 +6,10 @@ Edit '<?php echo e($menu['name']); ?>'
 <?php $__env->startSection('content'); ?>
 <?php $__env->startComponent('admin.partials.secondary-navigation'); ?>
     <?php $__env->slot('left'); ?>
-        <a href="/admin/menus" class="button-primary-border">Go back</a>
+        <a href="/<?php echo e($curLang); ?>/admin/menus" class="button-primary-border"><?php echo e($lang['Go back']); ?></a>
     <?php $__env->endSlot(); ?>
     <?php $__env->slot('right'); ?>
-        <a id="submit-form-btn" href="#" class="button-primary">Save</a>
+        <a id="submit-form-btn" href="#" class="button-primary"><?php echo e($lang['Save']); ?></a>
     <?php $__env->endSlot(); ?>
 <?php echo $__env->renderComponent(); ?>
 <div id="content">

@@ -4,7 +4,7 @@
 @section('content')
 <div class="container">
     Admin Pagebuilder
-    <a href="/admin/pagebuilder/create">New Pagebuilder Item</a>
+    <a href="/{{$curLang}}/admin/pagebuilder/create">New Pagebuilder Item</a>
     <div>
         
     </div>

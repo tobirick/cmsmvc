@@ -1,6 +1,8 @@
 <?php
 $router = new AltoRouter();
 
+$langString = '/[en|de:language]';
+
 ## Middlewares ##
 function loggedIn($ctrl) {
     if(!isset($_SESSION['userid'])) {
@@ -19,7 +21,7 @@ function requireLogin($ctrl) {
 ## Base URLs ##
 $router->map('GET', '/', 'IndexController@index');
 $router->map('POST', '/csrf', requireLogin('CSRFController@index'));
-$router->map('GET', '/admin/dashboard', requireLogin('Admin\DashboardController@index'));
+$router->map('GET', $langString . '/admin/dashboard', requireLogin('Admin\DashboardController@index'));
 
 ## Admin ##
 require_once(__DIR__ . '/Auth.php');
