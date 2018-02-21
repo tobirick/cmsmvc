@@ -31,22 +31,18 @@ Edit '{{$menu['name']}}'
                 </form>
             </div>
         </div>
-        <div class="col-6">
+    <div class="col-6">
             <div class="admin-box">
                 <h3 class="admin-box__title">Add new Menu Item</h3>
-                <form id="add-menu-item" action="/admin/menus/{{$menu['id']}}/menuitems" method="POST">
+                <form data-bind="submit: addMenuListItem">
                     <input name="csrf_token" type="hidden" value="{{$csrf}}">
                     <input name="menu_id" type="hidden" value="{{$menu['id']}}">
                     <div class="form-row">
                         <div class="col-6">
-                            <input class="form-input" type="text" placeholder="Name" name="menuitem[name]">
+                            <input data-bind="value: $root.newMenuItemName" class="form-input" type="text" placeholder="Name" name="menuitem[name]">
                         </div>
                         <div class="col-4">
-                            <select class="form-input" name="menuitem[page]">
-                                @foreach($pages as $page)
-                                    <option value="{{$page['id']}}">{{$page['name']}}</option>
-                                @endforeach
-                            </select>
+                            <select class="form-input" data-bind="options: pagesList, optionsText: 'name', optionsValue: 'id', value: $root.newMenuItemPage" name="menuitem[page]"></select>
                         </div>
                         <div class="col-1">
                             <button class="button-primary-icon"><i class="fa fa-check"></i></button>
@@ -56,90 +52,44 @@ Edit '{{$menu['name']}}'
             </div>
         </div>
     </div>
-    
-    <div>
-    <table class="table">
-        <tbody data-bind="foreach: menuListItems">
-            <tr>
-                <td>#</td>
-                <td>
-                                     <div class="row">
-                                     <div class="col-10">
-                    <form method="POST">
-                     <input type="hidden" name='_METHOD' value="PUT">
-                     <input name="csrf_token" type="hidden" value="{{$csrf}}">
-                     <div class="form-row">
-                     <div class="col-5">
-                              <input class="form-input" data-bind="value: name" type="text" placeholder="Name" name="menuitem[name]">
-                              </div>
-                              <div class="col-5">
-                              <select class="form-input" data-bind="options: $root.pagesList, optionsText: 'name', value: selectedPage, optionsValue: 'id'" name="menuitem[page]"></select>
-                              </div>
-                              <div class="col-2">
-                        <button class="button-primary-icon"><i class="fa fa-check"></i></button>
-                        </div>
-                        </div>
-                        </form>
-                        </div>
-                        <div class="col-2">
-                        <form method="POST">
-                            <input type="hidden" name='_METHOD' value="DELETE">
-                            <input name="csrf_token" type="hidden" value="{{$csrf}}">
-                            <button class="button-error-icon"><i class="fa fa-trash"></i></button>
-                        </form>
-                        </div>
-                </div>
-            </td>
-            </tr>
-        </tbody>
-    </table>
-    </div>
-    
+ 
     <div class="row">
         <div class="col-12">
             <div class="admin-box">
                 <h3 class="admin-box__title">Menu Item's</h3>
-                @if(isset($menuitems))
                     <div id="menu-list">
                         <table class="table">
-                        <tbody>
-                            @foreach ($menuitems as $menuitem)
+                            <tbody data-bind="foreach: menuListItems">
                                 <tr>
-                                <td>#</td>
-                                <td>
-                                    <form id="update-menu-item" action="/admin/menus/{{$menu['id']}}/menuitems/{{$menuitem['id']}}" method="POST">
-                                        <input type="hidden" name='_METHOD' value="PUT">
-                                        <input name="csrf_token" type="hidden" value="{{$csrf}}">
-                                        <div class="row">
-                                            <div class="col-5">
-                                                <input class="form-input" value="{{$menuitem['name']}}" type="text" placeholder="Name" name="menuitem[name]">
+                                    <td>#</td>
+                                    <td>
+                                     <div class="row">
+                                        <div class="col-10">
+                                            <div class="form-row">
+                                                <div class="col-5">
+                                                    <input class="form-input" data-bind="value: name, valueUpdate: 'afterkeydown'" type="text" placeholder="Name" name="menuitem[name]">
+                                                </div>
+                                                <div class="col-5">
+                                                    <select class="form-input" data-bind="options: $root.pagesList, optionsText: 'name', value: page_id, optionsValue: 'id'" name="menuitem[page]"></select>
+                                                </div>
+                                                <div class="col-2">
+                                                    <button data-bind="click: updateMenuListItem" class="button-primary-icon"><i class="fa fa-check"></i></button>
+                                                </div>
                                             </div>
-                                            <div class="col-5">
-                                                <select class="form-input" name="menuitem[page]">
-                                                    @foreach($pages as $page)
-                                                        <option value="{{$page['id']}}" {{ $menuitem['page_id'] === $page['id'] ? 'selected' : ''}}>{{$page['name']}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <button class="button-primary-icon"><i class="fa fa-check"></i></button>
                                         </div>
-                                    </form>
-                                </td>
-                                <td>
-                                    <form id="delete-menu-item" action="/admin/menus/{{$menu['id']}}/menuitems/{{$menuitem['id']}}" method="POST">
-                                        <input type="hidden" name='_METHOD' value="DELETE">
-                                        <input name="csrf_token" type="hidden" value="{{$csrf}}">
-                                        <button class="button-error-icon"><i class="fa fa-trash"></i></button>
-                                    </form>
-                                </td>
+                                        <div class="col-2">
+                                            <button data-bind="click: deleteMenuListItem" class="button-error-icon"><i class="fa fa-trash"></i></button>
+                                        </div>
+                                    </div>
+                                    </td>
                                 </tr>
-                            @endforeach
                             </tbody>
                         </table>
                     </div>
-                @endif
+                </div>
             </div>
         </div>
-    </div>
 </div>
+    <input type="hidden" id="menuid" value="{{$menu['id']}}">
+    <input type="hidden" id="csrftoken" value="{{$csrf}}">
 @stop

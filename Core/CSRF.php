@@ -20,6 +20,7 @@ class CSRF {
  
             // Get the token from the session and remove it
             $token = isset($_SESSION['csrf_token']) ? $_SESSION['csrf_token'] : '';
+
             unset($_SESSION['csrf_token']);
             if ($_POST['csrf_token'] != $token) {
                 header('HTTP/1.0 403 Forbidden');
@@ -36,6 +37,7 @@ class CSRF {
  
             // Get the token from the session and remove it
             $token = isset($_SESSION['csrf_token']) ? $_SESSION['csrf_token'] : '';
+
             unset($_SESSION['csrf_token']);
             if ($formtoken != $token) {
                 header('HTTP/1.0 403 Forbidden');

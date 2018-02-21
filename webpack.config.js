@@ -15,7 +15,8 @@ module.exports = {
                 loader: 'babel-loader',
                 test: /\.js?$/,
                 query: {
-                    presets: ['es2015', 'es2017']
+                    presets: ['es2015', 'es2017'],
+                    plugins: ['transform-class-properties']
                 }
             }
         ]

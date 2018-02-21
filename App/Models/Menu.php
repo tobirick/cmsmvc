@@ -129,7 +129,18 @@ class Menu extends Model {
         ]);
 
         $lastID = $db->lastInsertId();
-        return $lastID;
+        return self::getListItemByID($lastID);
+    }
+
+    public static function getListItemByID($id) {
+        $db = static::getDB();
+        $stmt = $db->prepare('SELECT * FROM menu_items WHERE id = :id');
+        $stmt->execute([
+            ':id' => $id
+        ]);
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result;
     }
 
     public static function deleteMenuItem($menuitemid) {

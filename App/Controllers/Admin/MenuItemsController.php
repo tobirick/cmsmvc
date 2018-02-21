@@ -11,7 +11,14 @@ class MenuItemsController extends BaseController {
         $decoded = json_decode($content, true);
 
         CSRF::checkTokenAjax($decoded['csrf_token']);
-        Menu::addMenuItem($params['params']['id'], $decoded['menuitem']);
+        $listItem = Menu::addMenuItem($params['params']['id'], $decoded['menuitem']);
+
+        header('Content-type: application/json');
+        $data = [];
+        $data['listItem'] = $listItem;
+        $data['csrfToken'] = CSRF::getToken();
+
+        echo json_encode($data);
     }
 
     public function getAllListItems($params) {
@@ -35,9 +42,19 @@ class MenuItemsController extends BaseController {
 
     public function update($params, $post) {
         Menu::updateMenuItem($params['params']['menuitemid'], $post['menuitem']);
+        header('Content-type: application/json');
+        $data = [];
+        $data['csrfToken'] = CSRF::getToken();
+
+        echo json_encode($data);
     }
 
     public function destroy($params) {
         Menu::deleteMenuItem($params['params']['menuitemid']);
+        header('Content-type: application/json');
+        $data = [];
+        $data['csrfToken'] = CSRF::getToken();
+
+        echo json_encode($data);
     }
 }
