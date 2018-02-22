@@ -20,6 +20,8 @@
         "Menu": "Menu",
         "Menus": "Menus",
         "Themes": "Themes",
-        "Settings": "Settings"
+        "Settings": "Settings",
+        "Change Settings": "Change Settings",
+        "Dashboard": "Dashboard"
     }
 }

@@ -61,5 +61,10 @@ textarea.form-input {
 .form-row {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
     margin-bottom: 1.5rem;
+}
+
+.form-label {
+    font-weight: bold;
 }

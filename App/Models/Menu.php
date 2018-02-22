@@ -121,11 +121,12 @@ class Menu extends Model {
 
     public static function addMenuItem($menuid, $menuitem) {
         $db = static::getDB();
-        $stmt = $db->prepare('INSERT INTO menu_items (name, menu_id, page_id) VALUES(:name, :menu_id, :page_id)');
+        $stmt = $db->prepare('INSERT INTO menu_items (name, menu_id, page_id, menu_position) VALUES(:name, :menu_id, :page_id, :menu_position)');
         $stmt->execute([
             ':name' => $menuitem['name'],
             ':menu_id' => $menuid,
-            ':page_id' => $menuitem['page']
+            ':page_id' => $menuitem['page'],
+            ':menu_position' => $menuitem['menu_position']
         ]);
 
         $lastID = $db->lastInsertId();

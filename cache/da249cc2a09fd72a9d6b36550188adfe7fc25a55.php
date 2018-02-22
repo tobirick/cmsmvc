@@ -59,27 +59,27 @@
                 <h3 class="admin-box__title"><?php echo e($lang['Menu']); ?> Item's</h3>
                     <div id="menu-list">
                         <table class="table">
-                            <tbody data-bind="sortable: {data: menuListItems, options: { cancel: 'button:not(.sort), input, select' }}">
+                            <thead>
+                                <tr>
+                                    <th>Position</th>
+                                    <th>Name</th>
+                                    <th>Zugehörige Seite</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody data-bind="sortable: {data: menuListItems, options: { cancel: 'td:not(.editable), button:not(.sort), input, select' }}">
                                 <tr>
                                     <td>#<span data-bind="text: menu_position"></span></td>
                                     <td>
-                                     <div class="row">
-                                        <div class="col-9">
-                                            <div class="row">
-                                                <div class="col-6">
-                                                    <input class="form-input" data-bind="value: name, valueUpdate: 'afterkeydown'" type="text" placeholder="Name" name="menuitem[name]">
-                                                </div>
-                                                <div class="col-6">
-                                                    <select class="form-input" data-bind="options: $root.pagesList, optionsText: 'name', value: page_id, optionsValue: 'id'" name="menuitem[page]"></select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-3">
-                                            <button data-bind="click: updateMenuListItem" class="button-primary-icon"><i class="fa fa-check"></i></button>
-                                            <button data-bind="click: deleteMenuListItem" class="button-error-icon"><i class="fa fa-trash"></i></button>
-                                            <button class="button-warning-icon sort"><i class="fa fa-arrows"></i></button>
-                                        </div>
-                                    </div>
+                                        <input class="form-input" data-bind="value: name, valueUpdate: 'afterkeydown'" type="text" placeholder="Name" name="menuitem[name]">
+                                    </td>
+                                    <td>
+                                        <select class="form-input" data-bind="options: $root.pagesList, optionsText: 'name', value: page_id, optionsValue: 'id'" name="menuitem[page]"></select>
+                                    </td>
+                                    <td style="text-align:right;" class="editable auto-width">
+                                        <button data-bind="click: updateMenuListItem" class="button-primary-icon"><i class="fa fa-check"></i></button>
+                                        <button data-bind="click: deleteMenuListItem" class="button-error-icon"><i class="fa fa-trash"></i></button>
+                                        <button class="button-warning-icon sort"><i class="fa fa-arrows"></i></button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -90,6 +90,5 @@
         </div>
 </div>
     <input type="hidden" id="menuid" value="<?php echo e($menu['id']); ?>">
-    <input type="hidden" id="csrftoken" value="<?php echo e($csrf); ?>">
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('admin.partials.layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -61,7 +61,8 @@ export default class MenuListMainViewModel {
         const data = {
             menuitem: {
                 name: this.newMenuItemName(),
-                page: this.newMenuItemPage()
+                page: this.newMenuItemPage(),
+                menu_position: ko.toJS(this.menuListItems).length
             },
             csrf_token: this.csrfTokenVal
         }

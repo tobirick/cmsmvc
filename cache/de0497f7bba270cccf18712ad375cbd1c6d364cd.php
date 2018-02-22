@@ -27,6 +27,7 @@
 
         <?php echo $__env->yieldContent('content'); ?>
     </div>
+    <input type="hidden" id="csrftoken" value="<?php echo e($csrf); ?>">
     <?php echo $__env->make('admin.partials.scripts', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 </body>
 </html>

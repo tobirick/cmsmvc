@@ -1,15 +1,17 @@
 export default class Sidebar {
     constructor() {
         this.toggleSidebarEl = document.querySelector('.main-content__toggle-sidebar');
-        document.onreadystatechange = () => {
-            const sidebarCurrentStatus = localStorage.getItem('sidebar-closed');
-            if(JSON.parse(sidebarCurrentStatus)) {
-                this.toggleSidebarEl.classList.add('open');
-                document.body.classList.add('sidebar-closed');
-            }
-        };
+        if(this.toggleSidebarEl) {
+            document.onreadystatechange = () => {
+                const sidebarCurrentStatus = localStorage.getItem('sidebar-closed');
+                if(JSON.parse(sidebarCurrentStatus)) {
+                    this.toggleSidebarEl.classList.add('open');
+                    document.body.classList.add('sidebar-closed');
+                }
+            };
 
-        if(this.toggleSidebarEl) this.toggleSidebarEl.addEventListener('click', this.toggleSidebar.bind(this));
+            this.toggleSidebarEl.addEventListener('click', this.toggleSidebar.bind(this));
+        }
     }
 
     toggleSidebar() {

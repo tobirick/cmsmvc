@@ -14,10 +14,15 @@
     & td {
         border-top: 1px solid #d6d6d6;
 
+        &.auto-width {
+            width:1%;
+            white-space:nowrap;
+        }
+
         &.action {
             text-align: right;
 
-            & a, & form button {
+            & a, & button {
                 color: inherit;
                 opacity: .4;
                 border: none;

@@ -13,9 +13,7 @@
     @include('admin.partials.scripts')
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        particlesJS.load('particles-js', '/admin/particles.json', function() {
-            console.log('callback - particles.js config loaded');
-        });
+        particlesJS.load('particles-js', '/admin/particles.json');
     </script>
 </body>
 </html>

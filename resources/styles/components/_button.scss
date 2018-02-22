@@ -2,3 +2,7 @@
 @include button($error-color, 'error');
 @include button($success-color, 'success');
 @include button($warning-color, 'warning');
+
+.sort {
+    cursor: move;
+}
