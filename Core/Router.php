@@ -23,11 +23,19 @@ class Router {
         return self::$language;
     }
 
-    private function matchRoute($match) {
-        if($match) {
-            if($_SESSION['lang']) {
+    private function setLanguage($match) {
+        if(isset($match['params']['language'])) {
+            self::$language->setLanguage($match['params']['language']);
+        } else {
+            if(isset($_SESSION['lang'])) {
                 self::$language->setLanguage($_SESSION['lang']);
             }
+        }
+    }
+
+    private function matchRoute($match) {
+        if($match) {
+            $this->setLanguage($match);
             
             $language = self::$language->getCurrentLanguage();
             $_SESSION['lang'] = $language;

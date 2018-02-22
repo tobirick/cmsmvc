@@ -1,7 +1,7 @@
 <ul class="main-sidebar__nav">
     @if($user)
         <li class="main-sidebar__nav-item {{checkIfNavItemIsActive('admin/dashboard') ? 'active' : ''}}"><a class="main-sidebar__nav-item-link" href="/{{$curLang}}/admin/dashboard"><i class="fa fa-tachometer" aria-hidden="true"></i> <span>Dashboard</span></a></li>
-        <li class="main-sidebar__nav-item {{checkIfNavItemIsActive('admin/posts') ? 'active' : ''}}"><a class="main-sidebar__nav-item-link" href="/{{$curLang}}/admin/posts"><i class="fa fa-thumb-tack" aria-hidden="true"></i> <span>Posts</span></a></li>
+        <!-- <li class="main-sidebar__nav-item {{checkIfNavItemIsActive('admin/posts') ? 'active' : ''}}"><a class="main-sidebar__nav-item-link" href="/{{$curLang}}/admin/posts"><i class="fa fa-thumb-tack" aria-hidden="true"></i> <span>Posts</span></a></li>-->
         <li class="main-sidebar__nav-item {{checkIfNavItemIsActive('admin/pages') ? 'active' : ''}}"><a class="main-sidebar__nav-item-link" href="/{{$curLang}}/admin/pages"><i class="fa fa-file-o" aria-hidden="true"></i> <span>{{$lang['Pages']}}</span></a></li>
         <li class="main-sidebar__nav-item {{checkIfNavItemIsActive('admin/menus') ? 'active' : ''}}"><a class="main-sidebar__nav-item-link" href="/{{$curLang}}/admin/menus"><i class="fa fa-bars" aria-hidden="true"></i> <span>{{$lang['Menus']}}</span></a></li>
         <li class="main-sidebar__nav-item {{checkIfNavItemIsActive('admin/themes') ? 'active' : ''}}"><a class="main-sidebar__nav-item-link" href="/{{$curLang}}/admin/themes"><i class="fa fa-paint-brush" aria-hidden="true"></i> <span>{{$lang['Themes']}}</span></a></li>

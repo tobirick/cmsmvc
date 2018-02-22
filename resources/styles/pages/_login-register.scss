@@ -1,0 +1,56 @@
+#particles-js {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #DCE35B;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #45B649, #DCE35B);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #45B649, #DCE35B); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */       
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50% 50%;
+}
+
+#email.form-input-icon::before {
+    @include icon('envelope');
+}
+
+#password.form-input-icon::before {
+    @include icon('lock');
+}
+
+#user.form-input-icon::before {
+    @include icon('user');
+}
+
+.box-wrapper {
+    position: absolute;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.box {
+    background-color: #fff;
+    padding: 2rem 3rem;
+    border-radius: 3px;
+    width: 40rem;
+    @include box-shadow();
+
+    &__title {
+        margin-bottom: 2rem;
+        text-align: center;
+
+        & strong {
+            color: $primary-color;
+        }
+    }
+
+    &__info {
+        display: block;
+        text-align: center;
+        margin-top: 2rem;
+        font-weight: bold;
+    }
+}

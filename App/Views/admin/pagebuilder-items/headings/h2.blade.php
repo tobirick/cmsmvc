@@ -1,0 +1,1 @@
+<h2>{{$headingtext}}</h2>

@@ -151,6 +151,7 @@
     
         &.block {
             display: block;
+            width: 100%;
         }
     }
 
@@ -217,7 +218,8 @@
 
 // Font Awesome Icons
 @mixin icon($icon) {
-    @include fa-icon;
+    font-family: FontAwesome;
+    display: inline-block;
     @extend .fa-#{$icon}:before;
 }
 

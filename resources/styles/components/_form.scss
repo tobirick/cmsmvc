@@ -12,6 +12,24 @@ textarea.form-input {
     min-height: 7rem;
 }
 
+.form-input-icon {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    &::before {
+        position: absolute;
+        color: #888888;
+        left: 1.5rem;
+        font-size: 18px;
+    }
+
+    & input {
+        text-indent: 4rem;
+    }
+}
+
 .form-input {
     font-family: inherit;
     outline: none;

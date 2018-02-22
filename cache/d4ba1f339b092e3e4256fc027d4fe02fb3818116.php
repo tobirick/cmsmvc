@@ -1,6 +1,6 @@
 <?php $__env->startSection('title', 'Admin Page'); ?>
 <?php $__env->startSection('content-title'); ?>
-Welcome back <?php echo e($user['name']); ?>
+<?php echo e($lang['Welcome back']); ?> <?php echo e($user['name']); ?>
 
 <?php $__env->stopSection(); ?>
 

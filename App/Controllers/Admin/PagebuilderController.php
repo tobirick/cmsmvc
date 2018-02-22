@@ -26,6 +26,7 @@ class PagebuilderController extends BaseController {
         CSRF::checkToken();
         if(isset($_POST)) {
             // TODO: Add new pagebuilder item
+            Pagebuilder::createItem($_POST['item']);
             self::redirect('/admin/pagebuilder');
         }
     }

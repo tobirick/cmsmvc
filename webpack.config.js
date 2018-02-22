@@ -5,10 +5,9 @@ module.exports = {
         index: ['babel-polyfill', './resources/scripts/app.js']
     },
     output: {
-        filename: "app.js",
-        sourceMapFilename: "app.map",
+        filename: "app.js"
     },
-    devtool: '#source-map',
+    devtool: 'eval-cheap-module-source-map',
     module: {
         loaders: [
             {

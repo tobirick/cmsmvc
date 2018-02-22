@@ -1,6 +1,6 @@
 @extends('admin.partials.layout')
 @section('title', 'Admin Themes')
-@section('content-title', 'Themes')
+@section('content-title', $lang['Themes'])
 
 @section('content')
 @component('admin.partials.secondary-navigation')

@@ -1,6 +1,6 @@
 <?php $__env->startSection('title', 'Edit Page'); ?>
 <?php $__env->startSection('content-title'); ?>
-Edit '<?php echo e($name); ?>'
+<?php echo e($lang['Edit']); ?> '<?php echo e($name); ?>'
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>

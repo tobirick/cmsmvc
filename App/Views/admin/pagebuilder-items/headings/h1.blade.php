@@ -1,1 +1,1 @@
-<h1>{{text}}</h1>
+<h1>{{$headingtext}}</h1>

@@ -3,6 +3,7 @@
         "name": "English"
     },
     "translations": {
+        "Welcome back": "Welcome back",
         "Go back": "Go back",
         "Save": "Save",
         "New Page": "New Page",
@@ -10,9 +11,13 @@
         "Edit": "Edit",
         "Main Settings": "Main Settings",
         "New Menu": "New Menu",
+        "Add new Menu": "Add New Menu",
         "New Menu Item": "Add new Menu Item",
+        "Add new Theme": "Add new Theme",
         "New Theme": "New Theme",
+        "New Pagebuilder Item": "New Pagebuilder Item",
         "Pages": "Pages",
+        "Menu": "Menu",
         "Menus": "Menus",
         "Themes": "Themes",
         "Settings": "Settings"

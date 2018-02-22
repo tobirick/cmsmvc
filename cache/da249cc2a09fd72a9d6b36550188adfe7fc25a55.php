@@ -1,6 +1,6 @@
 <?php $__env->startSection('title', 'Edit Menu'); ?>
 <?php $__env->startSection('content-title'); ?>
-Edit '<?php echo e($menu['name']); ?>'
+<?php echo e($lang['Edit']); ?> '<?php echo e($menu['name']); ?>'
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
@@ -56,7 +56,7 @@ Edit '<?php echo e($menu['name']); ?>'
     <div class="row">
         <div class="col-12">
             <div class="admin-box">
-                <h3 class="admin-box__title">Menu Item's</h3>
+                <h3 class="admin-box__title"><?php echo e($lang['Menu']); ?> Item's</h3>
                     <div id="menu-list">
                         <table class="table">
                             <tbody data-bind="foreach: menuListItems">
@@ -64,21 +64,20 @@ Edit '<?php echo e($menu['name']); ?>'
                                     <td>#</td>
                                     <td>
                                      <div class="row">
-                                        <div class="col-10">
-                                            <div class="form-row">
-                                                <div class="col-5">
+                                        <div class="col-9">
+                                            <div class="row">
+                                                <div class="col-6">
                                                     <input class="form-input" data-bind="value: name, valueUpdate: 'afterkeydown'" type="text" placeholder="Name" name="menuitem[name]">
                                                 </div>
-                                                <div class="col-5">
+                                                <div class="col-6">
                                                     <select class="form-input" data-bind="options: $root.pagesList, optionsText: 'name', value: page_id, optionsValue: 'id'" name="menuitem[page]"></select>
-                                                </div>
-                                                <div class="col-2">
-                                                    <button data-bind="click: updateMenuListItem" class="button-primary-icon"><i class="fa fa-check"></i></button>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-2">
+                                        <div class="col-3">
+                                            <button data-bind="click: updateMenuListItem" class="button-primary-icon"><i class="fa fa-check"></i></button>
                                             <button data-bind="click: deleteMenuListItem" class="button-error-icon"><i class="fa fa-trash"></i></button>
+                                            <button class="button-warning-icon"><i class="fa fa-arrows"></i></button>
                                         </div>
                                     </div>
                                     </td>

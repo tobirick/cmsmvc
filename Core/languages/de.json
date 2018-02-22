@@ -3,6 +3,7 @@
         "name": "Deutsch"
     },
     "translations": {
+        "Welcome back": "Willkommen zurück",
         "Go back": "Zurück",
         "Save": "Speichern",
         "New Page": "Neue Seite",
@@ -10,9 +11,13 @@
         "Edit": "Bearbeite",
         "Main Settings": "Allgemeine Einstellungen",
         "New Menu": "Neues Menü",
+        "Add new Menu": "Neues Menü hinzufügen",
         "New Menu Item": "Neues Menü Item",
+        "Add new Theme": "Neues Theme hinzufügen",
         "New Theme": "Neues Theme",
+        "New Pagebuilder Item": "Neues Pagebuilder Item",
         "Pages": "Seiten",
+        "Menu": "Menü",
         "Menus": "Menüs",
         "Themes": "Themes",
         "Settings": "Einstellungen"

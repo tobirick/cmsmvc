@@ -1,5 +1,5 @@
 <?php $__env->startSection('title', 'Admin Themes'); ?>
-<?php $__env->startSection('content-title', 'Themes'); ?>
+<?php $__env->startSection('content-title', $lang['Themes']); ?>
 
 <?php $__env->startSection('content'); ?>
 <?php $__env->startComponent('admin.partials.secondary-navigation'); ?>
