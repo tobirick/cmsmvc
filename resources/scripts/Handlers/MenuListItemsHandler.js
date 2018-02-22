@@ -43,6 +43,22 @@ MenuListItemsHandler.handleUpdateMenuListItem = function(data, menuID, menuItemI
         .catch(data => ({message: 'error', csrfToken: data.csrfToken}));
 }
 
+MenuListItemsHandler.handleUpdateMenuListItemPositions = function(data, menuID) {
+    const url = `/admin/menus/${menuID}/menuitems/position`;
+
+    return fetch(url, {
+        body: JSON.stringify(data),
+        headers: {
+            'content-type': 'application/json'
+        },
+        credentials: 'include',
+        method: 'POST'
+    })
+        .then(response => response.json())
+        .then(data => ({message: 'success', csrfToken: data.csrfToken}))
+        .catch(data => ({message: 'error', csrfToken: data.csrfToken}));
+}
+
 MenuListItemsHandler.handleDeleteMenuListItem = function(data, menuID, menuItemID) {
     data['_METHOD'] = 'DELETE';
     const url = `/admin/menus/${menuID}/menuitems/${menuItemID}`;

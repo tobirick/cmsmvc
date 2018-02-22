@@ -13,7 +13,12 @@ const pathName = window.location.pathname;
 
 // Edit Menu Page
 if(pathName.includes('/admin/menus/')) {
-    ko.applyBindings(new MenuListMainViewModel());
+    const menuListMainViewModel = new MenuListMainViewModel();
+    ko.bindingHandlers.sortable.afterMove = (args) => {
+        menuListMainViewModel.updateMenuPositions(args);
+    }
+    ko.applyBindings(menuListMainViewModel);
+
 }
 
 //Languages

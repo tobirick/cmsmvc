@@ -57,4 +57,19 @@ class MenuItemsController extends BaseController {
 
         echo json_encode($data);
     }
+
+    public function updatePosition($params) {
+        $content = trim(file_get_contents("php://input"));
+        $decoded = json_decode($content, true);
+
+        CSRF::checkTokenAjax($decoded['csrf_token']);
+
+        foreach($decoded['menuitems'] as $menuitem) {
+            Menu::updateMenuItemPosition($menuitem);
+        }
+        header('Content-type: application/json');
+        $data = [];
+        $data['csrfToken'] = CSRF::getToken();
+        echo json_encode($data);
+    }
 }

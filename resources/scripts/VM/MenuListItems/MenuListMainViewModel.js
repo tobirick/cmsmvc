@@ -1,4 +1,5 @@
 import ko from 'knockout';
+import 'knockout-sortable';
 import PageItemViewModel from '../Pages/PageItemViewModel';
 import MenuItemViewModel from './MenuItemViewModel';
 import PagesHandler from '../../Handlers/PagesHandler';
@@ -14,7 +15,6 @@ export default class MenuListMainViewModel {
 
         this.newMenuItemName = ko.observable(null);
         this.newMenuItemPage = ko.observable(null);
-
         this.getPages();
         this.getMenuListItems();
     }
@@ -24,11 +24,25 @@ export default class MenuListMainViewModel {
         this.csrfToken.value = newCsrfToken;
     }
 
+    async updateMenuPositions() {
+        const data = {
+            csrf_token: this.csrfTokenVal,
+            menuitems: ko.toJS(this.menuListItems)
+        }
+
+        data.menuitems.forEach((menuListItem, position) => {
+            menuListItem.position = position;
+        });
+
+        const response = await MenuListItemsHandler.handleUpdateMenuListItemPositions(data, this.menuID);
+
+        this.updateCSRF(response.csrfToken);
+    }
+
     async getPages() {
         const data = await PagesHandler.loadPageItems();
         data.forEach((dataItem) => {
-            const page = new PageItemViewModel(dataItem);
-            this.pagesList.push(page);
+            this.pagesList.push(new PageItemViewModel(dataItem));
         });
     }
 
@@ -36,11 +50,10 @@ export default class MenuListMainViewModel {
         const data = await MenuListItemsHandler.loadMenuListItems(this.menuID)
 
         data.forEach((dataItem) => {
-            const listItem = new MenuItemViewModel(dataItem, {
+            this.menuListItems.push(new MenuItemViewModel(dataItem, {
                 deleteMenuListItem: this.deleteMenuListItem,
                 updateMenuListItem: this.updateMenuListItem
-            });
-            this.menuListItems.push(listItem);
+            }));
         });
     }
 
@@ -63,11 +76,12 @@ export default class MenuListMainViewModel {
         this.updateCSRF(response.csrfToken);
     }
 
-    updateMenuListItem = async (item) => {
+    updateMenuListItem = async (item, position = 0) => {
         const data = {
             menuitem: {
                 name: item.name(),
                 page: item.page_id(),
+                position
             },
             csrf_token: this.csrfTokenVal
         }

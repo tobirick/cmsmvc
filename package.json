@@ -18,7 +18,10 @@
     "gulp-babel": "^7.0.1",
     "gulp-sourcemaps": "^2.6.4",
     "gulp-webpack": "^1.5.0",
-    "knockout": "^3.5.0-beta"
+    "jquery": "^3.3.1",
+    "jquery-ui": "^1.12.1",
+    "knockout": "^3.5.0-beta",
+    "knockout-sortable": "^1.1.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

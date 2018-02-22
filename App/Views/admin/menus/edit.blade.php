@@ -59,7 +59,7 @@
                 <h3 class="admin-box__title">{{$lang['Menu']}} Item's</h3>
                     <div id="menu-list">
                         <table class="table">
-                            <tbody data-bind="foreach: menuListItems">
+                            <tbody data-bind="sortable: {data: menuListItems}">
                                 <tr>
                                     <td>#</td>
                                     <td>

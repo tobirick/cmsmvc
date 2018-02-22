@@ -109,7 +109,7 @@ class Menu extends Model {
 
     public static function getMenuItemsByMenuId($menuid) {
         $db = static::getDB();
-        $stmt = $db->prepare('SELECT * FROM menu_items WHERE menu_id = :menu_id');
+        $stmt = $db->prepare('SELECT * FROM menu_items WHERE menu_id = :menu_id ORDER BY menu_position');
         $stmt->execute([
             ':menu_id' => $menuid
         ]);
@@ -155,11 +155,23 @@ class Menu extends Model {
 
     public static function updateMenuItem($menuitemid, $menuitem) {
         $db = static::getDB();
-        $stmt = $db->prepare('UPDATE menu_items SET name = :name, page_id = :page_id WHERE id = :id');
+        $stmt = $db->prepare('UPDATE menu_items SET name = :name, page_id = :page_id, menu_position = :menu_position WHERE id = :id');
         $stmt->execute([
             ':name' => $menuitem['name'],
             ':page_id' => $menuitem['page'],
+            ':menu_position' => $menuitem['position'],
             ':id' => $menuitemid
+        ]);
+
+        return true;
+    }
+
+    public static function updateMenuItemPosition($menuitem) {
+        $db = static::getDB();
+        $stmt = $db->prepare('UPDATE menu_items SET menu_position = :menu_position WHERE id = :id');
+        $stmt->execute([
+            ':menu_position' => $menuitem['position'],
+            ':id' => $menuitem['id']
         ]);
 
         return true;
@@ -214,7 +226,7 @@ class Menu extends Model {
         $id = self::getActiveMenuID()['value'];
 
         $db = static::getDB();
-        $stmt = $db->prepare('SELECT mi.name, p.slug FROM menu_items as mi INNER JOIN pages as p ON p.id = mi.page_id WHERE menu_id = :id');
+        $stmt = $db->prepare('SELECT mi.name, p.slug FROM menu_items as mi INNER JOIN pages as p ON p.id = mi.page_id WHERE menu_id = :id ORDER BY mi.menu_position');
         $stmt->execute([
             ':id' => $id
         ]);
