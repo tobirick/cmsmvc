@@ -3,7 +3,7 @@ const MenuListItemsHandler = {};
 MenuListItemsHandler.loadMenuListItems = async function(id) {
     const url = `/admin/menus/${id}/menuitems`;
     const response = await fetch(url, {
-        method: 'GET',
+        method: 'POST',
         credentials: 'include'
     });
 
