@@ -59,9 +59,9 @@
                 <h3 class="admin-box__title">{{$lang['Menu']}} Item's</h3>
                     <div id="menu-list">
                         <table class="table">
-                            <tbody data-bind="sortable: {data: menuListItems}">
+                            <tbody data-bind="sortable: {data: menuListItems, options: { cancel: 'button:not(.sort), input, select' }}">
                                 <tr>
-                                    <td>#</td>
+                                    <td>#<span data-bind="text: menu_position"></span></td>
                                     <td>
                                      <div class="row">
                                         <div class="col-9">
@@ -77,7 +77,7 @@
                                         <div class="col-3">
                                             <button data-bind="click: updateMenuListItem" class="button-primary-icon"><i class="fa fa-check"></i></button>
                                             <button data-bind="click: deleteMenuListItem" class="button-error-icon"><i class="fa fa-trash"></i></button>
-                                            <button class="button-warning-icon"><i class="fa fa-arrows"></i></button>
+                                            <button class="button-warning-icon sort"><i class="fa fa-arrows"></i></button>
                                         </div>
                                     </div>
                                     </td>

@@ -25,14 +25,14 @@ export default class MenuListMainViewModel {
     }
 
     async updateMenuPositions() {
+        this.menuListItems().forEach((menuListItem, position) => {
+            menuListItem.menu_position(position);
+        });
+
         const data = {
             csrf_token: this.csrfTokenVal,
             menuitems: ko.toJS(this.menuListItems)
         }
-
-        data.menuitems.forEach((menuListItem, position) => {
-            menuListItem.position = position;
-        });
 
         const response = await MenuListItemsHandler.handleUpdateMenuListItemPositions(data, this.menuID);
 
@@ -61,7 +61,7 @@ export default class MenuListMainViewModel {
         const data = {
             menuitem: {
                 name: this.newMenuItemName(),
-                page: this.newMenuItemPage(),
+                page: this.newMenuItemPage()
             },
             csrf_token: this.csrfTokenVal
         }
@@ -76,12 +76,11 @@ export default class MenuListMainViewModel {
         this.updateCSRF(response.csrfToken);
     }
 
-    updateMenuListItem = async (item, position = 0) => {
+    updateMenuListItem = async (item) => {
         const data = {
             menuitem: {
                 name: item.name(),
-                page: item.page_id(),
-                position
+                page: item.page_id()
             },
             csrf_token: this.csrfTokenVal
         }

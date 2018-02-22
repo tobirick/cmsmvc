@@ -12,7 +12,7 @@ export default class MenuItemViewModel {
 
         this.name.subscribe(val => {
             this.name(val);
-        })
+        });
 
         this.deleteMenuListItem = delegates.deleteMenuListItem;
         this.updateMenuListItem = delegates.updateMenuListItem;

@@ -155,11 +155,10 @@ class Menu extends Model {
 
     public static function updateMenuItem($menuitemid, $menuitem) {
         $db = static::getDB();
-        $stmt = $db->prepare('UPDATE menu_items SET name = :name, page_id = :page_id, menu_position = :menu_position WHERE id = :id');
+        $stmt = $db->prepare('UPDATE menu_items SET name = :name, page_id = :page_id WHERE id = :id');
         $stmt->execute([
             ':name' => $menuitem['name'],
             ':page_id' => $menuitem['page'],
-            ':menu_position' => $menuitem['position'],
             ':id' => $menuitemid
         ]);
 
@@ -170,7 +169,7 @@ class Menu extends Model {
         $db = static::getDB();
         $stmt = $db->prepare('UPDATE menu_items SET menu_position = :menu_position WHERE id = :id');
         $stmt->execute([
-            ':menu_position' => $menuitem['position'],
+            ':menu_position' => $menuitem['menu_position'],
             ':id' => $menuitem['id']
         ]);
 
