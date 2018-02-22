@@ -7,16 +7,33 @@ import MenuListItemsHandler from '../../Handlers/MenuListItemsHandler';
 
 export default class MenuListMainViewModel {
     constructor() {
+        this.menuID = document.getElementById('menuid').value;
+        this.defaultData = {
+            id: '',
+            name: '',
+            menu_id: this.menuID,
+            page_id: 0,
+            menu_position: 0
+        }
         this.menuListItems = ko.observableArray([]);
         this.pagesList = ko.observableArray([]);
-        this.menuID = document.getElementById('menuid').value;
         this.csrfToken = document.getElementById('csrftoken');
         this.csrfTokenVal = document.getElementById('csrftoken').value;
 
-        this.newMenuItemName = ko.observable(null);
-        this.newMenuItemPage = ko.observable(null);
         this.getPages();
         this.getMenuListItems();
+        this.newMenuItem = new MenuItemViewModel(this.defaultData, {
+            deleteMenuListItem: this.deleteMenuListItem,
+            updateMenuListItem: this.updateMenuListItem
+        });
+    }
+
+    resetNewMenuItem() {
+        for(let key in this.newMenuItem) {
+            if(ko.isObservable(this.newMenuItem[key])) {
+                if(key !== 'menu_id') this.newMenuItem[key](null);
+            }
+         }
     }
 
     updateCSRF(newCsrfToken) {
@@ -60,20 +77,20 @@ export default class MenuListMainViewModel {
     async addMenuListItem() {
         const data = {
             menuitem: {
-                name: this.newMenuItemName(),
-                page: this.newMenuItemPage(),
+                ...ko.toJS(this.newMenuItem),
                 menu_position: ko.toJS(this.menuListItems).length
             },
             csrf_token: this.csrfTokenVal
         }
         
         const response = await MenuListItemsHandler.handleAddMenuListItem(data, this.menuID);
-        const listItem = new MenuItemViewModel(response.listItem, {
+
+        this.menuListItems.push(new MenuItemViewModel(response.listItem, {
             deleteMenuListItem: this.deleteMenuListItem,
             updateMenuListItem: this.updateMenuListItem
-        });
+        }));
+        this.resetNewMenuItem();
 
-        this.menuListItems.push(listItem);
         this.updateCSRF(response.csrfToken);
     }
 

@@ -16,7 +16,7 @@ module.exports = {
                 test: /\.js?$/,
                 query: {
                     presets: ['es2015', 'es2017'],
-                    plugins: ['transform-class-properties']
+                    plugins: ['transform-class-properties', 'transform-object-rest-spread']
                 }
             }
         ]

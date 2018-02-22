@@ -39,10 +39,10 @@
                     <input name="menu_id" type="hidden" value="<?php echo e($menu['id']); ?>">
                     <div class="form-row">
                         <div class="col-6">
-                            <input data-bind="value: $root.newMenuItemName" class="form-input" type="text" placeholder="Name" name="menuitem[name]">
+                            <input data-bind="value: newMenuItem.name" class="form-input" type="text" placeholder="Name" name="menuitem[name]">
                         </div>
                         <div class="col-4">
-                            <select class="form-input" data-bind="options: pagesList, optionsText: 'name', optionsValue: 'id', value: $root.newMenuItemPage" name="menuitem[page]"></select>
+                            <select class="form-input" data-bind="options: $root.pagesList, optionsText: 'name', optionsValue: 'id', value: newMenuItem.page_id" name="menuitem[page]"></select>
                         </div>
                         <div class="col-1">
                             <button class="button-primary-icon"><i class="fa fa-check"></i></button>

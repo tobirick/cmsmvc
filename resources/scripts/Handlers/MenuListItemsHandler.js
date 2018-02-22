@@ -1,7 +1,7 @@
 const MenuListItemsHandler = {};
 
 MenuListItemsHandler.loadMenuListItems = async function(id) {
-    const url = `/admin/menus/${id}/menuitems`;
+    const url = `/admin/menus/${id}/menuitems/all`;
     const response = await fetch(url, {
         method: 'POST',
         credentials: 'include'

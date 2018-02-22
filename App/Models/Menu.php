@@ -125,7 +125,7 @@ class Menu extends Model {
         $stmt->execute([
             ':name' => $menuitem['name'],
             ':menu_id' => $menuid,
-            ':page_id' => $menuitem['page'],
+            ':page_id' => $menuitem['page_id'],
             ':menu_position' => $menuitem['menu_position']
         ]);
 
