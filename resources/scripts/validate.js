@@ -77,7 +77,11 @@ export const validator = {
     removeErrorFromElement(element, rule) {
         setTimeout(() => {element.classList.remove('form-input__error')}, 250);
         const spanEl = element.parentNode.nextSibling;
-        element.parentNode.parentNode.removeChild(spanEl);
+        if(spanEl.nodeType === Node.ELEMENT_NODE) {
+            if(spanEl.classList.contains('form-input__error-message')) {
+                element.parentNode.parentNode.removeChild(spanEl);
+            }
+        }
     },
 
     validateElement(element, rule) {
