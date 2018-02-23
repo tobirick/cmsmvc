@@ -11,7 +11,7 @@ class LoginController extends BaseController {
         self::render('admin/login/index');
     }
 
-    public function login() {
+    public static function login() {
         CSRF::checkToken();
         if(isset($_POST)) {
             $formErrors = User::validate($_POST['user']);
@@ -33,7 +33,7 @@ class LoginController extends BaseController {
         }
     }
 
-    public function logout() {
+    public static function logout() {
         User::doLogout();
         self::redirect('/admin/dashboard');
     }
