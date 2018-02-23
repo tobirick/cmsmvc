@@ -14,7 +14,7 @@
             @if(isset($error))
                 <p>{{$error}}</p>
             @endif
-            <form method="POST" action="/admin/register">
+            <form id="validate-form" method="POST" action="/admin/register">
                 <input name="csrf_token" type="hidden" value="{{$csrf}}">
                 <div class="form-row">
                     <div id="user" class="form-input-icon">

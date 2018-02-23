@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 16. Feb 2018 um 16:26
+-- Erstellungszeit: 22. Feb 2018 um 17:02
 -- Server-Version: 10.1.16-MariaDB
 -- PHP-Version: 7.0.9
 
@@ -80,7 +80,28 @@ CREATE TABLE `menu_items` (
 
 INSERT INTO `menu_items` (`id`, `name`, `menu_id`, `page_id`, `menu_position`) VALUES
 (61, 'Homepage', 2, 7, 0),
-(62, 'Über uns', 2, 8, 0);
+(62, 'Über uns', 2, 8, 2),
+(89, 'Contact', 2, 9, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `pagebuilder_items`
+--
+
+CREATE TABLE `pagebuilder_items` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `path_name` varchar(255) NOT NULL,
+  `content` longtext NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Daten für Tabelle `pagebuilder_items`
+--
+
+INSERT INTO `pagebuilder_items` (`id`, `name`, `path_name`, `content`) VALUES
+(4, 'test', 'App/Views/admin/pagebuilder-items/test', 'test');
 
 -- --------------------------------------------------------
 
@@ -171,6 +192,12 @@ ALTER TABLE `menu_items`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indizes für die Tabelle `pagebuilder_items`
+--
+ALTER TABLE `pagebuilder_items`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indizes für die Tabelle `pages`
 --
 ALTER TABLE `pages`
@@ -206,12 +233,17 @@ ALTER TABLE `config`
 -- AUTO_INCREMENT für Tabelle `menus`
 --
 ALTER TABLE `menus`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT für Tabelle `menu_items`
 --
 ALTER TABLE `menu_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=116;
+--
+-- AUTO_INCREMENT für Tabelle `pagebuilder_items`
+--
+ALTER TABLE `pagebuilder_items`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT für Tabelle `pages`
 --
@@ -221,7 +253,7 @@ ALTER TABLE `pages`
 -- AUTO_INCREMENT für Tabelle `themes`
 --
 ALTER TABLE `themes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT für Tabelle `users`
 --

@@ -52,9 +52,25 @@ textarea.form-input {
         color: $formInputColor;
     }
 
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active {
+        transition: background-color 5000s ease-in-out 0s;
+    }
+
     &:focus {
         outline: none;
         border-color: $formInputBorderFocus;
+    }
+
+    &__error {
+        border-color: $error-color;
+    }
+
+    &__error-message {
+        font-weight: bold;
+        color: $error-color;
     }
 }
 
@@ -67,4 +83,8 @@ textarea.form-input {
 
 .form-label {
     font-weight: bold;
+}
+
+.form-error {
+    color: $error-color;
 }

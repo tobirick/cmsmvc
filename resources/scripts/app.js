@@ -1,9 +1,12 @@
 import ko from 'knockout';
+import { validator } from './validate';
 
 import Sidebar from './admin-sidebar';
 import Form from './admin-form';
 import MenuListMainViewModel from './VM/MenuListItems/MenuListMainViewModel';
 
+validator.init('#validate-form');
+validator.addBasicRules();
 const sidebar = new Sidebar();
 const form = new Form();
 

@@ -35,8 +35,7 @@ class Router {
 
     private function matchRoute($match) {
         if($match) {
-            $this->setLanguage($match);
-            
+            $this->setLanguage($match);        
             $language = self::$language->getCurrentLanguage();
             $_SESSION['lang'] = $language;
             self::$language->setLanguage($language);
@@ -58,7 +57,8 @@ class Router {
                 $this->params['page-args'] = $page->getPageBySlug();
             }
 
-            call_user_func([$this->controller, $this->method], $this->params);
+            $ctrl = new $this->controller();
+            call_user_func([$ctrl, $this->method], $this->params);
         } else {
             $view = new View();
             $view->render('error/404');
