@@ -2,4 +2,6 @@ vendor/
 node_modules/
 .env
 .vscode/
-public/admin
+public/admin/css
+public/admin/js
+public/admin/img

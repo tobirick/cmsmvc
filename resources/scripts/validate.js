@@ -8,9 +8,11 @@ export const validator = {
 
     init(form) {
         this.data.formEl = document.querySelector(form);
-        this.data.formEl.addEventListener('submit', this.validate.bind(this))
-        const elements = document.querySelectorAll(form + ' .validate');
-        this.data.elements = elements;
+        if(this.data.formEl) {
+            this.data.formEl.addEventListener('submit', this.validate.bind(this))
+            const elements = document.querySelectorAll(form + ' .validate');
+            this.data.elements = elements;
+        }
     },
 
     addBasicRules() {
