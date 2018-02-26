@@ -18,12 +18,12 @@
                 <input name="csrf_token" type="hidden" value="{{$csrf}}">
                 <div class="form-row">
                     <div id="email" class="form-input-icon">
-                        <input placeholder="E-Mail" class="form-input validate" type="email" name="user[email]">
+                        <input data-required="true" data-valtype="email" placeholder="E-Mail" class="form-input validate" type="text" name="user[email]">
                     </div>
                 </div>
                 <div class="form-row">
                     <div id="password" class="form-input-icon">
-                        <input placeholder="Password" class="form-input validate" type="password" name="user[password]">
+                        <input data-required="true" data-valtype="password" placeholder="Password" class="form-input validate" type="password" name="user[password]">
                     </div>
                 </div>
                 <button class="button-primary block">Login</button>

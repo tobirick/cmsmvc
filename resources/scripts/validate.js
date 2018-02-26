@@ -18,9 +18,8 @@ export const validator = {
     addBasicRules() {
         this.addRule('email', {
             regex: /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/,
-            minlength: 10,
             required: true,
-            message: 'E-Mail is unvalid and required'
+            message: 'E-Mail is invalid'
         });
 
         this.addRule('text', {
@@ -32,7 +31,7 @@ export const validator = {
         this.addRule('password', {
             minlength: 6,
             required: true,
-            message: 'Please use minimal 6 characters'
+            message: 'Please use minimal 6 characters for your password'
         });
     },
     
@@ -47,7 +46,11 @@ export const validator = {
         e.preventDefault();
         for (let element of this.data.elements) {
             for(let rule of this.data.rules) {
-                if(element.type === rule.name) {
+                if(element.dataset.required === 'true' && element.value.length === 0) {
+                    this.addErrorToElement(element, { message:'This field is required' });
+                    continue;
+                }
+                if(element.dataset.valtype === rule.name) {
                     this.validateElement(element, rule);
                 }
             }
@@ -77,7 +80,8 @@ export const validator = {
     },
 
     removeErrorFromElement(element, rule) {
-        setTimeout(() => {element.classList.remove('form-input__error')}, 250);
+        //setTimeout(() => {element.classList.remove('form-input__error')}, 250);
+        element.classList.remove('form-input__error');
         const spanEl = element.parentNode.nextSibling;
         if(spanEl.nodeType === Node.ELEMENT_NODE) {
             if(spanEl.classList.contains('form-input__error-message')) {
