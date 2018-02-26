@@ -1,7 +1,7 @@
 <?php
 $router = new AltoRouter();
 
-$langString = '/[en|de:language]';
+$langString = '/[en|de:language]?';
 
 ## Middlewares ##
 function loggedIn($ctrl) {
