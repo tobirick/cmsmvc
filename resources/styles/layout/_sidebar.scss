@@ -41,16 +41,22 @@
         @include transition(.2s ease-in background-color);
 
         &:hover, &.active {
-            background-color: #f1f1f1;
-            @include box-shadow();
-
-            & > .main-sidebar__nav-item-link {
+            & .main-sidebar__nav-item-link {
+                background-color: #f1f1f1;
                 color: $default-text-color;
                 font-weight: bold;
+                @include box-shadow();
 
                 & i {
                     color: $secondary-color;
                 }
+            }
+
+            & .main-sidebar__sub-nav {
+                opacity: 1;
+                transform: scaleY(1);
+                height: auto;
+                visibility: visible;
             }
         }
     }
@@ -60,7 +66,7 @@
         text-decoration: none !important;
         display: block;
         padding: 0.8rem 1.5rem;
-        @include transition(.2s ease-in opacity);
+        @include transition(.2s ease-in all);
 
         & span {
             @include transition(.2s ease-in opacity);
@@ -74,7 +80,44 @@
             @include transition(.2s ease-in opacity);
         }
     }
+
+    &__sub-nav {
+        list-style-type: none;
+        visibility: hidden;
+        opacity: 0;
+        height: 0;
+        transform: scaleY(0);    
+        transform-origin: top;
+        background-color: #fff;
+        z-index: 9;
+        @include transition(.2s ease-in all);
+    }
+
+    &__sub-nav-item {
+        margin: 0.5rem 2rem;
+        position: relative;
+        display: flex;
+        align-items: center;
+
+        &:before {
+            @include icon (chevron-right);
+            font-size: 12px;
+            position: absolute; 
+            left: 0;
+        }
+    }
+
+    &__sub-nav-item-link {
+        color: $default-text-color;
+        padding: 0 2rem;
+        text-decoration: none !important;
+
+        &:hover {
+            color: $primary-color;
+        }
+    }
 }
+
 
 .sidebar-closed .main-sidebar {
     width: 7rem;

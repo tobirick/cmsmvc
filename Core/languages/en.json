@@ -26,8 +26,11 @@
         "Dashboard": "Dashboard",
         "Media": "Media",
         "Downloads": "Downloads",
+        "New Download": "New Download",
         "Download Manager": "Download Manager",
         "Media Manager": "Media Manager",
-        "Forms": "Forms"
+        "Forms": "Forms",
+        "Pagebuilder": "Pagebuilder",
+        "Categories": "Categories"
     }
 }

@@ -52,7 +52,7 @@ export const validator = {
         e.preventDefault();
         for (let element of this.data.elements) {
             if(element.dataset.required === 'true' && element.value.length === 0) {
-                this.addErrorToElement(element, { message:'This field is required' });
+                this.addErrorToElement(element, { message: 'This field is required' });
                 continue;
             }
 
@@ -98,7 +98,6 @@ export const validator = {
     },
 
     validateElement(element, rule) {
-        console.log(element, rule);
         if(rule.required) {
             if(element.value.length === 0) {
                 this.addErrorToElement(element, rule);
@@ -121,7 +120,6 @@ export const validator = {
             }
         }
         if(rule.matchto) {
-            console.log(element.value, rule.matchto.value)
             if(element.value !== rule.matchto.value) {
                 this.addErrorToElement(element, rule);
             } else {
