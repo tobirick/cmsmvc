@@ -33,6 +33,12 @@ export const validator = {
             required: true,
             message: 'Please use minimal 6 characters for your password'
         });
+
+        this.addRule('repeatpassword', {
+            matchto: document.getElementById('passwd'),
+            minlength: 6,
+            message: 'Passwords do not match'
+        });
     },
     
     addRule(name, rules) {
@@ -45,11 +51,12 @@ export const validator = {
     validate(e) {
         e.preventDefault();
         for (let element of this.data.elements) {
+            if(element.dataset.required === 'true' && element.value.length === 0) {
+                this.addErrorToElement(element, { message:'This field is required' });
+                continue;
+            }
+
             for(let rule of this.data.rules) {
-                if(element.dataset.required === 'true' && element.value.length === 0) {
-                    this.addErrorToElement(element, { message:'This field is required' });
-                    continue;
-                }
                 if(element.dataset.valtype === rule.name) {
                     this.validateElement(element, rule);
                 }
@@ -91,6 +98,7 @@ export const validator = {
     },
 
     validateElement(element, rule) {
+        console.log(element, rule);
         if(rule.required) {
             if(element.value.length === 0) {
                 this.addErrorToElement(element, rule);
@@ -107,6 +115,14 @@ export const validator = {
         }
         if(rule.minlength) {
             if(element.value.length < rule.minlength) {
+                this.addErrorToElement(element, rule);
+            } else {
+                this.removeErrorFromElement(element, rule);
+            }
+        }
+        if(rule.matchto) {
+            console.log(element.value, rule.matchto.value)
+            if(element.value !== rule.matchto.value) {
                 this.addErrorToElement(element, rule);
             } else {
                 this.removeErrorFromElement(element, rule);

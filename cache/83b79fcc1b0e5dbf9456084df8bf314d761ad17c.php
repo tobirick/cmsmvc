@@ -13,21 +13,26 @@
             <?php if(isset($error)): ?>
                 <p><?php echo e($error); ?></p>
             <?php endif; ?>
-            <form method="POST" action="/admin/register">
+            <form id="validate-form" method="POST" action="/admin/register">
                 <input name="csrf_token" type="hidden" value="<?php echo e($csrf); ?>">
                 <div class="form-row">
                     <div id="user" class="form-input-icon">
-                        <input class="form-input" placeholder="Name" type="text" name="user[name]">
+                        <input data-required="true" data-valtype="text" class="form-input validate" placeholder="Name" type="text" name="user[name]">
                     </div>
                 </div>
                 <div class="form-row">
                     <div id="email" class="form-input-icon">
-                        <input class="form-input" placeholder="E-Mail" type="email" name="user[email]">
+                        <input data-required="true" data-valtype="email" class="form-input validate" placeholder="E-Mail" type="text" name="user[email]">
                     </div>
                 </div>
                 <div class="form-row">
                     <div id="password" class="form-input-icon">
-                        <input class="form-input" placeholder="Password" type="password" name="user[password]">
+                        <input id="passwd" data-required="true" data-valtype="password" class="form-input validate" placeholder="Password" type="password" name="user[password]">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div id="password" class="form-input-icon">
+                        <input data-required="true" data-valtype="repeatpassword" class="form-input validate" placeholder="Repeat Password" type="password">
                     </div>
                 </div>
                 <button class="button-primary block">Register</button>
