@@ -27,7 +27,7 @@ if(changeLangEl) {
     const currentLang = changeLangEl.value;
     const changeLanguage = (e) => {
         const newLang = changeLangEl.value;
-        const url = '/changelang';
+        const url = '/admin/changelang';
 
         fetch(url, {
             body: JSON.stringify(newLang),

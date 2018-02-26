@@ -1,6 +1,7 @@
 {
     "settings": {
-        "name": "English"
+        "name": "English",
+        "iso": "en"
     },
     "translations": {
         "Welcome back": "Welcome back",
@@ -22,6 +23,11 @@
         "Themes": "Themes",
         "Settings": "Settings",
         "Change Settings": "Change Settings",
-        "Dashboard": "Dashboard"
+        "Dashboard": "Dashboard",
+        "Media": "Media",
+        "Downloads": "Downloads",
+        "Download Manager": "Download Manager",
+        "Media Manager": "Media Manager",
+        "Forms": "Forms"
     }
 }
