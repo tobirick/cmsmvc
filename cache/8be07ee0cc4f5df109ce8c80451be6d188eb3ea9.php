@@ -21,7 +21,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <?php $__currentLoopData = $pages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $page): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php $__currentLoopData = $pagesadmin; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $page): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <tr>
                             <td><?php echo e($page['id']); ?></td>
                             <td><strong><?php echo e($page['name']); ?></strong><br><span class="light-text smaller-text">/<?php echo e($page['slug']); ?></span></td>
@@ -38,6 +38,8 @@
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </tbody>
                 </table>
+                <?php $__env->startComponent('admin.components.pagination', ['currentpage' => $currentpage, 'numberofpages' => $numberofpages]); ?>
+                <?php echo $__env->renderComponent(); ?>
             </div>
         </div>
     </div>

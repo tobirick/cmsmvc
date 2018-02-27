@@ -22,7 +22,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                    @foreach($pages as $page)
+                    @foreach($pagesadmin as $page)
                         <tr>
                             <td>{{$page['id']}}</td>
                             <td><strong>{{$page['name']}}</strong><br><span class="light-text smaller-text">/{{$page['slug']}}</span></td>
@@ -39,6 +39,8 @@
                     @endforeach
                     </tbody>
                 </table>
+                @component('admin.components.pagination', ['currentpage' => $currentpage, 'numberofpages' => $numberofpages])
+                @endcomponent
             </div>
         </div>
     </div>

@@ -1,5 +1,5 @@
 <ul class="main-sidebar__nav">
-    @if($user)
+    @if(isset($user) && $user)
         <li class="main-sidebar__nav-item {{checkIfNavItemIsActive('dashboard') ? 'active' : ''}}">
             <a class="main-sidebar__nav-item-link" href="/{{$curLang}}/admin/dashboard">
                 <i class="fa fa-tachometer" aria-hidden="true"></i> 
@@ -36,7 +36,7 @@
                     </a>    
                 </li>
                 <li class="main-sidebar__sub-nav-item">
-                    <a class="main-sidebar__sub-nav-item-link" href="/{{$curLang}}/admin/downloads/categories/create">
+                    <a class="main-sidebar__sub-nav-item-link" href="/{{$curLang}}/admin/downloads/create">
                         <span>{{$lang['New Download']}}</span>
                     </a>    
                 </li>

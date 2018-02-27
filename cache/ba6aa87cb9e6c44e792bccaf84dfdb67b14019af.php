@@ -1,5 +1,5 @@
 <ul class="main-sidebar__nav">
-    <?php if($user): ?>
+    <?php if(isset($user) && $user): ?>
         <li class="main-sidebar__nav-item <?php echo e(checkIfNavItemIsActive('dashboard') ? 'active' : ''); ?>">
             <a class="main-sidebar__nav-item-link" href="/<?php echo e($curLang); ?>/admin/dashboard">
                 <i class="fa fa-tachometer" aria-hidden="true"></i> 
@@ -36,7 +36,7 @@
                     </a>    
                 </li>
                 <li class="main-sidebar__sub-nav-item">
-                    <a class="main-sidebar__sub-nav-item-link" href="/<?php echo e($curLang); ?>/admin/downloads/categories/create">
+                    <a class="main-sidebar__sub-nav-item-link" href="/<?php echo e($curLang); ?>/admin/downloads/create">
                         <span><?php echo e($lang['New Download']); ?></span>
                     </a>    
                 </li>

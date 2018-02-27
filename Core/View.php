@@ -13,7 +13,7 @@ class View {
         if($share) {
             self::share($share);
         }
-
+        
         echo $this->blade->view()->make($template, $args)->render();
     }
 

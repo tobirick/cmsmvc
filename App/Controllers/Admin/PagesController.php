@@ -7,11 +7,18 @@ use \App\Models\DefaultPage;
 use \Core\CSRF;
 
 class PagesController extends BaseController {
-    public function index() {
+    public function index($params) {
+        $pageNumber = isset($_GET['p']) ? $_GET['p'] : 1;
+        $numberOfPagesPerPage = 3;
+        $numberOfPages = round(DefaultPage::countPages() / $numberOfPagesPerPage);
+
         // TODO: Get all Pages from Database
-        $pages = DefaultPage::getAllPages();
+        $pagesadmin = DefaultPage::getAllPages($pageNumber, $numberOfPagesPerPage);
         self::render('admin/pages/index', [
-            'pages' => $pages
+            'pagesadmin' => $pagesadmin,
+            'currentpage' => $pageNumber,
+            'numberofpages' => $numberOfPages,
+            'numberofpagesperpage' => $numberOfPagesPerPage
         ]);
     }
 

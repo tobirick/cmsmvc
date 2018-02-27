@@ -38,13 +38,26 @@ class DefaultPage extends Model {
         }
     }
 
-    public static function getAllPages() {
+    public static function getAllPages($pageNumber = 1, $numberOfPagesPerPage = 9999) {
         $db = static::getDB();
-        $stmt = $db->prepare('SELECT * FROM pages');
-        $stmt->execute();
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt = $db->prepare('SELECT * FROM pages LIMIT :numberOfPagesPerPage OFFSET :offset');
+        $stmt->bindValue(':numberOfPagesPerPage', $numberOfPagesPerPage, \PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $numberOfPagesPerPage * ($pageNumber - 1), \PDO::PARAM_INT);
 
+        $stmt->execute();
+
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result;
+    }
+
+    public static function countPages() {
+        $db = static::getDB();
+        $stmt = $db->prepare('SELECT COUNT(*) as numberofpages FROM pages');
+
+        $stmt->execute();
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['numberofpages'];
     }
 
     public function addPage($page) {

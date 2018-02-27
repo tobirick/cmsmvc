@@ -55,7 +55,7 @@
             & .main-sidebar__sub-nav {
                 opacity: 1;
                 transform: scaleY(1);
-                height: auto;
+                max-height: 50rem;
                 visibility: visible;
             }
         }
@@ -85,7 +85,7 @@
         list-style-type: none;
         visibility: hidden;
         opacity: 0;
-        height: 0;
+        max-height: 0;
         transform: scaleY(0);    
         transform-origin: top;
         background-color: #fff;
