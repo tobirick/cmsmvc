@@ -38,8 +38,7 @@
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </tbody>
                 </table>
-                <?php $__env->startComponent('admin.components.pagination', ['currentpage' => $currentpage, 'numberofpages' => $numberofpages]); ?>
-                <?php echo $__env->renderComponent(); ?>
+                <?php $__env->startComponent('admin.components.pagination', ['currentpage' => $currentpage, 'numberofpages' => $numberofpages]); ?><?php echo $__env->renderComponent(); ?>
             </div>
         </div>
     </div>

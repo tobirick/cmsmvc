@@ -1,30 +1,14 @@
-#fixed-sidebar {
-    position: fixed;
-    display: flex;
-    flex-direction: column;
-    width: 26%;
-}
-
-.admin-grid-list-item {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-bottom: 1rem;
-
-    &__number {
-        flex: 0 0 85%;
-        border: 1px dashed #d6d6d6;
-        text-align: center;
-        padding: 0.5rem 0;
+.admin-draggable-cols {
+    & > div > div {
+        display: flex;
+        width: 100%;
     }
 
-    &__icon {
-        flex: 0 0 15%;
-        text-align: right;
+    & .admin-grid-col {
         cursor: move;
 
-        &::before {
-            @include icon('arrows');
+        & > div {
+            text-align: center;
         }
     }
 }
@@ -36,13 +20,13 @@
     display: flex;
     flex-direction: row;
     min-height: 18rem;
-    align-items: center;
     margin-bottom: 3rem;
 
     &__action {
         display: inline-flex;
         flex-direction: column;
         flex: 0 0 7%;
+        max-width: 5rem;
         justify-content: center;
         align-items: center;
         padding: 1rem 0;
@@ -79,18 +63,25 @@
     }
 }
 
-.admin-grid-rows {
+.admin-grid-rows-wrapper {
     flex: 0 0 93%;
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    & .admin-grid-rows {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
 }
 
 .admin-grid__add-row {
     align-items: center;
-    display: flex;
-    width: 94%;
-    margin: 0 auto;
+    display: inline-flex;
+    margin-left: 2rem;
+    margin-right: auto;
 }
 
 .admin-grid__add-row, .admin-grid__add-section {
@@ -116,6 +107,7 @@
         display: inline-flex;
         flex-direction: column;
         flex: 0 0 7%;
+        max-width: 5rem;
         justify-content: center;
         align-items: center;
         padding: 1rem 0;
@@ -154,6 +146,11 @@
 .admin-grid-cols {
     width: 88%;
     margin: 0 auto;
+
+    & > div {
+        width: 100%;
+        display: flex;
+    }
 }
 
 .admin-grid-col {
@@ -170,6 +167,7 @@
     flex-direction: row;
     margin: 1.2rem auto;
     padding: 2rem;
+    cursor: pointer;
 
     & i {
         padding-right: 1rem;

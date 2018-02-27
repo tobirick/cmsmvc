@@ -8,14 +8,16 @@ use \Core\CSRF;
 
 class PagebuilderController extends BaseController {
     public function index() {
-        //TODO: Get all pagebuilders
-        self::render('admin/pagebuilder/index');
+        $pagebuilderitems = Pagebuilder::getAllItems();
+        self::render('admin/pagebuilder/index', [
+            'pagebuilderitems' => $pagebuilderitems
+        ]);
     }
 
     public function edit($params) {
         $id = $params['params']['id'];
-        // TODO: Get pagebuilder item by id
-        self::render('admin/pagebuilder/edit');
+        $item = Pagebuilder::getItemById($id);
+        self::render('admin/pagebuilder/edit', $item);
     }
 
     public function create() {
@@ -43,12 +45,12 @@ class PagebuilderController extends BaseController {
     }
 
     public function delete($params) {
-        // TODO: delete pagebuilder item
+        Pagebuilder::deleteItem($params['params']['id']);
         self::redirect('/admin/pagebuilder');
     }
 
     public function update($params, $post) {
-        // TODO: Update pagebuilder item
-        self::redirect('/admin/pagebuilder/' . $params['params']['id'] . '/edit' );
+        Pagebuilder::updateItem($params['params']['id'], $post['item']);
+        self::redirect('/admin/pagebuilder');
     }
 }

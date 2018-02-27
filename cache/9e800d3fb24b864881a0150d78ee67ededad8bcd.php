@@ -21,7 +21,13 @@
                               <input placeholder="Name" class="form-input" type="text" name="item[name]">
                          </div>
                          <div class="form-row">
-                             <textarea data-bind="value: html, froala: html, froalaOptions: options" id="pagebuilder-content" placeholder="Content" class="form-input" name="item[content]"></textarea>
+                             <textarea placeholder="Content" class="form-input" name="item[content]"></textarea>
+                        </div>
+                        <div class="form-row">
+                             <input placeholder="Type" class="form-input" name="item[type]">
+                        </div>
+                        <div class="form-row">
+                             <input placeholder="Description" class="form-input" name="item[description]">
                         </div>
                     </form>
                 </div>

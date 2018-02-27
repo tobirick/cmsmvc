@@ -4,6 +4,7 @@ import { validator } from './validate';
 import Sidebar from './admin-sidebar';
 import Form from './admin-form';
 import MenuListMainViewModel from './VM/MenuListItems/MenuListMainViewModel';
+import PagebuilderMainViewModel from './VM/Pagebuilder/PagebuilderMainViewModel';
 
 validator.init('#validate-form');
 validator.addBasicRules();
@@ -20,6 +21,16 @@ if(pathName.includes('/admin/menus/')) {
     }
     ko.applyBindings(menuListMainViewModel);
 }
+
+// Pagebuilder
+if(pathName.includes('/admin/pages/')) {
+    const pagebuilderMainViewModel = new PagebuilderMainViewModel();
+    ko.bindingHandlers.sortable.afterMove = (args) => {
+        pagebuilderMainViewModel.generateHTML();
+    }
+    ko.applyBindings(pagebuilderMainViewModel);
+}
+
 
 //Languages
 const changeLangEl = document.getElementById('langChange');

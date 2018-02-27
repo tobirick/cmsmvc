@@ -39,8 +39,7 @@
                     @endforeach
                     </tbody>
                 </table>
-                @component('admin.components.pagination', ['currentpage' => $currentpage, 'numberofpages' => $numberofpages])
-                @endcomponent
+                @component('admin.components.pagination', ['currentpage' => $currentpage, 'numberofpages' => $numberofpages])@endcomponent
             </div>
         </div>
     </div>
