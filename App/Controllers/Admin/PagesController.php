@@ -4,7 +4,6 @@ namespace App\Controllers\Admin;
 
 use \Core\BaseController;
 use \App\Models\DefaultPage;
-use \App\Models\Pagebuilder;
 use \Core\CSRF;
 
 class PagesController extends BaseController {
@@ -33,10 +32,8 @@ class PagesController extends BaseController {
     public function edit($params) {
         $id = $params['params']['id'];
         $page = DefaultPage::getPageById($id);
-        $pagebuilderitems = Pagebuilder::getAllItems();
         self::render('admin/pages/edit', [
-            'page' => $page,
-            'pagebuilderitems' => $pagebuilderitems
+            'page' => $page
         ]);
     }
 

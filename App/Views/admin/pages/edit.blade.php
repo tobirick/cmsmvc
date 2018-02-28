@@ -42,7 +42,7 @@
             <div class="admin-box">
                 <h3 class="admin-box__title">Grid</h3>
                 <div data-bind="foreach: possibleColumns" class="admin-draggable-cols">
-                    <div data-bind="draggable: {data: $data}">
+                    <div data-bind="draggable: {data: $data, connectClass: 'admin-grid-cols'}">
                         <div data-bind="foreach: $parent.columns">
                             <div data-bind="css: 'col-'+col()">
                                 <div class="admin-grid-col">
@@ -66,16 +66,14 @@
         <div class="col-3">
             <div class="admin-box">
                 <h3 class="admin-box__title">Elements</h3>
-                <div class="row">
-                    @foreach($pagebuilderitems as $pagebuilderitem)
-                        <div class="col-6">
-                            <div data-pagebuilderid="{{$pagebuilderitem['id']}}" class="admin-element-list-item">
-                                <span class="admin-element-list-item__name">{{$pagebuilderitem['name']}}</span>
-                                <span class="admin-element-list-item__type">{{$pagebuilderitem['type']}}</span>
-                                <span class="admin-element-list-item__desc">{{$pagebuilderitem['description']}}</span>
-                            </div>
+                <div data-bind="foreach: elements" class="row">
+                    <div class="col-6">
+                        <div data-bind="draggable: {data: $data}" class="admin-element-list-item">
+                            <span data-bind="text: name" class="admin-element-list-item__name"></span>
+                            <span data-bind="text: type" class="admin-element-list-item__type"></span>
+                            <span data-bind="text: description" class="admin-element-list-item__desc"></span>
                         </div>
-                    @endforeach
+                    </div>
                 </div>
             </div>
         </div>

@@ -2,7 +2,9 @@ import ko from 'knockout';
 
 export default class PagebuilderElementModel {
     constructor(data) {
-        this.html = ko.observable(data.html);
+        for(let key in data) {
+            this[key] = ko.observable(data[key]);
+        }
     }
 
     updateHTML = (data) => {

@@ -4,18 +4,24 @@ import PagebuilderElementModel from './PagebuilderElementModel';
 export default class PagebuilderColumnModel {
     constructor(data) {
         this.col = ko.observable(data);
-        this.setDefaults();
-        this.element = ko.observable(new PagebuilderElementModel(this.defaultElement));
+        this.element = ko.observable(null);
+        this.elementSelected = ko.observable(false);
     }
 
-    setDefaults() {
-        this.defaultElement = {
-            html: 'heyo was geht'
-        };
+    setElement = (element) => {
+        if(!this.elementSelected() && element instanceof PagebuilderElementModel) {
+            console.log(element);
+            this.element(element);
+            this.elementSelected(true);
+        }
     }
 
-    setElement = () => {
-        console.log(ko.toJS(this));
-        console.log('chose html element');
+    openSettings() {
+        console.log('open settings for column');
+    }
+
+    deleteElement = () => {
+        this.element(null);
+        this.elementSelected(false);
     }
 }

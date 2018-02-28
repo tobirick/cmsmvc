@@ -26,7 +26,9 @@ if(pathName.includes('/admin/menus/')) {
 if(pathName.includes('/admin/pages/')) {
     const pagebuilderMainViewModel = new PagebuilderMainViewModel();
     ko.bindingHandlers.sortable.afterMove = (args) => {
+        console.log(ko.toJS(pagebuilderMainViewModel.sections));
         pagebuilderMainViewModel.generateHTML();
+        pagebuilderMainViewModel.setPossibleColumns();
     }
     ko.applyBindings(pagebuilderMainViewModel);
 }

@@ -166,10 +166,46 @@
     height: 4rem;
     flex-direction: row;
     margin: 1.2rem auto;
-    padding: 2rem;
     cursor: pointer;
 
-    & i {
+    & > div {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+    }
+
+    & i.fa.fa-plus {
         padding-right: 1rem;
+    }
+}
+
+.admin-grid-element-wrapper {
+    display: none;
+}
+
+.admin-grid-element {
+    background-color: #4B5966;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+
+    &__name {
+        color: #fff;
+    }
+
+    &__button {
+        background-color: transparent;
+        border: none;
+        padding: 0 0.5rem;
+
+        & i {
+            font-size: 2rem;
+        }
     }
 }

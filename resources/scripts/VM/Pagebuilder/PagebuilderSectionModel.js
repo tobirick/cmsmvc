@@ -8,6 +8,7 @@ export default class PagebuilderSectionModel {
         this.addRow();
         
         this.deleteSection = delegates.deleteSection;
+        this.cloneSection = delegates.cloneSection;
     }
 
     setDefaults() {
@@ -20,9 +21,18 @@ export default class PagebuilderSectionModel {
         this.rows.remove(row);
     }
 
+    cloneRow = (row) => {
+        console.log('clone row');
+    }
+
+    openSettings() {
+        console.log('open settings for section');
+    }
+
     addRow() {
         this.rows.push(new PagebuilderRowModel(this.defaultRow, {
-            deleteRow: this.deleteRow
+            deleteRow: this.deleteRow,
+            cloneRow: this.cloneRow
         }));
         this.setDefaults();
     }

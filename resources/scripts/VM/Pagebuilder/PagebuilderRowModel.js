@@ -8,12 +8,17 @@ export default class PagebuilderRowModel {
         this.addElement();
 
         this.deleteRow = delegates.deleteRow;
+        this.cloneRow = delegates.cloneRow;
     }
 
     setDefaults() {
         this.defaultColumnRow = {
             columns: ['12']
         };
+    }
+
+    openSettings() {
+        console.log('open settings for row');
     }
 
     addElement() {

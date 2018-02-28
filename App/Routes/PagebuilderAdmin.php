@@ -8,3 +8,6 @@ $router->map('GET', $langString . '/admin/pagebuilder/[i:id]/edit', requireLogin
 
 $router->map('POST', '/admin/pagebuilder', requireLogin('Admin\PagebuilderController@store'));
 $router->map('POST', '/admin/pagebuilder/[i:id]', requireLogin('Admin\PagebuilderController@updatedestroy'));
+
+// Knockout
+$router->map('POST', '/pagebuilder/items', requireLogin('Admin\PagebuilderController@getAllPagebuilderItems'));

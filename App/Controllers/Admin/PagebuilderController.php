@@ -53,4 +53,11 @@ class PagebuilderController extends BaseController {
         Pagebuilder::updateItem($params['params']['id'], $post['item']);
         self::redirect('/admin/pagebuilder');
     }
+
+    public function getAllPagebuilderItems() {
+        $pagebuilderitems = Pagebuilder::getAllItems();
+
+        header('Content-type: application/json');
+        echo json_encode($pagebuilderitems);
+    }
 }
