@@ -1,4 +1,51 @@
+.admin-draggable-cols-wrapper {
+    position: fixed;
+    display: flex;
+    top: 50%;
+    right: 0;
+    height: 100%;
+    width: 45%;
+    z-index: 9;
+    align-items: center;
+    justify-content: flex-end;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    overflow: hidden;
+    transform: translate(96%, -50%);
+    @include transition(.4s ease-in transform);
+
+    &.active {
+        transform: translate(0, -50%);
+    }
+
+    & .admin-box {
+        margin-bottom: 0;
+        width: 100%;
+        border-top-left-radius: 3px;
+        border-bottom-left-radius: 3px;
+        padding-left: 3.5rem;
+
+        &__toggle {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            color: #fff;
+            width: 4%;
+            display: flex;
+            background-color: #4a4a4a;
+            cursor: pointer;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+}
+
 .admin-draggable-cols {
+    & .ui-draggable {
+        z-index: 9;
+    }
+    
     & > div > div {
         display: flex;
         width: 100%;
@@ -207,5 +254,23 @@
         & i {
             font-size: 2rem;
         }
+    }
+}
+
+.admin-element-list-item {
+    border-radius: 3px;
+    background-color: #F0F0F0;
+    padding: 0.75rem 0.5rem;
+    display: flex;
+    align-items: center;
+    cursor: move;
+
+    &__type {
+        margin: 0 0.75rem 0 0.5rem;
+        font-size: 2.2rem;
+    }
+
+    &__name {
+
     }
 }

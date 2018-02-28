@@ -1,5 +1,7 @@
 import ko from 'knockout';
 import { validator } from './validate';
+import $ from 'jquery';
+import 'jquery-ui';
 
 import Sidebar from './admin-sidebar';
 import Form from './admin-form';
@@ -62,3 +64,27 @@ if(changeLangEl) {
     }
     changeLangEl.addEventListener('change', changeLanguage);
 }
+
+// Toggle Admin box
+const toggleAdminBoxEl = document.querySelector('.admin-box__toggle');
+const adminBoxWrapperEl = document.querySelector('.admin-draggable-cols-wrapper');
+
+const toggleAdminBox = () => {
+    adminBoxWrapperEl.classList.toggle('active');
+}
+
+const closeAdminBox = (e) => {
+    if(e.target != adminBoxWrapperEl) {
+        console.log('close');
+        adminBoxWrapperEl.classList.remove('active');
+    }
+}
+
+toggleAdminBoxEl.addEventListener('click', toggleAdminBox);
+//document.querySelector('body').addEventListener('click', closeAdminBox)
+
+$( ".admin-draggable-cols-wrapper .admin-box" ).draggable({ 
+    axis: "y",
+    containment: 'parent'
+});
+

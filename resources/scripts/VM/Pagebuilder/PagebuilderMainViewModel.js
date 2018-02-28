@@ -10,6 +10,7 @@ export default class PagebuilderMainViewModel {
     constructor() {
         this.html = ko.observable('');
         this.possibleColumns = ko.observableArray([]);
+        this.pageID = 7;
         this.setPossibleColumns();
         this.setDefaults();
 
