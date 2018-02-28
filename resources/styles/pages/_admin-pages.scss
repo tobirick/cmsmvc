@@ -41,11 +41,19 @@
     }
 }
 
-.admin-draggable-cols {
-    & .ui-draggable {
-        z-index: 9;
+.ui-draggable {
+    z-index: 9999;
+}
+
+.admin-dragged-col {
+    width: auto;
+
+    & > div {
+        display: inline-flex;
     }
-    
+}
+
+.admin-draggable-cols {    
     & > div > div {
         display: flex;
         width: 100%;
@@ -210,7 +218,7 @@
     color: lighten($default-text-color, 20%);
     justify-content: center;
     align-items: center;
-    height: 4rem;
+    min-height: 4rem;
     flex-direction: row;
     margin: 1.2rem auto;
     cursor: pointer;
@@ -225,7 +233,7 @@
     }
 
     & i.fa.fa-plus {
-        padding-right: 1rem;
+        padding: 0 0.5rem;
     }
 }
 

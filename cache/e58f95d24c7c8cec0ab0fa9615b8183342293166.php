@@ -18,7 +18,7 @@
                 <div class="admin-box__toggle"><i class="fa fa-chevron-left"></i></div>
                 <h3 class="admin-box__title">Grid</h3>
                 <div data-bind="foreach: possibleColumns" class="admin-draggable-cols">
-                    <div data-bind="draggable: {data: $data, connectClass: 'admin-grid-cols', options: {helper: 'clone', appendTo: 'body', greedy: true}}">
+                    <div class="admin-dragged-col" data-bind="draggable: {data: $data, connectClass: 'admin-grid-cols', options: {helper: 'clone', appendTo: 'body', revert: 'invalid', greedy: true}}">
                         <div data-bind="foreach: $parent.columns">
                             <div data-bind="css: 'col-'+col()">
                                 <div class="admin-grid-col">
