@@ -1,20 +1,34 @@
 import ko from 'knockout';
 import PagebuilderRowModel from './PagebuilderRowModel';
+import PagebuilderHandler from '../../Handlers/PagebuilderHandler';
 
 export default class PagebuilderSectionModel {
     constructor(data, delegates) {
-        this.rows = ko.observableArray(data.rows);
-        this.setDefaults();
-        this.addRow();
+        for(let key in data) {
+            this[key] = ko.observable(data[key]);
+        }
+        this.rows = ko.observableArray([]);
+
+        if(this.id) {
+            this.fetchRows();
+        }
         
         this.deleteSection = delegates.deleteSection;
         this.cloneSection = delegates.cloneSection;
     }
 
-    setDefaults() {
-        this.defaultRow = {
-            columnrows: []
-        };
+    async fetchRows() {
+        const response = await PagebuilderHandler.fetchRows(this.id());
+        
+        response.forEach((row) => {
+            this.rows.push(new PagebuilderRowModel({
+            ...row
+        }, 
+        {
+            deleteRow: this.deleteRow,
+            cloneRow: this.cloneRow
+        }));
+        });
     }
 
     deleteRow = (row) => {
@@ -30,10 +44,10 @@ export default class PagebuilderSectionModel {
     }
 
     addRow() {
-        this.rows.push(new PagebuilderRowModel(this.defaultRow, {
+        this.rows.push(new PagebuilderRowModel({}, 
+        {
             deleteRow: this.deleteRow,
             cloneRow: this.cloneRow
         }));
-        this.setDefaults();
     }
 }

@@ -1,15 +1,72 @@
 const PagebuilderHandler = {};
 
-PagebuilderHandler.loadPagebuilderElements = async function() {
+PagebuilderHandler.loadPagebuilderElements = async function(data) {
     const url = `/pagebuilder/items`;
-    const response = await fetch(url, {
-        method: 'POST',
-        credentials: 'include'
-    });
+    return fetch(url, {
+        body: JSON.stringify(data),
+        headers: {
+            'content-type': 'application/json'
+        },
+        credentials: 'include',
+        method: 'POST'
+    })
+        .then(response => response.json())
+        .then(data => data);
+}
 
-    const data = await response.json();
+PagebuilderHandler.savePagebuilder = async function(data) {
+    console.log(data);
+    const url = `/pagebuilder`;
+    return fetch(url, {
+        body: JSON.stringify(data),
+        headers: {
+            'content-type': 'application/json'
+        },
+        credentials: 'include',
+        method: 'POST'
+    })
+        .then(response => response.json())
+        .then(data => data);
+}
 
-    return data;
+PagebuilderHandler.fetchSections = async function(pageID) {
+    const url = `/pages/${pageID}/pagebuilder/sections`;
+    return fetch(url, {
+        credentials: 'include',
+        method: 'GET'
+    })
+        .then(response => response.json())
+        .then(data => data);
+}
+
+PagebuilderHandler.fetchRows = async function(sectionID) {
+    const url = `/pages/pagebuilder/sections/${sectionID}/rows`;
+    return fetch(url, {
+        credentials: 'include',
+        method: 'GET'
+    })
+        .then(response => response.json())
+        .then(data => data);
+}
+
+PagebuilderHandler.fetchColumnRows = async function(rowID) {
+    const url = `/pages/pagebuilder/sections/rows/${rowID}/columnrows`;
+    return fetch(url, {
+        credentials: 'include',
+        method: 'GET'
+    })
+        .then(response => response.json())
+        .then(data => data);
+}
+
+PagebuilderHandler.fetchColumns = async function(columnRowID) {
+    const url = `/pages/pagebuilder/sections/rows/columnrows/${columnRowID}/columns`;
+    return fetch(url, {
+        credentials: 'include',
+        method: 'GET'
+    })
+        .then(response => response.json())
+        .then(data => data);
 }
 
 export default PagebuilderHandler;

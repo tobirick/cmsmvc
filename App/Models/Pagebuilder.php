@@ -73,4 +73,128 @@ class Pagebuilder extends Model {
         $path = __DIR__ . '/../Views/admin/pagebuilder-items/' . $item['name'] . '.blade.php';
         file_put_contents($path, $item['content']);
     }
+
+    public static function getSectionsByPageID($pageID) {
+        $db = static::getDB();
+        $stmt = $db->prepare('SELECT * FROM pagebuilder_sections WHERE page_id = :page_id');
+        $stmt->execute([
+            ':page_id' => $pageID
+        ]);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
+    public static function getRowsBySectionID($sectionID) {
+        $db = static::getDB();
+        $stmt = $db->prepare('SELECT * FROM pagebuilder_rows WHERE section_id = :section_id');
+        $stmt->execute([
+            ':section_id' => $sectionID
+        ]);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
+    public static function getColumnRowsByRowID($rowID) {
+        $db = static::getDB();
+        $stmt = $db->prepare('SELECT * FROM pagebuilder_columnrows WHERE row_id = :row_id');
+        $stmt->execute([
+            ':row_id' => $rowID
+        ]);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
+    public static function getColumnsByColumnRowID($columnRowID) {
+        $db = static::getDB();
+        $stmt = $db->prepare('SELECT * FROM pagebuilder_columns WHERE columnrow_id = :columnrow_id');
+        $stmt->execute([
+            ':columnrow_id' => $columnRowID
+        ]);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
+    public static function saveSection($pageID, $section) {
+        $db = static::getDB();
+        $stmt = $db->prepare('INSERT INTO pagebuilder_sections (page_id) VALUES(:page_id)');
+        $stmt->execute([
+            ':page_id' => $pageID
+            ]);
+
+        $lastID = $db->lastInsertId();
+        return $lastID;
+    }
+
+    public static function saveRow($pageID, $sectionID, $row) {
+        $db = static::getDB();
+        $stmt = $db->prepare('INSERT INTO pagebuilder_rows (section_id, page_id) VALUES(:section_id, :page_id)');
+        $stmt->execute([
+            ':page_id' => $pageID,
+            ':section_id' => $sectionID
+            ]);
+
+        $lastID = $db->lastInsertId();
+        return $lastID;
+    }
+
+    public static function saveColumnRow($pageID, $rowID, $columnrow) {
+        $db = static::getDB();
+        $stmt = $db->prepare('INSERT INTO pagebuilder_columnrows (row_id, page_id) VALUES(:row_id, :page_id)');
+        $stmt->execute([
+            ':page_id' => $pageID,
+            ':row_id' => $rowID
+            ]);
+
+        $lastID = $db->lastInsertId();
+        return $lastID;
+    }
+
+    public static function saveColumn($pageID, $columnRowID, $column) {
+        $db = static::getDB();
+        $stmt = $db->prepare('INSERT INTO pagebuilder_columns (columnrow_id, col, page_id) VALUES(:columnrow_id, :col, :page_id)');
+        $stmt->execute([
+            ':page_id' => $pageID,
+            ':columnrow_id' => $columnRowID,
+            ':col' => $column['col']
+            ]);
+
+        $lastID = $db->lastInsertId();
+        return $lastID;
+    }
+
+    public static function deleteSectionsByPageID($pageID) {
+        $db = static::getDB();
+        $stmt = $db->prepare('DELETE FROM pagebuilder_sections WHERE page_id = :page_id');
+        $stmt->execute([
+            ':page_id' => $pageID
+        ]);
+    }
+
+    public static function deleteRowsByPageID($pageID) {
+        $db = static::getDB();
+        $stmt = $db->prepare('DELETE FROM pagebuilder_rows WHERE page_id = :page_id');
+        $stmt->execute([
+            ':page_id' => $pageID
+        ]);
+    }
+
+    public static function deleteColumnRowsByPageID($pageID) {
+        $db = static::getDB();
+        $stmt = $db->prepare('DELETE FROM pagebuilder_columnrows WHERE page_id = :page_id');
+        $stmt->execute([
+            ':page_id' => $pageID
+        ]);
+    }
+
+    public static function deleteColumnsByPageID($pageID) {
+        $db = static::getDB();
+        $stmt = $db->prepare('DELETE FROM pagebuilder_columns WHERE page_id = :page_id');
+        $stmt->execute([
+            ':page_id' => $pageID
+        ]);
+    }
 }

@@ -55,9 +55,85 @@ class PagebuilderController extends BaseController {
     }
 
     public function getAllPagebuilderItems() {
-        $pagebuilderitems = Pagebuilder::getAllItems();
+        $content = trim(file_get_contents("php://input"));
+        $decoded = json_decode($content, true);
+
+        CSRF::checkTokenAjax($decoded['csrf_token']);
+
+        $pagebuilderItems = Pagebuilder::getAllItems();
 
         header('Content-type: application/json');
-        echo json_encode($pagebuilderitems);
+        $data = [];
+        $data['pagebuilderItems'] = $pagebuilderItems;
+        $data['csrfToken'] = CSRF::getToken();
+
+        echo json_encode($data);
+    }
+
+    public function savePagebuilder() {
+        $content = trim(file_get_contents("php://input"));
+        $decoded = json_decode($content, true);
+
+        CSRF::checkTokenAjax($decoded['csrf_token']);
+        $sections = $decoded['sections'];
+
+        Pagebuilder::deleteSectionsByPageID($decoded['page_id']);
+        Pagebuilder::deleteRowsByPageID($decoded['page_id']);
+        Pagebuilder::deleteColumnRowsByPageID($decoded['page_id']);
+        Pagebuilder::deleteColumnsByPageID($decoded['page_id']);
+
+        foreach($sections as $key => $section) {
+            $sectionID = Pagebuilder::saveSection($decoded['page_id'], $section);
+
+            foreach($section['rows'] as $key2 => $row) {
+                $rowID = Pagebuilder::saveRow($decoded['page_id'], $sectionID, $row);
+
+                foreach($row['columnrows'] as $key3 => $columnrow) {
+                    $columndRowID = Pagebuilder::saveColumnRow($decoded['page_id'], $rowID, $columnrow);
+
+                    foreach($columnrow['columns'] as $key4 => $column) {
+                        $columnID = Pagebuilder::saveColumn($decoded['page_id'], $columndRowID, $column);
+                    }
+                }
+            }
+        }
+
+        header('Content-type: application/json');
+        $data = [];
+        $data['csrfToken'] = CSRF::getToken();
+
+        echo json_encode($data);
+    }
+
+    public function getSectionsByPageID($params) {
+        $pageID = $params['params']['pageid'];
+        $sections = Pagebuilder::getSectionsByPageID($pageID);
+        
+        header('Content-type: application/json');
+        echo json_encode($sections);
+    }
+
+    public function getRowsBySectionID($params) {
+        $sectionID = $params['params']['sectionid'];
+        $rows = Pagebuilder::getRowsBySectionID($sectionID);
+        
+        header('Content-type: application/json');
+        echo json_encode($rows);
+    }
+
+    public function getColumnRowsByRowID($params) {
+        $rowID = $params['params']['rowid'];
+        $columnrows = Pagebuilder::getColumnRowsByRowID($rowID);
+        
+        header('Content-type: application/json');
+        echo json_encode($columnrows);
+    }
+
+    public function getColumnsByColumnRowID($params) {
+        $columnRowID = $params['params']['columnrowid'];
+        $columns = Pagebuilder::getColumnsByColumnRowID($columnRowID);
+        
+        header('Content-type: application/json');
+        echo json_encode($columns);
     }
 }

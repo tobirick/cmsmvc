@@ -6,14 +6,14 @@
             <button data-bind="click: deleteSection"><i class="fa fa-times"></i></button>
         </div>
     <div class="admin-grid-rows-wrapper">
-        <div class="admin-grid-rows" data-bind="sortable: {data: rows, connectClass: 'admin-grid-rows'}">
+        <div class="admin-grid-rows" data-bind="sortable: {data: rows, connectClass: 'admin-grid-rows', options: {revert: 'invalid'}}">
             <div class="admin-grid-row">
                 <div class="admin-grid-row__action">
                     <button data-bind="click: openSettings"><i class="fa fa-bars"></i></button>
                     <button data-bind="click: cloneRow"><i class="fa fa-clone"></i></button>
                     <button data-bind="click: deleteRow"><i class="fa fa-times"></i></button>
                 </div>
-                <div class="admin-grid-cols" data-bind="sortable: {data: columnrows, connectClass: 'admin-grid-cols'}">
+                <div class="admin-grid-cols" data-bind="sortable: {data: columnrows, connectClass: 'admin-grid-cols', options: {revert: 'invalid'}}">
                     <div data-bind="foreach: columns">
                         <div data-bind="css: 'col-'+col(), droppable: {data: setElement}">
                             <div class="admin-grid-col">

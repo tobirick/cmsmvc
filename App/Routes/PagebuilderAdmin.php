@@ -11,3 +11,10 @@ $router->map('POST', '/admin/pagebuilder/[i:id]', requireLogin('Admin\Pagebuilde
 
 // Knockout
 $router->map('POST', '/pagebuilder/items', requireLogin('Admin\PagebuilderController@getAllPagebuilderItems'));
+
+$router->map('POST', '/pagebuilder', requireLogin('Admin\PagebuilderController@savePagebuilder'));
+
+$router->map('GET', '/pages/[i:pageid]/pagebuilder/sections', requireLogin('Admin\PagebuilderController@getSectionsByPageID'));
+$router->map('GET', '/pages/pagebuilder/sections/[i:sectionid]/rows', requireLogin('Admin\PagebuilderController@getRowsBySectionID'));
+$router->map('GET', '/pages/pagebuilder/sections/rows/[i:rowid]/columnrows', requireLogin('Admin\PagebuilderController@getColumnRowsByRowID'));
+$router->map('GET', '/pages/pagebuilder/sections/rows/columnrows/[i:columnrowid]/columns', requireLogin('Admin\PagebuilderController@getColumnsByColumnRowID'));

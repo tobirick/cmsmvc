@@ -1,28 +1,36 @@
 import ko from 'knockout';
 import PagebuilderColumnRowModel from './PagebuilderColumnRowModel';
+import PagebuilderHandler from '../../Handlers/PagebuilderHandler';
 
 export default class PagebuilderRowModel {
     constructor(data, delegates) {
-        this.columnrows = ko.observableArray(data.columnrow);
-        this.setDefaults();
-        this.addElement();
+        for(let key in data) {
+            this[key] = ko.observable(data[key]);
+        }
+        this.columnrows = ko.observableArray([]);
+        if(this.id) {
+         this.fetchColumnRows();
+        }
 
         this.deleteRow = delegates.deleteRow;
         this.cloneRow = delegates.cloneRow;
     }
 
-    setDefaults() {
-        this.defaultColumnRow = {
-            columns: ['12']
-        };
+    async fetchColumnRows() {
+        const response = await PagebuilderHandler.fetchColumnRows(this.id());
+        
+        response.forEach((columnrow) => {
+            this.columnrows.push(new PagebuilderColumnRowModel({
+                ...columnrow
+            }));
+        });
     }
 
     openSettings() {
         console.log('open settings for row');
     }
 
-    addElement() {
-        this.columnrows.push(new PagebuilderColumnRowModel(this.defaultColumnRow));
-        this.setDefaults();
+    addColumnRow() {
+        this.columnrows.push(new PagebuilderColumnRowModel({}));
     }
 }

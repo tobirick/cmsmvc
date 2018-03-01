@@ -218,7 +218,7 @@
     color: lighten($default-text-color, 20%);
     justify-content: center;
     align-items: center;
-    min-height: 4rem;
+    min-height: 3.5rem;
     flex-direction: row;
     margin: 1.2rem auto;
     cursor: pointer;
@@ -230,6 +230,7 @@
         text-align: center;
         justify-content: center;
         align-items: center;
+        min-height: 3.5rem;
     }
 
     & i.fa.fa-plus {
@@ -249,6 +250,7 @@
     justify-content: space-between;
     align-items: center;
     flex-direction: row;
+    min-height: 3.5rem;
 
     &__name {
         color: #fff;

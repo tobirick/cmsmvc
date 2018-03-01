@@ -13,8 +13,7 @@
         <a id="submit-form-btn" href="#" class="button-primary">{{$lang['Save']}}</a>
     @endslot
 @endcomponent
-<div id="content">
-    <div class="admin-draggable-cols-wrapper">
+<div class="admin-draggable-cols-wrapper">
             <div class="admin-box">
                 <div class="admin-box__toggle"><i class="fa fa-chevron-left"></i></div>
                 <h3 class="admin-box__title">Grid</h3>
@@ -31,7 +30,7 @@
                 </div>           
             </div>
     </div>
-        
+<div id="content">    
 <div class="container">
     <div class="row">
 
@@ -64,7 +63,8 @@
 
         <div class="col-8">
             <div class="admin-box">
-                <div class="admin-grid-sections" data-bind="sortable: {data: sections, connectClass: 'admin-grid-sections'}">
+                <span data-bind="click: savetoDB">Save</span>
+                <div class="admin-grid-sections" data-bind="sortable: {data: sections, connectClass: 'admin-grid-sections', options: {revert: 'invalid'}}">
                     @component('admin.components.pagebuilder-section')@endcomponent
                 </div>
                 <span data-bind="click: $root.addSection" class="admin-grid__add-section"><i class="fa fa-plus"></i> Add Section</span>
@@ -75,7 +75,7 @@
                 <h3 class="admin-box__title">Elements</h3>
                 <div data-bind="foreach: elements" class="row">
                     <div class="col-6">
-                        <div data-bind="draggable: {data: $data}" class="admin-element-list-item">
+                        <div data-bind="draggable: {data: $data, options: {revert: 'invalid'}}" class="admin-element-list-item">
                             <span data-bind="css: type" class="admin-element-list-item__type"></span>
                             <span data-bind="text: name" class="admin-element-list-item__name"></span>
                         </div>
