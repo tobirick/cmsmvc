@@ -83,7 +83,7 @@ const closeAdminBox = (e) => {
 toggleAdminBoxEl.addEventListener('click', toggleAdminBox);
 //document.querySelector('body').addEventListener('click', closeAdminBox)
 
-$( ".admin-draggable-cols-wrapper .admin-box" ).draggable({ 
+$( ".admin-draggable-cols-wrapper" ).draggable({ 
     axis: "y",
     containment: 'parent'
 });

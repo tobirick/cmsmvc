@@ -4,6 +4,9 @@
 .hidden { visibility: hidden };
 .visible { visibility: visible };
 
+.fr { float: right };
+.fl {float: left };
+
 @for $i from 1 through 5 {
     .mt-#{$i} {
         margin-top: #{$i}rem;

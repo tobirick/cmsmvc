@@ -62,7 +62,8 @@
 
         <div class="col-8">
             <div class="admin-box">
-                <span data-bind="click: savetoDB">Save</span>
+                <h3 class="admin-box__title">Pagebuilder</h3>
+                <button class="button-primary fr" data-bind="click: savetoDB"><?php echo e($lang['Save']); ?></button>
                 <div class="admin-grid-sections" data-bind="sortable: {data: sections, connectClass: 'admin-grid-sections', options: {revert: 'invalid'}}">
                     <?php $__env->startComponent('admin.components.pagebuilder-section'); ?><?php echo $__env->renderComponent(); ?>
                 </div>

@@ -1,9 +1,9 @@
 .admin-draggable-cols-wrapper {
     position: fixed;
     display: flex;
-    top: 50%;
+    top: 15%;
     right: 0;
-    height: 100%;
+    height: auto;
     width: 45%;
     z-index: 9;
     align-items: center;
@@ -11,11 +11,12 @@
     border-top-left-radius: 3px;
     border-bottom-left-radius: 3px;
     overflow: hidden;
-    transform: translate(96%, -50%);
-    @include transition(.4s ease-in transform);
 
     &.active {
-        transform: translate(0, -50%);
+
+        & .admin-box {
+            transform: translate(0, 0);
+        }
     }
 
     & .admin-box {
@@ -24,6 +25,8 @@
         border-top-left-radius: 3px;
         border-bottom-left-radius: 3px;
         padding-left: 3.5rem;
+        @include transition(.4s ease-in transform);
+        transform: translate(96%, 0);
 
         &__toggle {
             position: absolute;
