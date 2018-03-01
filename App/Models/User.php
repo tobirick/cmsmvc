@@ -41,7 +41,7 @@ class User extends Model {
         }        
     }
 
-    public function startRegister($user) {
+    public static function startRegister($user) {
         if(self::checkIfUserExists($user)) {
             // return error
             return false;
@@ -67,7 +67,7 @@ class User extends Model {
         return false;
     }
 
-    public function startLogin($userInput) {
+    public static function startLogin($userInput) {
         $user = self::checkIfUserExists($userInput);
         if($user) {
             // compare passwords
@@ -107,7 +107,7 @@ class User extends Model {
         session_destroy();
     }
 
-    public function findById($userid) {
+    public static function findById($userid) {
         $sql = 'SELECT * FROM users WHERE id = :id';
         
         $db = static::getDB();

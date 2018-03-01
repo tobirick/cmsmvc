@@ -73,17 +73,9 @@ const toggleAdminBox = () => {
     adminBoxWrapperEl.classList.toggle('active');
 }
 
-const closeAdminBox = (e) => {
-    if(e.target != adminBoxWrapperEl) {
-        console.log('close');
-        adminBoxWrapperEl.classList.remove('active');
-    }
-}
-
 toggleAdminBoxEl.addEventListener('click', toggleAdminBox);
-//document.querySelector('body').addEventListener('click', closeAdminBox)
 
-$( ".admin-box-grid-fixed" ).draggable({ 
+$(".admin-box-grid-fixed").draggable({ 
     axis: "y",
     containment: 'parent'
 });
