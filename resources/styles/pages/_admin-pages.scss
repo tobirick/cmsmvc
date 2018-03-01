@@ -1,46 +1,33 @@
-.admin-draggable-cols-wrapper {
+.admin-box-grid-fixed {
     position: fixed;
-    display: flex;
-    top: 15%;
     right: 0;
-    height: auto;
-    width: 45%;
+    top: 0;
     z-index: 9;
-    align-items: center;
-    justify-content: flex-end;
+    transform: translate(96%, 0);
+    left: auto !important;
+    width: 45%;
+    margin-bottom: 0;
     border-top-left-radius: 3px;
     border-bottom-left-radius: 3px;
-    overflow: hidden;
+    padding-left: 3.5rem;
+    @include transition (.3s ease-in transform);
 
     &.active {
-
-        & .admin-box {
-            transform: translate(0, 0);
-        }
+        transform: translate(0, 0);
     }
 
-    & .admin-box {
-        margin-bottom: 0;
-        width: 100%;
-        border-top-left-radius: 3px;
-        border-bottom-left-radius: 3px;
-        padding-left: 3.5rem;
-        @include transition(.4s ease-in transform);
-        transform: translate(96%, 0);
-
-        &__toggle {
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 100%;
-            color: #fff;
-            width: 4%;
-            display: flex;
-            background-color: #4a4a4a;
-            cursor: pointer;
-            justify-content: center;
-            align-items: center;
-        }
+    & .admin-box__toggle {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        color: #fff;
+        width: 4%;
+        display: flex;
+        background-color: #4a4a4a;
+        cursor: pointer;
+        justify-content: center;
+        align-items: center;
     }
 }
 

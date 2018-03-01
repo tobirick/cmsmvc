@@ -65,8 +65,6 @@ export default class PagebuilderMainViewModel {
             new PagebuilderColumnRowModel({}, ['4', '4', '4']),
             new PagebuilderColumnRowModel({}, ['3', '3', '3', '3'])
         ]);
-
-        console.log(ko.toJS(this.possibleColumns));
     }
 
     async getPageBuilderElements() {

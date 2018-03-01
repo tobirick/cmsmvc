@@ -12,8 +12,7 @@
         <a id="submit-form-btn" href="#" class="button-primary"><?php echo e($lang['Save']); ?></a>
     <?php $__env->endSlot(); ?>
 <?php echo $__env->renderComponent(); ?>
-<div class="admin-draggable-cols-wrapper">
-            <div class="admin-box">
+            <div class="admin-box admin-box-grid-fixed">
                 <div class="admin-box__toggle"><i class="fa fa-chevron-left"></i></div>
                 <h3 class="admin-box__title">Grid</h3>
                 <div data-bind="foreach: possibleColumns" class="admin-draggable-cols">
@@ -28,7 +27,6 @@
                     </div>
                 </div>           
             </div>
-    </div>
 <div id="content">    
 <div class="container">
     <div class="row">

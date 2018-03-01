@@ -67,7 +67,7 @@ if(changeLangEl) {
 
 // Toggle Admin box
 const toggleAdminBoxEl = document.querySelector('.admin-box__toggle');
-const adminBoxWrapperEl = document.querySelector('.admin-draggable-cols-wrapper');
+const adminBoxWrapperEl = document.querySelector('.admin-box-grid-fixed');
 
 const toggleAdminBox = () => {
     adminBoxWrapperEl.classList.toggle('active');
@@ -83,7 +83,7 @@ const closeAdminBox = (e) => {
 toggleAdminBoxEl.addEventListener('click', toggleAdminBox);
 //document.querySelector('body').addEventListener('click', closeAdminBox)
 
-$( ".admin-draggable-cols-wrapper" ).draggable({ 
+$( ".admin-box-grid-fixed" ).draggable({ 
     axis: "y",
     containment: 'parent'
 });
