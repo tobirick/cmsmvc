@@ -40,15 +40,10 @@ export default class PagebuilderSectionModel {
 
       response.forEach(row => {
          this.rows.push(
-            new PagebuilderRowModel(
-               {
-                  ...row
-               },
-               {
-                  deleteRow: this.deleteRow,
-                  cloneRow: this.cloneRow
-               }
-            )
+            new PagebuilderRowModel(row, {
+               deleteRow: this.deleteRow,
+               cloneRow: this.cloneRow
+            })
          );
       });
    }
@@ -58,7 +53,15 @@ export default class PagebuilderSectionModel {
    };
 
    cloneRow = row => {
-      console.log('clone row');
+      this.rows.push(
+         new PagebuilderRowModel(
+            { ...ko.toJS(row) },
+            {
+               deleteRow: this.deleteRow,
+               cloneRow: this.cloneRow
+            }
+         )
+      );
    };
 
    addRow() {
