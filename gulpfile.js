@@ -24,9 +24,9 @@ gulp.task('scripts', function() {
 });
 
 browserSync.init({
-  open: "http://testseite.local:81", // Change with your dev url
-  host: "http://testseite.local:81", // Change with your dev url
-  proxy: "http://testseite.local:81", // Change with your dev url
+  open: "http://localhost", // Change with your dev url
+  host: "http://localhost", // Change with your dev url
+  proxy: "http://localhost", // Change with your dev url
   port: 81,
   notify: false
 });
