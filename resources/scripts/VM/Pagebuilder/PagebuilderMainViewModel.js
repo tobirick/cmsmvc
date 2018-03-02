@@ -2,6 +2,7 @@ import ko from 'knockout';
 import 'knockout-sortable';
 import PagebuilderSectionModel from './PagebuilderSectionModel';
 import PagebuilderColumnRowModel from './PagebuilderColumnRowModel';
+import PagebuilderRowModel from './PagebuilderRowModel';
 import PagebuilderElementModel from './PagebuilderElementModel';
 
 import PagebuilderHandler from '../../Handlers/PagebuilderHandler';
@@ -12,10 +13,15 @@ export default class PagebuilderMainViewModel {
         this.csrfTokenVal = document.getElementById('csrftoken').value;
         this.html = ko.observable('');
         this.possibleColumns = ko.observableArray([]);
-        this.pageID = 7;
+        this.pageID = document.getElementById('pageid').value;
         this.sections = ko.observableArray();
         this.elements = ko.observableArray([]);
 
+        this.popupOpen = ko.observable(false);
+        this.sectionSelected = ko.observable(false);
+        this.rowSelected = ko.observable(false);
+        this.elementSelected = ko.observable(false);
+        
         this.fetchSections();
         this.setPossibleColumns();
 
@@ -26,6 +32,26 @@ export default class PagebuilderMainViewModel {
     updateCSRF(newCsrfToken) {
         this.csrfTokenVal = newCsrfToken;
         this.csrfToken.value = newCsrfToken;
+    }
+
+    openSettings = (data) => {
+        this.popupOpen(true);
+        if(data instanceof PagebuilderSectionModel) {
+            this.sectionSelected(data);
+        }
+        if(data instanceof PagebuilderRowModel) {
+            this.rowSelected(data);
+        }
+        if(data instanceof PagebuilderElementModel) {
+            this.elementSelected(data);
+        }
+    }
+
+    closeSettings = (data) => {
+        this.popupOpen(false);
+        this.sectionSelected(false);
+        this.rowSelected(false);
+        this.elementSelected(false);
     }
 
     async savetoDB() {

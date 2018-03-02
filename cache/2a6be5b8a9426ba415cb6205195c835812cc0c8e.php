@@ -1,7 +1,7 @@
 <div class="row">
     <div class="admin-grid-section">
         <div class="admin-grid-section__action">
-            <button data-bind="click: openSettings"><i class="fa fa-bars"></i></button>
+            <button data-bind="click: $root.openSettings"><i class="fa fa-bars"></i></button>
             <button data-bind="click: cloneSection"><i class="fa fa-clone"></i></button>
             <button data-bind="click: deleteSection"><i class="fa fa-times"></i></button>
         </div>
@@ -9,7 +9,7 @@
         <div class="admin-grid-rows" data-bind="sortable: {data: rows, connectClass: 'admin-grid-rows', options: {revert: 'invalid'}}">
             <div class="admin-grid-row">
                 <div class="admin-grid-row__action">
-                    <button data-bind="click: openSettings"><i class="fa fa-bars"></i></button>
+                    <button data-bind="click: $root.openSettings"><i class="fa fa-bars"></i></button>
                     <button data-bind="click: cloneRow"><i class="fa fa-clone"></i></button>
                     <button data-bind="click: deleteRow"><i class="fa fa-times"></i></button>
                 </div>
@@ -23,7 +23,7 @@
                                 <div class="admin-grid-element-wrapper" data-bind="if: elementSelected, style: { display: elementSelected() ? 'flex' : 'none'}">
                                     <div data-bind="with: element" class="admin-grid-element">
                                         <div>
-                                            <button data-bind="click: $parent.openSettings" class="admin-grid-element__button"><i class="fa fa-bars"></i></button>
+                                            <button data-bind="click: $root.openSettings" class="admin-grid-element__button"><i class="fa fa-bars"></i></button>
                                         </div>
                                         <span data-bind="text: name" class="admin-grid-element__name"></span>
                                         <div>

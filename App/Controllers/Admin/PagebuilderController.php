@@ -77,22 +77,21 @@ class PagebuilderController extends BaseController {
         CSRF::checkTokenAjax($decoded['csrf_token']);
         $sections = $decoded['sections'];
 
+        // Delete all sections
         Pagebuilder::deleteSectionsByPageID($decoded['page_id']);
-        Pagebuilder::deleteRowsByPageID($decoded['page_id']);
-        Pagebuilder::deleteColumnRowsByPageID($decoded['page_id']);
-        Pagebuilder::deleteColumnsByPageID($decoded['page_id']);
 
+        // Insert updated sections, rows, columnsrows and rows
         foreach($sections as $key => $section) {
             $sectionID = Pagebuilder::saveSection($decoded['page_id'], $section);
 
             foreach($section['rows'] as $key2 => $row) {
-                $rowID = Pagebuilder::saveRow($decoded['page_id'], $sectionID, $row);
+                $rowID = Pagebuilder::saveRow($sectionID, $row);
 
                 foreach($row['columnrows'] as $key3 => $columnrow) {
-                    $columndRowID = Pagebuilder::saveColumnRow($decoded['page_id'], $rowID, $columnrow);
+                    $columndRowID = Pagebuilder::saveColumnRow($rowID, $columnrow);
 
                     foreach($columnrow['columns'] as $key4 => $column) {
-                        $columnID = Pagebuilder::saveColumn($decoded['page_id'], $columndRowID, $column);
+                        $columnID = Pagebuilder::saveColumn($columndRowID, $column);
                     }
                 }
             }

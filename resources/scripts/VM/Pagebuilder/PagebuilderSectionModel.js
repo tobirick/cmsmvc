@@ -39,10 +39,6 @@ export default class PagebuilderSectionModel {
         console.log('clone row');
     }
 
-    openSettings() {
-        console.log('open settings for section');
-    }
-
     addRow() {
         this.rows.push(new PagebuilderRowModel({}, 
         {

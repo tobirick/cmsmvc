@@ -26,10 +26,6 @@ export default class PagebuilderRowModel {
         });
     }
 
-    openSettings() {
-        console.log('open settings for row');
-    }
-
     addColumnRow() {
         this.columnrows.push(new PagebuilderColumnRowModel({}));
     }

@@ -20,10 +20,6 @@ export default class PagebuilderColumnModel {
         }
     }
 
-    openSettings() {
-        console.log('open settings for column');
-    }
-
     deleteElement = () => {
         this.element(null);
         this.elementSelected(false);

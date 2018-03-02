@@ -12,21 +12,25 @@
         <a id="submit-form-btn" href="#" class="button-primary"><?php echo e($lang['Save']); ?></a>
     <?php $__env->endSlot(); ?>
 <?php echo $__env->renderComponent(); ?>
-            <div class="admin-box admin-box-grid-fixed">
-                <div class="admin-box__toggle"><i class="fa fa-chevron-left"></i></div>
-                <h3 class="admin-box__title">Grid</h3>
-                <div data-bind="foreach: possibleColumns" class="admin-draggable-cols">
-                    <div class="admin-dragged-col" data-bind="draggable: {data: $data, connectClass: 'admin-grid-cols', options: {helper: 'clone', appendTo: 'body', revert: 'invalid', greedy: true}}">
-                        <div data-bind="foreach: $parent.columns">
-                            <div data-bind="css: 'col-'+col()">
-                                <div class="admin-grid-col">
-                                    col-<span data-bind="text: col"></span>
-                                </div>
-                            </div>
-                        </div>
+<div class="admin-box admin-box-grid-fixed">
+    <div class="admin-box__toggle"><i class="fa fa-chevron-left"></i></div>
+    <h3 class="admin-box__title">Grid</h3>
+    <div data-bind="foreach: possibleColumns" class="admin-draggable-cols">
+        <div class="admin-dragged-col" data-bind="draggable: {data: $data, connectClass: 'admin-grid-cols', options: {helper: 'clone', appendTo: 'body', revert: 'invalid', greedy: true}}">
+            <div data-bind="foreach: $parent.columns">
+                <div data-bind="css: 'col-'+col()">
+                     <div class="admin-grid-col">
+                        col-<span data-bind="text: col"></span>
                     </div>
-                </div>           
+                </div>
             </div>
+        </div>
+    </div>           
+</div>
+<div data-bind="visible: popupOpen, click: closeSettings" class="popup__overlay"></div>
+<?php $__env->startComponent('admin.popups.pagebuilder-section-popup'); ?><?php echo $__env->renderComponent(); ?>
+<?php $__env->startComponent('admin.popups.pagebuilder-row-popup'); ?><?php echo $__env->renderComponent(); ?>
+<?php $__env->startComponent('admin.popups.pagebuilder-element-popup'); ?><?php echo $__env->renderComponent(); ?>
 <div id="content">    
 <div class="container">
     <div class="row">
@@ -83,5 +87,6 @@
         </div>
     </div>
 </div>
+<input type="hidden" id="pageid" value="<?php echo e($page['id']); ?>">
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('admin.partials.layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

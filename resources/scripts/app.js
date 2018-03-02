@@ -15,8 +15,21 @@ const form = new Form();
 
 const pathName = window.location.pathname;
 
+// Knockout //
+ko.bindingHandlers.tabs = {
+    init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+        $(element).find('li').on('click', function () {
+            const section = $(this).data('tabsection');
+            $(element).find('li').removeClass('active');
+            $(this).addClass('active');
+            $('.tab-content').css('display', 'none');
+            $('#' + section).css('display', 'block');
+        });
+    }
+};
+
 // Edit Menu Page
-if(pathName.includes('/admin/menus/')) {
+if(pathName.includes('/admin/menus/') && pathName.includes('edit')) {
     const menuListMainViewModel = new MenuListMainViewModel();
     ko.bindingHandlers.sortable.afterMove = (args) => {
         menuListMainViewModel.updateMenuPositions(args);
@@ -25,7 +38,7 @@ if(pathName.includes('/admin/menus/')) {
 }
 
 // Pagebuilder
-if(pathName.includes('/admin/pages/')) {
+if(pathName.includes('/admin/pages/') && pathName.includes('edit')) {
     const pagebuilderMainViewModel = new PagebuilderMainViewModel();
     ko.bindingHandlers.sortable.afterMove = (args) => {
         console.log(ko.toJS(pagebuilderMainViewModel.sections));
@@ -73,7 +86,7 @@ const toggleAdminBox = () => {
     adminBoxWrapperEl.classList.toggle('active');
 }
 
-toggleAdminBoxEl.addEventListener('click', toggleAdminBox);
+if (toggleAdminBoxEl) toggleAdminBoxEl.addEventListener('click', toggleAdminBox);
 
 $(".admin-box-grid-fixed").draggable({ 
     axis: "y",

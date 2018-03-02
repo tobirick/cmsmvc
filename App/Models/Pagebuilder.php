@@ -129,11 +129,10 @@ class Pagebuilder extends Model {
         return $lastID;
     }
 
-    public static function saveRow($pageID, $sectionID, $row) {
+    public static function saveRow($sectionID, $row) {
         $db = static::getDB();
-        $stmt = $db->prepare('INSERT INTO pagebuilder_rows (section_id, page_id) VALUES(:section_id, :page_id)');
+        $stmt = $db->prepare('INSERT INTO pagebuilder_rows (section_id) VALUES(:section_id)');
         $stmt->execute([
-            ':page_id' => $pageID,
             ':section_id' => $sectionID
             ]);
 
@@ -141,11 +140,10 @@ class Pagebuilder extends Model {
         return $lastID;
     }
 
-    public static function saveColumnRow($pageID, $rowID, $columnrow) {
+    public static function saveColumnRow($rowID, $columnrow) {
         $db = static::getDB();
-        $stmt = $db->prepare('INSERT INTO pagebuilder_columnrows (row_id, page_id) VALUES(:row_id, :page_id)');
+        $stmt = $db->prepare('INSERT INTO pagebuilder_columnrows (row_id) VALUES(:row_id)');
         $stmt->execute([
-            ':page_id' => $pageID,
             ':row_id' => $rowID
             ]);
 
@@ -153,11 +151,10 @@ class Pagebuilder extends Model {
         return $lastID;
     }
 
-    public static function saveColumn($pageID, $columnRowID, $column) {
+    public static function saveColumn($columnRowID, $column) {
         $db = static::getDB();
-        $stmt = $db->prepare('INSERT INTO pagebuilder_columns (columnrow_id, col, page_id) VALUES(:columnrow_id, :col, :page_id)');
+        $stmt = $db->prepare('INSERT INTO pagebuilder_columns (columnrow_id, col) VALUES(:columnrow_id, :col)');
         $stmt->execute([
-            ':page_id' => $pageID,
             ':columnrow_id' => $columnRowID,
             ':col' => $column['col']
             ]);
@@ -169,30 +166,6 @@ class Pagebuilder extends Model {
     public static function deleteSectionsByPageID($pageID) {
         $db = static::getDB();
         $stmt = $db->prepare('DELETE FROM pagebuilder_sections WHERE page_id = :page_id');
-        $stmt->execute([
-            ':page_id' => $pageID
-        ]);
-    }
-
-    public static function deleteRowsByPageID($pageID) {
-        $db = static::getDB();
-        $stmt = $db->prepare('DELETE FROM pagebuilder_rows WHERE page_id = :page_id');
-        $stmt->execute([
-            ':page_id' => $pageID
-        ]);
-    }
-
-    public static function deleteColumnRowsByPageID($pageID) {
-        $db = static::getDB();
-        $stmt = $db->prepare('DELETE FROM pagebuilder_columnrows WHERE page_id = :page_id');
-        $stmt->execute([
-            ':page_id' => $pageID
-        ]);
-    }
-
-    public static function deleteColumnsByPageID($pageID) {
-        $db = static::getDB();
-        $stmt = $db->prepare('DELETE FROM pagebuilder_columns WHERE page_id = :page_id');
         $stmt->execute([
             ':page_id' => $pageID
         ]);

@@ -1,0 +1,89 @@
+.popup {
+    background-color: #fff;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 75%;
+    position: fixed;
+    z-index: 999999999;
+    border-radius: 3px;
+
+    &__overlay {
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        z-index: 999999;
+        height: 100%;
+        background-color: rgba(0, 0, 0, .2);
+    }
+
+    &__header {
+        background-color: $secondary-color;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: #fff;
+        padding: 1rem 2rem;
+        border-top-right-radius: 3px;
+        border-top-left-radius: 3px;
+    }
+
+    &__title {
+        color: #fff;
+    }
+
+    &__close {
+        cursor: pointer;
+        width: 4rem;
+        height: 4rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 3px;
+        @include transition(.2s ease-in all);
+
+        &:hover {
+            background-color: lighten($secondary-color, 5%);
+        }
+
+        &:before {
+            @include icon(times);
+            font-size: 2rem;
+        }
+    }
+
+    &__tabs {
+        display: flex;
+        align-items: center;
+        background-color: #eee;
+        @include box-shadow();
+
+        & ul {
+            display: flex;
+        }
+
+        &-item {
+            display: inline-block;
+            list-style-type: none;
+            padding: 1rem 2rem;
+            color: $default-text-color;
+            border-bottom: 3px solid;
+            border-color: transparent;
+            font-size: 1.7rem;
+            cursor: pointer;
+            @include transition(.2s linear all);
+
+            &.active, &:hover {
+                border-color: $primary-color;
+                color: $primary-color;
+            }
+        }
+    }
+
+    &__content {
+        padding: 2rem;
+    }
+}
