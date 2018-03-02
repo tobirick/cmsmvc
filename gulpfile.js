@@ -27,7 +27,6 @@ browserSync.init({
   open: "http://localhost", // Change with your dev url
   host: "http://localhost", // Change with your dev url
   proxy: "http://localhost", // Change with your dev url
-  port: 81,
   notify: false
 });
 

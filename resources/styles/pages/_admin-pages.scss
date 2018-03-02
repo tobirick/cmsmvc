@@ -35,6 +35,14 @@
     z-index: 9999;
 }
 
+.ui-droppable-hover {
+
+   & .admin-grid-col {
+      color: #fff;
+      border: 2px dotted #eee;
+   }
+}
+
 .admin-dragged-col {
     width: auto;
 
@@ -193,6 +201,7 @@
     margin: 0 auto;
 
     & > div {
+      flex-flow: row wrap;
         width: 100%;
         display: flex;
     }
@@ -212,6 +221,7 @@
     flex-direction: row;
     margin: 1.2rem auto;
     cursor: pointer;
+    @include transition(.2s ease-in all);
 
     & > div {
         display: flex;

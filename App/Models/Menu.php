@@ -34,7 +34,7 @@ class Menu extends Model {
         return $result;
     }
 
-    public function addMenu($menu) {
+    public static function addMenu($menu) {
         $db = static::getDB();
         $stmt = $db->prepare('INSERT INTO menus (name) VALUES(:name)');
         $stmt->execute([
@@ -61,7 +61,7 @@ class Menu extends Model {
         return $types;
     }
     
-    public function updateMenu($menuid, $menu) {
+    public static function updateMenu($menuid, $menu) {
         $arraykeys = array_keys($menu);
 
         $selectedMenutypes = array();

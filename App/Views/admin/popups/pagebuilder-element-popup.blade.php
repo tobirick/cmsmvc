@@ -1,4 +1,4 @@
-<div data-bind="if: elementSelected" class="popup pagebuilder-element-popup">
+<div data-bind="visible: elementSelected" class="popup pagebuilder-element-popup">
     <div data-bind="with: elementSelected" class="popup__container">
         <div class="popup__header">
             <h3 class="popup__title">Element Settings</h3>

@@ -3,7 +3,7 @@
 namespace Core;
 
 class CSRF {  
-    public function getToken() {
+    public static function getToken() {
         $token = new Token();
         $value = $token->getValue();
         $_SESSION["csrf_token"] = $value;

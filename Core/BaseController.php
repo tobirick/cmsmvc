@@ -30,7 +30,7 @@ class BaseController {
         $view->render($template, $args, $shares);
     }
 
-    public function redirect($url) {
+    public static function redirect($url) {
         $language = Router::getLanguage();
         $redirectTo = '/' . $language->getCurrentLanguage() . $url;
         header('Location: ' . $redirectTo  );

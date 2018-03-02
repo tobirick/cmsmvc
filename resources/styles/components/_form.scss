@@ -44,6 +44,7 @@ textarea.form-input {
     border: 1px solid;
     border-color: transparent;
     padding: 1.1rem .75rem;
+    font-size: $default-font-size;
 
     &::-webkit-input-placeholder,
     &::-moz-placeholder,

@@ -4,10 +4,12 @@
     left: 50%;
     transform: translate(-50%, -50%);
     width: 75%;
+    max-height: 80%;
     position: fixed;
     z-index: 999999999;
     border-radius: 3px;
-
+    overflow: hidden;
+    @include box-shadow();
     &__overlay {
         position: fixed;
         left: 0;
@@ -18,8 +20,8 @@
         z-index: 999999;
         height: 100%;
         background-color: rgba(0, 0, 0, .2);
+        @include transition(.2s ease-in all);
     }
-
     &__header {
         background-color: $secondary-color;
         display: flex;
@@ -30,11 +32,9 @@
         border-top-right-radius: 3px;
         border-top-left-radius: 3px;
     }
-
     &__title {
         color: #fff;
     }
-
     &__close {
         cursor: pointer;
         width: 4rem;
@@ -44,27 +44,22 @@
         align-items: center;
         border-radius: 3px;
         @include transition(.2s ease-in all);
-
         &:hover {
             background-color: lighten($secondary-color, 5%);
         }
-
         &:before {
             @include icon(times);
             font-size: 2rem;
         }
     }
-
     &__tabs {
         display: flex;
         align-items: center;
         background-color: #eee;
         @include box-shadow();
-
         & ul {
             display: flex;
         }
-
         &-item {
             display: inline-block;
             list-style-type: none;
@@ -75,15 +70,32 @@
             font-size: 1.7rem;
             cursor: pointer;
             @include transition(.2s linear all);
-
-            &.active, &:hover {
+            &.active,
+            &:hover {
                 border-color: $primary-color;
                 color: $primary-color;
             }
         }
     }
-
     &__content {
         padding: 2rem;
+        max-height: 70vh;
+        overflow-y: auto;
+    }
+    &__subsection {
+        margin-bottom: 4rem;
+    }
+    &__subtitle {
+        border-bottom: 1px solid #eee;
+        padding-bottom: 1rem;
+        margin-bottom: 3rem;
+    }
+    &__subcontent {
+        & .form-row {
+            margin-bottom: 4rem;
+        }
+        & textarea {
+            min-height: 15rem;
+        }
     }
 }
