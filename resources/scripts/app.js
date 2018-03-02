@@ -18,12 +18,16 @@ const pathName = window.location.pathname;
 // Knockout //
 ko.bindingHandlers.tabs = {
     init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+        console.log($(element).closest('.popup__content'));
+        $('.popup__content').find('.tab-content').css('display', 'none');
+        $('.popup__content').find('.tab-content:first-child').css('display', 'block');
+
         $(element).find('li').on('click', function () {
             const section = $(this).data('tabsection');
             $(element).find('li').removeClass('active');
             $(this).addClass('active');
-            $('.tab-content').css('display', 'none');
-            $('#' + section).css('display', 'block');
+            $('.popup__content').find('.tab-content').css('display', 'none');
+            $('.popup__content').find('#' + section).css('display', 'block');
         });
     }
 };

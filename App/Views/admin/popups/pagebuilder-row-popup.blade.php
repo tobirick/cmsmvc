@@ -4,14 +4,19 @@
             <h3 class="popup__title">Row Settings</h3>
             <span data-bind="click: $root.closeSettings" class="popup__close"></span>
         </div>
-        <div class="popup__tabs">
+        <div data-bind="tabs: true" class="popup__tabs">
             <ul>
-                <li class="popup__tabs-item active">Content</li>
-                <li class="popup__tabs-item">Design</li>
+                <li data-tabsection="contenttab" class="popup__tabs-item active">Content</li>
+                <li data-tabsection="designtab" class="popup__tabs-item">Design</li>
             </ul>
         </div>
         <div class="popup__content">
-            hello from the popup my friend
+            <div class="tab-content" id="contenttab">
+                Content
+            </div>
+             <div class="tab-content" id="designtab">
+                Design
+            </div>
         </div>
     </div>
 </div>

@@ -4,8 +4,8 @@
             <h3 class="popup__title">Section Settings</h3>
             <span data-bind="click: $root.closeSettings" class="popup__close"></span>
         </div>
-        <div class="popup__tabs">
-            <ul data-bind="tabs: true">
+        <div data-bind="tabs: true" class="popup__tabs">
+            <ul>
                 <li data-tabsection="contenttab" class="popup__tabs-item active">Content</li>
                 <li data-tabsection="designtab" class="popup__tabs-item">Design</li>
             </ul>
