@@ -20,7 +20,6 @@ console.log("test");
 // Knockout //
 ko.bindingHandlers.tabs = {
     init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
-        console.log($(element).closest('.popup__content'));
         $('.popup__content').find('.tab-content').css('display', 'none');
         $('.popup__content').find('.tab-content:first-child').css('display', 'block');
 

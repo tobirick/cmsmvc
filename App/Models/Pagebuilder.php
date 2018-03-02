@@ -120,9 +120,14 @@ class Pagebuilder extends Model {
 
     public static function saveSection($pageID, $section) {
         $db = static::getDB();
-        $stmt = $db->prepare('INSERT INTO pagebuilder_sections (page_id) VALUES(:page_id)');
+        $stmt = $db->prepare('INSERT INTO pagebuilder_sections (page_id, css_class, css_id, styles, name)
+                              VALUES(:page_id, :css_class, :css_id, :styles, :name)');
         $stmt->execute([
-            ':page_id' => $pageID
+            ':page_id' => $pageID,
+            ':css_class' => $section['css_class'],
+            ':css_id' => $section['css_id'],
+            ':styles' => $section['styles'],
+            ':name' => $section['name']
             ]);
 
         $lastID = $db->lastInsertId();
@@ -131,9 +136,14 @@ class Pagebuilder extends Model {
 
     public static function saveRow($sectionID, $row) {
         $db = static::getDB();
-        $stmt = $db->prepare('INSERT INTO pagebuilder_rows (section_id) VALUES(:section_id)');
+        $stmt = $db->prepare('INSERT INTO pagebuilder_rows (section_id, css_class, css_id, styles, name)
+                              VALUES(:section_id, :css_class, :css_id, :styles, :name)');
         $stmt->execute([
-            ':section_id' => $sectionID
+            ':section_id' => $sectionID,
+            ':css_class' => $row['css_class'],
+            ':css_id' => $row['css_id'],
+            ':styles' => $row['styles'],
+            ':name' => $row['name']
             ]);
 
         $lastID = $db->lastInsertId();

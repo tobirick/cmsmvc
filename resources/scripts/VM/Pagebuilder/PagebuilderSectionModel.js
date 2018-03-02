@@ -4,9 +4,12 @@ import PagebuilderHandler from '../../Handlers/PagebuilderHandler';
 
 export default class PagebuilderSectionModel {
    constructor(data, delegates) {
-      for (let key in data) {
-         this[key] = ko.observable(data[key]);
-      }
+      this.id = ko.observable(data.id || '');
+      this.name = ko.observable(data.name || '');
+      this.position = ko.observable(data.position || '');
+      this.css_class = ko.observable(data.css_class || '');
+      this.css_id = ko.observable(data.css_id || '');
+      this.styles = ko.observable(data.css_name || '');
 
       this.padding = ko.observable({
          top: 0,
@@ -24,7 +27,7 @@ export default class PagebuilderSectionModel {
 
       this.rows = ko.observableArray([]);
 
-      if (this.id) {
+      if (ko.toJS(this.id)) {
          this.fetchRows();
       }
 

@@ -125,9 +125,9 @@ export default class PagebuilderMainViewModel {
     generateHTML() {
         let html = '';
         this.sections().forEach(section => {
-            html += `<section>`;
+            html += `<section class="${section.css_class()}" id="${section.css_id()}" styles="${section.styles()}">`;
             section.rows().forEach(row => {
-                html += `<div class="row">`;
+                html += `<div class="row ${row.css_class()}" id="${row.css_id()}" styles="${row.styles()}">`;
                 row.columnrows().forEach(columnrow => {
                     columnrow.columns().forEach(column => {
                         html += `<div class="col-${column.col()}">${column.element() !== null ? column.element().html() : ''}</div>`;
