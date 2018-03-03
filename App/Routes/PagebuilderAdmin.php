@@ -18,3 +18,4 @@ $router->map('GET', '/pages/[i:pageid]/pagebuilder/sections', requireLogin('Admi
 $router->map('GET', '/pages/pagebuilder/sections/[i:sectionid]/rows', requireLogin('Admin\PagebuilderController@getRowsBySectionID'));
 $router->map('GET', '/pages/pagebuilder/sections/rows/[i:rowid]/columnrows', requireLogin('Admin\PagebuilderController@getColumnRowsByRowID'));
 $router->map('GET', '/pages/pagebuilder/sections/rows/columnrows/[i:columnrowid]/columns', requireLogin('Admin\PagebuilderController@getColumnsByColumnRowID'));
+$router->map('GET', '/pages/pagebuilder/sections/rows/columnrows/columns/[i:columnid]/element', requireLogin('Admin\PagebuilderController@getElementByColumnID'));

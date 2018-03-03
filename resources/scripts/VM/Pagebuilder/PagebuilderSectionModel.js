@@ -53,14 +53,16 @@ export default class PagebuilderSectionModel {
    async fetchRows() {
       const response = await PagebuilderHandler.fetchRows(this.id());
 
-      response.forEach(row => {
-         this.rows.push(
-            new PagebuilderRowModel(row, {
-               deleteRow: this.deleteRow,
-               cloneRow: this.cloneRow
-            })
-         );
-      });
+      if (response) {
+         response.forEach(row => {
+            this.rows.push(
+               new PagebuilderRowModel(row, {
+                  deleteRow: this.deleteRow,
+                  cloneRow: this.cloneRow
+               })
+            );
+         });
+      }
    }
 
    deleteRow = row => {

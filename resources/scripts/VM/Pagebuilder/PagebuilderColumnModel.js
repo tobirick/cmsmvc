@@ -4,19 +4,31 @@ import PagebuilderHandler from '../../Handlers/PagebuilderHandler';
 
 export default class PagebuilderColumnModel {
    constructor(data) {
+      this.id = ko.observable(data.id || '');
       this.col = ko.observable(data.col);
 
       this.element = ko.observable(null);
       this.elementSelected = ko.observable(false);
 
-      if (data.element) {
-         this.elementSelected(true);
+      if (ko.toJS(this.id)) {
+         this.fetchElement();
+      } else if (data.element) {
          this.element(
             new PagebuilderElementModel({
                ...ko.toJS(data.element),
                id: ''
             })
          );
+         this.elementSelected(true);
+      }
+   }
+
+   async fetchElement() {
+      const response = await PagebuilderHandler.fetchElement(this.id());
+
+      if (response) {
+         this.element(new PagebuilderElementModel(response));
+         this.elementSelected(true);
       }
    }
 
@@ -33,7 +45,7 @@ export default class PagebuilderColumnModel {
    };
 
    deleteElement = () => {
-      this.element(null);
       this.elementSelected(false);
+      this.element(null);
    };
 }

@@ -48,9 +48,11 @@ export default class PagebuilderRowModel {
    async fetchColumnRows() {
       const response = await PagebuilderHandler.fetchColumnRows(this.id());
 
-      response.forEach(columnrow => {
-         this.columnrows.push(new PagebuilderColumnRowModel(columnrow));
-      });
+      if (response) {
+         response.forEach(columnrow => {
+            this.columnrows.push(new PagebuilderColumnRowModel(columnrow));
+         });
+      }
    }
 
    addColumnRow() {

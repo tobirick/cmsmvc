@@ -17,7 +17,7 @@
                         @foreach ($pagebuilderitems as $pagebuilderitem)
                             <div class="col-12 col-md-4 col-lg-3 col-xl-2">
                                 <div class="card">
-                                    <div class="card__title">{{$pagebuilderitem['name']}}</div>
+                                    <div class="card__title">{{$pagebuilderitem['item_name']}}</div>
                                     <div class="card__actions">
                                         <a href="/{{$curLang}}/admin/pagebuilder/{{$pagebuilderitem['id']}}/edit"><i class="fa fa-pencil"></i></a>
                                         <form action="/admin/pagebuilder/{{$pagebuilderitem['id']}}" method="POST">

@@ -32,6 +32,12 @@ export default class PagebuilderMainViewModel {
    updateCSRF(newCsrfToken) {
       this.csrfTokenVal = newCsrfToken;
       this.csrfToken.value = newCsrfToken;
+      const csrfTokenInputEls = document.querySelectorAll(
+         'input[name="csrf_token"]'
+      );
+      csrfTokenInputEls.forEach(csrfTokenInputEl => {
+         csrfTokenInputEl.value = newCsrfToken;
+      });
    }
 
    openSettings = data => {
@@ -71,14 +77,16 @@ export default class PagebuilderMainViewModel {
    async fetchSections() {
       const response = await PagebuilderHandler.fetchSections(this.pageID);
 
-      response.forEach(section => {
-         this.sections.push(
-            new PagebuilderSectionModel(section, {
-               cloneSection: this.cloneSection,
-               deleteSection: this.deleteSection
-            })
-         );
-      });
+      if (response) {
+         response.forEach(section => {
+            this.sections.push(
+               new PagebuilderSectionModel(section, {
+                  cloneSection: this.cloneSection,
+                  deleteSection: this.deleteSection
+               })
+            );
+         });
+      }
    }
 
    setPossibleColumns() {
@@ -99,7 +107,13 @@ export default class PagebuilderMainViewModel {
 
       const response = await PagebuilderHandler.loadPagebuilderElements(data);
       response.pagebuilderItems.forEach(dataItem => {
-         this.elements.push(new PagebuilderElementModel(dataItem));
+         this.elements.push(
+            new PagebuilderElementModel({
+               ...dataItem,
+               id: '',
+               item_id: dataItem.id
+            })
+         );
       });
 
       this.updateCSRF(response.csrfToken);
@@ -148,7 +162,7 @@ export default class PagebuilderMainViewModel {
             row.columnrows().forEach(columnrow => {
                columnrow.columns().forEach(column => {
                   html += `<div class="col-${column.col()}">${
-                     column.element() !== null ? column.element().html() : ''
+                     column.element().html() !== null ? column.element().html() : ''
                   }</div>`;
                });
             });

@@ -5,6 +5,8 @@ export default class PagebuilderElementModel {
         for(let key in data) {
             this[key] = ko.observable(data[key]);
         }
+
+        this.html = ko.observable(null);
     }
 
     updateHTML = (data) => {

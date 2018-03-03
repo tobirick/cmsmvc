@@ -4,7 +4,6 @@
     flex: 0 0 percentage($size / $columns);
     max-width: 100%;
     padding: 0 0.75rem;
-    overflow: hidden;
 }
 
 @mixin clearfix() {

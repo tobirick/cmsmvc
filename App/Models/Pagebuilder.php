@@ -12,7 +12,7 @@ class Pagebuilder extends Model {
         self::createItemFolder($item);
 
         $db = static::getDB();
-        $stmt = $db->prepare('INSERT INTO pagebuilder_items (name, content, path_name, type, description) VALUES(:name, :content, :path_name, :type, :description)');
+        $stmt = $db->prepare('INSERT INTO pagebuilder_items (item_name, item_content, item_path_name, item_type, item_description) VALUES(:name, :content, :path_name, :type, :description)');
         $stmt->execute([
             ':name' => $item['name'],
             ':content' => $item['content'],
@@ -47,7 +47,7 @@ class Pagebuilder extends Model {
 
     public function updateItem($itemid, $item) {
         $db = static::getDB();
-        $stmt = $db->prepare('UPDATE pagebuilder_items SET name = :name, content = :content WHERE id = :id');
+        $stmt = $db->prepare('UPDATE pagebuilder_items SET item_name = :name, item_content = :content WHERE id = :id');
         $stmt->execute([
             ':id' => $itemid,
             ':name' => $item['name'],
@@ -118,6 +118,17 @@ class Pagebuilder extends Model {
         return $result;
     }
 
+    public static function getElementByColumnID($columnID) {
+      $db = static::getDB();
+      $stmt = $db->prepare('SELECT * FROM pagebuilder_elements as pe INNER JOIN pagebuilder_items as pi ON pe.item_id = pi.id WHERE pe.column_id = :column_id ');
+      $stmt->execute([
+          ':column_id' => $columnID
+      ]);
+      $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+      return $result;
+    }
+
     public static function saveSection($pageID, $section) {
         $db = static::getDB();
         $stmt = $db->prepare('INSERT INTO pagebuilder_sections (page_id, css_class, css_id, styles, name)
@@ -171,7 +182,16 @@ class Pagebuilder extends Model {
 
         $lastID = $db->lastInsertId();
         return $lastID;
-    }
+   }
+
+    public static function saveElement($columnID, $element) {
+      $db = static::getDB();
+      $stmt = $db->prepare('INSERT INTO pagebuilder_elements (column_id, item_id) VALUES(:column_id, :item_id)');
+      $stmt->execute([
+          ':column_id' => $columnID,
+          ':item_id' => $element['item_id']
+          ]);
+   }
 
     public static function deleteSectionsByPageID($pageID) {
         $db = static::getDB();

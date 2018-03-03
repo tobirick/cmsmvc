@@ -79,8 +79,8 @@
                 <div data-bind="foreach: elements" class="row">
                     <div class="col-6">
                         <div data-bind="draggable: {data: $data, options: {revert: 'invalid'}}" class="admin-element-list-item">
-                            <span data-bind="css: type" class="admin-element-list-item__type"></span>
-                            <span data-bind="text: name" class="admin-element-list-item__name"></span>
+                            <span data-bind="css: item_type" class="admin-element-list-item__type"></span>
+                            <span data-bind="text: item_name" class="admin-element-list-item__name"></span>
                         </div>
                     </div>
                 </div>

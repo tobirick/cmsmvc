@@ -10,7 +10,6 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    overflow: hidden;
 
     &.reverse {
         flex-direction: row-reverse;

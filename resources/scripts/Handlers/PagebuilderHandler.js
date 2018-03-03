@@ -69,4 +69,14 @@ PagebuilderHandler.fetchColumns = async function(columnRowID) {
         .then(data => data);
 }
 
+PagebuilderHandler.fetchElement = async function(columnID) {
+   const url = `/pages/pagebuilder/sections/rows/columnrows/columns/${columnID}/element`;
+   return fetch(url, {
+       credentials: 'include',
+       method: 'GET'
+   })
+       .then(response => response.json())
+       .then(data => data);
+}
+
 export default PagebuilderHandler;

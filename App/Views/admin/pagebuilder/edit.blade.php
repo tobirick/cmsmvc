@@ -1,7 +1,7 @@
 @extends('admin.partials.layout')
 @section('title', 'Edit Pagebuilder Item')
 @section('content-title')
-{{$lang['Edit']}} '{{$name}}'
+{{$lang['Edit']}} '{{$item_name}}'
 @stop
 
 @section('content')
@@ -22,16 +22,16 @@
                         <input type="hidden" name='_METHOD' value="PUT">
                         <input name="csrf_token" type="hidden" value="{{$csrf}}">
                         <div class="form-row">
-                            <input placeholder="Name" value="{{$name}}" class="form-input" type="text" name="item[name]">
+                            <input placeholder="Name" value="{{$item_name}}" class="form-input" type="text" name="item[name]">
                         </div>
                         <div class="form-row">
-                            <textarea placeholder="Content" class="form-input" name="item[content]">{{$content}}</textarea>
+                            <textarea placeholder="Content" class="form-input" name="item[content]">{{$item_content}}</textarea>
                         </div>
                         <div class="form-row">
-                             <input placeholder="Type" value="{{$type}}" class="form-input" name="item[type]">
+                             <input placeholder="Type" value="{{$item_type}}" class="form-input" name="item[type]">
                         </div>
                         <div class="form-row">
-                             <input placeholder="Description" value="{{$description}}" class="form-input" name="item[description]">
+                             <input placeholder="Description" value="{{$item_description}}" class="form-input" name="item[description]">
                         </div>
                     </form>
                 </div>

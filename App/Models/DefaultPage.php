@@ -73,7 +73,7 @@ class DefaultPage extends Model {
         return true;
     }
     
-    public function updatePage($pageid, $page) {
+    public static function updatePage($pageid, $page) {
         $db = static::getDB();
         $stmt = $db->prepare('UPDATE pages SET name = :name, content = :content, slug = :slug, title = :title WHERE id = :id');
         $stmt->execute([

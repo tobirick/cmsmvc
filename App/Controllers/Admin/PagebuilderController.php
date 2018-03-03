@@ -92,6 +92,9 @@ class PagebuilderController extends BaseController {
 
                     foreach($columnrow['columns'] as $key4 => $column) {
                         $columnID = Pagebuilder::saveColumn($columndRowID, $column);
+                        if($column['element']) {
+                           Pagebuilder::saveElement($columnID, $column['element']);
+                        }
                     }
                 }
             }
@@ -134,5 +137,13 @@ class PagebuilderController extends BaseController {
         
         header('Content-type: application/json');
         echo json_encode($columns);
+    }
+
+    public function getElementByColumnID($params) {
+      $columnID = $params['params']['columnid'];
+      $element = Pagebuilder::getElementByColumnID($columnID);
+      
+      header('Content-type: application/json');
+      echo json_encode($element);
     }
 }
