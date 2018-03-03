@@ -32,10 +32,16 @@ export default class PagebuilderSectionModel {
       } else if (data.rows) {
          data.rows.forEach(row => {
             this.rows.push(
-               new PagebuilderRowModel(row, {
-                  deleteRow: this.deleteRow,
-                  cloneRow: this.cloneRow
-               })
+               new PagebuilderRowModel(
+                  {
+                     ...row,
+                     id: ''
+                  },
+                  {
+                     deleteRow: this.deleteRow,
+                     cloneRow: this.cloneRow
+                  }
+               )
             );
          });
       }

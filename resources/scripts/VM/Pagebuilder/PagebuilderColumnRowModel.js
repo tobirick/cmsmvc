@@ -10,13 +10,15 @@ export default class PagebuilderColumnRowModel {
       this.columns = ko.observableArray([]);
       if (ko.toJS(this.id)) {
          this.fetchColumns();
-      } else if (defaultColumns) {
+      } else if (Object.keys(defaultColumns).length > 0) {
          defaultColumns.forEach(column => {
             this.columns.push(new PagebuilderColumnModel({ col: column }));
          });
       } else if (data.columns) {
          data.columns.forEach(column => {
-            this.columns.push(new PagebuilderColumnModel(column));
+            this.columns.push(
+               new PagebuilderColumnModel({ ...column, id: '' })
+            );
          });
       }
    }

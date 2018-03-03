@@ -259,6 +259,11 @@
     flex-direction: row;
     min-height: 3.5rem;
 
+    &.ui-draggable-dragging {
+       max-height: 3.5rem;
+       max-width: 15rem;
+    }
+
     &__name {
         color: #fff;
     }

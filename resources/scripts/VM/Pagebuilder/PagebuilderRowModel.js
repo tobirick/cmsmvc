@@ -31,7 +31,9 @@ export default class PagebuilderRowModel {
          this.fetchColumnRows();
       } else if (data.columnrows) {
          data.columnrows.forEach(columnrow => {
-            this.columnrows.push(new PagebuilderColumnRowModel(columnrow));
+            this.columnrows.push(
+               new PagebuilderColumnRowModel({ ...columnrow, id: '' })
+            );
          });
       }
 
