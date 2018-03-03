@@ -4,9 +4,7 @@ import PagebuilderHandler from '../../Handlers/PagebuilderHandler';
 
 export default class PagebuilderColumnModel {
     constructor(data) {
-        for(let key in data) {
-            this[key] = ko.observable(data[key]);
-        }
+        this.col = ko.observable(data.col);
         
         this.element = ko.observable(null);
         this.elementSelected = ko.observable(false);

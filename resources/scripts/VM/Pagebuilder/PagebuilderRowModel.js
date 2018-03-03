@@ -29,10 +29,18 @@ export default class PagebuilderRowModel {
 
       if (ko.toJS(this.id)) {
          this.fetchColumnRows();
+      } else if (data.columnrows) {
+         data.columnrows.forEach(columnrow => {
+            this.columnrows.push(new PagebuilderColumnRowModel(columnrow));
+         });
       }
 
       this.deleteRow = delegates.deleteRow;
       this.cloneRow = delegates.cloneRow;
+   }
+
+   setStylesValue(data) {
+      return data;
    }
 
    async fetchColumnRows() {

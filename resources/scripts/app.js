@@ -15,8 +15,6 @@ const form = new Form();
 
 const pathName = window.location.pathname;
 
-console.log("test");
-
 // Knockout //
 ko.bindingHandlers.tabs = {
     init: function (element, valueAccessor, allBindingsAccessor, viewModel) {

@@ -29,6 +29,15 @@ export default class PagebuilderSectionModel {
 
       if (ko.toJS(this.id)) {
          this.fetchRows();
+      } else if (data.rows) {
+         data.rows.forEach(row => {
+            this.rows.push(
+               new PagebuilderRowModel(row, {
+                  deleteRow: this.deleteRow,
+                  cloneRow: this.cloneRow
+               })
+            );
+         });
       }
 
       this.deleteSection = delegates.deleteSection;
@@ -53,9 +62,15 @@ export default class PagebuilderSectionModel {
    };
 
    cloneRow = row => {
-      this.rows.push(
+      const index = this.rows.indexOf(row) + 1;
+      this.rows.splice(
+         index,
+         0,
          new PagebuilderRowModel(
-            { ...ko.toJS(row) },
+            {
+               ...ko.toJS(row),
+               id: ''
+            },
             {
                deleteRow: this.deleteRow,
                cloneRow: this.cloneRow

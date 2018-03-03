@@ -118,9 +118,15 @@ export default class PagebuilderMainViewModel {
    }
 
    cloneSection = section => {
-      this.sections.push(
+      const index = this.sections.indexOf(section) + 1;
+      this.sections.splice(
+         index,
+         0,
          new PagebuilderSectionModel(
-            { ...ko.toJS(section) },
+            {
+               ...ko.toJS(section),
+               id: ''
+            },
             {
                cloneSection: this.cloneSection,
                deleteSection: this.deleteSection

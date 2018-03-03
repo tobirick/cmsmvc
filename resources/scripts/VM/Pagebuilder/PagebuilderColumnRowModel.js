@@ -3,32 +3,37 @@ import PagebuilderColumnModel from './PagebuilderColumnModel';
 import PagebuilderHandler from '../../Handlers/PagebuilderHandler';
 
 export default class PagebuilderColumnRowModel {
-    constructor(data, defaultColumns = {}) {
-        for(let key in data) {
-            this[key] = ko.observable(data[key]);
-        }
+   constructor(data, defaultColumns = {}) {
+      this.id = ko.observable(data.id || '');
+      this.position = ko.observable(data.position || '');
 
-        this.columns = ko.observableArray([]);
-        if(this.id) {
-            this.fetchColumns();
-        } else {
-            defaultColumns.forEach(column => {
-                this.columns.push(new PagebuilderColumnModel({col: column}));
-            });
-        }
-    }
+      this.columns = ko.observableArray([]);
+      if (ko.toJS(this.id)) {
+         this.fetchColumns();
+      } else if (defaultColumns) {
+         defaultColumns.forEach(column => {
+            this.columns.push(new PagebuilderColumnModel({ col: column }));
+         });
+      } else if (data.columns) {
+         data.columns.forEach(column => {
+            this.columns.push(new PagebuilderColumnModel(column));
+         });
+      }
+   }
 
-    async fetchColumns() {
-        const response = await PagebuilderHandler.fetchColumns(this.id());
-        
-        response.forEach((column) => {
-            this.addColumn(column);
-        });
-    }
+   async fetchColumns() {
+      const response = await PagebuilderHandler.fetchColumns(this.id());
 
-    addColumn(column = {}) {
-        this.columns.push(new PagebuilderColumnModel({
+      response.forEach(column => {
+         this.addColumn(column);
+      });
+   }
+
+   addColumn(column = {}) {
+      this.columns.push(
+         new PagebuilderColumnModel({
             ...column
-        }));
-    }
+         })
+      );
+   }
 }

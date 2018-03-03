@@ -15,7 +15,7 @@
                 </div>
                 <div class="admin-grid-cols" data-bind="sortable: {data: columnrows, connectClass: 'admin-grid-cols', options: {revert: 'invalid'}}">
                     <div data-bind="foreach: columns">
-                        <div data-bind="css: 'col-'+col(), droppable: {data: setElement}">
+                        <div data-bind="css: 'col-'+col(), droppable: {data: setElement, options: {greedy: true, accept: '.admin-element-list-item'}}">
                             <div class="admin-grid-col">
                                 <div data-bind="ifnot: elementSelected, style: { display: elementSelected() ? 'none' : 'flex'}">
                                     <i class="fa fa-plus"></i> Insert Module(s)
