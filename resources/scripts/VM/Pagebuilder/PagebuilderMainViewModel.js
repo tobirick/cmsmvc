@@ -162,7 +162,7 @@ export default class PagebuilderMainViewModel {
             row.columnrows().forEach(columnrow => {
                columnrow.columns().forEach(column => {
                   html += `<div class="col-${column.col()}">${
-                     column.element().html() !== null ? column.element().html() : ''
+                     column.element() !== null && column.element().html() !== null ? column.element().html() : ''
                   }</div>`;
                });
             });
