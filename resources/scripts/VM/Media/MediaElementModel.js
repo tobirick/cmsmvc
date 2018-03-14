@@ -5,9 +5,12 @@ export default class MediaElementModel {
         for(let key in data) {
             this[key] = ko.observable(data[key]);
         }
-    }
 
-    changeFolder() {
-        console.log('change folder');
+        this.deleteMediaElement = delegates.deleteMediaElement;
+
+        this.openFolder = delegates.openFolder;
+        this.changeFolder = delegates.changeFolder;
+        
+        this.openFile = delegates.openFile;
     }
 }
