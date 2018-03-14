@@ -1,4 +1,4 @@
 RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule . index.php [L]
-php_value auto_prepend_file "/Users/tobirick/Documents/Programmieren/Webentwicklung/Projekte/cmsmvc/vendor/autoload.php"
+php_value auto_prepend_file "C:/xampp/htdocs/trmvc/vendor/autoload.php"
