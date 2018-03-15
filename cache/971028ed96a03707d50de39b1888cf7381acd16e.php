@@ -25,9 +25,8 @@
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody data-bind="sortable: {data: mediaElements}">
-                    <!-- ko if: type() === 'file' -->
-                        <tr data-bind="css: {file: type() === 'file'}, droppable: type() === 'dir' ? {data: changeFolder, accept: '.file'} : {options: {disabled: true}}">
+                    <tbody data-bind="sortable: {data: mediaElements, connectClass: 'media-element', options: {revert: 'invalid'}}">
+                        <tr class="media-element" data-bind="visible: $root.currentDir() == path(), css: {file: type() === 'file'}, droppable: type() === 'dir' ? {data: changeFolder, accept: '.media-element'} : {options: {disabled: true}}">
                             <td>#</td>
                             <td data-bind="click: type() === 'dir' ? openFolder : openFile"><span data-bind="if: type() === 'dir'"><i class="fa fa-folder"></span></i> <span data-bind="text: name"></span></td>
                             <td data-bind="text: size">Größe</td>
@@ -36,7 +35,6 @@
                                 <a data-bind="click: deleteMediaElement" href="#"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
-                    <!-- /ko -->
                     </tbody>
                 </table>
                 </div>

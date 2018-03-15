@@ -31,6 +31,7 @@ MediaHandler.addFolder = function(data) {
 MediaHandler.deleteMediaElement = function(data) {
     const url = `/admin/media/${data.element.id}`;
     data['_METHOD'] = 'DELETE';
+
     return fetch(url, {
         body: JSON.stringify(data),
         headers: {
@@ -41,6 +42,24 @@ MediaHandler.deleteMediaElement = function(data) {
     })
         .then(response => response.json())
         .then(data => ({message: 'success', csrfToken: data.csrfToken}))
+        .catch(data => ({message: 'error', csrfToken: data.csrfToken}));
+}
+
+MediaHandler.updateMediaElement = function(data) {
+    console.log(data);
+    const url = `/admin/media/${data.element.id}`;
+    data['_METHOD'] = 'PUT';
+
+    return fetch(url, {
+        body: JSON.stringify(data),
+        headers: {
+            'content-type': 'application/json'
+        },
+        credentials: 'include',
+        method: 'POST'
+    })
+        .then(response => response.json())
+        .then(data => ({message: 'success', csrfToken: data.csrfToken, element: data.element}))
         .catch(data => ({message: 'error', csrfToken: data.csrfToken}));
 }
 

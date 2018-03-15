@@ -100,10 +100,6 @@ export default class MediaManViewModel {
         }
     }
 
-    changeFolder() {
-        console.log('change folder');
-    }
-
     uploadFile() {
         console.log('upload');
     }

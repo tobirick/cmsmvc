@@ -40,18 +40,18 @@ class Media extends Model {
         return $newElement;
     }
 
-    public static function deleteMediaElement($folderid) {
+    public static function deleteMediaElement($id) {
         $json = file_get_contents(__DIR__ . '/../../public/content/media/elements.json');
         $elements = json_decode($json, true);
 
-        $index = self::findIndexById($elements, $folderid);
-        $folder = $elements[$index];
+        $index = self::findIndexById($elements, $id);
+        $element = $elements[$index];
         unset($elements[$index]);
 
         $newJson = json_encode(array_values($elements));
         file_put_contents(__DIR__ . '/../../public/content/media/elements.json', $newJson);
 
-        $path = __DIR__ . '/../../public/content/media' . $folder['path'] . $folder['name'];
+        $path = __DIR__ . '/../../public/content/media' . $element['path'] . $element['name'];
         self::deleteDir($path);
     }
 
@@ -82,5 +82,22 @@ class Media extends Model {
             }
         }
         rmdir($dirPath);
+    }
+
+    public static function updateMediaElement($id, $element, $target) {
+        $json = file_get_contents(__DIR__ . '/../../public/content/media/elements.json');
+        $elements = json_decode($json, true);
+
+        $index = self::findIndexById($elements, $id);
+        $oldElement = $elements[$index];
+        $elements[$index]['name'] = $element['name'];
+        $elements[$index]['path'] = $target['path'] . $target['name'] . '/';
+
+        $newJson = json_encode(array_values($elements));
+        file_put_contents(__DIR__ . '/../../public/content/media/elements.json', $newJson);
+
+        $oldpath = __DIR__ . '/../../public/content/media' . $oldElement['path'] . $oldElement['name'];
+        $newpath = __DIR__ . '/../../public/content/media' . $target['path'] . $target['name'] . '/' . $element['name'];
+        rename($oldpath, $newpath);
     }
 }
