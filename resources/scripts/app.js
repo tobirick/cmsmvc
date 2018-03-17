@@ -7,6 +7,7 @@ import Sidebar from './admin-sidebar';
 import Form from './admin-form';
 import MenuListMainViewModel from './VM/MenuListItems/MenuListMainViewModel';
 import PagebuilderMainViewModel from './VM/Pagebuilder/PagebuilderMainViewModel';
+import MediaMainViewModel from './VM/Media/MediaMainViewModel';
 
 validator.init('#validate-form');
 validator.addBasicRules();
@@ -49,6 +50,12 @@ if(pathName.includes('/admin/pages/') && pathName.includes('edit')) {
         pagebuilderMainViewModel.setPossibleColumns();
     }
     ko.applyBindings(pagebuilderMainViewModel);
+}
+
+// Media
+if(pathName.includes('/admin/media')) {
+    const mediaMainViewModel = new MediaMainViewModel();
+    ko.applyBindings(mediaMainViewModel);
 }
 
 

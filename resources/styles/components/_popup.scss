@@ -10,6 +10,11 @@
     border-radius: 3px;
     overflow: hidden;
     @include box-shadow();
+
+    &--small {
+        width: 50%;
+    }
+
     &__overlay {
         position: fixed;
         left: 0;
