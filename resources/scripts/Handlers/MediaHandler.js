@@ -1,13 +1,18 @@
 const MediaHandler = {};
 
-MediaHandler.fetchMediaElements = async function() {
+MediaHandler.fetchMediaElements = async function(dir) {
     const url = `/media`;
-    const response = await fetch(url, {
-        method: 'POST',
-        credentials: 'include'
-    });
-
-    const data = await response.json();
+    return fetch(url, {
+        body: JSON.stringify(dir),
+        headers: {
+            'content-type': 'application/json'
+        },
+        credentials: 'include',
+        method: 'POST'
+    })
+        .then(response => response.json())
+        .then(data => ({message: 'success', elements: data}))
+        .catch(data => ({message: 'error'}));
 
     return data;
 }

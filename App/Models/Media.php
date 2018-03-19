@@ -8,11 +8,22 @@ use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 
 class Media extends Model {
-    public static function getAllMediaElements($foldername = '') {
+    public static function getAllMediaElements($dir) {
         $json = file_get_contents(__DIR__ . '/../../public/content/media/elements.json');
         $elements = json_decode($json, true);
+
+        if($elements) {
+            foreach($elements as $index => $element) {
+                if($element['path'] !== $dir) {
+                    unset($elements[$index]);
+                }
+            }
+
+            return array_values($elements);
+        } else {
+            return [];
+        }
         
-        return $elements;
     }
 
     public static function createFolder($folder) {

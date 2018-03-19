@@ -2,6 +2,7 @@ vendor/
 node_modules/
 .env
 .vscode/
+.vs/
 cache/
 public/admin/css
 public/admin/js

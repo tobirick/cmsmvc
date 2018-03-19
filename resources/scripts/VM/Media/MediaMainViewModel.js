@@ -6,18 +6,42 @@ import MediaHandler from '../../Handlers/MediaHandler';
 export default class MediaManViewModel {
     constructor() {
         this.mediaElements = ko.observableArray([]);
+        this.currentDir = ko.observable(localStorage.getItem('mediapath') || '/');
+        this.pathArr = ko.observableArray([
+            {text: '', path: '/'}
+        ]);
+        this.setBreadcrumbs();
         this.fetchMediaElements();
 
         this.folderPopupOpen = ko.observable(false);
         this.popupOpen = ko.observable(false);
         this.uploadPopupOpen = ko.observable(false);
 
-        this.currentDir = ko.observable('/');
-
         this.newFolderName = ko.observable(null);
 
         this.csrfToken = document.getElementById('csrftoken');
         this.csrfTokenVal = document.getElementById('csrftoken').value;
+
+        this.currentDir.subscribe(() => {
+            this.mediaElements([]);
+            this.setBreadcrumbs();
+            this.fetchMediaElements();
+            localStorage.setItem('mediapath', this.currentDir());
+        });
+    }
+
+    setBreadcrumbs() {
+        this.pathArr([]);
+        let paths = this.currentDir().split('/');
+
+        let lastPaths = '';
+        paths.splice(0, paths.length - 1).forEach(path => {
+            lastPaths += path + '/';
+            this.pathArr.push({
+                text: path,
+                path: lastPaths
+            })
+        });
     }
 
     updateCSRF(newCsrfToken) {
@@ -32,11 +56,12 @@ export default class MediaManViewModel {
      }
 
     async fetchMediaElements() {
-        const response = await MediaHandler.fetchMediaElements();
+        const response = await MediaHandler.fetchMediaElements(this.currentDir());
 
         console.log(response);
-        if (response) {
-            response.forEach(mediaElement => {
+
+        if (response.message === 'success') {
+            response.elements.forEach(mediaElement => {
                this.mediaElements.push(this.createElement(mediaElement));
             });
          }
@@ -90,7 +115,9 @@ export default class MediaManViewModel {
     deleteMediaElement = async (element) => {
         const data = {
             csrf_token: this.csrfTokenVal,
-            element: {...ko.toJS(element)}
+            element: {
+                id: element.id()
+            }
         }
         const response = await MediaHandler.deleteMediaElement(data);
 
@@ -108,8 +135,22 @@ export default class MediaManViewModel {
         console.log('add file');
     }
 
-    openFolder() {
+    openFolder = (element) => {
         console.log('open folder');
+        this.currentDir(element.path() + element.name() + '/');
+    }
+
+    goDirBack() {
+        let newDir;
+
+        const dirArr= this.currentDir().split('/');
+        newDir = dirArr.slice(0, dirArr.length - 2).join('/') + '/';
+
+        this.currentDir(newDir);
+    }
+
+    changeDir = ({path}) => {
+        this.currentDir(path);
     }
 
     openFile() {
