@@ -25,7 +25,11 @@ class MediaController extends BaseController {
         
         header('Content-type: application/json');
         $data = [];
-        $data['element'] = $element;
+        if($element) {
+           $data['element'] = $element;
+        } else {
+           $data['error'] = 'There was a error!';
+        }
         $data['csrfToken'] = CSRF::getToken();
         
         echo json_encode($data);

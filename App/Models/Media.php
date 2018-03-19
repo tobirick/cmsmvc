@@ -29,8 +29,8 @@ class Media extends Model {
     public static function createFolder($folder) {
         $path = __DIR__ . '/../../public/content/media' . $folder['path'];
 
-        mkdir($path . $folder['name'], 0777, true);
-
+        if(!file_exists($path . $folder['name'])) {
+         mkdir($path . $folder['name'], 0777, true);
         $json = file_get_contents(__DIR__ . '/../../public/content/media/elements.json');
         $elements = json_decode($json, true);
         $id = sizeof($elements) > 0 ? $elements[sizeof($elements) - 1]['id'] + 1 : 1;
@@ -49,6 +49,9 @@ class Media extends Model {
         file_put_contents(__DIR__ . '/../../public/content/media/elements.json', $newJson);
 
         return $newElement;
+         } else {
+            return false;
+         }
     }
 
     public static function deleteMediaElement($id) {
@@ -79,9 +82,8 @@ class Media extends Model {
     public static function createFile($data) {
         // Create file
         $path = __DIR__ . '/../../public/content/media/';
-        file_put_contents($path . $data['path'] . $data['name'], base64_decode($data['base']));
-        // add to .json file
-
+        if(!file_exists($path . $data['path'] . $data['name'])) {
+         file_put_contents($path . $data['path'] . $data['name'], base64_decode($data['base']));
         $json = file_get_contents($path . 'elements.json');
         $elements = json_decode($json, true);
         $id = sizeof($elements) > 0 ? $elements[sizeof($elements) - 1]['id'] + 1 : 1;
@@ -100,6 +102,9 @@ class Media extends Model {
         file_put_contents($path . 'elements.json', $newJson);
 
         return $newElement;
+      } else {
+         return false;
+      }
     }
 
     public static function deleteDir($dirPath) {

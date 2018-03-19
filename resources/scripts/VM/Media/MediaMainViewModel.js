@@ -113,12 +113,15 @@ export default class MediaManViewModel {
     
         const response = await MediaHandler.addFolder(data);
 
-        if(response.message === 'success') {
+        if(response.message === 'success' && !response.error) {
             const folder = this.createElement(response.element);
             this.mediaElements.push(folder);
+            this.newFolderName(null);
     
-            csrf.updateToken(response.csrfToken);
-        }
+         } else {
+            console.log(response.error);
+         }
+         csrf.updateToken(response.csrfToken);
     }
 
     deleteMediaElement = async (element) => {
@@ -145,12 +148,14 @@ export default class MediaManViewModel {
     
         const response = await MediaHandler.addFile(data);
 
-        if(response.message === 'success') {
+        if(response.message === 'success' && !response.error) {
             const file = this.createElement(response.element);
             this.mediaElements.push(file);
     
-            csrf.updateToken(response.csrfToken);
-        }
+         } else {
+            console.log(response.error);
+         }
+         csrf.updateToken(response.csrfToken);
     }
 
     openFolder = (element) => {

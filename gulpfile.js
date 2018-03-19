@@ -24,10 +24,9 @@ gulp.task('scripts', function() {
 });
 
 browserSync.init({
-  open: "http://testseite.local", // Change with your dev url
-  host: "http://testseite.local", // Change with your dev url
-  proxy: "http://testseite.local", // Change with your dev url
-  port: 8081,
+  open: "http://ppcms.local", // Change with your dev url
+  host: "http://ppcms.local", // Change with your dev url
+  proxy: "http://ppcms.local", // Change with your dev url
   notify: false
 });
 

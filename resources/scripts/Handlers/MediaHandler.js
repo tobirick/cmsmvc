@@ -29,7 +29,7 @@ MediaHandler.addFolder = function(data) {
         method: 'POST'
     })
         .then(response => response.json())
-        .then(data => ({message: 'success', csrfToken: data.csrfToken, element: data.element}))
+        .then(data => ({message: 'success', csrfToken: data.csrfToken, element: data.element, error: data.error}))
         .catch(data => ({message: 'error', csrfToken: data.csrfToken}));
 }
 
@@ -45,7 +45,7 @@ MediaHandler.addFile = function(data) {
         method: 'POST'
     })
         .then(response => response.json())
-        .then(data => ({message: 'success', csrfToken: data.csrfToken, element: data.element}))
+        .then(data => ({message: 'success', csrfToken: data.csrfToken, element: data.element, error: data.error}))
         .catch(data => ({message: 'error', csrfToken: data.csrfToken}));
 }
 
@@ -81,7 +81,7 @@ MediaHandler.updateMediaElement = function(data) {
     })
         .then(response => response.json())
         .then(data => ({message: 'success', csrfToken: data.csrfToken, element: data.element}))
-        .catch(data => ({message: 'error', csrfToken: data.csrfToken}));
+        .catch(data => ({message: data.error, csrfToken: data.csrfToken}));
 }
 
 export default MediaHandler;
