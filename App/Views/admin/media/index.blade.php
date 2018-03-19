@@ -17,6 +17,11 @@
         <div class="row">
             <div class="col-12">
                 <div class="admin-box">
+                    <div class="breadcrumbs">
+                        <ul data-bind="foreach: pathArr">
+                            <li data-bind="text: text, click: $root.changeDir"></li>
+                        </ul>
+                    </div>
                     <table class="table">
                     <thead>
                         <tr>
@@ -26,10 +31,16 @@
                             <th></th>
                         </tr>
                     </thead>
+                    <tr data-bind="visible: $root.currentDir() !== '/', droppable: {data: moveDirBack, options:{greedy:true, accept: '.media-element'}}">
+                        <td>#</td>
+                        <td style="cursor: pointer;" data-bind="click: goDirBack"><i class="fa fa-undo"></span></i> <span>Go back</span></td>
+                        <td></td>
+                        <td></td>                
+                    </tr>
                     <tbody data-bind="sortable: {data: mediaElements, connectClass: 'media-element', options: {revert: 'invalid'}}">
                         <tr class="media-element" data-bind="visible: $root.currentDir() == path(), css: {file: type() === 'file'}, droppable: type() === 'dir' ? {data: changeFolder, accept: '.media-element'} : {options: {disabled: true}}">
                             <td>#</td>
-                            <td data-bind="click: type() === 'dir' ? openFolder : openFile"><span data-bind="if: type() === 'dir'"><i class="fa fa-folder"></span></i> <span data-bind="text: name"></span></td>
+                            <td style="cursor: pointer;" data-bind="click: type() === 'dir' ? openFolder : openFile"><span data-bind="if: type() === 'dir'"><i class="fa fa-folder"></span></i> <span data-bind="text: name"></span></td>
                             <td data-bind="text: size">Größe</td>
                             <td class="action">
                                 <a href="#"><i class="fa fa-pencil"></i></a>

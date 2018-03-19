@@ -1,0 +1,28 @@
+.breadcrumbs {
+    & ul {
+        list-style-type: none;
+
+        & li {
+            display: inline-block;
+            cursor: pointer;
+
+            &:after {
+                content: '/';
+                padding-left: 0.5rem;
+                opacity: .5;
+            }
+
+            &:first-child {
+                &:before {
+                    @include icon(home);
+                }
+            }
+
+            &:last-child {
+                &:after {
+                    content: '';
+                }
+            }
+        }
+    }
+}

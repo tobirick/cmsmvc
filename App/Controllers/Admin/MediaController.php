@@ -32,7 +32,10 @@ class MediaController extends BaseController {
     }
 
     public function getAllMediaElements() {
-        $mediaElements = Media::getAllMediaElements();
+        $content = trim(file_get_contents("php://input"));
+        $decoded = json_decode($content, true);
+
+        $mediaElements = Media::getAllMediaElements($decoded);
 
         header('Content-type: application/json');
         echo json_encode($mediaElements);
@@ -51,7 +54,7 @@ class MediaController extends BaseController {
     }
 
     public function update($params, $post) {
-        Media::updateMediaElement($params['params']['id'], $post['element'], $post['target']);
+        Media::updateMediaElement($params['params']['id'], $post['element'], $post['targetpath']);
         header('Content-type: application/json');
         $data = [];
         $data['csrfToken'] = CSRF::getToken();

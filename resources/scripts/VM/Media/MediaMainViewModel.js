@@ -1,42 +1,77 @@
 import ko from 'knockout';
 import 'knockout-sortable';
+import 'knockout-file-bindings';
 import MediaElementModel from './MediaElementModel';
 import MediaHandler from '../../Handlers/MediaHandler';
+import csrf from '../../csrf';
+import helpers from '../../helpers';
 
 export default class MediaManViewModel {
     constructor() {
+        this.fileData = ko.observable({
+            text: ko.observable(null),
+            dataURL: ko.observable(null),
+            file: ko.observable(null),
+            base64String: ko.observable(null)
+        });
         this.mediaElements = ko.observableArray([]);
+        this.currentDir = ko.observable(localStorage.getItem('mediapath') || '/');
+        this.pathArr = ko.observableArray([
+            {text: '', path: '/'}
+        ]);
+        this.setBreadcrumbs();
         this.fetchMediaElements();
 
         this.folderPopupOpen = ko.observable(false);
         this.popupOpen = ko.observable(false);
         this.uploadPopupOpen = ko.observable(false);
 
-        this.currentDir = ko.observable('/');
-
         this.newFolderName = ko.observable(null);
 
-        this.csrfToken = document.getElementById('csrftoken');
-        this.csrfTokenVal = document.getElementById('csrftoken').value;
+        this.currentDir.subscribe(() => {
+            this.mediaElements([]);
+            this.setBreadcrumbs();
+            this.fetchMediaElements();
+            localStorage.setItem('mediapath', this.currentDir());
+        });
+
+        this.fileData().base64String.subscribe(() => {
+            const data = ko.toJS(this.fileData);
+            console.log(data);
+            if(data.base64String) {
+                const file = { 
+                    name: helpers.deUmlaut(data.file.name),
+                    size: data.file.size,
+                    path: this.currentDir(),
+                    base: data.base64String
+                }
+    
+                this.uploadFile(file);
+            }
+        });
+
+        this.baseURL = 'http://testseite.local:8081';
     }
 
-    updateCSRF(newCsrfToken) {
-        this.csrfTokenVal = newCsrfToken;
-        this.csrfToken.value = newCsrfToken;
-        const csrfTokenInputEls = document.querySelectorAll(
-           'input[name="csrf_token"]'
-        );
-        csrfTokenInputEls.forEach(csrfTokenInputEl => {
-           csrfTokenInputEl.value = newCsrfToken;
+    setBreadcrumbs() {
+        this.pathArr([]);
+        let paths = this.currentDir().split('/');
+
+        let lastPaths = '';
+        paths.splice(0, paths.length - 1).forEach(path => {
+            lastPaths += path + '/';
+            this.pathArr.push({
+                text: path,
+                path: lastPaths
+            })
         });
-     }
+    }
 
     async fetchMediaElements() {
-        const response = await MediaHandler.fetchMediaElements();
+        const response = await MediaHandler.fetchMediaElements(this.currentDir());
 
-        console.log(response);
-        if (response) {
-            response.forEach(mediaElement => {
+        if (response.message === 'success') {
+            response.elements.forEach(mediaElement => {
                this.mediaElements.push(this.createElement(mediaElement));
             });
          }
@@ -45,9 +80,8 @@ export default class MediaManViewModel {
     createElement(data) {
         return new MediaElementModel(data, {
             openFolder: this.openFolder,
-            changeFolder: this.changeFolder,
             openFile: this.openFile,
-            deleteMediaElement: this.deleteMediaElement
+            deleteMediaElement: this.deleteMediaElement,
         })
     }
 
@@ -69,7 +103,7 @@ export default class MediaManViewModel {
 
     async createFolder() {
         const data = {
-            csrf_token: this.csrfTokenVal,
+            csrf_token: csrf.getToken(),
             folder: {
                 name: this.newFolderName(),
                 path: this.currentDir()
@@ -83,36 +117,82 @@ export default class MediaManViewModel {
             const folder = this.createElement(response.element);
             this.mediaElements.push(folder);
     
-            this.updateCSRF(response.csrfToken);
+            csrf.updateToken(response.csrfToken);
         }
     }
 
     deleteMediaElement = async (element) => {
         const data = {
-            csrf_token: this.csrfTokenVal,
-            element: {...ko.toJS(element)}
+            csrf_token: csrf.getToken(),
+            element: {
+                id: element.id()
+            }
         }
         const response = await MediaHandler.deleteMediaElement(data);
 
         if(response.message === 'success') {
             this.mediaElements.remove(element);
-            this.updateCSRF(response.csrfToken);
+            csrf.updateToken(response.csrfToken);
         }
     }
 
-    uploadFile() {
-        console.log('upload');
+    async uploadFile(file) {
+        const data = {
+            csrf_token: csrf.getToken(),
+            file,
+            type: 'file'
+        }
+    
+        const response = await MediaHandler.addFile(data);
+
+        if(response.message === 'success') {
+            const file = this.createElement(response.element);
+            this.mediaElements.push(file);
+    
+            csrf.updateToken(response.csrfToken);
+        }
     }
 
-    addFile() {
-        console.log('add file');
+    openFolder = (element) => {
+        this.currentDir(element.path() + element.name() + '/');
     }
 
-    openFolder() {
-        console.log('open folder');
+    goDirBack() {
+        const dirArr = this.currentDir().split('/');
+        const newDir = dirArr.slice(0, dirArr.length - 2).join('/') + '/';
+
+        this.currentDir(newDir);
     }
 
-    openFile() {
-        console.log('open file');
+    async moveDirBack(element) {
+        const dirArr = element.path().split('/');
+        const newDir = dirArr.slice(0, dirArr.length - 2).join('/') + '/';
+
+        const data = {
+            csrf_token: csrf.getToken(),
+            element: {
+                id: element.id(),
+                name: element.name(),
+                path: element.path()
+            },
+            targetpath: newDir
+        }
+
+        const response = await MediaHandler.updateMediaElement(data);
+        
+        if(response.message === 'success') {
+            element.path(newDir);
+            csrf.updateToken(response.csrfToken);
+        }
+    }
+
+    changeDir = ({path}) => {
+        this.currentDir(path);
+    }
+
+    openFile = (file) => {
+        const url = `${this.baseURL}/content/media${file.path()}${file.name()}`;
+        const win = window.open(url, '_blank');
+        win.focus();
     }
 }
