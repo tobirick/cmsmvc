@@ -1,5 +1,6 @@
 import ko from 'knockout';
 import MediaHandler from '../../Handlers/MediaHandler';
+import csrf from '../../csrf';
 
 export default class MediaElementModel {
     constructor(data, delegates) {
@@ -10,40 +11,23 @@ export default class MediaElementModel {
         this.deleteMediaElement = delegates.deleteMediaElement;
         this.openFolder = delegates.openFolder;    
         this.openFile = delegates.openFile;
-
-        this.csrfToken = document.getElementById('csrftoken');
-        this.csrfTokenVal = document.getElementById('csrftoken').value;
     }
-
-    updateCSRF(newCsrfToken) {
-        this.csrfTokenVal = newCsrfToken;
-        this.csrfToken.value = newCsrfToken;
-        const csrfTokenInputEls = document.querySelectorAll(
-           'input[name="csrf_token"]'
-        );
-        csrfTokenInputEls.forEach(csrfTokenInputEl => {
-           csrfTokenInputEl.value = newCsrfToken;
-        });
-     }
 
     changeFolder = async (element) => {
         const data = {
-            csrf_token: this.csrfTokenVal,
+            csrf_token: csrf.getToken(),
             element: {
                 id: element.id(),
                 name: element.name(),
                 path: element.path()
             },
-            target: {
-                id: this.id(),
-                name: this.name(),
-                path: this.path()
-            }
+            targetpath: this.path() + this.name() + '/'
         }
         const response = await MediaHandler.updateMediaElement(data);
 
         if(response.message === 'success') {
-            // do something
+            element.path(this.path() + this.name() + '/');
+            csrf.updateToken(response.csrfToken);
         }
     }
 }

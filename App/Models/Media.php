@@ -76,12 +76,37 @@ class Media extends Model {
         return false;
     }
 
-    public static function createFile() {
+    public static function createFile($data) {
         // Create file
+        $path = __DIR__ . '/../../public/content/media/';
+        file_put_contents($path . $data['path'] . $data['name'], base64_decode($data['base']));
         // add to .json file
+
+        $json = file_get_contents($path . 'elements.json');
+        $elements = json_decode($json, true);
+        $id = sizeof($elements) > 0 ? $elements[sizeof($elements) - 1]['id'] + 1 : 1;
+        $newElement = [
+            'id' => $id,
+            'name' => $data['name'],
+            'type' => 'file',
+            'size' => $data['size'],
+            'path' => $data['path'],
+            'position' => 0
+        ];
+
+        $elements[] = $newElement;
+
+        $newJson = json_encode($elements);
+        file_put_contents($path . 'elements.json', $newJson);
+
+        return $newElement;
     }
 
     public static function deleteDir($dirPath) {
+        if(is_file($dirPath)) {
+            unlink($dirPath);
+            return;
+        }
         $it = new RecursiveDirectoryIterator($dirPath, RecursiveDirectoryIterator::SKIP_DOTS);
         $files = new RecursiveIteratorIterator($it,
                      RecursiveIteratorIterator::CHILD_FIRST);
@@ -95,20 +120,36 @@ class Media extends Model {
         rmdir($dirPath);
     }
 
-    public static function updateMediaElement($id, $element, $target) {
+    public static function updateMediaElement($id, $element, $targetpath) {
         $json = file_get_contents(__DIR__ . '/../../public/content/media/elements.json');
         $elements = json_decode($json, true);
 
         $index = self::findIndexById($elements, $id);
         $oldElement = $elements[$index];
         $elements[$index]['name'] = $element['name'];
-        $elements[$index]['path'] = $target['path'] . $target['name'] . '/';
+        $elements[$index]['path'] = $targetpath;
 
         $newJson = json_encode(array_values($elements));
         file_put_contents(__DIR__ . '/../../public/content/media/elements.json', $newJson);
 
         $oldpath = __DIR__ . '/../../public/content/media' . $oldElement['path'] . $oldElement['name'];
-        $newpath = __DIR__ . '/../../public/content/media' . $target['path'] . $target['name'] . '/' . $element['name'];
+        $newpath = __DIR__ . '/../../public/content/media' . $targetpath . $element['name'];
         rename($oldpath, $newpath);
+
+        self::updateNestedMediaElements($oldElement['path'] . $oldElement['name'] . '/', $targetpath . $element['name'] . '/');
+    }
+
+    public static function updateNestedMediaElements($path, $newpath) {
+        $json = file_get_contents(__DIR__ . '/../../public/content/media/elements.json');
+        $elements = json_decode($json, true);
+
+        foreach($elements as $index => $element) {
+            if($element['path'] === $path) {
+                $elements[$index]['path'] = $newpath;
+            }
+        }
+
+        $newJson = json_encode(array_values($elements));
+        file_put_contents(__DIR__ . '/../../public/content/media/elements.json', $newJson);
     }
 }

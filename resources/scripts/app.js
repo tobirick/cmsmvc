@@ -59,7 +59,7 @@ if(pathName.includes('/admin/media')) {
 }
 
 
-//Languages
+// Languages
 const changeLangEl = document.getElementById('langChange');
 if(changeLangEl) {
     const currentLang = changeLangEl.value;
@@ -78,11 +78,6 @@ if(changeLangEl) {
             .then(response => response.json())
             .then(newLang => {
                 window.location.href = window.location.href.replace(currentLang, newLang);
-                /*
-                setTimeout(() => {
-                    window.location.reload();
-                }, 2000);
-                */
             });
     }
     changeLangEl.addEventListener('change', changeLanguage);
@@ -98,8 +93,9 @@ const toggleAdminBox = () => {
 
 if (toggleAdminBoxEl) toggleAdminBoxEl.addEventListener('click', toggleAdminBox);
 
-$(".admin-box-grid-fixed").draggable({ 
-    axis: "y",
+// Page Builder draggable Sidebar
+$('.admin-box-grid-fixed').draggable({ 
+    axis: 'y',
     containment: 'parent'
 });
 

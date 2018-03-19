@@ -1,10 +1,18 @@
 import ko from 'knockout';
 import 'knockout-sortable';
+import 'knockout-file-bindings';
 import MediaElementModel from './MediaElementModel';
 import MediaHandler from '../../Handlers/MediaHandler';
+import csrf from '../../csrf';
 
 export default class MediaManViewModel {
     constructor() {
+        this.fileData = ko.observable({
+            text: ko.observable(null),
+            dataURL: ko.observable(null),
+            file: ko.observable(null),
+            base64String: ko.observable(null)
+        });
         this.mediaElements = ko.observableArray([]);
         this.currentDir = ko.observable(localStorage.getItem('mediapath') || '/');
         this.pathArr = ko.observableArray([
@@ -19,15 +27,29 @@ export default class MediaManViewModel {
 
         this.newFolderName = ko.observable(null);
 
-        this.csrfToken = document.getElementById('csrftoken');
-        this.csrfTokenVal = document.getElementById('csrftoken').value;
-
         this.currentDir.subscribe(() => {
             this.mediaElements([]);
             this.setBreadcrumbs();
             this.fetchMediaElements();
             localStorage.setItem('mediapath', this.currentDir());
         });
+
+        this.fileData.subscribe(() => {
+            const data = ko.toJS(this.fileData);
+            console.log(data);
+            if(data.base64String) {
+                const file = {
+                    name: data.file.name,
+                    size: data.file.size,
+                    path: this.currentDir(),
+                    base: data.base64String
+                }
+    
+                this.uploadFile(file);
+            }
+        });
+
+        this.baseURL = 'http://testseite.local:8081';
     }
 
     setBreadcrumbs() {
@@ -44,21 +66,8 @@ export default class MediaManViewModel {
         });
     }
 
-    updateCSRF(newCsrfToken) {
-        this.csrfTokenVal = newCsrfToken;
-        this.csrfToken.value = newCsrfToken;
-        const csrfTokenInputEls = document.querySelectorAll(
-           'input[name="csrf_token"]'
-        );
-        csrfTokenInputEls.forEach(csrfTokenInputEl => {
-           csrfTokenInputEl.value = newCsrfToken;
-        });
-     }
-
     async fetchMediaElements() {
         const response = await MediaHandler.fetchMediaElements(this.currentDir());
-
-        console.log(response);
 
         if (response.message === 'success') {
             response.elements.forEach(mediaElement => {
@@ -70,9 +79,8 @@ export default class MediaManViewModel {
     createElement(data) {
         return new MediaElementModel(data, {
             openFolder: this.openFolder,
-            changeFolder: this.changeFolder,
             openFile: this.openFile,
-            deleteMediaElement: this.deleteMediaElement
+            deleteMediaElement: this.deleteMediaElement,
         })
     }
 
@@ -94,7 +102,7 @@ export default class MediaManViewModel {
 
     async createFolder() {
         const data = {
-            csrf_token: this.csrfTokenVal,
+            csrf_token: csrf.getToken(),
             folder: {
                 name: this.newFolderName(),
                 path: this.currentDir()
@@ -108,13 +116,13 @@ export default class MediaManViewModel {
             const folder = this.createElement(response.element);
             this.mediaElements.push(folder);
     
-            this.updateCSRF(response.csrfToken);
+            csrf.updateToken(response.csrfToken);
         }
     }
 
     deleteMediaElement = async (element) => {
         const data = {
-            csrf_token: this.csrfTokenVal,
+            csrf_token: csrf.getToken(),
             element: {
                 id: element.id()
             }
@@ -123,37 +131,67 @@ export default class MediaManViewModel {
 
         if(response.message === 'success') {
             this.mediaElements.remove(element);
-            this.updateCSRF(response.csrfToken);
+            csrf.updateToken(response.csrfToken);
         }
     }
 
-    uploadFile() {
-        console.log('upload');
-    }
+    async uploadFile(file) {
+        const data = {
+            csrf_token: csrf.getToken(),
+            file,
+            type: 'file'
+        }
+    
+        const response = await MediaHandler.addFile(data);
 
-    addFile() {
-        console.log('add file');
+        if(response.message === 'success') {
+            const file = this.createElement(response.element);
+            this.mediaElements.push(file);
+    
+            csrf.updateToken(response.csrfToken);
+        }
     }
 
     openFolder = (element) => {
-        console.log('open folder');
         this.currentDir(element.path() + element.name() + '/');
     }
 
     goDirBack() {
-        let newDir;
-
-        const dirArr= this.currentDir().split('/');
-        newDir = dirArr.slice(0, dirArr.length - 2).join('/') + '/';
+        const dirArr = this.currentDir().split('/');
+        const newDir = dirArr.slice(0, dirArr.length - 2).join('/') + '/';
 
         this.currentDir(newDir);
+    }
+
+    async moveDirBack(element) {
+        const dirArr = element.path().split('/');
+        const newDir = dirArr.slice(0, dirArr.length - 2).join('/') + '/';
+
+        const data = {
+            csrf_token: csrf.getToken(),
+            element: {
+                id: element.id(),
+                name: element.name(),
+                path: element.path()
+            },
+            targetpath: newDir
+        }
+
+        const response = await MediaHandler.updateMediaElement(data);
+        
+        if(response.message === 'success') {
+            element.path(newDir);
+            csrf.updateToken(response.csrfToken);
+        }
     }
 
     changeDir = ({path}) => {
         this.currentDir(path);
     }
 
-    openFile() {
-        console.log('open file');
+    openFile = (file) => {
+        const url = `${this.baseURL}/content/media${file.path()}${file.name()}`;
+        const win = window.open(url, '_blank');
+        win.focus();
     }
 }

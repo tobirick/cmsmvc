@@ -30,7 +30,7 @@
                             <th></th>
                         </tr>
                     </thead>
-                    <tr data-bind="visible: $root.currentDir() !== '/'">
+                    <tr data-bind="visible: $root.currentDir() !== '/', droppable: {data: moveDirBack, options:{greedy:true, accept: '.media-element'}}">
                         <td>#</td>
                         <td style="cursor: pointer;" data-bind="click: goDirBack"><i class="fa fa-undo"></span></i> <span>Go back</span></td>
                         <td></td>
