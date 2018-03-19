@@ -4,6 +4,7 @@ import 'knockout-file-bindings';
 import MediaElementModel from './MediaElementModel';
 import MediaHandler from '../../Handlers/MediaHandler';
 import csrf from '../../csrf';
+import helpers from '../../helpers';
 
 export default class MediaManViewModel {
     constructor() {
@@ -34,12 +35,12 @@ export default class MediaManViewModel {
             localStorage.setItem('mediapath', this.currentDir());
         });
 
-        this.fileData.subscribe(() => {
+        this.fileData().base64String.subscribe(() => {
             const data = ko.toJS(this.fileData);
             console.log(data);
             if(data.base64String) {
-                const file = {
-                    name: data.file.name,
+                const file = { 
+                    name: helpers.deUmlaut(data.file.name),
                     size: data.file.size,
                     path: this.currentDir(),
                     base: data.base64String
