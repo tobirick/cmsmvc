@@ -6,8 +6,15 @@ use \Core\Model;
 use DirectoryIterator;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
+use FilesystemIterator;
 
 class Media extends Model {
+    public static function sonderzeichen($string) {
+        $search = array("Ä", "Ö", "Ü", "ä", "ö", "ü", "ß", "´");
+        $replace = array("Ae", "Oe", "Ue", "ae", "oe", "ue", "ss", "");
+        return str_replace($search, $replace, $string);
+    }
+
     public static function getAllMediaElements($dir) {
         $json = file_get_contents(__DIR__ . '/../../public/content/media/elements.json');
         $elements = json_decode($json, true);
@@ -28,15 +35,16 @@ class Media extends Model {
 
     public static function createFolder($folder) {
         $path = __DIR__ . '/../../public/content/media' . $folder['path'];
+        $foldername = self::sonderzeichen($folder['name']);
 
-        if(!file_exists($path . $folder['name'])) {
-         mkdir($path . $folder['name'], 0777, true);
+        if(!file_exists($path . $foldername)) {
+         mkdir($path . $foldername, 0777, true);
         $json = file_get_contents(__DIR__ . '/../../public/content/media/elements.json');
         $elements = json_decode($json, true);
         $id = sizeof($elements) > 0 ? $elements[sizeof($elements) - 1]['id'] + 1 : 1;
         $newElement = [
             'id' => $id,
-            'name' => $folder['name'],
+            'name' => $foldername,
             'type' => 'dir',
             'size' => 0,
             'path' => $folder['path'],
@@ -82,14 +90,16 @@ class Media extends Model {
     public static function createFile($data) {
         // Create file
         $path = __DIR__ . '/../../public/content/media/';
-        if(!file_exists($path . $data['path'] . $data['name'])) {
-         file_put_contents($path . $data['path'] . $data['name'], base64_decode($data['base']));
+        $filename = self::sonderzeichen($data['name']);
+
+        if(!file_exists($path . $data['path'] . $filename)) {
+         file_put_contents($path . $data['path'] . $filename, base64_decode($data['base']));
         $json = file_get_contents($path . 'elements.json');
         $elements = json_decode($json, true);
         $id = sizeof($elements) > 0 ? $elements[sizeof($elements) - 1]['id'] + 1 : 1;
         $newElement = [
             'id' => $id,
-            'name' => $data['name'],
+            'name' => $filename,
             'type' => 'file',
             'size' => $data['size'],
             'path' => $data['path'],
@@ -98,13 +108,42 @@ class Media extends Model {
 
         $elements[] = $newElement;
 
+        
         $newJson = json_encode($elements);
         file_put_contents($path . 'elements.json', $newJson);
+
+        self::updateFileSize();
 
         return $newElement;
       } else {
          return false;
       }
+    }
+
+    public static function updateFileSize() {
+        $path = __DIR__ . '/../../public/content/media/';
+
+        $json = file_get_contents($path . 'elements.json');
+        $elements = json_decode($json, true);
+
+        foreach($elements as $index => $element) {
+            $elements[$index]['size'] = self::getFileSize(__DIR__ . '/../../public/content/media' . $element['path'] . $element['name']);
+        }
+
+        $newJson = json_encode(array_values($elements));
+
+        file_put_contents($path . 'elements.json', $newJson);
+    }
+    
+    public static function getFileSize($path) {
+        $bytestotal = 0;
+        $path = realpath($path);
+        if($path!==false && $path!='' && file_exists($path)){
+            foreach(new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS)) as $object){
+                $bytestotal += $object->getSize();
+            }
+        }
+        return $bytestotal;
     }
 
     public static function deleteDir($dirPath) {
@@ -132,7 +171,6 @@ class Media extends Model {
         if(!file_exists(__DIR__ . '/../../public/content/media' . $targetpath . $element['name'])) {
             $index = self::findIndexById($elements, $id);
             $oldElement = $elements[$index];
-            $elements[$index]['name'] = $element['name'];
             $elements[$index]['path'] = $targetpath;
 
             $newJson = json_encode(array_values($elements));
@@ -143,6 +181,9 @@ class Media extends Model {
             rename($oldpath, $newpath);
 
             self::updateNestedMediaElements($oldElement['path'] . $oldElement['name'] . '/', $targetpath . $element['name'] . '/');
+
+            self::updateFileSize();
+            return true;
         } else {
             return false;
         }

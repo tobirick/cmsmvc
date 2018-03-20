@@ -18,8 +18,8 @@
                 </div>
                 
                 <div class="upload-zone__preview">
-                            <img data-bind="attr: { src: fileData().dataURL }, visible: fileData().dataURL">
-                    </div>
+                    <img data-bind="attr: { src: fileData().dataURL }, visible: fileData().dataURL">
+                </div>
             </div>
         </div>
     </div>

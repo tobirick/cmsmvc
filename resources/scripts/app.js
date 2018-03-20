@@ -55,6 +55,9 @@ if(pathName.includes('/admin/pages/') && pathName.includes('edit')) {
 // Media
 if(pathName.includes('/admin/media')) {
     const mediaMainViewModel = new MediaMainViewModel();
+    ko.bindingHandlers.sortable.afterMove = () => {
+        mediaMainViewModel.updatePositions();
+    }
     ko.applyBindings(mediaMainViewModel);
 }
 

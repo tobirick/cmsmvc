@@ -45,15 +45,13 @@ export default class MediaManViewModel {
 
         this.fileData().base64String.subscribe(() => {
             const data = ko.toJS(this.fileData);
-            console.log(data);
             if(data.base64String) {
                 const file = { 
-                    name: helpers.deUmlaut(data.file.name),
+                    name: helpers.mediaElementFormat(decodeURI(data.file.name)),
                     size: data.file.size,
                     path: this.currentDir(),
                     base: data.base64String
                 }
-    
                 this.uploadFile(file);
             }
         });
@@ -65,6 +63,10 @@ export default class MediaManViewModel {
         this.alert().visible(true);
         this.alert().type(type);
         this.alert().text(message);
+
+        setTimeout(() => {
+            this.alert().visible(false);
+        }, 3000);
     }
 
     closeAlert = () => {
@@ -85,9 +87,14 @@ export default class MediaManViewModel {
         });
     }
 
+    updatePositions() {
+        // Update position of media element
+    }
+
     async fetchMediaElements() {
         const response = await MediaHandler.fetchMediaElements(this.currentDir());
 
+        console.log(response);
         if (response.message === 'success') {
             response.elements.forEach(mediaElement => {
                this.mediaElements.push(this.createElement(mediaElement));
@@ -123,7 +130,7 @@ export default class MediaManViewModel {
         const data = {
             csrf_token: csrf.getToken(),
             folder: {
-                name: this.newFolderName(),
+                name: helpers.mediaElementFormat(this.newFolderName()),
                 path: this.currentDir()
             },
             type: 'dir'
