@@ -129,19 +129,23 @@ class Media extends Model {
         $json = file_get_contents(__DIR__ . '/../../public/content/media/elements.json');
         $elements = json_decode($json, true);
 
-        $index = self::findIndexById($elements, $id);
-        $oldElement = $elements[$index];
-        $elements[$index]['name'] = $element['name'];
-        $elements[$index]['path'] = $targetpath;
+        if(!file_exists(__DIR__ . '/../../public/content/media' . $targetpath . $element['name'])) {
+            $index = self::findIndexById($elements, $id);
+            $oldElement = $elements[$index];
+            $elements[$index]['name'] = $element['name'];
+            $elements[$index]['path'] = $targetpath;
 
-        $newJson = json_encode(array_values($elements));
-        file_put_contents(__DIR__ . '/../../public/content/media/elements.json', $newJson);
+            $newJson = json_encode(array_values($elements));
+            file_put_contents(__DIR__ . '/../../public/content/media/elements.json', $newJson);
 
-        $oldpath = __DIR__ . '/../../public/content/media' . $oldElement['path'] . $oldElement['name'];
-        $newpath = __DIR__ . '/../../public/content/media' . $targetpath . $element['name'];
-        rename($oldpath, $newpath);
+            $oldpath = __DIR__ . '/../../public/content/media' . $oldElement['path'] . $oldElement['name'];
+            $newpath = __DIR__ . '/../../public/content/media' . $targetpath . $element['name'];
+            rename($oldpath, $newpath);
 
-        self::updateNestedMediaElements($oldElement['path'] . $oldElement['name'] . '/', $targetpath . $element['name'] . '/');
+            self::updateNestedMediaElements($oldElement['path'] . $oldElement['name'] . '/', $targetpath . $element['name'] . '/');
+        } else {
+            return false;
+        }
     }
 
     public static function updateNestedMediaElements($path, $newpath) {

@@ -37,14 +37,15 @@
                         <td></td>
                         <td></td>                
                     </tr>
-                    <tbody data-bind="sortable: {data: mediaElements, connectClass: 'media-element', options: {revert: 'invalid'}}">
+                    <tbody data-bind="sortable: {data: mediaElements, connectWith: 'tbody', connectClass: 'media-element', options: {revert: 'invalid', cancel: 'td:not(.editable), a:not(.arrow)'}}">
                         <tr class="media-element" data-bind="visible: $root.currentDir() == path(), css: {file: type() === 'file'}, droppable: type() === 'dir' ? {data: changeFolder, accept: '.media-element'} : {options: {disabled: true}}">
                             <td>#</td>
-                            <td style="cursor: pointer;" data-bind="click: type() === 'dir' ? openFolder : openFile"><span data-bind="if: type() === 'dir'"><i class="fa fa-folder"></span></i> <span data-bind="text: name"></span></td>
+                            <td class="cancel" style="cursor: pointer;" data-bind="click: type() === 'dir' ? openFolder : openFile"><span data-bind="if: type() === 'dir'"><i class="fa fa-folder"></span></i> <span data-bind="text: name"></span></td>
                             <td data-bind="text: size">Größe</td>
-                            <td class="action">
+                            <td class="action editable auto-width">
                                 <a href="#"><i class="fa fa-pencil"></i></a>
                                 <a data-bind="click: deleteMediaElement" href="#"><i class="fa fa-trash"></i></a>
+                                <a style="cursor: move;" class="arrow" href="#"><i class="fa fa-arrows"></i></a>
                             </td>
                         </tr>
                     </tbody>

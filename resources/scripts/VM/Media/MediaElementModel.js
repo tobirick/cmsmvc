@@ -25,9 +25,11 @@ export default class MediaElementModel {
         }
         const response = await MediaHandler.updateMediaElement(data);
 
-        if(response.message === 'success') {
+        if(response.message === 'success' && !response.error) {
             element.path(this.path() + this.name() + '/');
-            csrf.updateToken(response.csrfToken);
+        } else {
+            console.log(response.error);
         }
+        csrf.updateToken(response.csrfToken);
     }
 }

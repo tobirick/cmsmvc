@@ -11,6 +11,13 @@
       padding: 1.25rem 0.25rem;
     }
 
+    & tr {
+        &.ui-droppable-hover {
+            background-color: $primary-color;
+            color: #fff;
+        }
+    }
+
     & td {
         border-top: 1px solid #d6d6d6;
 
