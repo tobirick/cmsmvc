@@ -87,8 +87,20 @@ export default class MediaManViewModel {
         });
     }
 
-    updatePositions() {
-        // Update position of media element
+    async updatePositions () {
+      this.mediaElements().forEach((element, position) => {
+         element.position(position);
+      });
+
+      const data = {
+         csrf_token: csrf.getToken(),
+         elements: ko.toJS(this.mediaElements),
+         bulk: true
+      };
+
+      const response = await MediaHandler.updateMediaElement(data);
+
+      csrf.updateToken(response.csrfToken);
     }
 
     async fetchMediaElements() {

@@ -58,7 +58,15 @@ class MediaController extends BaseController {
     }
 
     public function update($params, $post) {
-        $element = Media::updateMediaElement($params['params']['id'], $post['element'], $post['targetpath']);
+       if($post['bulk']) {
+          foreach($post['elements'] as $element) {
+            Media::updateMediaElementPosition($element);
+          }
+          $element = true;
+      } else {
+         $element = Media::updateMediaElement($params['params']['id'], $post['element'], $post['targetpath']);
+      }
+
         header('Content-type: application/json');
         $data = [];
         $data['csrfToken'] = CSRF::getToken();

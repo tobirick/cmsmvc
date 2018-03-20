@@ -51,7 +51,6 @@
                             <td class="cancel" style="cursor: pointer;" data-bind="click: type() === 'dir' ? openFolder : openFile"><span data-bind="if: type() === 'dir'"><i class="fa fa-folder"></span></i> <span data-bind="text: name"></span></td>
                             <td data-bind="text: size">Größe</td>
                             <td class="action editable auto-width">
-                                <a href="#"><i class="fa fa-pencil"></i></a>
                                 <a data-bind="click: deleteMediaElement" href="#"><i class="fa fa-trash"></i></a>
                                 <a style="cursor: move;" class="arrow" href="#"><i class="fa fa-arrows"></i></a>
                             </td>

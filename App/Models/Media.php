@@ -25,7 +25,9 @@ class Media extends Model {
                     unset($elements[$index]);
                 }
             }
-
+            usort($elements, function($a, $b) {
+               return $a['position'] - $b['position'];
+            });
             return array_values($elements);
         } else {
             return [];
@@ -46,7 +48,7 @@ class Media extends Model {
             'id' => $id,
             'name' => $foldername,
             'type' => 'dir',
-            'size' => 0,
+            'size' => '0 KB / 0 Files',
             'path' => $folder['path'],
             'position' => 0
         ];
@@ -75,6 +77,7 @@ class Media extends Model {
 
         $path = __DIR__ . '/../../public/content/media' . $element['path'] . $element['name'];
         self::deleteDir($path);
+        self::updateFileSize();
     }
 
     public static function findIndexById($array, $id) {
@@ -101,7 +104,7 @@ class Media extends Model {
             'id' => $id,
             'name' => $filename,
             'type' => 'file',
-            'size' => $data['size'],
+            'size' => $data['size'] . ' KB',
             'path' => $data['path'],
             'position' => 0
         ];
@@ -137,13 +140,20 @@ class Media extends Model {
     
     public static function getFileSize($path) {
         $bytestotal = 0;
+        $count = 0;
         $path = realpath($path);
         if($path!==false && $path!='' && file_exists($path)){
-            foreach(new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS)) as $object){
-                $bytestotal += $object->getSize();
+           if(is_dir($path)) {
+               foreach(new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS)) as $object){
+                  $bytestotal += $object->getSize();
+                  if($object->isDir()) continue;
+                  $count++;
+               }
+            } else {
+               return filesize($path) . ' KB';
             }
         }
-        return $bytestotal;
+        return $bytestotal . ' KB / ' . $count . ' Files';
     }
 
     public static function deleteDir($dirPath) {
@@ -187,6 +197,20 @@ class Media extends Model {
         } else {
             return false;
         }
+    }
+
+    public static function updateMediaElementPosition($element) {
+      $json = file_get_contents(__DIR__ . '/../../public/content/media/elements.json');
+      $elements = json_decode($json, true);
+
+      foreach($elements as $index => $elementjson) {
+         if($elementjson['id'] === $element['id']) {
+             $elements[$index]['position'] = $element['position'];
+         }
+      }
+
+      $newJson = json_encode(array_values($elements));
+      file_put_contents(__DIR__ . '/../../public/content/media/elements.json', $newJson);
     }
 
     public static function updateNestedMediaElements($path, $newpath) {
