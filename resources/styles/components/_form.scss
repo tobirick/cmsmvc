@@ -32,7 +32,7 @@ textarea.form-input {
 
 
 .form-checkbox {
-    margin-left: 10px;
+    margin: 0 1rem;
 
     & label {
         cursor: pointer;
@@ -88,6 +88,10 @@ textarea.form-input {
             visibility: visible;
         }
     }
+}
+
+select.form-input {
+   height: calc(4.1rem + 2px);
 }
 
 .form-input {

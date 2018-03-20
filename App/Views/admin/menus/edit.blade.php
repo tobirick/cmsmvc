@@ -26,7 +26,12 @@
                         <input class="form-input" value="{{$menu['name']}}" type="text" placeholder="Name" name="menu[name]">
                     </div>
                     @foreach ($allmenus as $allmenu)
-                        <input {{$menu['id'] === $allmenu['value'] ? 'checked' : ''}} name="menu[{{$allmenu['name']}}]" type="checkbox" value="{{$menu['id']}}"> {{$allmenu['name']}}
+                    <span class="form-checkbox">
+                     <label for="{{$allmenu['name']}}">
+                        <input id="{{$allmenu['name']}}" class="form-checkbox__input" {{$menu['id'] === $allmenu['value'] ? 'checked' : ''}} name="menu[{{$allmenu['name']}}]" type="checkbox" value="{{$menu['id']}}"> 
+                        <span class="form-checkbox__label">{{$allmenu['name']}}</span>
+                     </label>
+                     </span>
                     @endforeach
                 </form>
             </div>
