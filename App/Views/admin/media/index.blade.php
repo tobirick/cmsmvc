@@ -18,13 +18,14 @@
         <div class="row">
             <div class="col-12">
                 <div class="admin-box">
+                   <div class="row mb-2">
                     <span class="form-checkbox">
                         <label for="enable-drop">
                             <input class="form-checkbox__input" id="enable-drop" type="checkbox" data-bind="checked: enableDrop">
                             <span class="form-checkbox__label">Enable Drop</span>
                         </label>
                     </span>
-
+                  </div>
                     <div class="breadcrumbs">
                         <ul data-bind="foreach: pathArr">
                             <li data-bind="text: text, click: $root.changeDir"></li>

@@ -130,7 +130,7 @@ class Media extends Model {
         $elements = json_decode($json, true);
 
         foreach($elements as $index => $element) {
-            $elements[$index]['size'] = self::getFileSize(__DIR__ . '/../../public/content/media' . $element['path'] . $element['name']);
+            $elements[$index]['size'] = self::getFileInfos(__DIR__ . '/../../public/content/media' . $element['path'] . $element['name']);
         }
 
         $newJson = json_encode(array_values($elements));
@@ -138,7 +138,7 @@ class Media extends Model {
         file_put_contents($path . 'elements.json', $newJson);
     }
     
-    public static function getFileSize($path) {
+    public static function getFileInfos($path) {
         $bytestotal = 0;
         $count = 0;
         $path = realpath($path);

@@ -58,7 +58,7 @@ class MediaController extends BaseController {
     }
 
     public function update($params, $post) {
-       if($post['bulk']) {
+       if(isset($post['bulk'])) {
           foreach($post['elements'] as $element) {
             Media::updateMediaElementPosition($element);
           }
