@@ -30,6 +30,66 @@ textarea.form-input {
     }
 }
 
+
+.form-checkbox {
+    margin-left: 10px;
+
+    & label {
+        cursor: pointer;
+    }
+
+    &__label {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        font-weight: bold;
+
+        &:before, &:after {
+            display: inline-flex !important;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            font-size: 11px;
+            margin-left: -25px;
+        }
+
+        &:before {
+            content: "";
+            background-color:transparent;
+            border: 1px solid;
+            border-radius: 3px;
+            border-color: #dbdbdb;
+        }
+            
+        &:after {
+            @include icon(check);
+            color: $primary-color;;
+            opacity: 0;
+            left: 0;
+            top: 5px;
+            visibility: hidden;
+            transition: .2s ease-in all;
+        }
+
+    }
+
+    &__input {
+        opacity: 0;
+
+        &:checked + .form-checkbox__label:before {
+            border-color: $primary-color;
+            transition: border-top-color
+        }
+
+        &:checked + .form-checkbox__label:after {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+}
+
 .form-input {
     font-family: inherit;
     outline: none;

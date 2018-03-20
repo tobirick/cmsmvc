@@ -13,10 +13,18 @@
 @component('admin.popups.media-add-folder-popup')@endcomponent
 @component('admin.popups.media-upload-popup')@endcomponent
 <div id="content">
+@component('admin.components.error')@endcomponent
 <div class="container">
         <div class="row">
             <div class="col-12">
                 <div class="admin-box">
+                    <span class="form-checkbox">
+                        <label for="enable-drop">
+                            <input class="form-checkbox__input" id="enable-drop" type="checkbox" data-bind="checked: enableDrop">
+                            <span class="form-checkbox__label">Enable Drop</span>
+                        </label>
+                    </span>
+
                     <div class="breadcrumbs">
                         <ul data-bind="foreach: pathArr">
                             <li data-bind="text: text, click: $root.changeDir"></li>
@@ -38,7 +46,7 @@
                         <td></td>                
                     </tr>
                     <tbody data-bind="sortable: {data: mediaElements, connectWith: 'tbody', connectClass: 'media-element', options: {revert: 'invalid', cancel: 'td:not(.editable), a:not(.arrow)'}}">
-                        <tr class="media-element" data-bind="visible: $root.currentDir() == path(), css: {file: type() === 'file'}, droppable: type() === 'dir' ? {data: changeFolder, accept: '.media-element'} : {options: {disabled: true}}">
+                        <tr class="media-element" data-bind="visible: $root.currentDir() == path(), css: {file: type() === 'file'}, droppable: type() === 'dir' ? {data: changeFolder, accept: '.media-element', isEnabled: $root.enableDrop} : {options: {disabled: true}}">
                             <td>#</td>
                             <td class="cancel" style="cursor: pointer;" data-bind="click: type() === 'dir' ? openFolder : openFile"><span data-bind="if: type() === 'dir'"><i class="fa fa-folder"></span></i> <span data-bind="text: name"></span></td>
                             <td data-bind="text: size">Größe</td>

@@ -1,0 +1,42 @@
+.alert {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    padding: 0.5rem;
+    z-index: 999999;
+    display: flex;
+    align-items: center;
+
+    &-error {
+        background-color: $error-color;
+        color: #fff;
+
+        &:before {
+            @include icon(exclamation);
+            font-size: 2rem;
+            margin: 0 1rem;
+        }
+    }
+
+    &-success {
+        background-color: $success-color;
+        color: #fff;
+
+        &:before {
+            @include icon(check);
+            font-size: 2rem;
+            margin: 0 1rem;
+        }
+    }
+
+    &__close {
+        margin-left: auto;
+        cursor: pointer;
+
+        &:before {
+            @include icon(times);
+            font-size: 2rem;
+            margin: 0 1rem;
+        }
+    }
+}

@@ -22,11 +22,19 @@ export default class MediaManViewModel {
         this.setBreadcrumbs();
         this.fetchMediaElements();
 
+        this.alert = ko.observable({
+            visible: ko.observable(false),
+            text: ko.observable(),
+            type: ko.observable()
+        });
+
         this.folderPopupOpen = ko.observable(false);
         this.popupOpen = ko.observable(false);
         this.uploadPopupOpen = ko.observable(false);
 
         this.newFolderName = ko.observable(null);
+
+        this.enableDrop = ko.observable(false);
 
         this.currentDir.subscribe(() => {
             this.mediaElements([]);
@@ -51,6 +59,16 @@ export default class MediaManViewModel {
         });
 
         this.baseURL = 'http://testseite.local:8081';
+    }
+
+    showAlert(type, message) {
+        this.alert().visible(true);
+        this.alert().type(type);
+        this.alert().text(message);
+    }
+
+    closeAlert = () => {
+        this.alert().visible(false);
     }
 
     setBreadcrumbs() {
@@ -117,8 +135,9 @@ export default class MediaManViewModel {
             const folder = this.createElement(response.element);
             this.mediaElements.push(folder);
             this.newFolderName(null);
-    
+            this.showAlert('success', 'Folder created');
          } else {
+             this.showAlert('error', response.error);
             console.log(response.error);
          }
          csrf.updateToken(response.csrfToken);
@@ -136,6 +155,7 @@ export default class MediaManViewModel {
         if(response.message === 'success') {
             this.mediaElements.remove(element);
             csrf.updateToken(response.csrfToken);
+            this.showAlert('success', 'Element deleted');
         }
     }
 
@@ -151,8 +171,9 @@ export default class MediaManViewModel {
         if(response.message === 'success' && !response.error) {
             const file = this.createElement(response.element);
             this.mediaElements.push(file);
-    
+            this.showAlert('success', 'File uploaded');
          } else {
+            this.showAlert('error', response.error);
             console.log(response.error);
          }
          csrf.updateToken(response.csrfToken);
@@ -169,7 +190,7 @@ export default class MediaManViewModel {
         this.currentDir(newDir);
     }
 
-    async moveDirBack(element) {
+    moveDirBack = async (element) => {
         const dirArr = element.path().split('/');
         const newDir = dirArr.slice(0, dirArr.length - 2).join('/') + '/';
 
@@ -187,7 +208,9 @@ export default class MediaManViewModel {
         
         if(response.message === 'success' && !response.error) {
             element.path(newDir);
+            this.showAlert('success', 'Element moved');
         } else {
+            this.showAlert('error', response.error);
             console.log(response.error);
         }
         csrf.updateToken(response.csrfToken);

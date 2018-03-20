@@ -18,7 +18,7 @@ $h-text-color: darken($default-text-color, 2%);
 $primary-color: #45AA0F;
 $secondary-color:#DB0A5B;
 
-$success-color: #69DD95;
+$success-color: $primary-color;
 $error-color: #F26175;
 $warning-color: #F8C93F;
 $dark: #161b21;
