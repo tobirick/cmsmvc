@@ -18,14 +18,14 @@
                         <div class="admin-grid-col-wrapper" data-bind="css: 'col-'+col(), droppable: {data: setElement, options: {greedy: true, accept: '.admin-element-list-item, .admin-grid-element'}}">
                             <div class="admin-grid-col">
                                 <div data-bind="ifnot: elementSelected, style: { display: elementSelected() ? 'none' : 'flex'}">
-                                    <i class="fa fa-plus"></i> Insert Module(s)
+                                    <i class="fa fa-plus"></i> <span class="smaller">Drag Module here</span>
                                 </div>
                                 <div class="admin-grid-element-wrapper" data-bind="if: elementSelected, style: { display: elementSelected() ? 'flex' : 'none'}">
                                     <div data-bind="draggable: {data: $data.element, connectClass: 'admin-grid-element-wrapper', options: {helper: 'clone', appendTo: 'body', revert: 'invalid', greedy: true}}" class="admin-grid-element">
                                         <div>
                                             <button data-bind="click: $root.openSettings" class="admin-grid-element__button"><i class="fa fa-bars"></i></button>
                                         </div>
-                                        <span data-bind="text: item_name" class="admin-grid-element__name"></span>
+                                        <span data-bind="text: name() !== '' ? name : item_name" class="admin-grid-element__name"></span>
                                         <div>
                                             <button data-bind="click: $parent.deleteElement" class="admin-grid-element__button"><i class="fa fa-times"></i></button>
                                         </div>

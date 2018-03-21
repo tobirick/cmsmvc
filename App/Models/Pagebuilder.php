@@ -7,18 +7,13 @@ use PDO;
 
 class Pagebuilder extends Model {
     public static function createItem($item) {
-        $path = __DIR__ . '/../Views/admin/pagebuilder-items/' . $item['name'] . '.blade.php';
-
-        self::createItemFolder($item);
-
         $db = static::getDB();
-        $stmt = $db->prepare('INSERT INTO pagebuilder_items (item_name, item_content, item_path_name, item_type, item_description) VALUES(:name, :content, :path_name, :type, :description)');
+        $stmt = $db->prepare('INSERT INTO pagebuilder_items (item_name, item_html, item_type, item_json_config) VALUES(:name, :html, :type, :config)');
         $stmt->execute([
             ':name' => $item['name'],
-            ':content' => $item['content'],
+            ':html' => $item['html'],
             ':type' => $item['type'],
-            ':description' => $item['description'],
-            ':path_name' => $path
+            ':config' => $item['config']
             ]);
 
         return true;
@@ -67,11 +62,6 @@ class Pagebuilder extends Model {
         ]);
 
         return true;
-    }
-
-    public static function createItemFolder($item) {
-        $path = __DIR__ . '/../Views/admin/pagebuilder-items/' . $item['name'] . '.blade.php';
-        file_put_contents($path, $item['content']);
     }
 
     public static function getSectionsByPageID($pageID) {
@@ -192,8 +182,8 @@ class Pagebuilder extends Model {
 
     public static function saveElement($columnID, $element) {
       $db = static::getDB();
-      $stmt = $db->prepare('INSERT INTO pagebuilder_elements (column_id, item_id, css_class, css_id, styles, name, bg_color, padding, margin, html)
-                            VALUES(:column_id, :item_id, :css_class, :css_id, :styles, :name, :bg_color, :padding, :margin, :html)');
+      $stmt = $db->prepare('INSERT INTO pagebuilder_elements (column_id, item_id, css_class, css_id, styles, name, bg_color, padding, margin, html, config)
+                            VALUES(:column_id, :item_id, :css_class, :css_id, :styles, :name, :bg_color, :padding, :margin, :html, :config)');
       $stmt->execute([
           ':column_id' => $columnID,
           ':item_id' => $element['item_id'],
@@ -204,7 +194,8 @@ class Pagebuilder extends Model {
           ':bg_color' => $element['bg_color'],
           ':padding' => $element['padding'],
           ':margin' => $element['margin'],
-          ':html' => $element['html']
+          ':html' => $element['html'],
+          ':config' => json_encode($element['config'])
           ]);
    }
 

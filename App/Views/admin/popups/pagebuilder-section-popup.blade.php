@@ -1,7 +1,7 @@
 <div data-bind="visible: sectionSelected" class="popup pagebuilder-section-popup">
    <div data-bind="with: sectionSelected" class="popup__container">
       <div class="popup__header">
-         <h3 class="popup__title">Section Settings</h3>
+         <h3 class="popup__title">Section Settings <span data-bind="visible: name">for '<span data-bind="text: name"></span>'</span></h3>
          <span data-bind="click: $root.closeSettings" class="popup__close"></span>
       </div>
       <div data-bind="tabs: true" class="popup__tabs">

@@ -25,13 +25,13 @@
                             <input placeholder="Name" value="{{$item_name}}" class="form-input" type="text" name="item[name]">
                         </div>
                         <div class="form-row">
-                            <textarea placeholder="Content" class="form-input" name="item[content]">{{$item_content}}</textarea>
+                            <textarea placeholder="Content" class="form-input" name="item[html]">{{$item_html}}</textarea>
                         </div>
                         <div class="form-row">
                              <input placeholder="Type" value="{{$item_type}}" class="form-input" name="item[type]">
                         </div>
                         <div class="form-row">
-                             <input placeholder="Description" value="{{$item_description}}" class="form-input" name="item[description]">
+                            <input placeholder="Config" value="{{$item_json_config}}" class="form-input" name="item[config]">
                         </div>
                     </form>
                 </div>

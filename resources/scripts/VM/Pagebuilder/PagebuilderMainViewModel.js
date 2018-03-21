@@ -176,7 +176,7 @@ export default class PagebuilderMainViewModel {
          });
          html += `</section>`;
       });
-      this.html(html);
+      this.html(html.replace(/\s\s+/g, ' '));
 
       console.log(ko.toJS(this.html));
    }

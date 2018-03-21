@@ -1,7 +1,7 @@
 <div data-bind="visible: elementSelected" class="popup pagebuilder-element-popup">
     <div data-bind="with: elementSelected" class="popup__container">
         <div class="popup__header">
-            <h3 class="popup__title">Element Settings</h3>
+            <h3 class="popup__title">Element Settings <span data-bind="visible: name">for '<span data-bind="text: name"></span>'</span></h3>
             <span data-bind="click: $root.closeSettings" class="popup__close"></span>
         </div>
         <div data-bind="tabs: true" class="popup__tabs">
@@ -13,12 +13,17 @@
         <div class="popup__content">
          <div class="tab-content" id="contenttab">
             <div class="popup__subsection">
-                <div class="form-row">
-                    <div class="col-3">
-                       <label for="name" class="form-label">HTML</label>
-                    </div>
-                    <div class="col-9">
-                        <textarea class="form-input" data-bind="value: html" placeholder="HTML"></textarea>
+                <div data-bind="foreach: config().elements()">
+                    <div class="form-row">
+                        <div class="col-3">
+                            <label for="name" class="form-label" data-bind="text: name"></label>
+                        </div>
+                        <div data-bind="visible: type() === 'textarea'" class="col-9">
+                            <textarea class="form-input" data-bind="value: value"></textarea>
+                        </div>
+                        <div data-bind="visible: type() === 'input'" class="col-9">
+                            <input class="form-input" data-bind="value: value">
+                        </div>
                     </div>
                 </div>
             </div>

@@ -1,7 +1,7 @@
 <div data-bind="visible: rowSelected" class="popup pagebuilder-row-popup">
    <div data-bind="with: rowSelected" class="popup__container">
       <div class="popup__header">
-         <h3 class="popup__title">Row Settings</h3>
+         <h3 class="popup__title">Row Settings <span data-bind="visible: name">for '<span data-bind="text: name"></span>'</span></h3>
          <span data-bind="click: $root.closeSettings" class="popup__close"></span>
       </div>
       <div data-bind="tabs: true" class="popup__tabs">

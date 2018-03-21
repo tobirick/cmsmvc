@@ -45,10 +45,20 @@ export default class PagebuilderRowModel {
        })
 
        this.html = ko.computed(() => {
-        return `<div class="row ${this.css_class()}" id="${this.css_id()}" style="${this.styles()} background-color:${this.bg_color()};
-                padding-top:${this.paddingVM().top()}; padding-right:${this.paddingVM().right()}; padding-bottom:${this.paddingVM().bottom()}; padding-left:${this.paddingVM().left()};
-                margin-top:${this.marginVM().top()}; margin-right:${this.marginVM().right()}; margin-bottom:${this.marginVM().bottom()}; margin-left:${this.marginVM().left()};">
-                `;
+        return `<div 
+                  class="row${this.css_class() !== '' ? ` ${this.css_class()}` : ''}" 
+                  ${this.css_id() !== '' ? `id="${this.css_id()}"` :''} 
+                  style="${this.styles()}
+                  ${this.bg_color() !== '' ? `background-color:${this.bg_color()};` : ''}
+                  ${this.paddingVM().top() !== '' ? `padding-top:${this.paddingVM().top()};` : ''}
+                  ${this.paddingVM().right() !== '' ? `padding-right:${this.paddingVM().right()};` : ''}
+                  ${this.paddingVM().bottom() !== '' ? `padding-bottom:${this.paddingVM().bottom()};` : ''}
+                  ${this.paddingVM().left() !== '' ? `padding-left:${this.paddingVM().left()};` : ''}
+                  ${this.marginVM().top() !== '' ? `margin-top:${this.marginVM().top()};` : ''}
+                  ${this.marginVM().right() !== '' ? `margin-right:${this.marginVM().right()};` : ''}
+                  ${this.marginVM().bottom() !== '' ? `margin-bottom:${this.marginVM().bottom()};` : ''}
+                  ${this.marginVM().left() !== '' ? `margin-left:${this.marginVM().left()};` : ''}
+                ">`;
     });
 
       this.columnrows = ko.observableArray([]);

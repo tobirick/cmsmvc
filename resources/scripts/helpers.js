@@ -18,4 +18,13 @@ helpers.mediaElementFormat = function(value) {
     return value;
 }
 
+helpers.isJsonString = function(str) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
+}
+
 export default helpers;

@@ -99,4 +99,3 @@ $('.admin-box-grid-fixed').draggable({
     axis: 'y',
     containment: 'parent'
 });
-
