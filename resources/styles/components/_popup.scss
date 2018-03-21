@@ -94,6 +94,7 @@
         border-bottom: 1px solid #eee;
         padding-bottom: 1rem;
         margin-bottom: 3rem;
+        color: darken($primary-color, 6%);
     }
     &__subcontent {
         & .form-row {

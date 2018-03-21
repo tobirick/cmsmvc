@@ -42,11 +42,13 @@ class Pagebuilder extends Model {
 
     public function updateItem($itemid, $item) {
         $db = static::getDB();
-        $stmt = $db->prepare('UPDATE pagebuilder_items SET item_name = :name, item_content = :content WHERE id = :id');
+        $stmt = $db->prepare('UPDATE pagebuilder_items SET item_name = :name, item_html = :html, item_type = :type, item_json_config = :config WHERE id = :id');
         $stmt->execute([
             ':id' => $itemid,
             ':name' => $item['name'],
-            ':content' => $item['content']
+            ':html' => $item['html'],
+            ':type' => $item['type'],
+            ':config' => $item['config']
         ]);
 
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
