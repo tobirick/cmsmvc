@@ -148,11 +148,27 @@
             text-decoration: none;
             color: #fff;
             background-color: darken($color, 7%);
+            border-color: darken($color, 7%);
         }
     
         &.block {
             display: block;
             width: 100%;
+        }
+
+        &.disabled {
+         background-color: #eee;
+         border-color: #eee;
+         color: $default-text-color;
+
+         &:hover,
+        &:active {
+            text-decoration: none;
+            color: #fff;
+            opacity: 1;
+            background-color: darken($color, 7%);
+            border-color: darken($color, 7%);
+        }
         }
     }
 

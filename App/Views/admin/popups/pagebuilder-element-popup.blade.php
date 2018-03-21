@@ -21,8 +21,21 @@
                         <div data-bind="visible: type() === 'textarea'" class="col-9">
                             <textarea class="form-input" data-bind="value: value, attr:{id: key, placeholder: name}"></textarea>
                         </div>
-                        <div data-bind="visible: type() === 'input'" class="col-9">
-                            <input class="form-input" data-bind="value: value, attr:{id: key, placeholder: name}">
+                        <div style="display: flex; align-items: center;" data-bind="visible: type() === 'text' || type() === 'range' || type() === 'color' || type() === 'number'" class="col-9">
+                            <input class="form-input" data-bind="textInput: value, attr:{id: key, placeholder: name, type: type}">
+                            <span style="display:flex; align-items:center;" data-bind="if: type() === 'range'"><input style="margin: 0 1rem;" type="text" class="form-input" data-bind="textInput: value">rem</span>
+                            <span style="display:flex; align-items:center;" data-bind="if: type() === 'color'"><input style="margin: 0 1rem;" type="text" class="form-input" data-bind="textInput: value"></span>
+                        </div>
+                        <div data-bind="visible: type() === 'font-style'" class="col-9">
+                           <button class="button-primary-icon disabled"><i class="fa fa-bold"></i></button>
+                           <button class="button-primary-icon disabled"><i class="fa fa-italic"></i></button>
+                           <button class="button-primary-icon disabled"><i class="fa fa-underline"></i></button>
+                        </div>
+                        <div data-bind="visible: type() === 'font-orientation'" class="col-9">
+                           <button class="button-primary-icon disabled"><i class="fa fa-align-left"></i></button>
+                           <button class="button-primary-icon disabled"><i class="fa fa-align-center"></i></button>
+                           <button class="button-primary-icon disabled"><i class="fa fa-align-right"></i></button>
+                           <button class="button-primary-icon disabled"><i class="fa fa-align-justify"></i></button>
                         </div>
                     </div>
                 </div>

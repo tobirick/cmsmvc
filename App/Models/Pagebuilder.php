@@ -40,7 +40,7 @@ class Pagebuilder extends Model {
         return $result;
     }
 
-    public function updateItem($itemid, $item) {
+    public static function updateItem($itemid, $item) {
         $db = static::getDB();
         $stmt = $db->prepare('UPDATE pagebuilder_items SET item_name = :name, item_html = :html, item_type = :type, item_json_config = :config WHERE id = :id');
         $stmt->execute([

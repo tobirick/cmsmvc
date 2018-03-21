@@ -28,10 +28,10 @@
                             <textarea placeholder="Content" class="form-input" name="item[html]">{{$item_html}}</textarea>
                         </div>
                         <div class="form-row">
-                             <input placeholder="Type" value="{{$item_type}}" class="form-input" name="item[type]">
+                             <input type="text" placeholder="Type" value="{{$item_type}}" class="form-input" name="item[type]">
                         </div>
                         <div class="form-row">
-                            <input placeholder="Config" value="{{$item_json_config}}" class="form-input" name="item[config]">
+                            <input type="text" placeholder="Config" value="{{$item_json_config}}" class="form-input" name="item[config]">
                         </div>
                     </form>
                 </div>
