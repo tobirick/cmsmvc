@@ -118,7 +118,8 @@ export default class MediaManViewModel {
         return new MediaElementModel(data, {
             openFolder: this.openFolder,
             openFile: this.openFile,
-            deleteMediaElement: this.deleteMediaElement,
+            changeFolder: this.changeFolder,
+            deleteMediaElement: this.deleteMediaElement
         })
     }
 
@@ -243,5 +244,26 @@ export default class MediaManViewModel {
         const url = `${this.baseURL}/content/media${file.path()}${file.name()}`;
         const win = window.open(url, '_blank');
         win.focus();
+    }
+
+    async changeFolder(element) {
+        const data = {
+            csrf_token: csrf.getToken(),
+            element: {
+                id: element.id(),
+                name: element.name(),
+                path: element.path()
+            },
+            targetpath: this.path() + this.name() + '/'
+        }
+        const response = await MediaHandler.updateMediaElement(data);
+
+        if(response.message === 'success' && !response.error) {
+            element.path(this.path() + this.name() + '/');
+        } else {
+            this.showAlert('error', response.error);
+            console.log(response.error);
+        }
+        csrf.updateToken(response.csrfToken);
     }
 }

@@ -11,25 +11,6 @@ export default class MediaElementModel {
         this.deleteMediaElement = delegates.deleteMediaElement;
         this.openFolder = delegates.openFolder;    
         this.openFile = delegates.openFile;
-    }
-
-    changeFolder = async (element) => {
-        const data = {
-            csrf_token: csrf.getToken(),
-            element: {
-                id: element.id(),
-                name: element.name(),
-                path: element.path()
-            },
-            targetpath: this.path() + this.name() + '/'
-        }
-        const response = await MediaHandler.updateMediaElement(data);
-
-        if(response.message === 'success' && !response.error) {
-            element.path(this.path() + this.name() + '/');
-        } else {
-            console.log(response.error);
-        }
-        csrf.updateToken(response.csrfToken);
+        this.changeFolder = delegates.changeFolder.bind(this);
     }
 }
