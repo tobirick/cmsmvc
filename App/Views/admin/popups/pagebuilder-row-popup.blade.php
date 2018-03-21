@@ -20,7 +20,7 @@
                         <label for="name" class="form-label">Name</label>
                      </div>
                      <div class="col-9">
-                        <input data-bind="value: name" type="text" id="name" class="form-input" placeholder="Section Name">
+                        <input data-bind="value: name" type="text" id="name" class="form-input" placeholder="Row Name">
                      </div>
                   </div>
                </div>
@@ -33,7 +33,7 @@
                         <label class="form-label">Padding</label>
                      </div>
                      <div class="col-9">
-                        <div data-bind="with: padding" class="row">
+                        <div data-bind="with: paddingVM" class="row">
                            <div class="col-3">
                               <input data-bind="value: top" type="text" class="form-input" placeholder="0">
                            </div>
@@ -53,7 +53,7 @@
                      <div class="col-3">
                         <label class="form-label">Margin</label>
                      </div>
-                     <div data-bind="with: margin" class="col-9">
+                     <div data-bind="with: marginVM" class="col-9">
                         <div class="row">
                            <div class="col-3">
                               <input data-bind="value: top" type="text" class="form-input" placeholder="0">
@@ -83,7 +83,7 @@
                         <label for="bgcolor" class="form-label">Background Color</label>
                      </div>
                      <div class="col-9">
-                        <input data-bind="value: bgColor" type="text" id="bgcolor" class="form-input" placeholder="#f5f5f5">
+                        <input data-bind="value: bg_color" type="text" id="bgcolor" class="form-input" placeholder="#f5f5f5">
                      </div>
                   </div>
                </div>

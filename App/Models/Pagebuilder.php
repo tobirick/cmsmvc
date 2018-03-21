@@ -131,14 +131,17 @@ class Pagebuilder extends Model {
 
     public static function saveSection($pageID, $section) {
         $db = static::getDB();
-        $stmt = $db->prepare('INSERT INTO pagebuilder_sections (page_id, css_class, css_id, styles, name)
-                              VALUES(:page_id, :css_class, :css_id, :styles, :name)');
+        $stmt = $db->prepare('INSERT INTO pagebuilder_sections (page_id, css_class, css_id, styles, name, bg_color, padding, margin)
+                              VALUES(:page_id, :css_class, :css_id, :styles, :name, :bg_color, :padding, :margin)');
         $stmt->execute([
             ':page_id' => $pageID,
             ':css_class' => $section['css_class'],
             ':css_id' => $section['css_id'],
             ':styles' => $section['styles'],
-            ':name' => $section['name']
+            ':name' => $section['name'],
+            ':bg_color' => $section['bg_color'],
+            ':padding' => $section['padding'],
+            ':margin' => $section['margin']
             ]);
 
         $lastID = $db->lastInsertId();
@@ -147,14 +150,17 @@ class Pagebuilder extends Model {
 
     public static function saveRow($sectionID, $row) {
         $db = static::getDB();
-        $stmt = $db->prepare('INSERT INTO pagebuilder_rows (section_id, css_class, css_id, styles, name)
-                              VALUES(:section_id, :css_class, :css_id, :styles, :name)');
+        $stmt = $db->prepare('INSERT INTO pagebuilder_rows (section_id, css_class, css_id, styles, name, bg_color, padding, margin)
+                              VALUES(:section_id, :css_class, :css_id, :styles, :name, :bg_color, :padding, :margin)');
         $stmt->execute([
             ':section_id' => $sectionID,
             ':css_class' => $row['css_class'],
             ':css_id' => $row['css_id'],
             ':styles' => $row['styles'],
-            ':name' => $row['name']
+            ':name' => $row['name'],
+            ':bg_color' => $row['bg_color'],
+            ':padding' => $row['padding'],
+            ':margin' => $row['margin']
             ]);
 
         $lastID = $db->lastInsertId();
@@ -186,10 +192,18 @@ class Pagebuilder extends Model {
 
     public static function saveElement($columnID, $element) {
       $db = static::getDB();
-      $stmt = $db->prepare('INSERT INTO pagebuilder_elements (column_id, item_id) VALUES(:column_id, :item_id)');
+      $stmt = $db->prepare('INSERT INTO pagebuilder_elements (column_id, item_id, css_class, css_id, styles, name, bg_color, padding, margin)
+                            VALUES(:column_id, :item_id, :css_class, :css_id, :styles, :name, :bg_color, :padding, :margin)');
       $stmt->execute([
           ':column_id' => $columnID,
-          ':item_id' => $element['item_id']
+          ':item_id' => $element['item_id'],
+          ':css_class' => $element['css_class'],
+          ':css_id' => $element['css_id'],
+          ':styles' => $element['styles'],
+          ':name' => $element['name'],
+          ':bg_color' => $element['bg_color'],
+          ':padding' => $element['padding'],
+          ':margin' => $element['margin']
           ]);
    }
 

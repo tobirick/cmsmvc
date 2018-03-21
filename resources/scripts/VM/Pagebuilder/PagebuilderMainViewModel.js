@@ -79,8 +79,12 @@ export default class PagebuilderMainViewModel {
 
       if (response) {
          response.forEach(section => {
+            const paddingArr = section.padding.split(' ');
+            const marginArr = section.margin.split(' ');  
+            const paddingVM = {top: paddingArr[0], right: paddingArr[1], bottom: paddingArr[2], left: paddingArr[3]};
+            const marginVM = {top: marginArr[0], right: marginArr[1], bottom: marginArr[2], left: marginArr[3]};
             this.sections.push(
-               new PagebuilderSectionModel(section, {
+               new PagebuilderSectionModel({...section, paddingVM, marginVM}, {
                   cloneSection: this.cloneSection,
                   deleteSection: this.deleteSection
                })
@@ -115,6 +119,8 @@ export default class PagebuilderMainViewModel {
             })
          );
       });
+
+      console.log(ko.toJS(this.elements));
 
       this.updateCSRF(response.csrfToken);
    }
@@ -156,14 +162,12 @@ export default class PagebuilderMainViewModel {
    generateHTML() {
       let html = '';
       this.sections().forEach(section => {
-         html += `<section class="${section.css_class()}" id="${section.css_id()}" styles="${section.styles()}">`;
+         html += section.html();
          section.rows().forEach(row => {
-            html += `<div class="row ${row.css_class()}" id="${row.css_id()}" styles="${row.styles()}">`;
+            html += row.html();
             row.columnrows().forEach(columnrow => {
                columnrow.columns().forEach(column => {
-                  html += `<div class="col-${column.col()}">${
-                     column.element() !== null && column.element().html() !== null ? column.element().html() : ''
-                  }</div>`;
+                html += `<div class="col-${column.col()}">${column.element() !== null ? column.element().generatedHTML() : ''}</div>`;
                });
             });
             html += `</div>`;

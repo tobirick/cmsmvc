@@ -27,7 +27,11 @@ export default class PagebuilderColumnModel {
       const response = await PagebuilderHandler.fetchElement(this.id());
 
       if (response) {
-         this.element(new PagebuilderElementModel(response));
+        const paddingArr = response.padding.split(' ');
+        const marginArr = response.margin.split(' ');  
+        const paddingVM = {top: paddingArr[0], right: paddingArr[1], bottom: paddingArr[2], left: paddingArr[3]};
+        const marginVM = {top: marginArr[0], right: marginArr[1], bottom: marginArr[2], left: marginArr[3]};
+         this.element(new PagebuilderElementModel({...response, paddingVM, marginVM}));
          this.elementSelected(true);
       }
    }

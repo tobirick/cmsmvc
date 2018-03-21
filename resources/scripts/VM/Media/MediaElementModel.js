@@ -1,6 +1,4 @@
 import ko from 'knockout';
-import MediaHandler from '../../Handlers/MediaHandler';
-import csrf from '../../csrf';
 
 export default class MediaElementModel {
     constructor(data, delegates) {
