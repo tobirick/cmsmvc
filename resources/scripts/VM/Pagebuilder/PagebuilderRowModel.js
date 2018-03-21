@@ -45,7 +45,7 @@ export default class PagebuilderRowModel {
        })
 
        this.html = ko.computed(() => {
-        return `<div class="row ${this.css_class()}" id="${this.css_id()}" styles="${this.styles()} background-color:${this.bg_color()};
+        return `<div class="row ${this.css_class()}" id="${this.css_id()}" style="${this.styles()} background-color:${this.bg_color()};
                 padding-top:${this.paddingVM().top()}; padding-right:${this.paddingVM().right()}; padding-bottom:${this.paddingVM().bottom()}; padding-left:${this.paddingVM().left()};
                 margin-top:${this.marginVM().top()}; margin-right:${this.marginVM().right()}; margin-bottom:${this.marginVM().bottom()}; margin-left:${this.marginVM().left()};">
                 `;

@@ -62,12 +62,13 @@ class DefaultPage extends Model {
 
     public function addPage($page) {
         $db = static::getDB();
-        $stmt = $db->prepare('INSERT INTO pages (name, content, slug, title) VALUES(:name, :content, :slug, :title)');
+        $stmt = $db->prepare('INSERT INTO pages (name, slug, title, seo_title, seo_description) VALUES(:name, :slug, :title, :seo_title, :seo_description)');
         $stmt->execute([
             ':name' => $page['name'],
-            ':content' => $page['content'],
             ':slug' => $page['slug'],
             ':title' => $page['title'],
+            ':seo_title' => $page['seo_title'],
+            ':seo_description' => $page['seo_description']
             ]);
 
         return true;
@@ -75,13 +76,14 @@ class DefaultPage extends Model {
     
     public static function updatePage($pageid, $page) {
         $db = static::getDB();
-        $stmt = $db->prepare('UPDATE pages SET name = :name, content = :content, slug = :slug, title = :title WHERE id = :id');
+        $stmt = $db->prepare('UPDATE pages SET name = :name, slug = :slug, title = :title, seo_title = :seo_title, seo_description = :seo_description WHERE id = :id');
         $stmt->execute([
             ':id' => $pageid,
             ':name' => $page['name'],
-            ':content' => $page['content'],
             ':slug' => $page['slug'],
-            ':title' => $page['title']
+            ':title' => $page['title'],
+            ':seo_title' => $page['seo_title'],
+            ':seo_description' => $page['seo_description']
         ]);
 
         $result = $stmt->fetch(PDO::FETCH_ASSOC);

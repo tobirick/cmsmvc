@@ -35,13 +35,13 @@
 <div id="content">    
 <div class="container">
     <div class="row">
-
+        
+        <form style="display: flex;width: 100%" id="submit-form" action="/admin/pages/{{$page['id']}}" method="POST">
+            <input type="hidden" name='_METHOD' value="PUT">
+            <input name="csrf_token" type="hidden" value="{{$csrf}}">
         <div class="col-7">
             <div class="admin-box">
                <h3 class="admin-box__title">Default Settings</h3>
-                <form id="submit-form" action="/admin/pages/{{$page['id']}}" method="POST">
-                    <input type="hidden" name='_METHOD' value="PUT">
-                    <input name="csrf_token" type="hidden" value="{{$csrf}}">
                     <div class="form-row">
                         <input class="form-input" value="{{$page['slug']}}" type="text" placeholder="Slug" name="page[slug]">
                     </div>
@@ -51,10 +51,6 @@
                     <div class="form-row">
                         <input class="form-input" value="{{$page['title']}}" type="text" placeholder="Title" name="page[title]">
                     </div>
-                    <div class="form-row">
-                        <textarea class="form-input" name="page[content]">{{$page['content']}}</textarea>
-                    </div>
-                </form>
             </div>
         </div>
 
@@ -62,13 +58,14 @@
             <div class="admin-box">
                <h3 class="admin-box__title">SEO</h3>
                <div class="form-row">
-                     <input class="form-input" type="text" placeholder="SEO Title" name="page[seo_title]">
+                     <input class="form-input" value="{{$page['seo_title']}}" type="text" placeholder="SEO Title" name="page[seo_title]">
                  </div>
                  <div class="form-row">
-                     <textarea class="form-input" type="text" placeholder="SEO Description" name="page[seo_description]"></textarea>
+                     <textarea class="form-input" type="text" placeholder="SEO Description" name="page[seo_description]">{{$page['seo_description']}}</textarea>
                  </div>
             </div>
         </div>
+    </form>
 
         <div class="col-8">
             <div class="admin-box">

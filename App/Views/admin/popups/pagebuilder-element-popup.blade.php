@@ -13,6 +13,16 @@
         <div class="popup__content">
          <div class="tab-content" id="contenttab">
             <div class="popup__subsection">
+                <div class="form-row">
+                    <div class="col-3">
+                       <label for="name" class="form-label">HTML</label>
+                    </div>
+                    <div class="col-9">
+                        <textarea class="form-input" data-bind="value: html" placeholder="HTML"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="popup__subsection">
                <h3 class="popup__subtitle">General Settings</h3>
                <div class="popup__subcontent">
                   <div class="form-row">

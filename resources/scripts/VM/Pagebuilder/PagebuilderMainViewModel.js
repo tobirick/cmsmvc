@@ -61,10 +61,12 @@ export default class PagebuilderMainViewModel {
    };
 
    async savetoDB() {
+       this.generateHTML();
       const data = {
          csrf_token: this.csrfTokenVal,
          sections: ko.toJS(this.sections),
-         page_id: this.pageID
+         page_id: this.pageID,
+         html: ko.toJS(this.html)
       };
 
       console.log(data.sections);

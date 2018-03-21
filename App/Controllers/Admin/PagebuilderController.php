@@ -79,6 +79,7 @@ class PagebuilderController extends BaseController {
 
         // Delete all sections
         Pagebuilder::deleteSectionsByPageID($decoded['page_id']);
+        Pagebuilder::saveHTMLToPage($decoded['page_id'], $decoded['html']);
 
         // Insert updated sections, rows, columnsrows and rows
         foreach($sections as $key => $section) {

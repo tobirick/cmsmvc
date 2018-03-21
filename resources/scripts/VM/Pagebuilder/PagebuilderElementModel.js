@@ -16,7 +16,8 @@ export default class PagebuilderElementModel {
         this.css_class = ko.observable(data.css_class || '');
         this.css_id = ko.observable(data.css_id || '');
         this.styles = ko.observable(data.styles || '');
-        this.bg_color = ko.observable(data.bg_color || '');
+        this.bg_color = ko.observable(data.bg_color || '');      
+        this.html = ko.observable(data.html || '');
   
         this.paddingVM = ko.observable(data.paddingVM ? {
             top: ko.observable(data.paddingVM.top || ''),
@@ -50,10 +51,8 @@ export default class PagebuilderElementModel {
           return `${this.marginVM().top()} ${this.marginVM().right()} ${this.marginVM().bottom()} ${this.marginVM().left()}`;
           })
 
-          this.html = ko.observable(null);
-
           this.generatedHTML = ko.computed(() => {
-            return `<div class="${this.css_class()}" id="${this.css_id()}" styles="${this.styles()} background-color:${this.bg_color()};
+            return `<div class="${this.css_class()}" id="${this.css_id()}" style="${this.styles()} background-color:${this.bg_color()};
                     padding-top:${this.paddingVM().top()}; padding-right:${this.paddingVM().right()}; padding-bottom:${this.paddingVM().bottom()}; padding-left:${this.paddingVM().left()};
                     margin-top:${this.marginVM().top()}; margin-right:${this.marginVM().right()}; margin-bottom:${this.marginVM().bottom()}; margin-left:${this.marginVM().left()};">
                     ${this.html()}

@@ -1,10 +1,12 @@
 @extends('public.themes.trtheme.partials.layout')
 @section('title', $title)
+@section('metatitle', $seo_title)
+@section('metadescription', $seo_description)
 
 @section('content')
 <div class="container">
     <h1>{{$title}}</h1>
 
-    <p>{{$content}}</p>
+    {!! trim($content) !!}
 </div>
 @stop

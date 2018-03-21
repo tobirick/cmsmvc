@@ -192,8 +192,8 @@ class Pagebuilder extends Model {
 
     public static function saveElement($columnID, $element) {
       $db = static::getDB();
-      $stmt = $db->prepare('INSERT INTO pagebuilder_elements (column_id, item_id, css_class, css_id, styles, name, bg_color, padding, margin)
-                            VALUES(:column_id, :item_id, :css_class, :css_id, :styles, :name, :bg_color, :padding, :margin)');
+      $stmt = $db->prepare('INSERT INTO pagebuilder_elements (column_id, item_id, css_class, css_id, styles, name, bg_color, padding, margin, html)
+                            VALUES(:column_id, :item_id, :css_class, :css_id, :styles, :name, :bg_color, :padding, :margin, :html)');
       $stmt->execute([
           ':column_id' => $columnID,
           ':item_id' => $element['item_id'],
@@ -203,7 +203,8 @@ class Pagebuilder extends Model {
           ':name' => $element['name'],
           ':bg_color' => $element['bg_color'],
           ':padding' => $element['padding'],
-          ':margin' => $element['margin']
+          ':margin' => $element['margin'],
+          ':html' => $element['html']
           ]);
    }
 
@@ -213,5 +214,16 @@ class Pagebuilder extends Model {
         $stmt->execute([
             ':page_id' => $pageID
         ]);
+    }
+
+    public static function saveHTMLToPage($pageid, $html) {
+        $db = static::getDB();
+        $stmt = $db->prepare('UPDATE pages SET content = :content WHERE id = :id');
+        $stmt->execute([
+            ':content' => $html,
+            ':id' => $pageid
+            ]);
+
+        return true;
     }
 }
