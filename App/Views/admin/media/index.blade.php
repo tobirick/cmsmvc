@@ -13,7 +13,7 @@
 @component('admin.popups.media-add-folder-popup')@endcomponent
 @component('admin.popups.media-upload-popup')@endcomponent
 <div id="content">
-@component('admin.components.error')@endcomponent
+@component('admin.components.alert')@endcomponent
 <div class="container">
         <div class="row">
             <div class="col-12">

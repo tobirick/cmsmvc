@@ -27,7 +27,27 @@ export default class PagebuilderMainViewModel {
 
       this.getPageBuilderElements();
       //this.addSection();
+
+      this.alert = ko.observable({
+        visible: ko.observable(false),
+        text: ko.observable(),
+        type: ko.observable()
+    });
    }
+
+   showAlert(type, message) {
+        this.alert().visible(true);
+        this.alert().type(type);
+        this.alert().text(message);
+
+        setTimeout(() => {
+        this.alert().visible(false);
+        }, 3000);
+    }
+
+    closeAlert = () => {
+        this.alert().visible(false);
+    }
 
    updateCSRF(newCsrfToken) {
       this.csrfTokenVal = newCsrfToken;
@@ -73,7 +93,10 @@ export default class PagebuilderMainViewModel {
 
       const response = await PagebuilderHandler.savePagebuilder(data);
 
-      this.updateCSRF(response.csrfToken);
+      if(response) {
+          this.updateCSRF(response.csrfToken);
+          this.showAlert('success', 'Pagebuilder successfully saved!');
+      }
    }
 
    async fetchSections() {

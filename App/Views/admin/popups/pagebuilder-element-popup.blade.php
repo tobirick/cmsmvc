@@ -16,13 +16,13 @@
                 <div data-bind="foreach: config().elements()">
                     <div class="form-row">
                         <div class="col-3">
-                            <label for="name" class="form-label" data-bind="text: name"></label>
+                            <label class="form-label" data-bind="text: name, attr:{for: key}"></label>
                         </div>
                         <div data-bind="visible: type() === 'textarea'" class="col-9">
-                            <textarea class="form-input" data-bind="value: value"></textarea>
+                            <textarea class="form-input" data-bind="value: value, attr:{id: key, placeholder: name}"></textarea>
                         </div>
                         <div data-bind="visible: type() === 'input'" class="col-9">
-                            <input class="form-input" data-bind="value: value">
+                            <input class="form-input" data-bind="value: value, attr:{id: key, placeholder: name}">
                         </div>
                     </div>
                 </div>

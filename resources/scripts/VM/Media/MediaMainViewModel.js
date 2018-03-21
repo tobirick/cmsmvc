@@ -22,12 +22,6 @@ export default class MediaManViewModel {
         this.setBreadcrumbs();
         this.fetchMediaElements();
 
-        this.alert = ko.observable({
-            visible: ko.observable(false),
-            text: ko.observable(),
-            type: ko.observable()
-        });
-
         this.folderPopupOpen = ko.observable(false);
         this.popupOpen = ko.observable(false);
         this.uploadPopupOpen = ko.observable(false);
@@ -57,6 +51,12 @@ export default class MediaManViewModel {
         });
 
         this.baseURL = 'http://testseite.local:8081';
+
+        this.alert = ko.observable({
+            visible: ko.observable(false),
+            text: ko.observable(),
+            type: ko.observable()
+        });
     }
 
     showAlert(type, message) {

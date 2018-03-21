@@ -32,7 +32,8 @@
 @component('admin.popups.pagebuilder-section-popup')@endcomponent
 @component('admin.popups.pagebuilder-row-popup')@endcomponent
 @component('admin.popups.pagebuilder-element-popup')@endcomponent
-<div id="content">    
+<div id="content">
+@component('admin.components.alert')@endcomponent    
 <div class="container">
     <div class="row">
         
