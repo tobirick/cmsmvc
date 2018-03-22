@@ -8,6 +8,7 @@ import Form from './admin-form';
 import MenuListMainViewModel from './VM/MenuListItems/MenuListMainViewModel';
 import PagebuilderMainViewModel from './VM/Pagebuilder/PagebuilderMainViewModel';
 import MediaMainViewModel from './VM/Media/MediaMainViewModel';
+import CreatePagebuilderMainViewModel from './VM/CreatePagebuilder/CreatePagebuilderMainViewModel';
 
 validator.init('#validate-form');
 validator.addBasicRules();
@@ -57,6 +58,12 @@ if(pathName.includes('/admin/media')) {
         mediaMainViewModel.updatePositions();
     }
     ko.applyBindings(mediaMainViewModel);
+}
+
+// Add/Edit Pagebuilder
+if(pathName.includes('/admin/pagebuilder/')) {
+    const createPagebuilderMainViewModel = new CreatePagebuilderMainViewModel();
+    ko.applyBindings(createPagebuilderMainViewModel);
 }
 
 

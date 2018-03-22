@@ -16,7 +16,8 @@ class Pagebuilder extends Model {
             ':config' => $item['config']
             ]);
 
-        return true;
+        $lastID = $db->lastInsertId();
+        return self::getItemById($lastID);
     }
 
     public static function getAllItems() {

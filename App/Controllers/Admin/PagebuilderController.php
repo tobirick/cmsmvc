@@ -70,6 +70,58 @@ class PagebuilderController extends BaseController {
         echo json_encode($data);
     }
 
+    public function getPagebuilderItemByID($params) {
+        $content = trim(file_get_contents("php://input"));
+        $decoded = json_decode($content, true);
+
+        CSRF::checkTokenAjax($decoded['csrf_token']);
+
+        $pagebuilderItemID = $params['params']['id'];
+
+        $pagebuilderItem = Pagebuilder::getItemById($pagebuilderItemID);
+
+        header('Content-type: application/json');
+        $data = [];
+        $data['pagebuilderitem'] = $pagebuilderItem;
+        $data['csrfToken'] = CSRF::getToken();
+
+        echo json_encode($data);
+    }
+
+    public function updatePagebuilderItem($params) {
+        $content = trim(file_get_contents("php://input"));
+        $decoded = json_decode($content, true);
+
+        CSRF::checkTokenAjax($decoded['csrf_token']);
+
+        $pagebuilderItemID = $params['params']['id'];
+
+        Pagebuilder::updateItem($pagebuilderItemID, $decoded['pagebuilderitem']);
+
+        header('Content-type: application/json');
+        $data = [];
+        $data['csrfToken'] = CSRF::getToken();
+
+        echo json_encode($data);
+    }
+
+    public function addPagebuilderItem() {
+        $content = trim(file_get_contents("php://input"));
+        $decoded = json_decode($content, true);
+
+        CSRF::checkTokenAjax($decoded['csrf_token']);
+
+
+        $pagebuilderitem = Pagebuilder::createItem($decoded['pagebuilderitem']);
+
+        header('Content-type: application/json');
+        $data = [];
+        $data['csrfToken'] = CSRF::getToken();
+        $data['pagebuilderID'] = $pagebuilderitem['id'];
+
+        echo json_encode($data);
+    }
+
     public function savePagebuilder() {
         $content = trim(file_get_contents("php://input"));
         $decoded = json_decode($content, true);

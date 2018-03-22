@@ -1,0 +1,54 @@
+.pagebuilder-fields {
+    display: flex;
+    flex-direction: column;
+}
+
+.pagebuilder-field {
+    display: flex;
+    align-items: center;
+    border: 1px solid #dfe3eb;
+    padding: 0.5rem 1rem;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    min-height: 6.6rem;
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        margin-left: 3.5rem;
+
+        & span {
+
+            &.empty {
+                background-color: #eee;
+                width: 10rem;
+                height: 1rem;
+                border-radius: 50px;
+                margin: 0.5rem 0;
+
+                &:last-child {
+                    width: 13rem;
+                }
+            }
+        }
+    }
+
+    &__actions {
+         
+        & i {
+            cursor: pointer;
+            padding: 0 0.5rem;
+            @include transition(.2s ease-in all);
+
+            &:hover {
+                color: $primary-color;
+            }
+        }
+    }
+
+    &:before {
+        @include icon(arrows);
+        position: absolute;
+        cursor: move;
+    }
+}

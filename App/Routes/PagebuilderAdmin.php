@@ -11,6 +11,10 @@ $router->map('POST', '/admin/pagebuilder/[i:id]', requireLogin('Admin\Pagebuilde
 
 // Knockout
 $router->map('POST', '/pagebuilder/items', requireLogin('Admin\PagebuilderController@getAllPagebuilderItems'));
+$router->map('POST', '/pagebuilder/items/[i:id]', requireLogin('Admin\PagebuilderController@getPagebuilderItemByID'));
+
+$router->map('POST', '/pagebuilder/items/[i:id]/edit', requireLogin('Admin\PagebuilderController@updatePagebuilderItem'));
+$router->map('POST', '/pagebuilder/items/add', requireLogin('Admin\PagebuilderController@addPagebuilderItem'));
 
 $router->map('POST', '/pagebuilder', requireLogin('Admin\PagebuilderController@savePagebuilder'));
 

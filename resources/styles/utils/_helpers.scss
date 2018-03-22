@@ -52,5 +52,6 @@
     }
 }
 
+.not-so-light-text { color: lighten($default-text-color, 25%) }
 .light-text { color: lighten($default-text-color, 50%) }
 .smaller-text { font-size: 85% };

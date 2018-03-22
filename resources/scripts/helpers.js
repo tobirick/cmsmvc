@@ -15,6 +15,8 @@ helpers.mediaElementFormat = function(value) {
     value = value.replace(/ß/g, 'ss');
     value = value.replace(/\u00df/g, "ss")
 
+    value = value.replace(/ /g,"_");
+
     return value;
 }
 
