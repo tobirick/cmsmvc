@@ -43,11 +43,12 @@
         <div class="col-7">
             <div class="admin-box">
                <h3 class="admin-box__title">Default Settings</h3>
-                    <div class="form-row">
+                    <div style="display:none;" class="form-row">
                         <input class="form-input" value="{{$page['slug']}}" type="text" placeholder="Slug" name="page[slug]">
                     </div>
                     <div class="form-row">
                         <input class="form-input" value="{{$page['name']}}" type="text" placeholder="Name" name="page[name]">
+                    <a target="_blank" class="aurl" href="{{$settings['siteurl']}}{{$page['slug']}}">{{$settings['siteurl']}}{{$page['slug']}}</a>
                     </div>
                     <div class="form-row">
                         <input class="form-input" value="{{$page['title']}}" type="text" placeholder="Title" name="page[title]">

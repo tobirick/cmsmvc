@@ -174,15 +174,15 @@ input[type=range]::-webkit-slider-thumb {
         outline: none;
         border-color: $formInputBorderFocus;
     }
+}
 
-    &__error {
-        border-color: $error-color;
-    }
+.form-input__error {
+   border-color: $error-color;
+}
 
-    &__error-message {
-        font-weight: bold;
-        color: $error-color;
-    }
+.form-input__error-message {
+   font-weight: bold;
+   color: $error-color;
 }
 
 .form-row {
