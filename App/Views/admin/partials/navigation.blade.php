@@ -19,7 +19,7 @@
                 <span>{{$lang['Media']}}</span>
             </a>
         </li>
-        <li class="main-sidebar__nav-item {{checkIfNavItemIsActive('downloads') ? 'active' : ''}}">
+        <!--<li class="main-sidebar__nav-item {{checkIfNavItemIsActive('downloads') ? 'active' : ''}}">
             <a class="main-sidebar__nav-item-link" href="/{{$curLang}}/admin/downloads">
                 <i class="fa fa-cloud-download" aria-hidden="true"></i>
                 <span>{{$lang['Downloads']}}</span>
@@ -41,7 +41,7 @@
                     </a>    
                 </li>
             </ul>
-        </li>
+        </li>-->
         <li class="main-sidebar__nav-item {{checkIfNavItemIsActive('menus') ? 'active' : ''}}">
             <a class="main-sidebar__nav-item-link" href="/{{$curLang}}/admin/menus">
                 <i class="fa fa-bars" aria-hidden="true"></i>
@@ -54,12 +54,12 @@
                 <span>{{$lang['Themes']}}</span>
             </a>
         </li>
-        <li class="main-sidebar__nav-item {{checkIfNavItemIsActive('forms') ? 'active' : ''}}">
+        <!--<li class="main-sidebar__nav-item {{checkIfNavItemIsActive('forms') ? 'active' : ''}}">
             <a class="main-sidebar__nav-item-link" href="/{{$curLang}}/admin/forms">
                 <i class="fa fa-wpforms" aria-hidden="true"></i> 
                 <span>{{$lang['Forms']}}</span>
             </a>
-        </li>
+        </li>-->
         <li class="main-sidebar__nav-item {{checkIfNavItemIsActive('settings') ? 'active' : ''}}">
             <a class="main-sidebar__nav-item-link" href="/{{$curLang}}/admin/settings">
                 <i class="fa fa-cogs" aria-hidden="true"></i> 

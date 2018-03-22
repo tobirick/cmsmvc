@@ -113,6 +113,10 @@ export default class CreatePagebuilderMainViewModel {
         return new PagebuilderItem(data);
     }
 
+    removeField = (element) => {
+        this.pagebuilderItem().configVM().elements.remove(element);
+    }
+
     async fetchPagebuilderItem() {
         const data = {
             csrf_token: csrf.getToken(),

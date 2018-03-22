@@ -15,6 +15,7 @@ class BaseController {
         $languagesArray = $language->getLanguagesArray();
         $currentLanguage = $language->getCurrentLanguage();
         $allLanguages = $language->getAllLanguages();
+        $settings = \App\Models\Settings::getSettings();
         $shares = [
             ['key' => 'user', 'value' =>  self::getUser()],
             ['key' => 'csrf', 'value' => $csrf->getToken()],
@@ -24,7 +25,8 @@ class BaseController {
             ['key' => 'allmenus', 'value' => $getAllMenuNames],
             ['key' => 'lang', 'value' => $languagesArray],
             ['key' => 'curLang', 'value' => $currentLanguage],
-            ['key' => 'allLanguages', 'value' => $allLanguages]
+            ['key' => 'allLanguages', 'value' => $allLanguages],
+            ['key' => 'settings', 'value' => $settings]
         ];
         $view = new View();
         $view->render($template, $args, $shares);

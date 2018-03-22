@@ -150,6 +150,12 @@ input[type=range]::-webkit-slider-thumb {
     height: 4.5rem;
     font-size: $default-font-size;
 
+    &:disabled {
+        background-color: darken($formInputBackgroundColor, 10%);
+        opacity: .8;
+        cursor: context-menu;
+    }
+
     &::-webkit-input-placeholder,
     &::-moz-placeholder,
     &:-ms-input-placeholder,

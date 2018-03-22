@@ -62,16 +62,15 @@ class DefaultPage extends Model {
 
     public function addPage($page) {
         $db = static::getDB();
-        $stmt = $db->prepare('INSERT INTO pages (name, slug, title, seo_title, seo_description) VALUES(:name, :slug, :title, :seo_title, :seo_description)');
+        $stmt = $db->prepare('INSERT INTO pages (name, slug, title) VALUES(:name, :slug, :title)');
         $stmt->execute([
             ':name' => $page['name'],
             ':slug' => $page['slug'],
-            ':title' => $page['title'],
-            ':seo_title' => $page['seo_title'],
-            ':seo_description' => $page['seo_description']
+            ':title' => $page['title']
             ]);
 
-        return true;
+        $lastID = $db->lastInsertId();
+        return self::getPageById($lastID);
     }
     
     public static function updatePage($pageid, $page) {

@@ -3,7 +3,7 @@ import helpers from '../../helpers';
 import PagebuilderField from './PagebuilderField';
 
 export default class PagebuilderItem {
-    constructor(data) {
+    constructor(data, delegates) {
         this.name = ko.observable(data.item_name);
         this.html = ko.observable(data.item_html);
         this.type = ko.observable(data.item_type);
@@ -29,16 +29,10 @@ export default class PagebuilderItem {
     }
 
     addPagebuilderField(data) {
-        const newElement = new PagebuilderField(ko.toJS(data), {
-            removeField: this.removeField
-        });
+        const newElement = new PagebuilderField(ko.toJS(data));
         this.configVM().elements.push(newElement);
 
         return newElement;
-    }
-
-    removeField = (element) => {
-        this.configVM().elements.remove(element);
     }
 
     updateConfig() {

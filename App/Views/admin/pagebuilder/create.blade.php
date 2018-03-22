@@ -29,7 +29,7 @@
                                      <input type="text" placeholder="Type" data-bind="value: type" class="form-input">
                                 </div>
                                 <div class="form-row">
-                                    <input type="text" placeholder="Config" data-bind="value: config" class="form-input">
+                                    <input type="text" placeholder="Config" data-bind="value: config, attr:{disabled:true}" class="form-input">
                                 </div>
                         </div>
                     </div>
@@ -44,13 +44,13 @@
                                     <div data-bind="sortable: {data: configVM().elements, options: {revert: 'invalid'}}" class="pagebuilder-fields">
                                         <div class="pagebuilder-field">
                                             <div class="pagebuilder-field__content">
-                                                <span data-bind="text: name"></span>
-                                                <span data-bind="text: key" class="not-so-light-text"></span>
+                                                <span data-bind="text: name, css:{empty: name() === ''}"></span>
+                                                <span data-bind="text: key, css:{empty: name() === ''}" class="not-so-light-text"></span>
                                             </div>
                                             <div class="pagebuilder-field__actions">
                                                 <i data-bind="click: $root.copyToClipboard" class="fa fa-copy not-so-light-text"></i>
                                                  <i data-bind="click: $root.openPopup" class="fa fa-pencil not-so-light-text"></i>
-                                                 <i data-bind="click: removeField" class="fa fa-trash not-so-light-text"></i>
+                                                 <i data-bind="click: $root.removeField" class="fa fa-trash not-so-light-text"></i>
                                             </div>
                                          </div>
                                     </div>

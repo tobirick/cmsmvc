@@ -21,7 +21,6 @@
         <div data-bind="with: pagebuilderItem" class="row">
             <div class="col-8">
                 <div class="admin-box">
-                        <div id="code"></div>
                         <div class="form-row">
                             <input placeholder="Name" data-bind="value: name" class="form-input" type="text">
                         </div>
@@ -32,7 +31,7 @@
                              <input type="text" placeholder="Type" data-bind="value: type" class="form-input">
                         </div>
                         <div class="form-row">
-                            <input type="text" placeholder="Config" data-bind="value: config" class="form-input">
+                            <input type="text" placeholder="Config" data-bind="value: config, attr:{disabled:true}" class="form-input">
                         </div>
                 </div>
             </div>
@@ -53,7 +52,7 @@
                                     <div class="pagebuilder-field__actions">
                                          <i data-bind="click: $root.copyToClipboard" class="fa fa-copy not-so-light-text"></i>
                                          <i data-bind="click: $root.openPopup" class="fa fa-pencil not-so-light-text"></i>
-                                         <i data-bind="click: removeField" class="fa fa-trash not-so-light-text"></i>
+                                         <i data-bind="click: $root.removeField" class="fa fa-trash not-so-light-text"></i>
                                     </div>
                                  </div>
                             </div>

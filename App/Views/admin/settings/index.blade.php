@@ -5,12 +5,13 @@
 @section('content')
 @component('admin.partials.secondary-navigation')
     @slot('right')
-        <a href="#" class="button-primary">{{$lang['Save']}}</a>
+        <a id="submit-form-btn" href="#" class="button-primary">{{$lang['Save']}}</a>
     @endslot
 @endcomponent
 <div id="content">
 <div class="container">
-    <form action="">
+    <form id="submit-form" action="/admin/settings" method="POST">
+        <input name="csrf_token" type="hidden" value="{{$csrf}}">
         <div class="row">
             <div class="col-7">
                 <div class="admin-box">
@@ -20,7 +21,7 @@
                             <label class="form-label" for="title">Titel der Seite</label>
                         </div>
                         <div class="col-8">
-                            <input type="text" placeholder="z.B. PP IT-Systeme" name="settings[title]" id="title" class="form-input">
+                            <input type="text" placeholder="z.B. PP IT-Systeme" value="{{$settings['sitetitle']}}" name="settings[sitetitle]" id="title" class="form-input">
                         </div>
                     </div>
                     <div class="form-row">
@@ -28,7 +29,15 @@
                             <label class="form-label" for="subtitle">Untertitel</label>
                         </div>
                         <div class="col-8">
-                            <input type="text" placeholder="z.B. Das ist schön" name="settings[subtitle]" id="subtitle" class="form-input">
+                            <input type="text" placeholder="z.B. Das ist schön" name="settings[sitesubtitle]" value="{{$settings['sitesubtitle']}}" id="subtitle" class="form-input">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-4">
+                            <label class="form-label" for="sitedescription">Seitenbeschreibung</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" placeholder="z.B. Das ist schön" name="settings[sitedescription]" value="{{$settings['sitedescription']}}" id="sitedescription" class="form-input">
                         </div>
                     </div>
                     <div class="form-row">
@@ -36,19 +45,7 @@
                             <label class="form-label" for="url">Website URL</label>
                         </div>
                         <div class="col-8">
-                            <input type="text" placeholder="z.B. https://pp-systeme.de" name="settings[url]" id="url" class="form-input">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-4">
-                            <label class="form-label" for="language">Sprache der Website</label>
-                        </div>
-                        <div class="col-8">
-                            <select name="settings[language]" id="language" class="form-input">
-                                @foreach($allLanguages as $language)
-                                    <option value="{{$language['shortName']}}" {{$curLang === $language['shortName'] ? 'selected' : ''}}>{{$language['longName']}}</option>
-                                 @endforeach
-                            </select>
+                            <input type="text" placeholder="z.B. https://pp-systeme.de" name="settings[siteurl]" value="{{$settings['siteurl']}}" id="url" class="form-input">
                         </div>
                     </div>
                 </div>
@@ -56,6 +53,7 @@
             <div class="col-5">
                 <div class="admin-box">
                     <h3 class="admin-box__title">Mail Einstellungen</h3>
+                    <span>(Coming soon ...)</span>
                     <div class="form-row">
                         <div class="col-4">
                             <label class="form-label" for="emailsender">E-Mail Sender</label>

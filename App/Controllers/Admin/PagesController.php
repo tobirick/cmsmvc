@@ -45,8 +45,8 @@ class PagesController extends BaseController {
         CSRF::checkToken();
         if(isset($_POST)) {
             $page = new DefaultPage();
-            $page->addPage($_POST['page']);
-            self::redirect('/admin/pages');
+            $newPage = $page->addPage($_POST['page']);
+            self::redirect('/admin/pages/' . $newPage['id'] . '/edit');
         }
     }
 

@@ -8,8 +8,6 @@ export default class PagebuilderField {
         this.key = ko.observable(data.key || '');
         this.value = ko.observable(data.value || '');
 
-        this.removeField = delegates.removeField;
-
         this.name.subscribe(() => {
             this.key(helpers.mediaElementFormat(this.name()));
         });
