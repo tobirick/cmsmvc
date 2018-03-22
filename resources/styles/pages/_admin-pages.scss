@@ -154,7 +154,6 @@
 }
 
 .admin-grid-row {
-    position: relative;
     display: flex;
     height: 75%;
     background-color: #fff;
@@ -207,6 +206,12 @@
 .admin-grid-cols {
     width: 88%;
     margin: 0 auto;
+
+    &.empty {
+      border: 2px dotted #eee;
+      margin: 1rem;
+      border-radius: 3px;
+    }
 
     & > div {
       flex-flow: row wrap;
