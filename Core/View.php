@@ -14,8 +14,32 @@ class View {
             self::share($share);
         }
         
-        echo $this->blade->view()->make($template, $args)->render();
+        $html = $this->blade->view()->make($template, $args)->render();
+
+        $buffer = $this->sanitaze($html);
+
+        echo $buffer;
     }
+
+    public function sanitaze($buffer) {
+        $search = array(
+            '/\>[^\S ]+/s',     // strip whitespaces after tags, except space
+            '/[^\S ]+\</s',     // strip whitespaces before tags, except space
+            '/(\s)+/s',         // shorten multiple whitespace sequences
+            '/<!--(.|\s)*?-->/' // Remove HTML comments
+        );
+    
+        $replace = array(
+            '>',
+            '<',
+            '\\1',
+            ''
+        );
+    
+        $buffer = preg_replace($search, $replace, $buffer);
+    
+        return $buffer;
+    } 
 
     public function share($share) {
         foreach($share as $shareItem) {
