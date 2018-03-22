@@ -13,7 +13,7 @@
                     <button data-bind="click: cloneRow"><i class="fa fa-clone"></i></button>
                     <button data-bind="click: deleteRow"><i class="fa fa-times"></i></button>
                 </div>
-                <div style="width: 100%; display: flex; align-items: center; justify-content: center;position: absolute;height:100%;" data-bind="visible: columnrows().length === 0"><i class="fa fa-arrows pr-1"></i> Drop Columns here</div>
+                <div style="width: 90%;right:0; display: flex; align-items: center; justify-content: center;position: absolute;height:100%;" data-bind="visible: columnrows().length === 0"><i class="fa fa-arrows pr-1"></i> Drop Columns here</div>
                 <div class="admin-grid-cols" data-bind="sortable: {data: columnrows, connectClass: 'admin-grid-col-wrapper', options: {revert: 'invalid'}}">
                     <div data-bind="foreach: columns">
                         <div class="admin-grid-col-wrapper" data-bind="css: 'col-'+col(), droppable: {data: setElement, options: {greedy: true, accept: '.admin-element-list-item, .admin-grid-element'}}">

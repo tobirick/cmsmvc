@@ -15,11 +15,11 @@
     <meta name="twitter:title" content="{{$settings['sitetitle']}} - @yield('metatitle')" />
     <meta name="twitter:description" content="@yield('metadescription')" />
     <title itemprop="name">@yield('title')</title>
-    @include('public.themes.trtheme.partials.styles')
+    @include('public.themes.' . $activetheme . '.partials.styles')
 </head>
 <body>
-    @include('public.themes.trtheme.partials.navigation')
+    @include('public.themes.' . $activetheme . '.partials.navigation')
     @yield('content')
-    @include('public.themes.trtheme.partials.scripts')
+    @include('public.themes.' . $activetheme . '.partials.scripts')
 </body>
 </html>

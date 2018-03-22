@@ -1,4 +1,4 @@
-@extends('public.themes.trtheme.partials.layout')
+@extends('public.themes.' . $activetheme . '.partials.layout')
 @section('title', 'Home')
 
 @section('content')
