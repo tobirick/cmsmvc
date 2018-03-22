@@ -80,7 +80,10 @@
         </div>
         <div class="col-4">
             <div class="admin-box">
-                <h3 class="admin-box__title">Elements</h3>
+                <div class="admin-box__header">
+                    <h3 class="admin-box__title">Elements</h3>
+                    <a target="_blank" style="max-height: 3.5rem;display: inline-flex;align-items:center;" href="/{{$curLang}}/admin/pagebuilder/create" class="button-primary">Add new</a>
+                </div>
                 <div data-bind="foreach: elements" class="row">
                     <div class="col-6">
                         <div data-bind="draggable: {data: $data, options: {revert: 'invalid'}}" class="admin-element-list-item">

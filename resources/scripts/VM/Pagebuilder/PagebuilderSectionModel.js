@@ -80,6 +80,13 @@ export default class PagebuilderSectionModel {
                )
             );
          });
+      } else {
+        this.rows.push(
+          new PagebuilderRowModel({}, {
+             deleteRow: this.deleteRow,
+             cloneRow: this.cloneRow
+          })
+       );
       }
 
       this.deleteSection = delegates.deleteSection;

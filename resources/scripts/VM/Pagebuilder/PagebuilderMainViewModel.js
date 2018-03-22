@@ -102,7 +102,7 @@ export default class PagebuilderMainViewModel {
    async fetchSections() {
       const response = await PagebuilderHandler.fetchSections(this.pageID);
 
-      if (response) {
+      if (response.length > 0) {
          response.forEach(section => {
             const paddingArr = section.padding.split(' ');
             const marginArr = section.margin.split(' ');  
@@ -115,6 +115,13 @@ export default class PagebuilderMainViewModel {
                })
             );
          });
+      } else {
+        this.sections.push(
+            new PagebuilderSectionModel({}, {
+               cloneSection: this.cloneSection,
+               deleteSection: this.deleteSection
+            })
+         );
       }
    }
 
