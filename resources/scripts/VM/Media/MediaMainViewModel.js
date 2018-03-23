@@ -257,7 +257,8 @@ export default class MediaManViewModel {
         if(response.message === 'success' && !response.error) {
             element.path(this.path() + this.name() + '/');
         } else {
-            this.showAlert('error', response.error);
+            //this.showAlert('error', response.error);
+            console.log(response.error);
         }
         csrf.updateToken(response.csrfToken);
     }
