@@ -23,9 +23,15 @@
                             <label class="form-label" data-bind="text: name, attr:{for: key}"></label>
                         </div>
                         <div class="col-9">
-                            <div style="display: flex; align-items: center;" data-bind="if: type() === 'image-src'">
-                                <input type="text" class="form-input" data-bind="textInput: value, attr:{id: key, placeholder: name}">
-                                <button data-bind="click: $parent.openMediaPopup" class="ml-1 button-primary">Choose Media</button>
+                            <div data-bind="if: type() === 'image-src'">
+                                <div style="display: flex; align-items: center;">
+                                    <input type="text" class="form-input" data-bind="textInput: value, attr:{id: key, placeholder: name}">
+                                    <button data-bind="click: $parent.openMediaPopup" class="ml-1 button-primary">Choose Media</button>
+                                </div>
+                                <div class="mt-1"><strong>Image Preview:</strong></div>
+                                <div style="border: 1px solid #ddd; border-radius: 2px;display: flex; justify-content: center; align-items: center; padding: 2rem;">
+                                    <img style="max-width: 100%;" data-bind="attr: {src: value}">
+                                </div>
                             </div>
                             <div data-bind="if: type() === 'textarea'">
                                 <textarea class="form-input" data-bind="value: value, attr:{id: key, placeholder: name}"></textarea>

@@ -1,7 +1,7 @@
 <div data-bind="visible: mediaPopupVM().mediaPopupOpen, with: mediaPopupVM()" class="popup pagebuilder-media-overview-popup higher-z">
         <div class="popup__container">
             <div class="popup__header">
-                <h3 class="popup__title">Choose Image</h3>
+                <h3 class="popup__title">Choose your Image</h3>
                 <span data-bind="click: closeMediaPopup" class="popup__close"></span>
             </div>
             <div class="popup__content">
@@ -13,7 +13,12 @@
                             </div>
                         </div>
                     </div>
-                    <div data-bind="with: selectedMediaElement" class="col-4">
+                    <div class="active-media-element col-4 empty" data-bind="visible: !selectedMediaElement()">
+                        <span>&nbsp;</span>
+                        <span>&nbsp;</span>
+                        <span>&nbsp;</span>
+                    </div>
+                    <div data-bind="with: selectedMediaElement, visible: selectedMediaElement()" class="col-4 active-media-element">
                         <div class="form-row">
                             <div class="col-3">
                                 <label class="form-label" id="name">Name</label>
