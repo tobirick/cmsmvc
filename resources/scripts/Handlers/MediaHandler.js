@@ -17,6 +17,23 @@ MediaHandler.fetchMediaElements = async function(dir) {
     return data;
 }
 
+MediaHandler.fetchImages = async function() {
+    const url = `/media/images`;
+    return fetch(url, {
+        body: JSON.stringify(),
+        headers: {
+            'content-type': 'application/json'
+        },
+        credentials: 'include',
+        method: 'POST'
+    })
+        .then(response => response.json())
+        .then(data => ({message: 'success', elements: data.elements}))
+        .catch(data => ({message: 'error'}));
+
+    return data;
+}
+
 MediaHandler.addFolder = function(data) {
     const url = `/admin/media`;
 

@@ -47,8 +47,8 @@
                         <input class="form-input" value="{{$page['slug']}}" type="text" placeholder="Slug" name="page[slug]">
                     </div>
                     <div class="form-row">
-                        <input class="form-input" value="{{$page['name']}}" type="text" placeholder="Name" name="page[name]">
-                    <a target="_blank" class="aurl" href="{{$settings['siteurl']}}{{$page['slug']}}">{{$settings['siteurl']}}{{$page['slug']}}</a>
+                        <input autocomplete="off" class="form-input" value="{{$page['name']}}" type="text" placeholder="Name" name="page[name]">
+                        <strong>Permalink: </strong> <a target="_blank" class="aurl" href="{{$settings['siteurl']}}{{$page['slug']}}"> {{$settings['siteurl']}}{{$page['slug']}}</a>
                     </div>
                     <div class="form-row">
                         <input class="form-input" value="{{$page['title']}}" type="text" placeholder="Title" name="page[title]">

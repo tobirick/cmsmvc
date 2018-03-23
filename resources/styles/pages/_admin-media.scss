@@ -26,3 +26,32 @@
         display: none;
     }
 }
+
+.pagebuilder-media-overview-popup {
+    max-width: 65%;
+
+    & .images-preview {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        
+        &__item {
+            margin: 1rem;
+            border: 1px solid $default-text-color;
+            border-radius: 2px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #eee;
+            cursor: pointer;
+            
+            & img {
+                max-width: 15rem;
+            }
+            &.active {
+                border: 1px solid $primary-color;
+            }
+        }
+    }
+}

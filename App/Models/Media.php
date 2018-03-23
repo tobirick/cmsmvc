@@ -32,7 +32,22 @@ class Media extends Model {
         } else {
             return [];
         }
-        
+    }
+
+    public function getImages() {
+        $json = file_get_contents(__DIR__ . '/../../public/content/media/elements.json');
+        $elements = json_decode($json, true);
+
+        if($elements) {
+            foreach($elements as $index => $element) {
+                if($element['type'] !== 'file') {
+                    unset($elements[$index]);
+                }
+            }
+            return array_values($elements);
+        } else {
+            return [];
+        }
     }
 
     public static function createFolder($folder) {
