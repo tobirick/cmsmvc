@@ -89,8 +89,6 @@ export default class PagebuilderMainViewModel {
          html: ko.toJS(this.html)
       };
 
-      console.log(data.sections);
-
       const response = await PagebuilderHandler.savePagebuilder(data);
 
       if(response) {
@@ -152,8 +150,6 @@ export default class PagebuilderMainViewModel {
          );
       });
 
-      console.log(ko.toJS(this.elements));
-
       this.updateCSRF(response.csrfToken);
    }
 
@@ -207,7 +203,5 @@ export default class PagebuilderMainViewModel {
          html += `</section>`;
       });
       this.html(html.replace(/\s\s+/g, ' '));
-
-      console.log(ko.toJS(this.html));
    }
 }

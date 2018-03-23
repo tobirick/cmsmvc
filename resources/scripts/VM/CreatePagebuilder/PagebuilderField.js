@@ -17,7 +17,6 @@ export default class PagebuilderField {
     addButton = () => {
         this.buttons.push({
             icon: ko.observable(''),
-            key: ko.observable(''),
             value: ko.observable(''),
             enabled: false
         });

@@ -49,7 +49,6 @@ export default class PagebuilderElementModel {
                 this.config().elements.push(ko.observable(newconfigelement));
             });
         }
-
         
         this.paddingVM = ko.observable(data.paddingVM ? {
             top: ko.observable(data.paddingVM.top || ''),
@@ -76,6 +75,17 @@ export default class PagebuilderElementModel {
         });
         
         this.config().elements().forEach((element) => {
+            if(element().buttons().length > 0) {
+                element().value = ko.computed(() => {
+                    let html = '';
+                    element().buttons().forEach((button) => {
+                        if(button.enabled()) {
+                            html += button.value();
+                        }
+                    });
+                    return html;
+                });
+            }
             element().value.subscribe(() => {
                 this.updateHTML();
             })
@@ -122,7 +132,6 @@ export default class PagebuilderElementModel {
     }
 
     toggleButtonStatus(element) {
-        console.log('set button active');
         if(element.enabled()) {
             element.enabled(false);
         } else {
@@ -133,7 +142,6 @@ export default class PagebuilderElementModel {
     updateHTML() {
         let html = this.config().html();
         this.config().elements().forEach((element) => {
-            console.log(ko.toJS(element));
             html = html.replace(`[${element().key()}]`, element().value());
         });
         this.html(html);

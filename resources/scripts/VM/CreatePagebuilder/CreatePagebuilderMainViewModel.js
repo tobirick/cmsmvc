@@ -60,7 +60,6 @@ export default class CreatePagebuilderMainViewModel {
     }
 
     openPopup = (field) => {
-        console.log(field);
         this.popupOpen(true);
         if(field instanceof PagebuilderField) {
             this.selectedField(field);

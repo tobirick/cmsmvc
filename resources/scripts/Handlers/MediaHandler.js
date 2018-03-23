@@ -84,7 +84,6 @@ MediaHandler.deleteMediaElement = function(data) {
 }
 
 MediaHandler.updateMediaElement = function(data) {
-    console.log(data);
     const url = `/admin/media/${data.element ? data.element.id : 999999}`;
     data['_METHOD'] = 'PUT';
 
