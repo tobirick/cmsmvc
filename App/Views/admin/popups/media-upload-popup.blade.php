@@ -1,4 +1,4 @@
-<div data-bind="visible: uploadPopupOpen" class="popup media-upload-popup">
+<div style="display:none;" data-bind="visible: uploadPopupOpen" class="popup media-upload-popup">
     <div class="popup__container">
         <div class="popup__header">
             <h3 class="popup__title">Upload Media</h3>

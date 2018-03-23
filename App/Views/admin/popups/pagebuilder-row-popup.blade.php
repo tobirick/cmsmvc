@@ -2,7 +2,7 @@
    <div data-bind="visible: mediaPopupVM().mediaPopupOpen, click: mediaPopupVM().closeMediaPopup" class="popup__overlay higher-z"></div>
    @include('admin.popups.media-images-overview-popup')
 </div>
-<div data-bind="visible: rowSelected" class="popup pagebuilder-row-popup">
+<div style="display:none;" data-bind="visible: rowSelected" class="popup pagebuilder-row-popup">
    <div data-bind="with: rowSelected" class="popup__container">
       <div class="popup__header">
          <h3 class="popup__title">Row Settings <span data-bind="visible: name">for '<span data-bind="text: name"></span>'</span></h3>

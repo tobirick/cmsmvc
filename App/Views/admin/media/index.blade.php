@@ -9,7 +9,7 @@
         <a href="#" data-bind="click: $root.openUploadPopup" class="button-primary">{{$lang['Upload']}}</a>
     @endslot
 @endcomponent
-<div data-bind="visible: popupOpen, click: closePopup" class="popup__overlay"></div>
+<div style="display: none;" data-bind="visible: popupOpen, click: closePopup" class="popup__overlay"></div>
 @component('admin.popups.media-add-folder-popup')@endcomponent
 @component('admin.popups.media-upload-popup')@endcomponent
 <div id="content">

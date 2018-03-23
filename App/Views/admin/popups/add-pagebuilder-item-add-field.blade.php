@@ -1,4 +1,4 @@
-<div data-bind="visible: popupOpen" class="popup popup--small media-add-folder-popup">
+<div style="display:none;" data-bind="visible: popupOpen" class="popup popup--small media-add-folder-popup">
         <div data-bind="with: selectedField" class="popup__container">
             <div class="popup__header">
                 <h3 class="popup__title">

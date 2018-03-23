@@ -1,4 +1,4 @@
-<div data-bind="visible: folderPopupOpen" class="popup popup--small media-add-folder-popup">
+<div style="display:none;"  data-bind="visible: folderPopupOpen" class="popup popup--small media-add-folder-popup">
     <div class="popup__container">
         <div class="popup__header">
             <h3 class="popup__title">Add Folder</h3>

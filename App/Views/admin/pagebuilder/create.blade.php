@@ -11,7 +11,7 @@
         <a data-bind="click: saveToDB" href="#" class="button-primary">{{$lang['Save']}}</a>
     @endslot
 @endcomponent
-<div data-bind="visible: popupOpen, click: closePopup" class="popup__overlay"></div>
+<div style="display:none;" data-bind="visible: popupOpen, click: closePopup" class="popup__overlay"></div>
 @component('admin.popups.add-pagebuilder-item-add-field')@endcomponent
 <div id="content">
 @component('admin.components.alert')@endcomponent  

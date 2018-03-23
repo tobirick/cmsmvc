@@ -28,7 +28,7 @@
         </div>
     </div>           
 </div>
-<div data-bind="visible: popupOpen, click: closeSettings" class="popup__overlay"></div>
+<div style="display: none;" data-bind="visible: popupOpen, click: closeSettings" class="popup__overlay"></div>
 @component('admin.popups.pagebuilder-section-popup')@endcomponent
 @component('admin.popups.pagebuilder-row-popup')@endcomponent
 @component('admin.popups.pagebuilder-element-popup')@endcomponent
