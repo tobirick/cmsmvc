@@ -41,6 +41,11 @@
                                 <span style="display:flex; align-items:center;" data-bind="if: type() === 'range'"><input style="margin: 0 1rem;" type="text" class="form-input" data-bind="textInput: value">rem</span>
                                 <span style="display:flex; align-items:center;" data-bind="if: type() === 'color'"><input style="margin: 0 1rem;" type="text" class="form-input" data-bind="textInput: value"></span>
                             </div>
+                            <div data-bind="if: type() === 'button-row'">
+                                <div data-bind="foreach: buttons">
+                                    <button data-bind="click: $parents[1].toggleButtonStatus, css: {disabled: !enabled()}" class="button-primary-icon"><i data-bind="css: icon()"></i></button>
+                                </div>
+                            </div>
                             <div data-bind="if: type() === 'font-style'">
                                <button class="button-primary-icon disabled"><i class="fa fa-bold"></i></button>
                                <button class="button-primary-icon disabled"><i class="fa fa-italic"></i></button>

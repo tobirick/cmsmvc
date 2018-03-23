@@ -52,3 +52,27 @@
         cursor: move;
     }
 }
+
+.add-pagebuilder-button {
+    cursor: pointer;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    @include transition(.2s ease-in all);
+
+    & i {
+        padding-right: 0.75rem;
+    }
+
+    &:hover {
+        color: $primary-color;
+    }
+}
+
+.pagebuilder-buttons {
+
+    &__item {
+        display: flex;
+        margin-bottom: 1.5rem;
+    }
+}

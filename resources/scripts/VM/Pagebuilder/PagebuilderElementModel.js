@@ -32,21 +32,34 @@ export default class PagebuilderElementModel {
             config.elements.forEach(configelement => {
                 const newconfigelement = {};
                 for(let key in configelement) {
-                    newconfigelement[key] = ko.observable(configelement[key]);
+                    if(Array.isArray(configelement[key])) {
+                        const array = ko.observableArray([]);
+                        configelement[key].forEach((element) => {
+                            const newconfigelementarr = {};
+                            for(let keyarr in element) {
+                                newconfigelementarr[keyarr] = ko.observable(element[keyarr]);
+                            }
+                            array.push(newconfigelementarr);
+                        });
+                        newconfigelement[key] = array;
+                    } else {
+                        newconfigelement[key] = ko.observable(configelement[key]);
+                    }
                 }
                 this.config().elements.push(ko.observable(newconfigelement));
             });
         }
-  
+
+        
         this.paddingVM = ko.observable(data.paddingVM ? {
             top: ko.observable(data.paddingVM.top || ''),
             right: ko.observable(data.paddingVM.right || ''),
             bottom: ko.observable(data.paddingVM.bottom || ''),
             left: ko.observable(data.paddingVM.left || '')
         } : {
-          top: ko.observable(''),
-          right: ko.observable(''),
-          bottom: ko.observable(''),
+            top: ko.observable(''),
+            right: ko.observable(''),
+            bottom: ko.observable(''),
           left: ko.observable('')
         });
         
@@ -56,12 +69,12 @@ export default class PagebuilderElementModel {
             bottom: ko.observable(data.marginVM.bottom || ''),
             left: ko.observable(data.marginVM.left || '')
         } : {
-          top: ko.observable(''),
-          right: ko.observable(''),
-          bottom: ko.observable(''),
-          left: ko.observable('')
+            top: ko.observable(''),
+            right: ko.observable(''),
+            bottom: ko.observable(''),
+            left: ko.observable('')
         });
-
+        
         this.config().elements().forEach((element) => {
             element().value.subscribe(() => {
                 this.updateHTML();
@@ -71,10 +84,10 @@ export default class PagebuilderElementModel {
         this.padding = ko.computed(() => {
             return `${this.paddingVM().top()} ${this.paddingVM().right()} ${this.paddingVM().bottom()} ${this.paddingVM().left()}`;
         })
-  
+        
         this.margin = ko.computed(() => {
-          return `${this.marginVM().top()} ${this.marginVM().right()} ${this.marginVM().bottom()} ${this.marginVM().left()}`;
-          })
+            return `${this.marginVM().top()} ${this.marginVM().right()} ${this.marginVM().bottom()} ${this.marginVM().left()}`;
+        })
 
           this.generatedHTML = ko.computed(() => {
             return `<div
@@ -108,9 +121,19 @@ export default class PagebuilderElementModel {
         });
     }
 
+    toggleButtonStatus(element) {
+        console.log('set button active');
+        if(element.enabled()) {
+            element.enabled(false);
+        } else {
+            element.enabled(true);
+        }
+    }
+
     updateHTML() {
         let html = this.config().html();
         this.config().elements().forEach((element) => {
+            console.log(ko.toJS(element));
             html = html.replace(`[${element().key()}]`, element().value());
         });
         this.html(html);
