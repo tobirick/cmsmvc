@@ -19,7 +19,7 @@ class RegisterController extends BaseController {
             if(!$formErrors) {
                 $user = User::startRegister($_POST['user']);
                 if($user) {
-                    self::redirect('/admin');
+                    self::redirect('/admin/dashboard');
                 } else {
                     self::render('admin/register/index', [
                         'error' => 'errorororro'
