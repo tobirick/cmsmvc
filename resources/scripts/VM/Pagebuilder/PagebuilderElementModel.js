@@ -5,7 +5,6 @@ import MediaPopupMainViewModel from '../MediaPopup/MediaPopupMainViewModel';
 export default class PagebuilderElementModel {
     constructor(data) {
         this.mediaPopupVM = ko.observable(new MediaPopupMainViewModel());
-        this.media = ko.observable(false);
 
         this.item_name = ko.observable(data.item_name);
         this.item_type = ko.observable(data.item_type);
@@ -121,7 +120,6 @@ export default class PagebuilderElementModel {
     }
 
     openMediaPopup = (element) => {
-        this.media(true);
         this.mediaPopupVM().openMediaPopup();
         this.mediaPopupVM().selectedMediaElement.subscribe(() => {
             const path = this.mediaPopupVM().selectedMediaElementPath();

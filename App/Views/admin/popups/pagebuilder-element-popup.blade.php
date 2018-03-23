@@ -24,38 +24,29 @@
                         </div>
                         <div class="col-9">
                             <div data-bind="if: type() === 'image-src'">
-                                <div style="display: flex; align-items: center;">
+                                <div class="center-v-flex">
                                     <input type="text" class="form-input" data-bind="textInput: value, attr:{id: key, placeholder: name}">
                                     <button data-bind="click: $parent.openMediaPopup" class="ml-1 button-primary">Choose Media</button>
                                 </div>
-                                <div class="mt-1"><strong>Image Preview:</strong></div>
-                                <div style="border: 1px solid #ddd; border-radius: 2px;display: flex; justify-content: center; align-items: center; padding: 2rem;">
-                                    <img style="max-width: 100%;" data-bind="attr: {src: value}">
-                                </div>
+                                <div data-bind="visible: value" class="mt-2">
+                                    <strong class="mb-1 dp">Image Preview:</strong>
+                                    <div class="center-h-flex center-v-flex p-2" style="border: 1px solid #ddd; border-radius: 2px;">
+                                       <img class="mw-100" data-bind="attr: {src: value}">
+                                    </div>
+                                 </div>
                             </div>
                             <div data-bind="if: type() === 'textarea'">
                                 <textarea class="form-input" data-bind="value: value, attr:{id: key, placeholder: name}"></textarea>
                             </div>
-                            <div style="display: flex; align-items: center;" data-bind="if: type() === 'text' || type() === 'range' || type() === 'color' || type() === 'number'">
+                            <div class="center-v-flex" data-bind="if: type() === 'text' || type() === 'range' || type() === 'color' || type() === 'number'">
                                 <input class="form-input" data-bind="textInput: value, attr:{id: key, placeholder: name, type: type}">
-                                <span style="display:flex; align-items:center;" data-bind="if: type() === 'range'"><input style="margin: 0 1rem;" type="text" class="form-input" data-bind="textInput: value">rem</span>
-                                <span style="display:flex; align-items:center;" data-bind="if: type() === 'color'"><input style="margin: 0 1rem;" type="text" class="form-input" data-bind="textInput: value"></span>
+                                <span class="center-v-flex" data-bind="if: type() === 'range'"><input style="margin: 0 1rem;" type="text" class="form-input" data-bind="textInput: value">rem</span>
+                                <span class="center-v-flex" data-bind="if: type() === 'color'"><input style="margin: 0 1rem;" type="text" class="form-input" data-bind="textInput: value"></span>
                             </div>
                             <div data-bind="if: type() === 'button-row'">
                                 <div data-bind="foreach: buttons">
                                     <button data-bind="click: $parents[1].toggleButtonStatus, css: {disabled: !enabled()}" class="button-primary-icon"><i data-bind="css: icon()"></i></button>
                                 </div>
-                            </div>
-                            <div data-bind="if: type() === 'font-style'">
-                               <button class="button-primary-icon disabled"><i class="fa fa-bold"></i></button>
-                               <button class="button-primary-icon disabled"><i class="fa fa-italic"></i></button>
-                               <button class="button-primary-icon disabled"><i class="fa fa-underline"></i></button>
-                            </div>
-                            <div data-bind="if: type() === 'font-orientation'">
-                               <button class="button-primary-icon disabled"><i class="fa fa-align-left"></i></button>
-                               <button class="button-primary-icon disabled"><i class="fa fa-align-center"></i></button>
-                               <button class="button-primary-icon disabled"><i class="fa fa-align-right"></i></button>
-                               <button class="button-primary-icon disabled"><i class="fa fa-align-justify"></i></button>
                             </div>
                         </div>
                     </div>

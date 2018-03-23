@@ -1,11 +1,25 @@
-.align-center { text-align: center };
-.center-h-flex { justify-content: center };
-.center-v-flex { align-items: center };
-.hidden { visibility: hidden };
-.visible { visibility: visible };
+.align-center { text-align: center; }
+.align-right { text-align: right; }
+.align-left { text-align: left; }
+.center-h-flex { display: flex; justify-content: center; }
+.center-v-flex { display: flex; align-items: center; }
+.hidden { visibility: hidden; }
+.visible { visibility: visible; }
 
-.fr { float: right };
-.fl {float: left };
+.dp { display: block; }
+.dip { display: inline-block; }
+.df { display: flex; }
+.dif { display: inline-flex; }
+.dn { display: none; }
+
+.fr { float: right; }
+.fl {float: left; }
+
+.mw-100 { max-width: 100%; }
+.w-100 { width:100%; }
+
+.cursor-p { cursor: pointer; }
+.cursor-m { cursor: move; }
 
 .smaller {font-size: 80%};
 .bigger{font-size: 120%};

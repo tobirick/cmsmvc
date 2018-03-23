@@ -1,9 +1,12 @@
 import ko from 'knockout';
 import PagebuilderRowModel from './PagebuilderRowModel';
 import PagebuilderHandler from '../../Handlers/PagebuilderHandler';
+import MediaPopupMainViewModel from '../MediaPopup/MediaPopupMainViewModel';
 
 export default class PagebuilderSectionModel {
    constructor(data, delegates) {
+      this.mediaPopupVM = ko.observable(new MediaPopupMainViewModel());
+
       this.id = ko.observable(data.id || '');
       this.name = ko.observable(data.name || '');
       this.position = ko.observable(data.position || '');
@@ -11,6 +14,7 @@ export default class PagebuilderSectionModel {
       this.css_id = ko.observable(data.css_id || '');
       this.styles = ko.observable(data.styles || '');
       this.bg_color = ko.observable(data.bg_color || '');
+      this.bg_image = ko.observable(data.bg_image || '');
 
       this.paddingVM = ko.observable(data.paddingVM ? {
         top: ko.observable(data.paddingVM.top || ''),
@@ -145,4 +149,14 @@ export default class PagebuilderSectionModel {
          )
       );
    }
+
+   openMediaPopup = () => {
+      this.mediaPopupVM().openMediaPopup();
+      this.mediaPopupVM().selectedMediaElement.subscribe(() => {
+          const path = this.mediaPopupVM().selectedMediaElementPath();
+          if(path) {
+              this.bg_image(path);
+          }
+      });
+  }
 }

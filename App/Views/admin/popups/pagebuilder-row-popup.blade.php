@@ -1,3 +1,7 @@
+<div data-bind="with: rowSelected">
+   <div data-bind="visible: mediaPopupVM().mediaPopupOpen, click: mediaPopupVM().closeMediaPopup" class="popup__overlay higher-z"></div>
+   @include('admin.popups.media-images-overview-popup')
+</div>
 <div data-bind="visible: rowSelected" class="popup pagebuilder-row-popup">
    <div data-bind="with: rowSelected" class="popup__container">
       <div class="popup__header">
@@ -84,6 +88,23 @@
                      </div>
                      <div class="col-9">
                         <input data-bind="value: bg_color" type="text" id="bgcolor" class="form-input" placeholder="#f5f5f5">
+                     </div>
+                  </div>
+                  <div class="form-row">
+                     <div class="col-3">
+                        <label for="bgimage" class="form-label">Background Image</label>
+                     </div>
+                     <div class="col-9">
+                        <div class="center-v-flex">
+                           <input data-bind="value: bg_image" type="text" id="bgimage" class="form-input" placeholder="Image URL">
+                           <button data-bind="click: openMediaPopup" class="ml-1 button-primary">Choose Media</button>
+                        </div>
+                        <div data-bind="visible: bg_image" class="mt-2">
+                           <strong class="mb-1 dp">Image Preview:</strong>
+                           <div class="center-h-flex center-v-flex p-2" style="border: 1px solid #ddd; border-radius: 2px;">
+                              <img class="mw-100" data-bind="attr: {src: bg_image}">
+                           </div>
+                        </div>
                      </div>
                   </div>
                </div>

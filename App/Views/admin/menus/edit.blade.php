@@ -81,7 +81,7 @@
                                     <td>
                                         <select class="form-input" data-bind="options: $root.pagesList, optionsText: 'name', value: page_id, optionsValue: 'id'" name="menuitem[page]"></select>
                                     </td>
-                                    <td style="text-align:right;" class="editable auto-width">
+                                    <td class="align-right editable auto-width">
                                         <button data-bind="click: updateMenuListItem" class="button-primary-icon"><i class="fa fa-check"></i></button>
                                         <button data-bind="click: deleteMenuListItem" class="button-error-icon"><i class="fa fa-trash"></i></button>
                                         <button class="button-warning-icon sort"><i class="fa fa-arrows"></i></button>

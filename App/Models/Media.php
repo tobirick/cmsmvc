@@ -36,7 +36,7 @@ class Media extends Model {
         }
     }
 
-    public function getImages() {
+    public static function getImages() {
         $json = file_get_contents(self::$mediajsonpath);
         $elements = json_decode($json, true);
 

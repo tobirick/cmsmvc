@@ -97,6 +97,10 @@
     }
     &__subsection {
         margin-bottom: 4rem;
+
+        & .form-row {
+           margin-bottom: 2.5rem;
+        }
     }
     &__subtitle {
         border-bottom: 1px solid #eee;

@@ -124,8 +124,8 @@ class Pagebuilder extends Model {
 
     public static function saveSection($pageID, $section) {
         $db = static::getDB();
-        $stmt = $db->prepare('INSERT INTO pagebuilder_sections (page_id, css_class, css_id, styles, name, bg_color, padding, margin)
-                              VALUES(:page_id, :css_class, :css_id, :styles, :name, :bg_color, :padding, :margin)');
+        $stmt = $db->prepare('INSERT INTO pagebuilder_sections (page_id, css_class, css_id, styles, name, bg_color, bg_image, padding, margin)
+                              VALUES(:page_id, :css_class, :css_id, :styles, :name, :bg_color, :bg_image, :padding, :margin)');
         $stmt->execute([
             ':page_id' => $pageID,
             ':css_class' => $section['css_class'],
@@ -133,6 +133,7 @@ class Pagebuilder extends Model {
             ':styles' => $section['styles'],
             ':name' => $section['name'],
             ':bg_color' => $section['bg_color'],
+            ':bg_image' => $section['bg_image'],
             ':padding' => $section['padding'],
             ':margin' => $section['margin']
             ]);
@@ -143,8 +144,8 @@ class Pagebuilder extends Model {
 
     public static function saveRow($sectionID, $row) {
         $db = static::getDB();
-        $stmt = $db->prepare('INSERT INTO pagebuilder_rows (section_id, css_class, css_id, styles, name, bg_color, padding, margin)
-                              VALUES(:section_id, :css_class, :css_id, :styles, :name, :bg_color, :padding, :margin)');
+        $stmt = $db->prepare('INSERT INTO pagebuilder_rows (section_id, css_class, css_id, styles, name, bg_color, bg_image, padding, margin)
+                              VALUES(:section_id, :css_class, :css_id, :styles, :name, :bg_color, :bg_image, :padding, :margin)');
         $stmt->execute([
             ':section_id' => $sectionID,
             ':css_class' => $row['css_class'],
@@ -152,6 +153,7 @@ class Pagebuilder extends Model {
             ':styles' => $row['styles'],
             ':name' => $row['name'],
             ':bg_color' => $row['bg_color'],
+            ':bg_image' => $row['bg_image'],
             ':padding' => $row['padding'],
             ':margin' => $row['margin']
             ]);

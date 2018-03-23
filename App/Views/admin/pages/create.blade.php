@@ -22,7 +22,7 @@
                         <input autocomplete="off" class="form-input pagenameinput" type="text" placeholder="Name" name="page[name]">
                         <strong>Permalink:</strong> <a target="_blank" class="aurl" href=""></a>
                     </div>
-                    <div style="display: none;" class="form-row">
+                    <div class="form-row dn">
                         <input class="form-input pageluginput" type="text" placeholder="Slug" name="page[slug]">
                     </div>
                     <div class="form-row">

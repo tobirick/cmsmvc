@@ -37,13 +37,13 @@
 <div class="container">
     <div class="row">
         
-        <form style="display: flex;width: 100%" id="submit-form" action="/admin/pages/{{$page['id']}}" method="POST">
+        <form class="w-100 df" id="submit-form" action="/admin/pages/{{$page['id']}}" method="POST">
             <input type="hidden" name='_METHOD' value="PUT">
             <input name="csrf_token" type="hidden" value="{{$csrf}}">
         <div class="col-7">
             <div class="admin-box">
                <h3 class="admin-box__title">Default Settings</h3>
-                    <div style="display:none;" class="form-row">
+                    <div class="dn form-row">
                         <input class="form-input" value="{{$page['slug']}}" type="text" placeholder="Slug" name="page[slug]">
                     </div>
                     <div class="form-row">
@@ -83,7 +83,7 @@
             <div class="admin-box">
                 <div class="admin-box__header">
                     <h3 class="admin-box__title">Elements</h3>
-                    <a target="_blank" style="max-height: 3.5rem;display: inline-flex;align-items:center;" href="/{{$curLang}}/admin/pagebuilder/create" class="button-primary">Add new</a>
+                    <a class="center-v-flex dif button-primary" target="_blank" style="max-height: 3.5rem;" href="/{{$curLang}}/admin/pagebuilder/create">Add new</a>
                 </div>
                 <div data-bind="foreach: elements" class="row">
                     <div class="col-6">
