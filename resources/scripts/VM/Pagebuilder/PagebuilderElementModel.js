@@ -1,8 +1,12 @@
 import ko from 'knockout';
 import helpers from '../../helpers';
+import MediaPopupMainViewModel from '../MediaPopup/MediaPopupMainViewModel';
 
 export default class PagebuilderElementModel {
     constructor(data) {
+        this.mediaPopupVM = ko.observable(new MediaPopupMainViewModel());
+        this.media = ko.observable(false);
+
         this.item_name = ko.observable(data.item_name);
         this.item_type = ko.observable(data.item_type);
         this.item_html = ko.observable(data.item_html);
@@ -28,21 +32,33 @@ export default class PagebuilderElementModel {
             config.elements.forEach(configelement => {
                 const newconfigelement = {};
                 for(let key in configelement) {
-                    newconfigelement[key] = ko.observable(configelement[key]);
+                    if(Array.isArray(configelement[key])) {
+                        const array = ko.observableArray([]);
+                        configelement[key].forEach((element) => {
+                            const newconfigelementarr = {};
+                            for(let keyarr in element) {
+                                newconfigelementarr[keyarr] = ko.observable(element[keyarr]);
+                            }
+                            array.push(newconfigelementarr);
+                        });
+                        newconfigelement[key] = array;
+                    } else {
+                        newconfigelement[key] = ko.observable(configelement[key]);
+                    }
                 }
                 this.config().elements.push(ko.observable(newconfigelement));
             });
         }
-  
+        
         this.paddingVM = ko.observable(data.paddingVM ? {
             top: ko.observable(data.paddingVM.top || ''),
             right: ko.observable(data.paddingVM.right || ''),
             bottom: ko.observable(data.paddingVM.bottom || ''),
             left: ko.observable(data.paddingVM.left || '')
         } : {
-          top: ko.observable(''),
-          right: ko.observable(''),
-          bottom: ko.observable(''),
+            top: ko.observable(''),
+            right: ko.observable(''),
+            bottom: ko.observable(''),
           left: ko.observable('')
         });
         
@@ -52,13 +68,24 @@ export default class PagebuilderElementModel {
             bottom: ko.observable(data.marginVM.bottom || ''),
             left: ko.observable(data.marginVM.left || '')
         } : {
-          top: ko.observable(''),
-          right: ko.observable(''),
-          bottom: ko.observable(''),
-          left: ko.observable('')
+            top: ko.observable(''),
+            right: ko.observable(''),
+            bottom: ko.observable(''),
+            left: ko.observable('')
         });
-
+        
         this.config().elements().forEach((element) => {
+            if(element().buttons().length > 0) {
+                element().value = ko.computed(() => {
+                    let html = '';
+                    element().buttons().forEach((button) => {
+                        if(button.enabled()) {
+                            html += button.value();
+                        }
+                    });
+                    return html;
+                });
+            }
             element().value.subscribe(() => {
                 this.updateHTML();
             })
@@ -67,10 +94,10 @@ export default class PagebuilderElementModel {
         this.padding = ko.computed(() => {
             return `${this.paddingVM().top()} ${this.paddingVM().right()} ${this.paddingVM().bottom()} ${this.paddingVM().left()}`;
         })
-  
+        
         this.margin = ko.computed(() => {
-          return `${this.marginVM().top()} ${this.marginVM().right()} ${this.marginVM().bottom()} ${this.marginVM().left()}`;
-          })
+            return `${this.marginVM().top()} ${this.marginVM().right()} ${this.marginVM().bottom()} ${this.marginVM().left()}`;
+        })
 
           this.generatedHTML = ko.computed(() => {
             return `<div
@@ -91,6 +118,25 @@ export default class PagebuilderElementModel {
                     </div>
                     `;
         });
+    }
+
+    openMediaPopup = (element) => {
+        this.media(true);
+        this.mediaPopupVM().openMediaPopup();
+        this.mediaPopupVM().selectedMediaElement.subscribe(() => {
+            const path = this.mediaPopupVM().selectedMediaElementPath();
+            if(path) {
+                element.value(path);
+            }
+        });
+    }
+
+    toggleButtonStatus(element) {
+        if(element.enabled()) {
+            element.enabled(false);
+        } else {
+            element.enabled(true);
+        }
     }
 
     updateHTML() {

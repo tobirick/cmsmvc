@@ -1,3 +1,7 @@
+<div data-bind="with: elementSelected">
+    <div data-bind="visible: mediaPopupVM().mediaPopupOpen, click: mediaPopupVM().closeMediaPopup" class="popup__overlay higher-z"></div>
+    @include('admin.popups.media-images-overview-popup')
+</div>
 <div data-bind="visible: elementSelected" class="popup pagebuilder-element-popup">
     <div data-bind="with: elementSelected" class="popup__container">
         <div class="popup__header">
@@ -18,24 +22,41 @@
                         <div class="col-3">
                             <label class="form-label" data-bind="text: name, attr:{for: key}"></label>
                         </div>
-                        <div data-bind="visible: type() === 'textarea'" class="col-9">
-                            <textarea class="form-input" data-bind="value: value, attr:{id: key, placeholder: name}"></textarea>
-                        </div>
-                        <div style="display: flex; align-items: center;" data-bind="visible: type() === 'text' || type() === 'range' || type() === 'color' || type() === 'number'" class="col-9">
-                            <input class="form-input" data-bind="textInput: value, attr:{id: key, placeholder: name, type: type}">
-                            <span style="display:flex; align-items:center;" data-bind="if: type() === 'range'"><input style="margin: 0 1rem;" type="text" class="form-input" data-bind="textInput: value">rem</span>
-                            <span style="display:flex; align-items:center;" data-bind="if: type() === 'color'"><input style="margin: 0 1rem;" type="text" class="form-input" data-bind="textInput: value"></span>
-                        </div>
-                        <div data-bind="visible: type() === 'font-style'" class="col-9">
-                           <button class="button-primary-icon disabled"><i class="fa fa-bold"></i></button>
-                           <button class="button-primary-icon disabled"><i class="fa fa-italic"></i></button>
-                           <button class="button-primary-icon disabled"><i class="fa fa-underline"></i></button>
-                        </div>
-                        <div data-bind="visible: type() === 'font-orientation'" class="col-9">
-                           <button class="button-primary-icon disabled"><i class="fa fa-align-left"></i></button>
-                           <button class="button-primary-icon disabled"><i class="fa fa-align-center"></i></button>
-                           <button class="button-primary-icon disabled"><i class="fa fa-align-right"></i></button>
-                           <button class="button-primary-icon disabled"><i class="fa fa-align-justify"></i></button>
+                        <div class="col-9">
+                            <div data-bind="if: type() === 'image-src'">
+                                <div style="display: flex; align-items: center;">
+                                    <input type="text" class="form-input" data-bind="textInput: value, attr:{id: key, placeholder: name}">
+                                    <button data-bind="click: $parent.openMediaPopup" class="ml-1 button-primary">Choose Media</button>
+                                </div>
+                                <div class="mt-1"><strong>Image Preview:</strong></div>
+                                <div style="border: 1px solid #ddd; border-radius: 2px;display: flex; justify-content: center; align-items: center; padding: 2rem;">
+                                    <img style="max-width: 100%;" data-bind="attr: {src: value}">
+                                </div>
+                            </div>
+                            <div data-bind="if: type() === 'textarea'">
+                                <textarea class="form-input" data-bind="value: value, attr:{id: key, placeholder: name}"></textarea>
+                            </div>
+                            <div style="display: flex; align-items: center;" data-bind="if: type() === 'text' || type() === 'range' || type() === 'color' || type() === 'number'">
+                                <input class="form-input" data-bind="textInput: value, attr:{id: key, placeholder: name, type: type}">
+                                <span style="display:flex; align-items:center;" data-bind="if: type() === 'range'"><input style="margin: 0 1rem;" type="text" class="form-input" data-bind="textInput: value">rem</span>
+                                <span style="display:flex; align-items:center;" data-bind="if: type() === 'color'"><input style="margin: 0 1rem;" type="text" class="form-input" data-bind="textInput: value"></span>
+                            </div>
+                            <div data-bind="if: type() === 'button-row'">
+                                <div data-bind="foreach: buttons">
+                                    <button data-bind="click: $parents[1].toggleButtonStatus, css: {disabled: !enabled()}" class="button-primary-icon"><i data-bind="css: icon()"></i></button>
+                                </div>
+                            </div>
+                            <div data-bind="if: type() === 'font-style'">
+                               <button class="button-primary-icon disabled"><i class="fa fa-bold"></i></button>
+                               <button class="button-primary-icon disabled"><i class="fa fa-italic"></i></button>
+                               <button class="button-primary-icon disabled"><i class="fa fa-underline"></i></button>
+                            </div>
+                            <div data-bind="if: type() === 'font-orientation'">
+                               <button class="button-primary-icon disabled"><i class="fa fa-align-left"></i></button>
+                               <button class="button-primary-icon disabled"><i class="fa fa-align-center"></i></button>
+                               <button class="button-primary-icon disabled"><i class="fa fa-align-right"></i></button>
+                               <button class="button-primary-icon disabled"><i class="fa fa-align-justify"></i></button>
+                            </div>
                         </div>
                     </div>
                 </div>

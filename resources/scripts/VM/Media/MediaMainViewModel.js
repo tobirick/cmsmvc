@@ -106,7 +106,6 @@ export default class MediaManViewModel {
     async fetchMediaElements() {
         const response = await MediaHandler.fetchMediaElements(this.currentDir());
 
-        console.log(response);
         if (response.message === 'success') {
             response.elements.forEach(mediaElement => {
                this.mediaElements.push(this.createElement(mediaElement));
@@ -158,7 +157,6 @@ export default class MediaManViewModel {
             this.showAlert('success', 'Folder created');
          } else {
              this.showAlert('error', response.error);
-            console.log(response.error);
          }
          csrf.updateToken(response.csrfToken);
     }
@@ -194,7 +192,6 @@ export default class MediaManViewModel {
             this.showAlert('success', 'File uploaded');
          } else {
             this.showAlert('error', response.error);
-            console.log(response.error);
          }
          csrf.updateToken(response.csrfToken);
     }
@@ -231,7 +228,6 @@ export default class MediaManViewModel {
             this.showAlert('success', 'Element moved');
         } else {
             this.showAlert('error', response.error);
-            console.log(response.error);
         }
         csrf.updateToken(response.csrfToken);
     }
@@ -261,7 +257,7 @@ export default class MediaManViewModel {
         if(response.message === 'success' && !response.error) {
             element.path(this.path() + this.name() + '/');
         } else {
-            this.showAlert('error', response.error);
+            //this.showAlert('error', response.error);
             console.log(response.error);
         }
         csrf.updateToken(response.csrfToken);

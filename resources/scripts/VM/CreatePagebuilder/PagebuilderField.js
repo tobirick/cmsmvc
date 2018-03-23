@@ -7,9 +7,18 @@ export default class PagebuilderField {
         this.type = ko.observable(data.type || '');
         this.key = ko.observable(data.key || '');
         this.value = ko.observable(data.value || '');
+        this.buttons = ko.observableArray(data.buttons || []);
 
         this.name.subscribe(() => {
             this.key(helpers.mediaElementFormat(this.name()));
+        });
+    }
+
+    addButton = () => {
+        this.buttons.push({
+            icon: ko.observable(''),
+            value: ko.observable(''),
+            enabled: false
         });
     }
 }

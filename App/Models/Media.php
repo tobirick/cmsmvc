@@ -9,6 +9,8 @@ use RecursiveIteratorIterator;
 use FilesystemIterator;
 
 class Media extends Model {
+    public static $mediajsonpath = __DIR__ . '/../../public/content/media/elements.json';
+
     public static function sonderzeichen($string) {
         $search = array("Ä", "Ö", "Ü", "ä", "ö", "ü", "ß", "´");
         $replace = array("Ae", "Oe", "Ue", "ae", "oe", "ue", "ss", "");
@@ -16,7 +18,7 @@ class Media extends Model {
     }
 
     public static function getAllMediaElements($dir) {
-        $json = file_get_contents(__DIR__ . '/../../public/content/media/elements.json');
+        $json = file_get_contents(self::$mediajsonpath);
         $elements = json_decode($json, true);
 
         if($elements) {
@@ -32,7 +34,22 @@ class Media extends Model {
         } else {
             return [];
         }
-        
+    }
+
+    public function getImages() {
+        $json = file_get_contents(self::$mediajsonpath);
+        $elements = json_decode($json, true);
+
+        if($elements) {
+            foreach($elements as $index => $element) {
+                if($element['type'] !== 'file') {
+                    unset($elements[$index]);
+                }
+            }
+            return array_values($elements);
+        } else {
+            return [];
+        }
     }
 
     public static function createFolder($folder) {
@@ -41,7 +58,7 @@ class Media extends Model {
 
         if(!file_exists($path . $foldername)) {
          mkdir($path . $foldername, 0777, true);
-        $json = file_get_contents(__DIR__ . '/../../public/content/media/elements.json');
+        $json = file_get_contents(self::$mediajsonpath);
         $elements = json_decode($json, true);
         $id = sizeof($elements) > 0 ? $elements[sizeof($elements) - 1]['id'] + 1 : 1;
         $newElement = [
@@ -56,7 +73,7 @@ class Media extends Model {
         $elements[] = $newElement;
 
         $newJson = json_encode($elements);
-        file_put_contents(__DIR__ . '/../../public/content/media/elements.json', $newJson);
+        file_put_contents(self::$mediajsonpath, $newJson);
 
         return $newElement;
          } else {
@@ -65,7 +82,7 @@ class Media extends Model {
     }
 
     public static function deleteMediaElement($id) {
-        $json = file_get_contents(__DIR__ . '/../../public/content/media/elements.json');
+        $json = file_get_contents(self::$mediajsonpath);
         $elements = json_decode($json, true);
 
         $index = self::findIndexById($elements, $id);
@@ -73,7 +90,7 @@ class Media extends Model {
         unset($elements[$index]);
 
         $newJson = json_encode(array_values($elements));
-        file_put_contents(__DIR__ . '/../../public/content/media/elements.json', $newJson);
+        file_put_contents(self::$mediajsonpath, $newJson);
 
         $path = __DIR__ . '/../../public/content/media' . $element['path'] . $element['name'];
         self::deleteDir($path);
@@ -175,7 +192,7 @@ class Media extends Model {
     }
 
     public static function updateMediaElement($id, $element, $targetpath) {
-        $json = file_get_contents(__DIR__ . '/../../public/content/media/elements.json');
+        $json = file_get_contents(self::$mediajsonpath);
         $elements = json_decode($json, true);
 
         if(!file_exists(__DIR__ . '/../../public/content/media' . $targetpath . $element['name'])) {
@@ -184,7 +201,7 @@ class Media extends Model {
             $elements[$index]['path'] = $targetpath;
 
             $newJson = json_encode(array_values($elements));
-            file_put_contents(__DIR__ . '/../../public/content/media/elements.json', $newJson);
+            file_put_contents(self::$mediajsonpath, $newJson);
 
             $oldpath = __DIR__ . '/../../public/content/media' . $oldElement['path'] . $oldElement['name'];
             $newpath = __DIR__ . '/../../public/content/media' . $targetpath . $element['name'];
@@ -200,7 +217,7 @@ class Media extends Model {
     }
 
     public static function updateMediaElementPosition($element) {
-      $json = file_get_contents(__DIR__ . '/../../public/content/media/elements.json');
+      $json = file_get_contents(self::$mediajsonpath);
       $elements = json_decode($json, true);
 
       foreach($elements as $index => $elementjson) {
@@ -210,11 +227,11 @@ class Media extends Model {
       }
 
       $newJson = json_encode(array_values($elements));
-      file_put_contents(__DIR__ . '/../../public/content/media/elements.json', $newJson);
+      file_put_contents(self::$mediajsonpath, $newJson);
     }
 
     public static function updateNestedMediaElements($path, $newpath) {
-        $json = file_get_contents(__DIR__ . '/../../public/content/media/elements.json');
+        $json = file_get_contents(self::$mediajsonpath);
         $elements = json_decode($json, true);
 
         foreach($elements as $index => $element) {
@@ -224,6 +241,6 @@ class Media extends Model {
         }
 
         $newJson = json_encode(array_values($elements));
-        file_put_contents(__DIR__ . '/../../public/content/media/elements.json', $newJson);
+        file_put_contents(self::$mediajsonpath, $newJson);
     }
 }

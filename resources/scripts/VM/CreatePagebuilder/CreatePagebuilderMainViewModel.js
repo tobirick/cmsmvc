@@ -10,7 +10,7 @@ import PagebuilderHandler from '../../Handlers/PagebuilderHandler';
 export default class CreatePagebuilderMainViewModel {
     constructor() {
         this.possibleFieldTypes = ko.observableArray([
-            'textarea', 'color', 'range', 'font-style', 'font-orientation', 'number', 'text', 'image-src'
+            'textarea', 'color', 'range', 'font-style', 'font-orientation', 'number', 'text', 'image-src', 'button-row'
         ]);
         this.fields = ko.observableArray([]);
         this.pagebuilderItem = ko.observable();
@@ -60,7 +60,6 @@ export default class CreatePagebuilderMainViewModel {
     }
 
     openPopup = (field) => {
-        console.log(field);
         this.popupOpen(true);
         if(field instanceof PagebuilderField) {
             this.selectedField(field);

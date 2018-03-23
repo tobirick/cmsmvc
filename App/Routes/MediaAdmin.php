@@ -9,3 +9,4 @@ $router->map('POST', '/admin/media/[i:id]', requireLogin('Admin\MediaController@
 
 // Knockout
 $router->map('POST', '/media', requireLogin('Admin\MediaController@getAllMediaElements'));
+$router->map('POST', '/media/images', requireLogin('Admin\MediaController@getAllImages'));

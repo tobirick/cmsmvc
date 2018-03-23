@@ -26,3 +26,53 @@
         display: none;
     }
 }
+
+.pagebuilder-media-overview-popup {
+    max-width: 65%;
+
+    & .images-preview {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        
+        &__item {
+            margin: 1rem;
+            border: 2px solid;
+            border-color: #bbb;
+            border-radius: 2px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #eee;
+            cursor: pointer;
+            width: 15rem;
+            height: 10rem;
+            
+            & img {
+                max-width: 100%;
+            }
+            &.active {
+                border-color: $primary-color;
+            }
+        }
+    }
+
+    & .active-media-element {
+        background-color: #eee;
+        border-radius: 3px;
+        padding: 2rem 1rem;
+
+        &.empty {
+
+            span {
+                width: 80%;
+                border-radius: 20px;
+                height: 35px;
+                background-color: #d5d5d5;
+                display: block;
+                margin: 1.75rem auto;
+            }
+        }
+    }
+}

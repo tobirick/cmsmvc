@@ -15,7 +15,6 @@ PagebuilderHandler.loadPagebuilderElements = async function(data) {
 }
 
 PagebuilderHandler.savePagebuilder = async function(data) {
-    console.log(data);
     const url = `/pagebuilder`;
     return fetch(url, {
         body: JSON.stringify(data),

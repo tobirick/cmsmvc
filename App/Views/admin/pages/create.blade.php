@@ -19,8 +19,8 @@
                 <form id="submit-form" action="/admin/pages" method="POST">
                     <input name="csrf_token" type="hidden" value="{{$csrf}}">
                     <div class="form-row">
-                        <input class="form-input pagenameinput" type="text" placeholder="Name" name="page[name]">
-                        <a target="_blank" class="aurl" href=""></a>
+                        <input autocomplete="off" class="form-input pagenameinput" type="text" placeholder="Name" name="page[name]">
+                        <strong>Permalink:</strong> <a target="_blank" class="aurl" href=""></a>
                     </div>
                     <div style="display: none;" class="form-row">
                         <input class="form-input pageluginput" type="text" placeholder="Slug" name="page[slug]">
@@ -45,7 +45,7 @@
         const pageName = nameInputEl.value;
         const newSlug = createSlug(pageName);
 
-        aUrlEl.innerHTML = `${baseurl}${newSlug}`;
+        aUrlEl.innerHTML = ` ${baseurl}${newSlug}`;
         aUrlEl.setAttribute('href', `${baseurl}${newSlug}`);
         slugInputEl.value = newSlug;
     });

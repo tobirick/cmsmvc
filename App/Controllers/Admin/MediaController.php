@@ -45,6 +45,18 @@ class MediaController extends BaseController {
         echo json_encode($mediaElements);
     }
 
+    public function getAllImages() {
+        $content = trim(file_get_contents("php://input"));
+        $decoded = json_decode($content, true);
+
+        $elements = Media::getImages();
+
+        $data = [];
+        $data['elements'] = $elements;
+
+        echo json_encode($data);
+    }
+
     public function updatedestroy($params) {
         $content = trim(file_get_contents("php://input"));
         $decoded = json_decode($content, true);

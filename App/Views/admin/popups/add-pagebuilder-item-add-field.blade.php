@@ -21,26 +21,48 @@
                   </div>
                   <div class="form-row">
                         <div class="col-3">
-                           <label for="name" class="form-label">Key</label>
+                           <label for="key" class="form-label">Key</label>
                         </div>
                         <div class="col-9">
-                           <input data-bind="textInput: key, attr:{disabled: true}" type="text" id="name" class="form-input" placeholder="Field Key">
+                           <input data-bind="textInput: key, attr:{disabled: true}" type="text" id="key" class="form-input" placeholder="Field Key">
                     </div>
                      </div>
                      <div class="form-row">
                         <div class="col-3">
-                            <label for="name" class="form-label">Default Value</label>
+                            <label for="value" class="form-label">Default Value</label>
                         </div>
                         <div class="col-9">
-                            <input data-bind="value: value" type="text" id="name" class="form-input" placeholder="Default Value">
+                            <input data-bind="value: value" type="text" id="value" class="form-input" placeholder="Default Value">
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="col-3">
-                            <label for="name" class="form-label">Field Type</label>
+                            <label for="type" class="form-label">Field Type</label>
                         </div>
                         <div class="col-9">
-                            <select class="form-input" data-bind="options: $root.possibleFieldTypes, value: type"></select>
+                            <select class="form-input" id="type" data-bind="options: $root.possibleFieldTypes, value: type"></select>
+                        </div>
+                    </div>
+                    <div data-bind="visible: type() === 'button-row'" class="form-row">
+                        <div class="col-3">
+                            <label class="form-label">Buttons</label>
+                        </div>
+                        <div class="col-9">
+                            <div data-bind="foreach: buttons" class="pagebuilder-buttons">
+                                <div class="pagebuilder-buttons__item">
+                                    <div class="col-5"><input data-bind="value: icon" type="text" class="form-input" placeholder="Icon"></div>
+                                    <div class="col-7"><input data-bind="value: value" type="text" class="form-input" placeholder="Value"></div>
+                                    <!--<div class="col-4">
+                                        <span class="form-checkbox">
+                                            <label for="allow-one">
+                                                <input class="form-checkbox__input" id="allow-one" type="checkbox" data-bind="checked: allowOne">
+                                                <span class="form-checkbox__label">Allow only one</span>
+                                            </label>
+                                        </span>
+                                    </div>-->
+                                </div>
+                            </div>
+                            <div data-bind="click: addButton" class="add-pagebuilder-button"><i class="fa fa-plus"></i> Add new Button</div>
                         </div>
                     </div>
                </div>
