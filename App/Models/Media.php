@@ -9,7 +9,7 @@ use RecursiveIteratorIterator;
 use FilesystemIterator;
 
 class Media extends Model {
-    public static $mediajsonpath = __DIR__ . '/../../public/content/media/elements.json';
+    public static $mediajsonpath = __DIR__ . '/../../Core/mediaelements.json';
 
     public static function sonderzeichen($string) {
         $search = array("Ä", "Ö", "Ü", "ä", "ö", "ü", "ß", "´");
@@ -114,7 +114,7 @@ class Media extends Model {
 
         if(!file_exists($path . $data['path'] . $filename)) {
          file_put_contents($path . $data['path'] . $filename, base64_decode($data['base']));
-        $json = file_get_contents($path . 'elements.json');
+        $json = file_get_contents(self::$mediajsonpath);
         $elements = json_decode($json, true);
         $id = sizeof($elements) > 0 ? $elements[sizeof($elements) - 1]['id'] + 1 : 1;
         $newElement = [
@@ -130,7 +130,7 @@ class Media extends Model {
 
         
         $newJson = json_encode($elements);
-        file_put_contents($path . 'elements.json', $newJson);
+        file_put_contents(self::$mediajsonpath, $newJson);
 
         self::updateFileSize();
 
@@ -143,7 +143,7 @@ class Media extends Model {
     public static function updateFileSize() {
         $path = __DIR__ . '/../../public/content/media/';
 
-        $json = file_get_contents($path . 'elements.json');
+        $json = file_get_contents(self::$mediajsonpath);
         $elements = json_decode($json, true);
 
         foreach($elements as $index => $element) {
@@ -152,7 +152,7 @@ class Media extends Model {
 
         $newJson = json_encode(array_values($elements));
 
-        file_put_contents($path . 'elements.json', $newJson);
+        file_put_contents(self::$mediajsonpath, $newJson);
     }
     
     public static function getFileInfos($path) {

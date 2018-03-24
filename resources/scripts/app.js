@@ -44,12 +44,8 @@ ko.bindingHandlers.colorPicker = {
       showButtons: false
      });
      $(element).on('move.spectrum', function(e, color) { 
-        console.log(color);
         value(color.toHex8String());
       });
-   },
-   update: function(element, valueAccessor) {
-     $(element).val(ko.utils.unwrapObservable(valueAccessor()));
    }
  }
 

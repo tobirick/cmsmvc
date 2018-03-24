@@ -78,6 +78,10 @@ export default class PagebuilderMainViewModel {
       this.sectionSelected(false);
       this.rowSelected(false);
       this.elementSelected(false);
+      const spContainerEls = document.querySelectorAll('.sp-container');
+      spContainerEls.forEach(spContainerEl => {
+         spContainerEl.parentNode.removeChild(spContainerEl);
+      });
    };
 
    async savetoDB() {

@@ -48,7 +48,10 @@
                             </div>
                             <div data-bind="if: type() === 'button-row'">
                                 <div data-bind="foreach: buttons">
-                                    <button data-bind="click: $parents[1].toggleButtonStatus, css: {disabled: !enabled()}" class="button-primary-icon"><i data-bind="css: icon()"></i></button>
+                                    <button data-bind="click: $parents[1].toggleButtonStatus, css: {disabled: !enabled()}" class="button-primary">
+                                       <span data-bind="if: icon().includes('fa')"></span><i data-bind="css: icon()"></i>
+                                       <span data-bind="ifnot: icon().includes('fa')"><span data-bind="text: icon()"></span></span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
