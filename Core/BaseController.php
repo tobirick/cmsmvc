@@ -4,6 +4,8 @@ namespace Core;
 use \App\Models\User;
 
 class BaseController {
+   private $publicPages = ['App\Controllers\DefaultPageController', 'App\Controllers\DefaultPostController'];
+
     public function render($template, $args = []) {
         $csrf = new CSRF();
         $pages = \App\Models\DefaultPage::getAllPages();
@@ -18,7 +20,6 @@ class BaseController {
         $settings = \App\Models\Settings::getSettings();
         $shares = [
             ['key' => 'user', 'value' =>  self::getUser()],
-            ['key' => 'csrf', 'value' => $csrf->getToken()],
             ['key' => 'pages', 'value' => $pages],
             ['key' => 'mainmenupages', 'value' => $mainMenuPages],
             ['key' => 'activetheme', 'value' => $activeThemePath],
@@ -28,6 +29,11 @@ class BaseController {
             ['key' => 'allLanguages', 'value' => $allLanguages],
             ['key' => 'settings', 'value' => $settings]
         ];
+
+         if(!in_array(get_class($this), $this->publicPages)) {
+            $shares[] = ['key' => 'csrf', 'value' => $csrf->getToken()];
+         }
+
         $view = new View();
         $view->render($template, $args, $shares);
     }

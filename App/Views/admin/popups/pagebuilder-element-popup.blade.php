@@ -44,7 +44,7 @@
                             </div>
                             <div class="center-v-flex" data-bind="if: type() === 'color'">                          
                                  <input class="form-input" type="text" data-bind="colorPicker: value, attr:{id: key, placeholder: name}">
-                                 <input type="text" class="form-input" data-bind="textInput: value">
+                                 <input type="text" class="form-input" data-bind="textInput: value, attr:{disabled: true}">
                             </div>
                             <div data-bind="if: type() === 'button-row'">
                                 <div data-bind="foreach: buttons">

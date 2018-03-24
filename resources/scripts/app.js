@@ -41,11 +41,15 @@ ko.bindingHandlers.colorPicker = {
      $(element).spectrum({
       preferredFormat: "hex",
       showAlpha: true,
+      showInput: true,
       showButtons: false
      });
-     $(element).on('move.spectrum', function(e, color) { 
+     $(element).on('move.spectrum', function(e, color) {
         value(color.toHex8String());
       });
+      $(element).on('hide.spectrum', function(e, color) { 
+         value(color.toHex8String());
+       });
    }
  }
 
