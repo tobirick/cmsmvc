@@ -1,5 +1,6 @@
 import ko from 'knockout';
 import helpers from '../../helpers';
+import 'spectrum-colorpicker';
 import MediaPopupMainViewModel from '../MediaPopup/MediaPopupMainViewModel';
 
 export default class PagebuilderElementModel {

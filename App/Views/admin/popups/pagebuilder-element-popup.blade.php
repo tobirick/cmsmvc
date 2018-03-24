@@ -38,10 +38,13 @@
                             <div data-bind="if: type() === 'textarea'">
                                 <textarea class="form-input" data-bind="value: value, attr:{id: key, placeholder: name}"></textarea>
                             </div>
-                            <div class="center-v-flex" data-bind="if: type() === 'text' || type() === 'range' || type() === 'color' || type() === 'number'">
+                            <div class="center-v-flex" data-bind="if: type() === 'text' || type() === 'range' || type() === 'number'">
                                 <input class="form-input" data-bind="textInput: value, attr:{id: key, placeholder: name, type: type}">
                                 <span class="center-v-flex" data-bind="if: type() === 'range'"><input style="margin: 0 1rem;" type="text" class="form-input" data-bind="textInput: value">rem</span>
-                                <span class="center-v-flex" data-bind="if: type() === 'color'"><input style="margin: 0 1rem;" type="text" class="form-input" data-bind="textInput: value"></span>
+                            </div>
+                            <div class="center-v-flex" data-bind="if: type() === 'color'">                          
+                                 <input class="form-input" type="text" data-bind="colorPicker: value, attr:{id: key, placeholder: name}">
+                                 <input type="text" class="form-input" data-bind="textInput: value">
                             </div>
                             <div data-bind="if: type() === 'button-row'">
                                 <div data-bind="foreach: buttons">

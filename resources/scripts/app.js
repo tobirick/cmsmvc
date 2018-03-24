@@ -2,6 +2,7 @@ import ko from 'knockout';
 import { validator } from './validate';
 import $ from 'jquery';
 import 'jquery-ui';
+import 'spectrum-colorpicker';
 
 import Sidebar from './admin-sidebar';
 import Form from './admin-form';
@@ -32,6 +33,26 @@ ko.bindingHandlers.tabs = {
         });
     }
 };
+
+ko.bindingHandlers.colorPicker = {
+   init: function(element, valueAccessor, allBindings) {
+     const value = valueAccessor();
+     $(element).val(ko.utils.unwrapObservable(value));
+     $(element).spectrum({
+      preferredFormat: "hex",
+      showAlpha: true,
+      showButtons: false
+     });
+     $(element).on('move.spectrum', function(e, color) { 
+        console.log(color);
+        value(color.toHex8String());
+      });
+   },
+   update: function(element, valueAccessor) {
+     $(element).val(ko.utils.unwrapObservable(valueAccessor()));
+   }
+ }
+
 
 // Edit Menu Page
 if(pathName.includes('/admin/menus/') && pathName.includes('edit')) {

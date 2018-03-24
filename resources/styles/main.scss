@@ -1,5 +1,6 @@
 // Vendors
 @import 'vendors/font-awesome/font-awesome.scss';
+@import '../../node_modules/spectrum-colorpicker/spectrum';
 
 @import 'utils/functions';
 @import 'utils/mixins';
@@ -18,6 +19,7 @@
 @import 'components/pagination';
 @import 'components/popup';
 @import 'components/breadcrumbs';
+@import 'components/color-picker';
 
 @import 'layout/footer';
 @import 'layout/grid';
