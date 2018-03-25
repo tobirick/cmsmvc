@@ -28,6 +28,7 @@
                      <ul>
                          <li data-tabsection="general" class="popup__tabs-item active">General</li>
                          <li data-tabsection="layout" class="popup__tabs-item">Layout</li>
+                         <li data-tabsection="typography" class="popup__tabs-item">Typography</li>
                          <li data-tabsection="css" class="popup__tabs-item">CSS</li>
                          <li data-tabsection="integration" class="popup__tabs-item">Integration</li>
                      </ul>
@@ -86,6 +87,15 @@
                           </span>
                         </div>
                      </div>
+                     <div class="form-row">
+                        <div class="col-3">
+                           <label for="defaultcolor" class="form-label">Default Color</label>
+                        </div>
+                        <div class="col-9 center-v-flex">
+                           <input id="defaultcolor" class="form-input" type="text" data-bind="colorPicker: header_code">
+                           <input type="text" class="form-input">
+                        </div>
+                     </div>
 
                   </div>
 
@@ -142,6 +152,102 @@
                                  </div>
                               </div>
                            </div>
+                        </div>
+                     </div>
+                  </div>
+
+                  <div id="typography" class="tab-content">
+                     <div class="form-row">
+                        <div class="col-3">
+                           <label for="bodysize" class="form-label">Body Text Size</label>
+                        </div>
+                        <div class="col-9 center-v-flex">
+                           <input class="form-input" type="range">
+                           <span class="center-v-flex">
+                              <input id="bodysize" style="margin: 0 1rem;" type="text" class="form-input">rem
+                           </span>
+                        </div>
+                     </div>
+                     <div class="form-row">
+                        <div class="col-3">
+                           <label for="h1size" class="form-label">H1 Text Size</label>
+                        </div>
+                        <div class="col-9 center-v-flex">
+                           <input id="h1size" class="form-input" type="range">
+                           <span class="center-v-flex">
+                              <input style="margin: 0 1rem;" type="text" class="form-input">rem
+                           </span>
+                        </div>
+                     </div>
+                     <div class="form-row">
+                        <div class="col-3">
+                           <label for="h2size" class="form-label">H2 Text Size</label>
+                        </div>
+                        <div class="col-9 center-v-flex">
+                           <input id="h2size" class="form-input" type="range">
+                           <span class="center-v-flex">
+                              <input style="margin: 0 1rem;" type="text" class="form-input">rem
+                           </span>
+                        </div>
+                     </div>
+                     <div class="form-row">
+                        <div class="col-3">
+                           <label for="h3size" class="form-label">H3 Text Size</label>
+                        </div>
+                        <div class="col-9 center-v-flex">
+                           <input id="h3size" class="form-input" type="range">
+                           <span class="center-v-flex">
+                              <input style="margin: 0 1rem;" type="text" class="form-input">rem
+                           </span>
+                        </div>
+                     </div>
+                     <div class="form-row">
+                        <div class="col-3">
+                           <label for="h4size" class="form-label">H4 Text Size</label>
+                        </div>
+                        <div class="col-9 center-v-flex">
+                           <input id="h4size" class="form-input" type="range">
+                           <span class="center-v-flex">
+                              <input style="margin: 0 1rem;" type="text" class="form-input">rem
+                           </span>
+                        </div>
+                     </div>
+                     <div class="form-row">
+                        <div class="col-3">
+                           <label for="bodyfamily" class="form-label">Body Font Family</label>
+                        </div>
+                        <div class="col-9">
+                           <select class="form-input" id="bodyfamily">
+                              <option value=""></option>
+                           </select>
+                        </div>
+                     </div>
+                     <div class="form-row">
+                        <div class="col-3">
+                           <label for="hfamily" class="form-label">Heading Font Family</label>
+                        </div>
+                        <div class="col-9">
+                           <select class="form-input" id="hfamily">
+                              <option value=""></option>
+                           </select>
+                        </div>
+                     </div>
+                     <div class="form-row">
+                        <div class="col-3">
+                           <label for="bodycolor" class="form-label">Body Text Color</label>
+                        </div>
+                        <div class="col-9 center-v-flex">
+                           <input id="bodycolor" class="form-input" type="text" data-bind="colorPicker: header_code">
+                           <input type="text" class="form-input">
+                        </div>
+                     </div>
+                     <div class="form-row">
+                        <div class="col-3">
+                           <label for="hcolor" class="form-label">Heading Text Color</label>
+                        </div>
+                        <div class="col-9 center-v-flex">
+                           <input id="hcolor" class="form-input" type="text" data-bind="colorPicker: header_code">
+                           <input type="text" class="form-input">
                         </div>
                      </div>
                   </div>
