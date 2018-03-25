@@ -1,5 +1,4 @@
 import ko from 'knockout';
-import 'knockout-sortable';
 import PagebuilderSectionModel from './PagebuilderSectionModel';
 import PagebuilderColumnRowModel from './PagebuilderColumnRowModel';
 import PagebuilderRowModel from './PagebuilderRowModel';

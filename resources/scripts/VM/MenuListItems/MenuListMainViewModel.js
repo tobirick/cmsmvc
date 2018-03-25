@@ -1,5 +1,4 @@
 import ko from 'knockout';
-import 'knockout-sortable';
 import PageItemViewModel from '../Pages/PageItemViewModel';
 import MenuItemViewModel from './MenuItemViewModel';
 import PagesHandler from '../../Handlers/PagesHandler';

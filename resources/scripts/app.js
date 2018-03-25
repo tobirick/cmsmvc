@@ -1,6 +1,8 @@
 import ko from 'knockout';
 import { validator } from './validate';
 import $ from 'jquery';
+import 'knockout-sortable';
+import 'knockout-file-bindings';
 import 'jquery-ui';
 import 'spectrum-colorpicker';
 
@@ -10,6 +12,7 @@ import MenuListMainViewModel from './VM/MenuListItems/MenuListMainViewModel';
 import PagebuilderMainViewModel from './VM/Pagebuilder/PagebuilderMainViewModel';
 import MediaMainViewModel from './VM/Media/MediaMainViewModel';
 import CreatePagebuilderMainViewModel from './VM/CreatePagebuilder/CreatePagebuilderMainViewModel';
+import ThemeMainViewModel from './VM/Theme/ThemeMainViewModel';
 
 validator.init('#validate-form');
 validator.addBasicRules();
@@ -85,6 +88,12 @@ if(pathName.includes('/admin/media')) {
 if(pathName.includes('/admin/pagebuilder/')) {
     const createPagebuilderMainViewModel = new CreatePagebuilderMainViewModel();
     ko.applyBindings(createPagebuilderMainViewModel);
+}
+
+// Theme
+if(pathName.includes('/admin/themes/') && pathName.includes('edit')) {
+   const themeMainViewModel = new ThemeMainViewModel();
+   ko.applyBindings(themeMainViewModel);
 }
 
 

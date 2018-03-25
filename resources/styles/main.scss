@@ -1,6 +1,7 @@
 // Vendors
 @import 'vendors/font-awesome/font-awesome.scss';
 @import '../../node_modules/spectrum-colorpicker/spectrum';
+@import 'vendors/codemirror/codemirror';
 
 @import 'utils/functions';
 @import 'utils/mixins';
@@ -31,3 +32,4 @@
 @import 'pages/admin-pages';
 @import 'pages/admin-media';
 @import 'pages/admin-pagebuilder';
+@import 'pages/admin-themes';

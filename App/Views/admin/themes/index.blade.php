@@ -19,6 +19,7 @@
                                 <div class="card {{$theme['name'] === $activetheme ? 'active-theme' : ''}}">
                                     <div class="card__title">{{$theme['name']}}</div>
                                     <div class="card__actions">
+                                       <a href="/{{$curLang}}/admin/themes/{{$theme['id']}}/edit"><i class="fa fa-pencil"></i></a>
                                         <form action="/admin/themes/{{$theme['name']}}/{{$theme['id']}}" method="POST">
                                             <input type="hidden" name='_METHOD' value="PUT">
                                             <input name="csrf_token" type="hidden" value="{{$csrf}}">

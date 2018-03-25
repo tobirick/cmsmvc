@@ -11,18 +11,21 @@ class BaseController {
         $pages = \App\Models\DefaultPage::getAllPages();
         $mainMenuPages = \App\Models\Menu::getActiveMenuPages();
         $getAllMenuNames = \App\Models\Menu::getAllMenuTypeNames();
-        $activeThemePath = \App\Models\Theme::getActiveTheme();
+        $activeTheme = \App\Models\Theme::getActiveTheme();
         // Language
         $language = Router::getLanguage();
         $languagesArray = $language->getLanguagesArray();
         $currentLanguage = $language->getCurrentLanguage();
         $allLanguages = $language->getAllLanguages();
         $settings = \App\Models\Settings::getSettings();
+        $footercols = json_decode($activeTheme['footer_layout'], true)['columns'];
         $shares = [
             ['key' => 'user', 'value' =>  self::getUser()],
             ['key' => 'pages', 'value' => $pages],
             ['key' => 'mainmenupages', 'value' => $mainMenuPages],
-            ['key' => 'activetheme', 'value' => $activeThemePath],
+            ['key' => 'activetheme', 'value' => $activeTheme['name']],
+            ['key' => 'themesettings', 'value' => $activeTheme],
+            ['key' => 'footercols', 'value' => $footercols],
             ['key' => 'allmenus', 'value' => $getAllMenuNames],
             ['key' => 'lang', 'value' => $languagesArray],
             ['key' => 'curLang', 'value' => $currentLanguage],

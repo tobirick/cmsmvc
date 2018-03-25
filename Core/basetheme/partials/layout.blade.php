@@ -15,11 +15,37 @@
     <meta name="twitter:title" content="{{$settings['sitetitle']}} - @yield('metatitle')" />
     <meta name="twitter:description" content="@yield('metadescription')" />
     <title itemprop="name">@yield('title')</title>
+
+    <link rel="apple-touch-icon" sizes="256x256" href="{{$themesettings['favicon']}}"/>
+    <link rel="icon" type="image/png" sizes="256x256" href="{{$themesettings['favicon']}}"/>
+
     @include('public.themes.' . $activetheme . '.partials.styles')
-</head>
-<body>
+    {{$themesettings['custom_styles']}}
+    {{$themesettings['google_font']}}
+    {{$themesettings['header_code']}}
+    {{$themesettings['google_analytics']}}
+   </head>
+   <body class="{{$themesettings['fixed_navigation'] ? 'fixed' : ''}}">
+      @if($themesettings['to_top'])
+         <a href="">To Top</a>
+      @endif
+      {{$themesettings['body_code']}}
+
     @include('public.themes.' . $activetheme . '.partials.navigation')
-    @yield('content')
+    <div id="content">
+       @yield('content')
+    </div>
     @include('public.themes.' . $activetheme . '.partials.scripts')
+    {{$themesettings['custom_scripts']}}
+    <footer id="footer">
+       <div class="container">
+         @foreach($footercols as $footercol)
+            <div>
+               <div>{{$footercol['title']}}</div>
+               <div>{{$footercol['html']}}</div>
+            </div>
+         @endforeach
+       </div>
+    </footer>
 </body>
 </html>

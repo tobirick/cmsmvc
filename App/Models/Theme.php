@@ -9,6 +9,45 @@ use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
 
 class Theme extends Model {
+   public static function getThemeById($id) {
+      $db = static::getDB();
+      $stmt = $db->prepare('SELECT * FROM themes WHERE id = :id');
+      $stmt->execute([
+         ':id' => $id
+      ]);
+      $result = $stmt->fetch(PDO::FETCH_ASSOC);
+      $result['fixed_navigation'] = intval($result['fixed_navigation']);
+      $result['to_top'] = intval($result['to_top']);
+
+      return $result;
+   }
+
+   public static function updateThemeSettings($theme, $id) {
+      $db = static::getDB();
+      $stmt = $db->prepare('UPDATE themes SET logo = :logo, favicon = :favicon, fixed_navigation = :fixed_navigation,
+                           google_analytics = :google_analytics, to_top = :to_top, header_code = :header_code,
+                           body_code = :body_code, header_layout = :header_layout, footer_layout = :footer_layout,
+                           google_font = :google_font, custom_scripts = :custom_scripts, custom_styles = :custom_styles 
+                           WHERE id = :id');
+      $stmt->execute([
+         ':id' => $id,
+         ':logo' => $theme['logo'],
+         ':favicon' => $theme['favicon'],
+         ':fixed_navigation' => $theme['fixed_navigation'],
+         ':google_analytics' => $theme['google_analytics'],
+         ':to_top' => $theme['to_top'],
+         ':header_code' => $theme['header_code'],
+         ':body_code' => $theme['body_code'],
+         ':header_layout' => $theme['header_layout'],
+         ':footer_layout' => $theme['footer_layout'],
+         ':google_font' => $theme['google_font'],
+         ':custom_scripts' => $theme['custom_scripts'],
+         ':custom_styles' => $theme['custom_styles'],
+         ]);
+
+      return true;
+   }
+
     public static function addTheme($name) {
         $db = static::getDB();
         $stmt = $db->prepare('INSERT INTO themes (name, path) VALUES(:name, :path)');
@@ -46,10 +85,10 @@ class Theme extends Model {
         $stmt->execute([
             ':name' => 'active_theme_id'
         ]);
-        $path = $stmt->fetch(PDO::FETCH_ASSOC);
+        $theme = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
-        return $path['name'];
+        return $theme;
     }
 
     public static function copyBaseTheme($src, $dst, $themeName = null) {

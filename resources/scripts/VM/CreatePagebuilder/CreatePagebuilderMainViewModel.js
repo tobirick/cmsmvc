@@ -1,5 +1,4 @@
 import ko from 'knockout';
-import 'knockout-sortable';
 import csrf from '../../csrf';
 import helpers from '../../helpers';
 

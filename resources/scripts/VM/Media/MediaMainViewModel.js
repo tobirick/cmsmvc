@@ -1,6 +1,4 @@
 import ko from 'knockout';
-import 'knockout-sortable';
-import 'knockout-file-bindings';
 import MediaElementModel from './MediaElementModel';
 import MediaHandler from '../../Handlers/MediaHandler';
 import csrf from '../../csrf';
