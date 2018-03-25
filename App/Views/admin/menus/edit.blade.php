@@ -23,7 +23,12 @@
                     <input type="hidden" name='_METHOD' value="PUT">
                     <input name="csrf_token" type="hidden" value="{{$csrf}}">
                     <div class="form-row">
-                        <input class="form-input" value="{{$menu['name']}}" type="text" placeholder="Name" name="menu[name]">
+                       <div class="col-3">
+                          <label for="name" class="form-label">Menu Name</label>
+                       </div>
+                       <div class="col-9">
+                          <input id="name" class="form-input" value="{{$menu['name']}}" type="text" placeholder="Name" name="menu[name]">
+                       </div>
                     </div>
                     @foreach ($allmenus as $allmenu)
                     <span class="form-checkbox">

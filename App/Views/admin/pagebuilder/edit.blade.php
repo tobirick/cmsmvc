@@ -22,15 +22,30 @@
             <div class="col-8">
                 <div class="admin-box">
                         <div class="form-row">
-                            <input placeholder="Name" data-bind="value: name" class="form-input" type="text">
+                           <div class="col-3">
+                              <label for="title" class="form-label">Title</label>
+                           </div>
+                           <div class="col-9">
+                              <input id="title" placeholder="Name" data-bind="value: name" class="form-input" type="text">
+                           </div>
                         </div>
                         <div class="form-row">
-                            <textarea placeholder="Content" data-bind="value: html" class="form-input"></textarea>
+                           <div class="col-3">
+                              <label for="html" class="form-label">HTML</label>
+                           </div>
+                           <div class="col-9">
+                              <textarea id="html" placeholder="HTML" data-bind="value: html" class="form-input"></textarea>
+                           </div>
                         </div>
                         <div class="form-row">
-                             <input type="text" placeholder="Type" data-bind="value: type" class="form-input">
+                           <div class="col-3">
+                              <label for="icon" class="form-label">Icon/Type</label>
+                           </div>
+                           <div class="col-9">
+                              <input id="icon" type="text" placeholder="Type" data-bind="value: type" class="form-input">
+                           </div>
                         </div>
-                        <div class="form-row">
+                        <div class="form-row dn">
                             <input type="text" placeholder="Config" data-bind="value: config, attr:{disabled:true}" class="form-input">
                         </div>
                 </div>

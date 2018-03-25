@@ -6,7 +6,6 @@
 @import 'utils/functions';
 @import 'utils/mixins';
 @import 'utils/variables';
-@import 'utils/helpers';
 
 @import 'base/reset';
 @import 'base/typography';
@@ -33,3 +32,5 @@
 @import 'pages/admin-media';
 @import 'pages/admin-pagebuilder';
 @import 'pages/admin-themes';
+
+@import 'utils/helpers';

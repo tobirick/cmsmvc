@@ -47,11 +47,21 @@
                         <input class="form-input" value="{{$page['slug']}}" type="text" placeholder="Slug" name="page[slug]">
                     </div>
                     <div class="form-row">
-                        <input autocomplete="off" class="form-input" value="{{$page['name']}}" type="text" placeholder="Name" name="page[name]">
-                        <strong>Permalink: </strong> <a target="_blank" class="aurl" href="{{$settings['siteurl']}}{{$page['slug']}}"> {{$settings['siteurl']}}{{$page['slug']}}</a>
+                       <div class="col-3">
+                        <label for="pagename" class="form-label">Page Name</label>
+                       </div>
+                       <div class="col-9">
+                          <input id="pagename" autocomplete="off" class="form-input" value="{{$page['name']}}" type="text" placeholder="Name" name="page[name]">
+                          <strong>Permalink: </strong> <a target="_blank" class="aurl" href="{{$settings['siteurl']}}{{$page['slug']}}"> {{$settings['siteurl']}}{{$page['slug']}}</a>
+                       </div>
                     </div>
                     <div class="form-row">
-                        <input class="form-input" value="{{$page['title']}}" type="text" placeholder="Title" name="page[title]">
+                       <div class="col-3">
+                        <label for="pagetitle" class="form-label">Page Title</label>
+                       </div>
+                       <div class="col-9">
+                          <input id="pagetitle" class="form-input" value="{{$page['title']}}" type="text" placeholder="Title" name="page[title]">
+                       </div>
                     </div>
             </div>
         </div>
@@ -60,10 +70,20 @@
             <div class="admin-box">
                <h3 class="admin-box__title">SEO</h3>
                <div class="form-row">
-                     <input class="form-input" value="{{$page['seo_title']}}" type="text" placeholder="SEO Title" name="page[seo_title]">
+                  <div class="col-3">
+                     <label for="seotitle" class="form-label">SEO Title</label>
+                  </div>
+                  <div class="col-9">
+                     <input id="seotitle" class="form-input" value="{{$page['seo_title']}}" type="text" placeholder="SEO Title" name="page[seo_title]">
+                  </div>
                  </div>
                  <div class="form-row">
-                     <textarea class="form-input" type="text" placeholder="SEO Description" name="page[seo_description]">{{$page['seo_description']}}</textarea>
+                    <div class="col-3">
+                     <label for="seodescription" class="form-label">SEO Description</label>
+                  </div>
+                  <div class="col-9">
+                     <textarea id="seodescription" class="form-input" type="text" placeholder="SEO Description" name="page[seo_description]">{{$page['seo_description']}}</textarea>
+                  </div>
                  </div>
             </div>
         </div>

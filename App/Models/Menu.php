@@ -41,7 +41,8 @@ class Menu extends Model {
             ':name' => $menu['name']
             ]);
 
-        return true;
+         $lastID = $db->lastInsertId();
+         return self::getMenuById($lastID);
     }
 
     public static function getAllMenuTypeNames() {

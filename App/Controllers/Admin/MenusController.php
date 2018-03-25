@@ -32,8 +32,8 @@ class MenusController extends BaseController {
         CSRF::checkToken();
         if(isset($_POST)) {
             $menu = new Menu();
-            $menu->addMenu($_POST['menu']);
-            self::redirect('/admin/menus');
+            $newMenu = $menu->addMenu($_POST['menu']);
+            self::redirect('/admin/menus/' . $newMenu['id'] . '/edit');
         }
     }
 
