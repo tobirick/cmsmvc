@@ -1,12 +1,17 @@
 <?php
-// Errors
-$whoops = new \Whoops\Run;
-$whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
-$whoops->register();
-
 // ENV
 $dotenv = new Dotenv\Dotenv(__DIR__ . '/..');
 $dotenv->load();
+
+// Errors
+if(filter_var(getenv('SHOW_ERROR'), FILTER_VALIDATE_BOOLEAN)) {
+    $whoops = new \Whoops\Run;
+    $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+    $whoops->register();
+}
+
+
+
 
 // Redirects
 $requestURL = $_SERVER['REQUEST_URI'];

@@ -58,10 +58,12 @@ class ThemesController extends BaseController {
       foreach($styles as $type => $style) {
           $typocss .= $type . '{';
           foreach($style as $prop => $value) {
-              if(is_numeric($value)) {
-                  $value .= 'rem';
+              if($value) {
+                if($prop === 'font_size') {
+                    $value .= 'rem';
+                }
+                  $typocss .= str_replace('_', '-', $prop) . ':' . $value . ';';
               }
-            $typocss .= str_replace('_', '-', $prop) . ':' . $value . ';';
           }
           $typocss .= '}';
       }
@@ -85,6 +87,7 @@ class ThemesController extends BaseController {
 
             Theme::copyBaseTheme(__DIR__ . '/../../../Core/basetheme', $themePath . '/' . $_POST['theme']['name'], $_POST['theme']['name']);
             Theme::addTheme($_POST['theme']['name']);
+            Theme::combineCSS($_POST['theme']['name']);
 
             self::redirect('/admin/themes');
         }

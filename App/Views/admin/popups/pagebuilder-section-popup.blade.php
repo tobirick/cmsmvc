@@ -24,7 +24,7 @@
                         <label for="name" class="form-label">Name</label>
                      </div>
                      <div class="col-9">
-                        <input data-bind="value: name" type="text" id="name" class="form-input" placeholder="Section Name">
+                        <input data-bind="textInput: name" type="text" id="name" class="form-input" placeholder="Section Name">
                      </div>
                   </div>
                </div>
@@ -84,27 +84,85 @@
                <div class="popup__subcontent">
                   <div class="form-row">
                      <div class="col-3">
-                        <label for="bgcolor" class="form-label">Background Color</label>
+                        <label for="bgcolor" class="form-label">Background</label>
                      </div>
                      <div class="col-9">
-                        <input data-bind="value: bg_color" type="text" id="bgcolor" class="form-input" placeholder="#f5f5f5">
-                     </div>
-                  </div>
-                  <div class="form-row">
-                     <div class="col-3">
-                        <label for="bgimage" class="form-label">Background Image</label>
-                     </div>
-                     <div class="col-9">
-                        <div class="center-v-flex">
-                           <input data-bind="value: bg_image" type="text" id="bgimage" class="form-input" placeholder="Image URL">
-                           <button data-bind="click: openMediaPopup" class="ml-1 button-primary">Choose Media</button>
-                        </div>
-                        <div data-bind="visible: bg_image" class="mt-2">
-                           <strong class="mb-1 dp">Image Preview:</strong>
-                           <div class="center-h-flex center-v-flex p-2" style="border: 1px solid #ddd; border-radius: 2px;">
-                              <img class="mw-100" data-bind="attr: {src: bg_image}">
-                           </div>
-                        </div>
+                         <div class="background-tabs">
+                             <button data-bind="click: changeBackgroundMode.bind($data, 'color'), css:{active: current_bg_mode() === 'color'}"><i class="fa fa-paint-brush"></i></button>
+                             <button data-bind="click: changeBackgroundMode.bind($data, 'image'), css:{active: current_bg_mode() === 'image'}"><i class="fa fa-image"></i></button>
+                             <button data-bind="click: changeBackgroundMode.bind($data, 'gradient'), css:{active: current_bg_mode() === 'gradient'}"><i class="fa fa-exchange"></i></button>
+                         </div>
+                         <div data-bind="if: current_bg_mode() === 'gradient'">
+                            <div class="form-row">
+                                <div class="col-6 center-v-flex">
+                                    <input class="form-input" type="text" data-bind="colorPicker: bg_color">
+                                    <input data-bind="textInput: bg_color, attr: {disabled: true}" type="text" id="bgcolor" class="form-input" placeholder="#f5f5f5">
+                                </div>
+                                <div class="col-6 center-v-flex">
+                                    <input class="form-input" type="text" data-bind="colorPicker: bg_color">
+                                    <input data-bind="textInput: bg_color, attr: {disabled: true}" type="text" id="bgcolor" class="form-input" placeholder="#f5f5f5">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                 <label for="gradienttype" class="form-label">Gradient Type</label>
+                                 <select id="gradienttype" class="form-input"></select>
+                             </div>
+                             <label class="form-label">Gradient Direction</label>
+                             <div class="form-row">
+                                 <div class="center-v-flex w-100">
+                                     <input class="form-input" data-bind=" attr: {type: 'range', min: 1, max: 360, step: 1}">
+                                     <span class="center-v-flex">
+                                         <input style="margin: 0 1rem;" type="text" class="form-input" data-bind="attr: {type: 'number', min: 1, max: 360, step: 1}">deg
+                                     </span>
+                                 </div>
+                             </div>
+                             <label class="form-label">Start Position</label>
+                             <div class="form-row">
+                                 <div class="center-v-flex w-100">
+                                     <input class="form-input" data-bind=" attr: {type: 'range', min: 1, max: 360, step: 1}">
+                                     <span class="center-v-flex">
+                                         <input style="margin: 0 1rem;" type="text" class="form-input" data-bind="attr: {type: 'number', min: 0, max: 100, step: 1}">%
+                                     </span>
+                                 </div>
+                             </div>
+                             <label class="form-label">End Position</label>
+                             <div class="form-row">
+                                 <div class="center-v-flex w-100">
+                                     <input class="form-input" data-bind=" attr: {type: 'range', min: 1, max: 360, step: 1}">
+                                     <span class="center-v-flex">
+                                         <input style="margin: 0 1rem;" type="text" class="form-input" data-bind="attr: {type: 'number', min: 0, max: 100, step: 1}">%
+                                     </span>
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="center-v-flex" data-bind="if: current_bg_mode() === 'color'">
+                            <input class="form-input" type="text" data-bind="colorPicker: bg_color">
+                             <input data-bind="textInput: bg_color, attr: {disabled: true}" type="text" id="bgcolor" class="form-input" placeholder="#f5f5f5">
+                         </div>
+                         <div data-bind="if: current_bg_mode() === 'image'">
+                             <div class="center-v-flex">
+                                <input data-bind="value: bg_image" type="text" id="bgimage" class="form-input" placeholder="Image URL">
+                                <button data-bind="click: openMediaPopup" class="ml-1 button-primary">Choose Media</button>
+                             </div>                
+                             <div data-bind="visible: bg_image" class="mt-2">
+                                <strong class="mb-1 dp">Image Preview:</strong>
+                                <div class="center-h-flex center-v-flex p-2" style="border: 1px solid #ddd; border-radius: 2px;">
+                                   <img class="mw-100" data-bind="attr: {src: bg_image}">
+                                </div>
+                             </div>
+                             <div class="form-row mt-2">
+                                 <label for="imagesize" class="form-label">Background Image Size</label>
+                                 <select data-bind="options: bgImageSizeOptions, value: bg_image_size" id="imagesize" class="form-input"></select>
+                             </div>
+                             <div class="form-row">
+                                 <label for="imageposition" class="form-label">Background Image Position</label>
+                                 <select data-bind="options: bgImagePositionOptions, value: bg_image_position"  id="imageposition" class="form-input"></select>
+                             </div>
+                             <div class="form-row">
+                                 <label for="imagerepeat" class="form-label">Background Image Repeat</label>
+                                 <select data-bind="options: bgImageRepeatOptions, value: bg_image_repeat"  id="imagerepeat" class="form-input"></select>
+                             </div>
+                         </div>
                      </div>
                   </div>
                </div>

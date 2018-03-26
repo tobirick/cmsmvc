@@ -25,7 +25,7 @@
     {{$themesettings['header_code']}}
     {{$themesettings['google_analytics']}}
    </head>
-   <body class="{{$themesettings['fixed_navigation'] ? 'fixed' : ''}}">
+   <body class="{{$themesettings['fixed_navigation'] ? 'fixed' : ''}} {{isset($id) ? 'page-id-' . $id : 'home'}}">
       @if($themesettings['to_top'])
          <a href="">To Top</a>
       @endif

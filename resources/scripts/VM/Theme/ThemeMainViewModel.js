@@ -41,6 +41,8 @@ export default class ThemeMainViewModel {
         });
         this.headingFontFamily = ko.observable('');
         this.headingColor = ko.observable('');
+        this.headingLineHeight = ko.observable('');
+        this.headingLetterSpacing = ko.observable('');
       
       this.fetchThemeSettings();
 
@@ -102,11 +104,15 @@ export default class ThemeMainViewModel {
     this.body({
         'font_family': ko.observable(fontLayout.body.font_family || ''),
         'font_size': ko.observable(fontLayout.body.font_size || ''),
-        'color': ko.observable(fontLayout.body.color || '')
+        'color': ko.observable(fontLayout.body.color || ''),
+        'line_height': ko.observable(fontLayout.body.line_height || ''),
+        'letter_spacing': ko.observable(fontLayout.body.letter_spacing || '')
     });
 
     this.headingFontFamily(fontLayout.heading.font_family || '');
     this.headingColor(fontLayout.heading.color || '');
+    this.headingLineHeight(fontLayout.heading.line_height || '');
+    this.headingLetterSpacing(fontLayout.heading.letter_spacing || '');
 
 
     this.possibleHeadings.forEach(heading => {
@@ -187,14 +193,18 @@ export default class ThemeMainViewModel {
        typography.body = (ko.toJS(this.body));
        typography.heading = {
            font_family: this.headingFontFamily(),
-           color: this.headingColor()
+           color: this.headingColor(),
+           letter_spacing: this.headingLetterSpacing(),
+           line_height: this.headingLineHeight()
        }
 
        this.possibleHeadings.forEach(heading => {
         typography[heading] = {
             ...ko.toJS(this[heading]),
             font_family: this.headingFontFamily(),
-            color: this.headingColor() 
+            color: this.headingColor(),
+            letter_spacing: this.headingLetterSpacing(),
+            line_height: this.headingLineHeight()
         }
         });
 

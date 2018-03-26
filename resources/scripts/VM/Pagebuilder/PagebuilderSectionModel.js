@@ -7,6 +7,18 @@ export default class PagebuilderSectionModel {
    constructor(data, delegates) {
       this.mediaPopupVM = ko.observable(new MediaPopupMainViewModel());
 
+      this.bgImageSizeOptions = ko.observableArray([
+        'cover', 'contain', 'auto'
+      ]);
+
+      this.bgImagePositionOptions = ko.observableArray([
+        'left top', 'left center', 'left bottom', 'right top', 'right center', 'right bottom', 'center top', 'center center', 'center bottom'
+      ]);
+
+      this.bgImageRepeatOptions = ko.observableArray([
+        'no-repeat', 'repeat', 'repeat-x', 'repeat-y', 'space', 'round'
+      ]);
+
       this.id = ko.observable(data.id || '');
       this.name = ko.observable(data.name || '');
       this.position = ko.observable(data.position || '');
@@ -15,6 +27,10 @@ export default class PagebuilderSectionModel {
       this.styles = ko.observable(data.styles || '');
       this.bg_color = ko.observable(data.bg_color || '');
       this.bg_image = ko.observable(data.bg_image || '');
+      this.bg_image_size = ko.observable(data.bg_image_size || '');
+      this.bg_image_position = ko.observable(data.bg_image_position || '');
+      this.bg_image_repeat = ko.observable(data.bg_image_repeat || '');
+      this.current_bg_mode = ko.observable(data.current_bg_mode || 'color');
 
       this.paddingVM = ko.observable(data.paddingVM ? {
         top: ko.observable(data.paddingVM.top || ''),
@@ -53,7 +69,8 @@ export default class PagebuilderSectionModel {
                     ${this.css_class() !== '' ? `class="${this.css_class()}"` :''}
                     ${this.css_id() !== '' ? `id="${this.css_id()}"` :''} 
                     style="${this.styles()}
-                    ${this.bg_color() !== '' ? `background-color:${this.bg_color()};` : ''}
+                    ${this.bg_image() !== '' && this.current_bg_mode() === 'image' ? `background-image:url(${this.bg_image()});background-size:${this.bg_image_size()};background-position:${this.bg_image_position()};background-repeat:${this.bg_image_repeat()}` : ''}
+                    ${this.bg_color() !== '' && this.current_bg_mode() === 'color' ? `background-color:${this.bg_color()};` : ''}
                     ${this.paddingVM().top() !== '' ? `padding-top:${this.paddingVM().top()};` : ''}
                     ${this.paddingVM().right() !== '' ? `padding-right:${this.paddingVM().right()};` : ''}
                     ${this.paddingVM().bottom() !== '' ? `padding-bottom:${this.paddingVM().bottom()};` : ''}
@@ -95,6 +112,14 @@ export default class PagebuilderSectionModel {
 
       this.deleteSection = delegates.deleteSection;
       this.cloneSection = delegates.cloneSection;
+   }
+
+   changeBackgroundMode = (newMode) => {
+     const spContainerEls = document.querySelectorAll('.sp-container');
+     spContainerEls.forEach(spContainerEl => {
+       spContainerEl.parentNode.removeChild(spContainerEl);
+      });
+      this.current_bg_mode(newMode);
    }
 
    async fetchRows() {

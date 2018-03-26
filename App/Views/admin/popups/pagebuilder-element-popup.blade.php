@@ -41,7 +41,7 @@
                             <div class="center-v-flex" data-bind="if: type() === 'text' || type() === 'range' || type() === 'number'">
                                 <input class="form-input" data-bind="textInput: value, attr:{id: key, placeholder: name, type: type, min: 1, max: 10, step: 0.1}">
                                 <span class="center-v-flex" data-bind="if: type() === 'range'">
-                                    <input style="margin: 0 1rem;" type="text" class="form-input" data-bind="textInput: value, attr: {type: 'number'}">rem
+                                    <input style="margin: 0 1rem;" type="text" class="form-input" data-bind="textInput: value, attr: {type: 'number', min: 1, max: 10, step: 0.1}">rem
                                 </span>
                             </div>
                             <div class="center-v-flex" data-bind="if: type() === 'color'">                          
@@ -68,7 +68,7 @@
                         <label for="name" class="form-label">Name</label>
                      </div>
                      <div class="col-9">
-                        <input data-bind="value: name" type="text" id="name" class="form-input" placeholder="Element Name">
+                        <input data-bind="textInput: name" type="text" id="name" class="form-input" placeholder="Element Name">
                      </div>
                   </div>
                </div>

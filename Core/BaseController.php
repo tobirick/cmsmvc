@@ -34,7 +34,9 @@ class BaseController {
             ['key' => 'settings', 'value' => $settings]
         ];
 
-        Theme::combineCSS($activeTheme['name']);
+        if(filter_var(getenv('DEV'), FILTER_VALIDATE_BOOLEAN)) {
+            Theme::combineCSS($activeTheme['name']);
+        }
 
          if(!in_array(get_class($this), $this->publicPages)) {
             $shares[] = ['key' => 'csrf', 'value' => $csrf->getToken()];
