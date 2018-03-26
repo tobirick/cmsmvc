@@ -114,6 +114,8 @@ export default class ThemeMainViewModel {
     this.headingLineHeight(fontLayout.heading.line_height || '');
     this.headingLetterSpacing(fontLayout.heading.letter_spacing || '');
 
+    console.log(this.headingColor());
+
 
     this.possibleHeadings.forEach(heading => {
         const fontSizeString = `fontLayout.${heading}.font_size`;
@@ -168,6 +170,7 @@ export default class ThemeMainViewModel {
       }).then(() => {
          this.setFooterColumns();
          this.setFontStyles();
+         console.log(this);
       });
    }
 

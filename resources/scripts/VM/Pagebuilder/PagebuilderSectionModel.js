@@ -85,17 +85,17 @@ export default class PagebuilderSectionModel {
                     ${this.css_class() !== '' ? `class="${this.css_class()}"` :''}
                     ${this.css_id() !== '' ? `id="${this.css_id()}"` :''} 
                     style="${this.styles()}
-                    ${this.bg_image() !== '' && this.current_bg_mode() === 'image' ? `background-image:url(${this.bg_image()});background-size:${this.bg_image_size()};background-position:${this.bg_image_position()};background-repeat:${this.bg_image_repeat()}` : ''}
+                    ${this.bg_image() !== '' && this.current_bg_mode() === 'image' ? `background-image:url(${this.bg_image()});background-size:${this.bg_image_size()};background-position:${this.bg_image_position()};background-repeat:${this.bg_image_repeat()};` : ''}
                     ${this.bg_color() !== '' && this.current_bg_mode() === 'color' ? `background-color:${this.bg_color()};` : ''}
-                    ${this.current_bg_mode() === 'gradient' ? `background-image:${this.bgGradient()}` : ''}
-                    ${this.paddingVM().top() !== '' ? `padding-top:${this.paddingVM().top()};` : ''}
-                    ${this.paddingVM().right() !== '' ? `padding-right:${this.paddingVM().right()};` : ''}
-                    ${this.paddingVM().bottom() !== '' ? `padding-bottom:${this.paddingVM().bottom()};` : ''}
-                    ${this.paddingVM().left() !== '' ? `padding-left:${this.paddingVM().left()};` : ''}
-                    ${this.marginVM().top() !== '' ? `margin-top:${this.marginVM().top()};` : ''}
-                    ${this.marginVM().right() !== '' ? `margin-right:${this.marginVM().right()};` : ''}
-                    ${this.marginVM().bottom() !== '' ? `margin-bottom:${this.marginVM().bottom()};` : ''}
-                    ${this.marginVM().left() !== '' ? `margin-left:${this.marginVM().left()};` : ''}
+                    ${this.current_bg_mode() === 'gradient' ? `background-image:${this.bgGradient()};` : ''}
+                    ${this.paddingVM().top() !== '' ? `padding-top:${this.paddingVM().top()}rem;` : ''}
+                    ${this.paddingVM().right() !== '' ? `padding-right:${this.paddingVM().right()}rem;` : ''}
+                    ${this.paddingVM().bottom() !== '' ? `padding-bottom:${this.paddingVM().bottom()}rem;` : ''}
+                    ${this.paddingVM().left() !== '' ? `padding-left:${this.paddingVM().left()}rem;` : ''}
+                    ${this.marginVM().top() !== '' ? `margin-top:${this.marginVM().top()}rem;` : ''}
+                    ${this.marginVM().right() !== '' ? `margin-right:${this.marginVM().right()}rem;` : ''}
+                    ${this.marginVM().bottom() !== '' ? `margin-bottom:${this.marginVM().bottom()}rem;` : ''}
+                    ${this.marginVM().left() !== '' ? `margin-left:${this.marginVM().left()}rem;` : ''}
                     ">`;
         });
 
