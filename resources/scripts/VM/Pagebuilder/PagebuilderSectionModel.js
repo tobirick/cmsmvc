@@ -19,6 +19,10 @@ export default class PagebuilderSectionModel {
         'no-repeat', 'repeat', 'repeat-x', 'repeat-y', 'space', 'round'
       ]);
 
+      this.bgGradientTypes = ko.observableArray([
+        'linear-gradient'
+      ]);
+
       this.id = ko.observable(data.id || '');
       this.name = ko.observable(data.name || '');
       this.position = ko.observable(data.position || '');
@@ -30,6 +34,14 @@ export default class PagebuilderSectionModel {
       this.bg_image_size = ko.observable(data.bg_image_size || '');
       this.bg_image_position = ko.observable(data.bg_image_position || '');
       this.bg_image_repeat = ko.observable(data.bg_image_repeat || '');
+
+      this.bg_gradient_first_color = ko.observable(data.bg_gradient_first_color || '');
+      this.bg_gradient_second_color = ko.observable(data.bg_gradient_second_color || '');
+      this.bg_gradient_type = ko.observable(data.bg_gradient_type || 'linear-gradient');
+      this.bg_gradient_direction = ko.observable(data.bg_gradient_direction || '');
+      this.bg_gradient_start_position = ko.observable(data.bg_gradient_start_position || '');
+      this.bg_gradient_end_position = ko.observable(data.bg_gradient_end_position || '');
+      
       this.current_bg_mode = ko.observable(data.current_bg_mode || 'color');
 
       this.paddingVM = ko.observable(data.paddingVM ? {
@@ -64,6 +76,10 @@ export default class PagebuilderSectionModel {
         return `${this.marginVM().top()} ${this.marginVM().right()} ${this.marginVM().bottom()} ${this.marginVM().left()}`;
         })
 
+        this.bgGradient = ko.computed(() => {
+          return `${this.bg_gradient_type()}(${this.bg_gradient_direction()}deg,${this.bg_gradient_first_color()} ${this.bg_gradient_start_position()}%, ${this.bg_gradient_second_color()} ${this.bg_gradient_end_position()}%)`;
+        })
+
         this.html = ko.computed(() => {
             return `<section 
                     ${this.css_class() !== '' ? `class="${this.css_class()}"` :''}
@@ -71,6 +87,7 @@ export default class PagebuilderSectionModel {
                     style="${this.styles()}
                     ${this.bg_image() !== '' && this.current_bg_mode() === 'image' ? `background-image:url(${this.bg_image()});background-size:${this.bg_image_size()};background-position:${this.bg_image_position()};background-repeat:${this.bg_image_repeat()}` : ''}
                     ${this.bg_color() !== '' && this.current_bg_mode() === 'color' ? `background-color:${this.bg_color()};` : ''}
+                    ${this.current_bg_mode() === 'gradient' ? `background-image:${this.bgGradient()}` : ''}
                     ${this.paddingVM().top() !== '' ? `padding-top:${this.paddingVM().top()};` : ''}
                     ${this.paddingVM().right() !== '' ? `padding-right:${this.paddingVM().right()};` : ''}
                     ${this.paddingVM().bottom() !== '' ? `padding-bottom:${this.paddingVM().bottom()};` : ''}

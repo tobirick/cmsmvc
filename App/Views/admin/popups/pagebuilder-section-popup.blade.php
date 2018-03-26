@@ -93,44 +93,49 @@
                              <button data-bind="click: changeBackgroundMode.bind($data, 'gradient'), css:{active: current_bg_mode() === 'gradient'}"><i class="fa fa-exchange"></i></button>
                          </div>
                          <div data-bind="if: current_bg_mode() === 'gradient'">
+                             <div data-bind="visible: bgGradient()" class="mt-2 mb-2">
+                                <strong class="mb-1 dp">Gradient Preview:</strong>
+                                <div data-bind="style:{backgroundImage: bgGradient()}" class="center-h-flex center-v-flex p-2" style="border: 1px solid #ddd; border-radius: 2px;height: 20rem;">
+                                </div>
+                             </div>
                             <div class="form-row">
                                 <div class="col-6 center-v-flex">
-                                    <input class="form-input" type="text" data-bind="colorPicker: bg_color">
-                                    <input data-bind="textInput: bg_color, attr: {disabled: true}" type="text" id="bgcolor" class="form-input" placeholder="#f5f5f5">
+                                    <input class="form-input" type="text" data-bind="colorPicker: bg_gradient_first_color">
+                                    <input data-bind="textInput: bg_gradient_first_color, attr: {disabled: true}" type="text" id="bgcolor" class="form-input" placeholder="#f5f5f5">
                                 </div>
                                 <div class="col-6 center-v-flex">
-                                    <input class="form-input" type="text" data-bind="colorPicker: bg_color">
-                                    <input data-bind="textInput: bg_color, attr: {disabled: true}" type="text" id="bgcolor" class="form-input" placeholder="#f5f5f5">
+                                    <input class="form-input" type="text" data-bind="colorPicker: bg_gradient_second_color">
+                                    <input data-bind="textInput: bg_gradient_second_color, attr: {disabled: true}" type="text" id="bgcolor" class="form-input" placeholder="#f5f5f5">
                                 </div>
                             </div>
                             <div class="form-row">
                                  <label for="gradienttype" class="form-label">Gradient Type</label>
-                                 <select id="gradienttype" class="form-input"></select>
+                                 <select data-bind="options: bgGradientTypes, value: bg_gradient_type" id="gradienttype" class="form-input"></select>
                              </div>
                              <label class="form-label">Gradient Direction</label>
                              <div class="form-row">
                                  <div class="center-v-flex w-100">
-                                     <input class="form-input" data-bind=" attr: {type: 'range', min: 1, max: 360, step: 1}">
+                                     <input class="form-input" max="360" min="1" step="1" data-bind="value: bg_gradient_direction, valueUpdate: 'input', attr: {type: 'range', min: 1, max: 360, step: 1}">
                                      <span class="center-v-flex">
-                                         <input style="margin: 0 1rem;" type="text" class="form-input" data-bind="attr: {type: 'number', min: 1, max: 360, step: 1}">deg
+                                         <input style="margin: 0 1rem;" type="text" class="form-input" data-bind="value: bg_gradient_direction, valueUpdate: 'input', attr: {type: 'number', min: 1, max: 360, step: 1}">deg
                                      </span>
                                  </div>
                              </div>
                              <label class="form-label">Start Position</label>
                              <div class="form-row">
                                  <div class="center-v-flex w-100">
-                                     <input class="form-input" data-bind=" attr: {type: 'range', min: 1, max: 360, step: 1}">
+                                     <input class="form-input" max="100" min="0" step="1" data-bind="textInput: bg_gradient_start_position, attr: {type: 'range', min: 0, max: 100, step: 1}">
                                      <span class="center-v-flex">
-                                         <input style="margin: 0 1rem;" type="text" class="form-input" data-bind="attr: {type: 'number', min: 0, max: 100, step: 1}">%
+                                         <input style="margin: 0 1rem;" type="text" class="form-input" data-bind="textInput: bg_gradient_start_position, attr: {type: 'number', min: 0, max: 100, step: 1}">%
                                      </span>
                                  </div>
                              </div>
                              <label class="form-label">End Position</label>
                              <div class="form-row">
                                  <div class="center-v-flex w-100">
-                                     <input class="form-input" data-bind=" attr: {type: 'range', min: 1, max: 360, step: 1}">
+                                     <input class="form-input" max="100" min="0" step="1" data-bind="textInput: bg_gradient_end_position, attr: {type: 'range', min: 0, max: 100, step: 1}">
                                      <span class="center-v-flex">
-                                         <input style="margin: 0 1rem;" type="text" class="form-input" data-bind="attr: {type: 'number', min: 0, max: 100, step: 1}">%
+                                         <input style="margin: 0 1rem;" type="text" class="form-input" data-bind="textInput: bg_gradient_end_position, attr: {type: 'number', min: 0, max: 100, step: 1}">%
                                      </span>
                                  </div>
                              </div>

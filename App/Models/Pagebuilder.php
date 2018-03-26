@@ -124,8 +124,10 @@ class Pagebuilder extends Model {
 
     public static function saveSection($pageID, $section) {
         $db = static::getDB();
-        $stmt = $db->prepare('INSERT INTO pagebuilder_sections (page_id, css_class, css_id, styles, name, bg_color, bg_image, bg_image_size, bg_image_position, bg_image_repeat, padding, margin, current_bg_mode)
-                              VALUES(:page_id, :css_class, :css_id, :styles, :name, :bg_color, :bg_image, :bg_image_size, :bg_image_position, :bg_image_repeat, :padding, :margin, :current_bg_mode)');
+        $stmt = $db->prepare('INSERT INTO pagebuilder_sections (page_id, css_class, css_id, styles, name, bg_color, bg_image, bg_image_size, bg_image_position, bg_image_repeat, padding, margin, current_bg_mode,
+                            bg_gradient_first_color, bg_gradient_second_color, bg_gradient_type, bg_gradient_direction, bg_gradient_start_position, bg_gradient_end_position)
+                              VALUES(:page_id, :css_class, :css_id, :styles, :name, :bg_color, :bg_image, :bg_image_size, :bg_image_position, :bg_image_repeat, :padding, :margin, :current_bg_mode,
+                              :bg_gradient_first_color, :bg_gradient_second_color, :bg_gradient_type, :bg_gradient_direction, :bg_gradient_start_position, :bg_gradient_end_position)');
         $stmt->execute([
             ':page_id' => $pageID,
             ':css_class' => $section['css_class'],
@@ -139,7 +141,13 @@ class Pagebuilder extends Model {
             ':bg_image_repeat' => $section['bg_image_repeat'],
             ':padding' => $section['padding'],
             ':margin' => $section['margin'],
-            ':current_bg_mode' => $section['current_bg_mode']
+            ':current_bg_mode' => $section['current_bg_mode'],
+            ':bg_gradient_first_color' => $section['bg_gradient_first_color'],
+            ':bg_gradient_second_color' => $section['bg_gradient_second_color'],
+            ':bg_gradient_type' => $section['bg_gradient_type'],
+            ':bg_gradient_direction' => $section['bg_gradient_direction'],
+            ':bg_gradient_start_position' => $section['bg_gradient_start_position'],
+            ':bg_gradient_end_position' => $section['bg_gradient_end_position']
             ]);
 
         $lastID = $db->lastInsertId();
@@ -148,8 +156,10 @@ class Pagebuilder extends Model {
 
     public static function saveRow($sectionID, $row) {
         $db = static::getDB();
-        $stmt = $db->prepare('INSERT INTO pagebuilder_rows (section_id, css_class, css_id, styles, name, bg_color, bg_image, bg_image_size, bg_image_position, bg_image_repeat, padding, margin, current_bg_mode)
-                              VALUES(:section_id, :css_class, :css_id, :styles, :name, :bg_color, :bg_image, :bg_image_size, :bg_image_position, :bg_image_repeat, :padding, :margin, :current_bg_mode)');
+        $stmt = $db->prepare('INSERT INTO pagebuilder_rows (section_id, css_class, css_id, styles, name, bg_color, bg_image, bg_image_size, bg_image_position, bg_image_repeat, padding, margin, current_bg_mode,
+                                bg_gradient_first_color, bg_gradient_second_color, bg_gradient_type, bg_gradient_direction, bg_gradient_start_position, bg_gradient_end_position)
+                              VALUES(:section_id, :css_class, :css_id, :styles, :name, :bg_color, :bg_image, :bg_image_size, :bg_image_position, :bg_image_repeat, :padding, :margin, :current_bg_mode,
+                              :bg_gradient_first_color, :bg_gradient_second_color, :bg_gradient_type, :bg_gradient_direction, :bg_gradient_start_position, :bg_gradient_end_position)');
         $stmt->execute([
             ':section_id' => $sectionID,
             ':css_class' => $row['css_class'],
@@ -163,7 +173,13 @@ class Pagebuilder extends Model {
             ':bg_image' => $row['bg_image'],
             ':padding' => $row['padding'],
             ':margin' => $row['margin'],
-            ':current_bg_mode' => $row['current_bg_mode']
+            ':current_bg_mode' => $row['current_bg_mode'],
+            ':bg_gradient_first_color' => $row['bg_gradient_first_color'],
+            ':bg_gradient_second_color' => $row['bg_gradient_second_color'],
+            ':bg_gradient_type' => $row['bg_gradient_type'],
+            ':bg_gradient_direction' => $row['bg_gradient_direction'],
+            ':bg_gradient_start_position' => $row['bg_gradient_start_position'],
+            ':bg_gradient_end_position' => $row['bg_gradient_end_position']
             ]);
 
         $lastID = $db->lastInsertId();

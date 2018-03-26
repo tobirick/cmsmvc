@@ -28,7 +28,7 @@
                                 <div class="form-row">
                                      <input type="text" placeholder="Type" data-bind="value: type" class="form-input">
                                 </div>
-                                <div class="form-row">
+                                <div class="form-row dn">
                                     <input type="text" placeholder="Config" data-bind="value: config, attr:{disabled:true}" class="form-input">
                                 </div>
                         </div>

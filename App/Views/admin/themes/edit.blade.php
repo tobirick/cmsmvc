@@ -165,7 +165,7 @@
                                   <label for="bodysize" class="form-label">Body Text Size</label>
                                </div>
                                <div class="col-9 center-v-flex">
-                                  <input data-bind="textInput: font_size, attr:{min: 1, max: 10, step: .1}" class="form-input" type="range">
+                                  <input max="10" min="1" step="0.1" data-bind="textInput: font_size, attr:{min: 1, max: 10, step: .1}" class="form-input" type="range">
                                   <span class="center-v-flex">
                                      <input data-bind="textInput: font_size, attr:{min: 1, max: 10, step: .1, type: 'number'}" id="bodysize" style="margin: 0 1rem;" class="form-input">rem
                                   </span>
@@ -176,7 +176,7 @@
                                   <label for="bodylineheight" class="form-label">Body Line Height</label>
                                </div>
                                <div class="col-9 center-v-flex">
-                                  <input data-bind="textInput: line_height, attr:{min: 0.8, max: 3, step: .1}" class="form-input" type="range">
+                                  <input max="3" min="0.8" step="0.1" data-bind="textInput: line_height, attr:{min: 0.8, max: 3, step: .1}" class="form-input" type="range">
                                   <span class="center-v-flex">
                                      <input data-bind="textInput: line_height, attr:{min: 0.8, max: 3, step: .1, type: 'number'}" id="bodylineheight" style="margin: 0 1rem;" class="form-input">
                                   </span>
@@ -187,7 +187,7 @@
                                     <label for="bodyletterspacing" class="form-label">Body Letter Spacing</label>
                                 </div>
                                <div class="col-9 center-v-flex">
-                                  <input data-bind="textInput: letter_spacing, attr:{min: -2, max: 10, step: 1}" class="form-input" type="range">
+                                  <input max="10" min="-2" step="1" data-bind="textInput: letter_spacing, attr:{min: -2, max: 10, step: 1}" class="form-input" type="range">
                                   <span class="center-v-flex">
                                      <input data-bind="textInput: letter_spacing, attr:{min: -2, max: 10, step: 1, type: 'number'}" id="bodyletterspacing" style="margin: 0 1rem;" class="form-input">
                                   </span>
@@ -207,7 +207,7 @@
                                   <label for="bodycolor" class="form-label">Body Text Color</label>
                                </div>
                                <div class="col-9 center-v-flex">
-                                  <input  id="bodycolor" class="form-input" type="text" data-bind="colorPicker: color">
+                                  <input id="bodycolor" class="form-input" type="text" data-bind="colorPicker: color">
                                   <input data-bind="textInput: color, attr:{disabled: true}" type="text" class="form-input">
                                </div>
                             </div>
@@ -222,7 +222,7 @@
                                   <label for="h1size" class="form-label">H1 Text Size</label>
                                </div>
                                <div class="col-9 center-v-flex">
-                                  <input data-bind="textInput: font_size, attr:{min: 1, max: 10, step: .1}" id="h1size" class="form-input" type="range">
+                                  <input max="10" min="1" step="0.1" data-bind="textInput: font_size, attr:{min: 1, max: 10, step: .1}" id="h1size" class="form-input" type="range">
                                   <span class="center-v-flex">
                                      <input data-bind="textInput: font_size, attr:{min: 1, max: 10, step: .1, type: 'number'}" style="margin: 0 1rem;" class="form-input">rem
                                   </span>
@@ -233,7 +233,7 @@
                                   <label for="h2size" class="form-label">H2 Text Size</label>
                                </div>
                                <div class="col-9 center-v-flex">
-                                  <input data-bind="textInput: font_size, attr:{min: 1, max: 10, step: .1}" id="h2size" class="form-input" type="range">
+                                  <input max="10" min="1" step="0.1" data-bind="textInput: font_size, attr:{min: 1, max: 10, step: .1}" id="h2size" class="form-input" type="range">
                                   <span class="center-v-flex">
                                      <input data-bind="textInput: font_size, attr:{min: 1, max: 10, step: .1, type: 'number'}" style="margin: 0 1rem;" class="form-input">rem
                                   </span>
@@ -244,7 +244,7 @@
                                   <label for="h3size" class="form-label">H3 Text Size</label>
                                </div>
                                <div class="col-9 center-v-flex">
-                                  <input data-bind="textInput: font_size, attr:{min: 1, max: 10, step: .1}" id="h3size" class="form-input" type="range">
+                                  <input max="10" min="1" step="0.1" data-bind="textInput: font_size, attr:{min: 1, max: 10, step: .1}" id="h3size" class="form-input" type="range">
                                   <span class="center-v-flex">
                                      <input data-bind="textInput: font_size, attr:{min: 1, max: 10, step: .1, type: 'number'}" style="margin: 0 1rem;" class="form-input">rem
                                   </span>
@@ -255,7 +255,7 @@
                                   <label for="h4size" class="form-label">H4 Text Size</label>
                                </div>
                                <div class="col-9 center-v-flex">
-                                  <input data-bind="textInput: font_size, attr:{min: 1, max: 10, step: .1}" id="h4size" class="form-input" type="range">
+                                  <input max="10" min="1" step="0.1" data-bind="textInput: font_size, attr:{min: 1, max: 10, step: .1}" id="h4size" class="form-input" type="range">
                                   <span class="center-v-flex">
                                      <input data-bind="textInput: font_size, attr:{min: 1, max: 10, step: .1, type: 'number'}" style="margin: 0 1rem;" class="form-input">rem
                                   </span>
@@ -266,7 +266,7 @@
                                   <label for="headinglineheight" class="form-label">Heading Line Height</label>
                                </div>
                                <div class="col-9 center-v-flex">
-                                  <input data-bind="textInput: headingLineHeight, attr:{min: 0.8, max: 3, step: .1}" class="form-input" type="range">
+                                  <input max="3" min="0.8" step="0.1" data-bind="textInput: headingLineHeight, attr:{min: 0.8, max: 3, step: .1}" class="form-input" type="range">
                                   <span class="center-v-flex">
                                      <input data-bind="textInput: headingLineHeight, attr:{min: 0.8, max: 3, step: .1, type: 'number'}" id="headinglineheight" style="margin: 0 1rem;" class="form-input">
                                   </span>
@@ -277,7 +277,7 @@
                                     <label for="headingletterspacing" class="form-label">Heading Letter Spacing</label>
                                 </div>
                                <div class="col-9 center-v-flex">
-                                  <input data-bind="textInput: headingLetterSpacing, attr:{min: -2, max: 10, step: 1}" class="form-input" type="range">
+                                  <input max="10" min="-2" step="1" data-bind="textInput: headingLetterSpacing, attr:{min: -2, max: 10, step: 1}" class="form-input" type="range">
                                   <span class="center-v-flex">
                                      <input data-bind="textInput: headingLetterSpacing, attr:{min: -2, max: 10, step: 1, type: 'number'}" id="headingletterspacing" style="margin: 0 1rem;" class="form-input">
                                   </span>
