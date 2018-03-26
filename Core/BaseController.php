@@ -2,6 +2,7 @@
 namespace Core;
 
 use \App\Models\User;
+use \App\Models\Theme;
 
 class BaseController {
    private $publicPages = ['App\Controllers\DefaultPageController', 'App\Controllers\DefaultPostController'];
@@ -32,6 +33,8 @@ class BaseController {
             ['key' => 'allLanguages', 'value' => $allLanguages],
             ['key' => 'settings', 'value' => $settings]
         ];
+
+        Theme::combineCSS($activeTheme['name']);
 
          if(!in_array(get_class($this), $this->publicPages)) {
             $shares[] = ['key' => 'csrf', 'value' => $csrf->getToken()];

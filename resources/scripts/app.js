@@ -42,16 +42,16 @@ ko.bindingHandlers.colorPicker = {
      const value = valueAccessor();
      $(element).val(ko.utils.unwrapObservable(value));
      $(element).spectrum({
-      preferredFormat: "hex",
+      preferredFormat: "rgb",
       showAlpha: true,
       showInput: true,
       showButtons: false
      });
      $(element).on('move.spectrum', function(e, color) {
-        value(color.toHex8String());
+        value(color.toRgbString());
       });
       $(element).on('hide.spectrum', function(e, color) { 
-         value(color.toHex8String());
+         value(color.toRgbString());
        });
    }
  }

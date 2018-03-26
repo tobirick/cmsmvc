@@ -39,12 +39,14 @@
     {{$themesettings['custom_scripts']}}
     <footer id="footer">
        <div class="container">
-         @foreach($footercols as $footercol)
-            <div>
-               <div>{{$footercol['title']}}</div>
-               <div>{{$footercol['html']}}</div>
-            </div>
-         @endforeach
+          @if(sizeof($footercols) > 0)
+          @foreach($footercols as $footercol)
+             <div>
+                <div>{{$footercol['title']}}</div>
+                <div>{{$footercol['html']}}</div>
+             </div>
+          @endforeach
+        @endif
        </div>
     </footer>
 </body>

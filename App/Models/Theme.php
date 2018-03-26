@@ -7,8 +7,23 @@ use PDO;
 use DirectoryIterator;
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
+use MatthiasMullie\Minify;
 
 class Theme extends Model {
+    public static function combineCSS($themename) {
+        $typo = __DIR__  . '/../../public/' . $themename . '/css/default/typography.css';
+        $minifier = new Minify\CSS($typo);
+        $footer = __DIR__  . '/../../public/' . $themename . '/css/default/footer.css';
+        $minifier->add($footer);
+        $header = __DIR__  . '/../../public/' . $themename . '/css/default/header.css';
+        $minifier->add($header);
+        $custom = __DIR__  . '/../../public/' . $themename . '/css/customize.css';
+        $minifier->add($custom);
+
+        $minifiedPath = __DIR__  . '/../../public/' . $themename . '/css/main.css';
+        $minifier->minify($minifiedPath);
+    }
+
    public static function getThemeById($id) {
       $db = static::getDB();
       $stmt = $db->prepare('SELECT * FROM themes WHERE id = :id');
@@ -27,7 +42,8 @@ class Theme extends Model {
       $stmt = $db->prepare('UPDATE themes SET logo = :logo, favicon = :favicon, fixed_navigation = :fixed_navigation,
                            google_analytics = :google_analytics, to_top = :to_top, header_code = :header_code,
                            body_code = :body_code, header_layout = :header_layout, footer_layout = :footer_layout,
-                           google_font = :google_font, custom_scripts = :custom_scripts, custom_styles = :custom_styles 
+                           google_font = :google_font, custom_scripts = :custom_scripts, custom_styles = :custom_styles,
+                           font_styles = :font_styles, default_color = :default_color
                            WHERE id = :id');
       $stmt->execute([
          ':id' => $id,
@@ -43,6 +59,8 @@ class Theme extends Model {
          ':google_font' => $theme['google_font'],
          ':custom_scripts' => $theme['custom_scripts'],
          ':custom_styles' => $theme['custom_styles'],
+         ':font_styles' => $theme['font_styles'],
+         ':default_color' => $theme['default_color']
          ]);
 
       return true;

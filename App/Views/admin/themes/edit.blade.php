@@ -92,8 +92,8 @@
                            <label for="defaultcolor" class="form-label">Default Color</label>
                         </div>
                         <div class="col-9 center-v-flex">
-                           <input id="defaultcolor" class="form-input" type="text" data-bind="colorPicker: header_code">
-                           <input type="text" class="form-input">
+                           <input id="defaultcolor" class="form-input" type="text" data-bind="colorPicker: default_color">
+                           <input data-bind="textInput: default_color, attr: {disabled: true}" type="text" class="form-input">
                         </div>
                      </div>
 
@@ -157,145 +157,158 @@
                   </div>
 
                   <div id="typography" class="tab-content">
-                     <div class="form-row">
-                        <div class="col-3">
-                           <label for="bodysize" class="form-label">Body Text Size</label>
+                    <div data-bind="with: body" class="popup__subsection">
+                        <h3 class="popup__subtitle">Body</h3>
+                        <div class="popup__subcontent">
+                            <div class="form-row">
+                               <div class="col-3">
+                                  <label for="bodysize" class="form-label">Body Text Size</label>
+                               </div>
+                               <div class="col-9 center-v-flex">
+                                  <input data-bind="textInput: font_size, attr:{min: 1, max: 10, step: 0.1}" class="form-input" type="range">
+                                  <span class="center-v-flex">
+                                     <input data-bind="textInput: font_size, attr:{min: 1, max: 10, step: 0.1, type: 'number'}" id="bodysize" style="margin: 0 1rem;" class="form-input">rem
+                                  </span>
+                               </div>
+                            </div>
+                            <div class="form-row">
+                               <div class="col-3">
+                                  <label for="bodyfamily" class="form-label">Body Font Family</label>
+                               </div>
+                               <div class="col-9">
+                                  <select data-bind="options: $parent.possibleFontFamilies, value: font_family" class="form-input" id="bodyfamily">
+                                  </select>
+                               </div>
+                            </div>
+                            <div class="form-row">
+                               <div class="col-3">
+                                  <label for="bodycolor" class="form-label">Body Text Color</label>
+                               </div>
+                               <div class="col-9 center-v-flex">
+                                  <input  id="bodycolor" class="form-input" type="text" data-bind="colorPicker: color">
+                                  <input data-bind="textInput: color, attr:{disabled: true}" type="text" class="form-input">
+                               </div>
+                            </div>
                         </div>
-                        <div class="col-9 center-v-flex">
-                           <input class="form-input" type="range">
-                           <span class="center-v-flex">
-                              <input id="bodysize" style="margin: 0 1rem;" type="text" class="form-input">rem
-                           </span>
-                        </div>
-                     </div>
-                     <div class="form-row">
-                        <div class="col-3">
-                           <label for="h1size" class="form-label">H1 Text Size</label>
-                        </div>
-                        <div class="col-9 center-v-flex">
-                           <input id="h1size" class="form-input" type="range">
-                           <span class="center-v-flex">
-                              <input style="margin: 0 1rem;" type="text" class="form-input">rem
-                           </span>
-                        </div>
-                     </div>
-                     <div class="form-row">
-                        <div class="col-3">
-                           <label for="h2size" class="form-label">H2 Text Size</label>
-                        </div>
-                        <div class="col-9 center-v-flex">
-                           <input id="h2size" class="form-input" type="range">
-                           <span class="center-v-flex">
-                              <input style="margin: 0 1rem;" type="text" class="form-input">rem
-                           </span>
-                        </div>
-                     </div>
-                     <div class="form-row">
-                        <div class="col-3">
-                           <label for="h3size" class="form-label">H3 Text Size</label>
-                        </div>
-                        <div class="col-9 center-v-flex">
-                           <input id="h3size" class="form-input" type="range">
-                           <span class="center-v-flex">
-                              <input style="margin: 0 1rem;" type="text" class="form-input">rem
-                           </span>
-                        </div>
-                     </div>
-                     <div class="form-row">
-                        <div class="col-3">
-                           <label for="h4size" class="form-label">H4 Text Size</label>
-                        </div>
-                        <div class="col-9 center-v-flex">
-                           <input id="h4size" class="form-input" type="range">
-                           <span class="center-v-flex">
-                              <input style="margin: 0 1rem;" type="text" class="form-input">rem
-                           </span>
-                        </div>
-                     </div>
-                     <div class="form-row">
-                        <div class="col-3">
-                           <label for="bodyfamily" class="form-label">Body Font Family</label>
-                        </div>
-                        <div class="col-9">
-                           <select class="form-input" id="bodyfamily">
-                              <option value=""></option>
-                           </select>
-                        </div>
-                     </div>
-                     <div class="form-row">
-                        <div class="col-3">
-                           <label for="hfamily" class="form-label">Heading Font Family</label>
-                        </div>
-                        <div class="col-9">
-                           <select class="form-input" id="hfamily">
-                              <option value=""></option>
-                           </select>
-                        </div>
-                     </div>
-                     <div class="form-row">
-                        <div class="col-3">
-                           <label for="bodycolor" class="form-label">Body Text Color</label>
-                        </div>
-                        <div class="col-9 center-v-flex">
-                           <input id="bodycolor" class="form-input" type="text" data-bind="colorPicker: header_code">
-                           <input type="text" class="form-input">
-                        </div>
-                     </div>
-                     <div class="form-row">
-                        <div class="col-3">
-                           <label for="hcolor" class="form-label">Heading Text Color</label>
-                        </div>
-                        <div class="col-9 center-v-flex">
-                           <input id="hcolor" class="form-input" type="text" data-bind="colorPicker: header_code">
-                           <input type="text" class="form-input">
-                        </div>
-                     </div>
-                  </div>
+                    </div>
 
-                  <div id="css" class="tab-content">
-                     <div class="form-row">
-                       <div class="col-3">
-                          <label for="css" class="form-label">Custom CSS</label>
-                       </div>
-                       <div class="col-9">
-                          <textarea data-bind="value: css" id="css" class="form-input"></textarea>
-                       </div>
+                    <div class="popup__subsection">
+                        <h3 class="popup__subtitle">Headings</h3>
+                        <div class="popup__subcontent">
+                            <div data-bind="with: h1" class="form-row">
+                               <div class="col-3">
+                                  <label for="h1size" class="form-label">H1 Text Size</label>
+                               </div>
+                               <div class="col-9 center-v-flex">
+                                  <input data-bind="textInput: font_size, attr:{min: 1, max: 10, step: 0.1}" id="h1size" class="form-input" type="range">
+                                  <span class="center-v-flex">
+                                     <input data-bind="textInput: font_size, attr:{min: 1, max: 10, step: 0.1, type: 'number'}" style="margin: 0 1rem;" class="form-input">rem
+                                  </span>
+                               </div>
+                            </div>
+                            <div data-bind="with: h2" class="form-row">
+                               <div class="col-3">
+                                  <label for="h2size" class="form-label">H2 Text Size</label>
+                               </div>
+                               <div class="col-9 center-v-flex">
+                                  <input data-bind="textInput: font_size, attr:{min: 1, max: 10, step: 0.1}" id="h2size" class="form-input" type="range">
+                                  <span class="center-v-flex">
+                                     <input data-bind="textInput: font_size, attr:{min: 1, max: 10, step: 0.1, type: 'number'}" style="margin: 0 1rem;" class="form-input">rem
+                                  </span>
+                               </div>
+                            </div>
+                            <div data-bind="with: h3" class="form-row">
+                               <div class="col-3">
+                                  <label for="h3size" class="form-label">H3 Text Size</label>
+                               </div>
+                               <div class="col-9 center-v-flex">
+                                  <input data-bind="textInput: font_size, attr:{min: 1, max: 10, step: 0.1}" id="h3size" class="form-input" type="range">
+                                  <span class="center-v-flex">
+                                     <input data-bind="textInput: font_size, attr:{min: 1, max: 10, step: 0.1, type: 'number'}" style="margin: 0 1rem;" class="form-input">rem
+                                  </span>
+                               </div>
+                            </div>
+                            <div data-bind="with: h4" class="form-row">
+                               <div class="col-3">
+                                  <label for="h4size" class="form-label">H4 Text Size</label>
+                               </div>
+                               <div class="col-9 center-v-flex">
+                                  <input data-bind="textInput: font_size, attr:{min: 1, max: 10, step: 0.1}" id="h4size" class="form-input" type="range">
+                                  <span class="center-v-flex">
+                                     <input data-bind="textInput: font_size, attr:{min: 1, max: 10, step: 0.1, type: 'number'}" style="margin: 0 1rem;" class="form-input">rem
+                                  </span>
+                               </div>
+                            </div>
+                            <div class="form-row">
+                               <div class="col-3">
+                                  <label for="hfamily" class="form-label">Heading Font Family</label>
+                               </div>
+                               <div class="col-9">
+                                  <select data-bind="value: headingFontFamily, options: possibleFontFamilies" class="form-input" id="hfamily">
+                                     <option value=""></option>
+                                  </select>
+                               </div>
+                            </div>                     
+                            <div class="form-row">
+                               <div class="col-3">
+                                  <label for="hcolor" class="form-label">Heading Text Color</label>
+                               </div>
+                               <div class="col-9 center-v-flex">
+                                  <input id="hcolor" class="form-input" type="text" data-bind="colorPicker: headingColor">
+                                  <input data-bind="textInput: headingColor, attr:{disabled: true}" type="text" class="form-input">
+                               </div>
+                            </div>
+                         </div>
+                        </div>
                     </div>
-                  </div>
+       
+                         <div id="css" class="tab-content">
+                            <div class="form-row">
+                              <div class="col-3">
+                                 <label for="css" class="form-label">Custom CSS</label>
+                              </div>
+                              <div class="col-9">
+                                 <textarea data-bind="value: css" id="css" class="form-input"></textarea>
+                              </div>
+                           </div>
+                         </div>
+       
+                         <div id="integration" class="tab-content">
+                            <div class="form-row">
+                              <div class="col-3">
+                                 <label for="customstyles" class="form-label">Custom Stylesheets</label>
+                              </div>
+                              <div class="col-9">
+                                 <textarea data-bind="value: custom_styles" id="customstyles" class="form-input"></textarea>
+                              </div>
+                           </div>
+                           <div class="form-row">
+                               <div class="col-3">
+                                  <label for="customscripts" class="form-label">Custom Scripts</label>
+                               </div>
+                               <div class="col-9">
+                                  <textarea data-bind="value: custom_scripts" id="customscripts" class="form-input"></textarea>
+                               </div>
+                            </div>
+                            <div class="form-row">
+                              <div class="col-3">
+                                 <label for="headercode" class="form-label">Code for Header</label>
+                              </div>
+                              <div class="col-9">
+                                 <textarea data-bind="value: header_code" id="headercode" class="form-input"></textarea>
+                              </div>
+                           </div>
+                           <div class="form-row">
+                               <div class="col-3">
+                                  <label for="bodycode" class="form-label">Code for Body</label>
+                               </div>
+                               <div class="col-9">
+                                  <textarea data-bind="value: body_code" id="bodycode" class="form-input"></textarea>
+                               </div>
+                            </div>
 
-                  <div id="integration" class="tab-content">
-                     <div class="form-row">
-                       <div class="col-3">
-                          <label for="customstyles" class="form-label">Custom Stylesheets</label>
-                       </div>
-                       <div class="col-9">
-                          <textarea data-bind="value: custom_styles" id="customstyles" class="form-input"></textarea>
-                       </div>
+                        </div>
                     </div>
-                    <div class="form-row">
-                        <div class="col-3">
-                           <label for="customscripts" class="form-label">Custom Scripts</label>
-                        </div>
-                        <div class="col-9">
-                           <textarea data-bind="value: custom_scripts" id="customscripts" class="form-input"></textarea>
-                        </div>
-                     </div>
-                     <div class="form-row">
-                       <div class="col-3">
-                          <label for="headercode" class="form-label">Code for Header</label>
-                       </div>
-                       <div class="col-9">
-                          <textarea data-bind="value: header_code" id="headercode" class="form-input"></textarea>
-                       </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-3">
-                           <label for="bodycode" class="form-label">Code for Body</label>
-                        </div>
-                        <div class="col-9">
-                           <textarea data-bind="value: body_code" id="bodycode" class="form-input"></textarea>
-                        </div>
-                     </div>
                   </div>
 
                </div>

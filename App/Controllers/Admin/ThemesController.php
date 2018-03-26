@@ -51,6 +51,25 @@ class ThemesController extends BaseController {
       Theme::updateThemeSettings($decoded['theme'], $params['params']['id']);
       file_put_contents(__DIR__  . '/../../../public/' . $decoded['theme']['name'] . '/css/customize.css', $decoded['theme']['css']);
 
+      $typocss = '';
+
+      $styles = json_decode($decoded['theme']['font_styles'], true);
+      unset($styles['heading']);
+      foreach($styles as $type => $style) {
+          $typocss .= $type . '{';
+          foreach($style as $prop => $value) {
+              if(is_numeric($value)) {
+                  $value .= 'rem';
+              }
+            $typocss .= str_replace('_', '-', $prop) . ':' . $value . ';';
+          }
+          $typocss .= '}';
+      }
+      file_put_contents(__DIR__  . '/../../../public/' . $decoded['theme']['name'] . '/css/default/typography.css', $typocss);
+
+      Theme::combineCSS($decoded['theme']['name']);
+
+
       header('Content-type: application/json');
       $data = [];
       $data['csrfToken'] = CSRF::getToken();
@@ -88,8 +107,12 @@ class ThemesController extends BaseController {
     }
 
     public function delete($params) {
-        $themePath = realpath(__DIR__ . '/../../Views/public/themes');
-        Theme::deleteTheme($themePath . '/' . $params['params']['name'], $params['params']['name'], $params['params']['id']);
-        self::redirect('/admin/themes');
+        if(Theme::getActiveTheme()['id'] !== $params['params']['id']) {
+            $themePath = realpath(__DIR__ . '/../../Views/public/themes');
+            Theme::deleteTheme($themePath . '/' . $params['params']['name'], $params['params']['name'], $params['params']['id']);
+            self::redirect('/admin/themes');
+        } else {
+            self::redirect('/admin/themes');
+        }
     }
 }
