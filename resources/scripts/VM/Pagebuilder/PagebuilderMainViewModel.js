@@ -20,8 +20,7 @@ export default class PagebuilderMainViewModel {
       this.sectionSelected = ko.observable(false);
       this.rowSelected = ko.observable(false);
       this.elementSelected = ko.observable(false);
-
-      this.fetchSections();
+      
       this.setPossibleColumns();
 
       this.getPageBuilderElements();
@@ -100,30 +99,30 @@ export default class PagebuilderMainViewModel {
       }
    }
 
-   async fetchSections() {
-      const response = await PagebuilderHandler.fetchSections(this.pageID);
-
-      if (response.length > 0) {
-         response.forEach(section => {
-            const paddingArr = section.padding.split(' ');
-            const marginArr = section.margin.split(' ');  
-            const paddingVM = {top: paddingArr[0], right: paddingArr[1], bottom: paddingArr[2], left: paddingArr[3]};
-            const marginVM = {top: marginArr[0], right: marginArr[1], bottom: marginArr[2], left: marginArr[3]};
+   fetchSections() {
+      return PagebuilderHandler.fetchSections(this.pageID).then(response => {
+          if (response.length > 0) {
+             response.forEach(section => {
+                const paddingArr = section.padding.split(' ');
+                const marginArr = section.margin.split(' ');  
+                const paddingVM = {top: paddingArr[0], right: paddingArr[1], bottom: paddingArr[2], left: paddingArr[3]};
+                const marginVM = {top: marginArr[0], right: marginArr[1], bottom: marginArr[2], left: marginArr[3]};
+                this.sections.push(
+                   new PagebuilderSectionModel({...section, paddingVM, marginVM}, {
+                      cloneSection: this.cloneSection,
+                      deleteSection: this.deleteSection
+                   })
+                );
+             });
+          } else {
             this.sections.push(
-               new PagebuilderSectionModel({...section, paddingVM, marginVM}, {
-                  cloneSection: this.cloneSection,
-                  deleteSection: this.deleteSection
-               })
-            );
-         });
-      } else {
-        this.sections.push(
-            new PagebuilderSectionModel({}, {
-               cloneSection: this.cloneSection,
-               deleteSection: this.deleteSection
-            })
-         );
-      }
+                new PagebuilderSectionModel({}, {
+                   cloneSection: this.cloneSection,
+                   deleteSection: this.deleteSection
+                })
+             );
+          }
+      });
    }
 
    setPossibleColumns() {

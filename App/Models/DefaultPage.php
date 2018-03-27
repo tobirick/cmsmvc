@@ -62,7 +62,7 @@ class DefaultPage extends Model {
 
     public function addPage($page) {
         $db = static::getDB();
-        $stmt = $db->prepare('INSERT INTO pages (name, slug, title) VALUES(:name, :slug, :title)');
+        $stmt = $db->prepare('INSERT INTO pages (name, slug, title, created_at) VALUES(:name, :slug, :title, now())');
         $stmt->execute([
             ':name' => $page['name'],
             ':slug' => $page['slug'],
@@ -75,7 +75,7 @@ class DefaultPage extends Model {
     
     public static function updatePage($pageid, $page) {
         $db = static::getDB();
-        $stmt = $db->prepare('UPDATE pages SET name = :name, slug = :slug, title = :title, seo_title = :seo_title, seo_description = :seo_description WHERE id = :id');
+        $stmt = $db->prepare('UPDATE pages SET name = :name, slug = :slug, title = :title, seo_title = :seo_title, seo_description = :seo_description, updated_at = now() WHERE id = :id');
         $stmt->execute([
             ':id' => $pageid,
             ':name' => $page['name'],

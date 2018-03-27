@@ -18,7 +18,6 @@ export default class MediaManViewModel {
             {text: '', path: '/'}
         ]);
         this.setBreadcrumbs();
-        this.fetchMediaElements();
 
         this.folderPopupOpen = ko.observable(false);
         this.popupOpen = ko.observable(false);
@@ -101,14 +100,14 @@ export default class MediaManViewModel {
       csrf.updateToken(response.csrfToken);
     }
 
-    async fetchMediaElements() {
-        const response = await MediaHandler.fetchMediaElements(this.currentDir());
-
-        if (response.message === 'success') {
-            response.elements.forEach(mediaElement => {
-               this.mediaElements.push(this.createElement(mediaElement));
-            });
-         }
+    fetchMediaElements() {
+        return MediaHandler.fetchMediaElements(this.currentDir()).then((response) => {
+            if (response.message === 'success') {
+                response.elements.forEach(mediaElement => {
+                   this.mediaElements.push(this.createElement(mediaElement));
+                });
+             }
+        });
     }
 
     createElement(data) {

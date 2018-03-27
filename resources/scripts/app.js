@@ -14,6 +14,8 @@ import MediaMainViewModel from './VM/Media/MediaMainViewModel';
 import CreatePagebuilderMainViewModel from './VM/CreatePagebuilder/CreatePagebuilderMainViewModel';
 import ThemeMainViewModel from './VM/Theme/ThemeMainViewModel';
 
+import loading from './loading';
+
 validator.init('#validate-form');
 validator.addBasicRules();
 const sidebar = new Sidebar();
@@ -68,7 +70,14 @@ if(pathName.includes('/admin/menus/') && pathName.includes('edit')) {
     ko.bindingHandlers.sortable.afterMove = (args) => {
         menuListMainViewModel.updateMenuPositions(args);
     }
-    ko.applyBindings(menuListMainViewModel);
+    loading.addSpinner();
+    menuListMainViewModel.getPages().then(() => {
+        menuListMainViewModel.getMenuListItems().then(() => {
+            ko.applyBindings(menuListMainViewModel);
+            loading.removeSpinner();
+        });
+    });
+
 }
 
 // Pagebuilder
@@ -77,7 +86,11 @@ if(pathName.includes('/admin/pages/') && pathName.includes('edit')) {
     ko.bindingHandlers.sortable.afterMove = (args) => {
         pagebuilderMainViewModel.setPossibleColumns();
     }
-    ko.applyBindings(pagebuilderMainViewModel);
+    loading.addSpinner();
+    pagebuilderMainViewModel.fetchSections().then(() => {
+        ko.applyBindings(pagebuilderMainViewModel);
+        loading.removeSpinner();
+    });
 }
 
 // Media
@@ -86,7 +99,11 @@ if(pathName.includes('/admin/media')) {
     ko.bindingHandlers.sortable.afterMove = () => {
         mediaMainViewModel.updatePositions();
     }
-    ko.applyBindings(mediaMainViewModel);
+    loading.addSpinner();
+    mediaMainViewModel.fetchMediaElements().then(() => {
+        ko.applyBindings(mediaMainViewModel);
+        loading.removeSpinner();
+    });
 }
 
 // Add/Edit Pagebuilder
@@ -98,8 +115,10 @@ if(pathName.includes('/admin/pagebuilder/')) {
 // Theme
 if(pathName.includes('/admin/themes/') && pathName.includes('edit')) {
    const themeMainViewModel = new ThemeMainViewModel();
+    loading.addSpinner();
    themeMainViewModel.fetchThemeSettings().then(() => {
        ko.applyBindings(themeMainViewModel);
+       loading.removeSpinner();
    })
 }
 

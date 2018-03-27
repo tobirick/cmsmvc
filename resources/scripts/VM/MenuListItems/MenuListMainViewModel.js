@@ -19,8 +19,6 @@ export default class MenuListMainViewModel {
       this.csrfToken = document.getElementById('csrftoken');
       this.csrfTokenVal = document.getElementById('csrftoken').value;
 
-      this.getPages();
-      this.getMenuListItems();
       this.newMenuItem = new MenuItemViewModel(this.defaultData, {
          deleteMenuListItem: this.deleteMenuListItem,
          updateMenuListItem: this.updateMenuListItem
@@ -64,23 +62,24 @@ export default class MenuListMainViewModel {
       this.updateCSRF(response.csrfToken);
    }
 
-   async getPages() {
-      const data = await PagesHandler.loadPageItems();
-      data.forEach(dataItem => {
-         this.pagesList.push(new PageItemViewModel(dataItem));
+   getPages() {
+      return PagesHandler.loadPageItems().then(response => {
+        response.forEach(dataItem => {
+           this.pagesList.push(new PageItemViewModel(dataItem));
+        });
       });
    }
 
-   async getMenuListItems() {
-      const data = await MenuListItemsHandler.loadMenuListItems(this.menuID);
-
-      data.forEach(dataItem => {
-         this.menuListItems.push(
-            new MenuItemViewModel(dataItem, {
-               deleteMenuListItem: this.deleteMenuListItem,
-               updateMenuListItem: this.updateMenuListItem
-            })
-         );
+   getMenuListItems() {
+      return MenuListItemsHandler.loadMenuListItems(this.menuID).then(response => {
+        response.forEach(dataItem => {
+           this.menuListItems.push(
+              new MenuItemViewModel(dataItem, {
+                 deleteMenuListItem: this.deleteMenuListItem,
+                 updateMenuListItem: this.updateMenuListItem
+              })
+           );
+        });
       });
    }
 

@@ -152,7 +152,7 @@ export default class ThemeMainViewModel {
       this.alert().visible(false);
   }
 
-   async fetchThemeSettings() {
+   fetchThemeSettings() {
       const data = {
          themeID: this.themeID,
          csrf_token: csrf.getToken(),

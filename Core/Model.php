@@ -4,7 +4,7 @@ namespace Core;
 use PDO;
 
 abstract class Model {
-    protected static function getDB() {
+    public static function getDB() {
         static $db = null;
 
         if ($db === null) {

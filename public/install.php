@@ -1,3 +1,3 @@
 <?php
 
-// TODO: Install CMS Setup
+echo 'Error with the Database, add valid DB Connection!';

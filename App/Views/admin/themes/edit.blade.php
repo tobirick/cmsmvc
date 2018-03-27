@@ -13,7 +13,7 @@
         <a data-bind="click: save" href="#" class="button-primary">{{$lang['Save']}}</a>
     @endslot
 @endcomponent
-<div data-bind="visible: mediaPopupVM().mediaPopupOpen, click: mediaPopupVM().closeMediaPopup" class="popup__overlay"></div>
+<div style="display: none;" data-bind="visible: mediaPopupVM().mediaPopupOpen, click: mediaPopupVM().closeMediaPopup" class="popup__overlay"></div>
 @include('admin.popups.media-images-overview-popup')
 <div id="content">
 @component('admin.components.alert')@endcomponent

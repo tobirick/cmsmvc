@@ -10,8 +10,12 @@ if(filter_var(getenv('SHOW_ERROR'), FILTER_VALIDATE_BOOLEAN)) {
     $whoops->register();
 }
 
+$db = \Core\Model::getDB();
 
-
+if(!$db) {
+    require_once(__DIR__ . '/../public/install.php');
+    exit;
+}
 
 // Redirects
 $requestURL = $_SERVER['REQUEST_URI'];
