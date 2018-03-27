@@ -17,7 +17,7 @@ export default class Sidebar {
     toggleSidebar() {
         this.toggleSidebarEl.classList.toggle('open');
         document.body.classList.toggle('sidebar-closed');
-        const currentStatus = document.body.classList.contains('sidebar-closed') ? true : false;
+        const currentStatus = document.body.classList.contains('sidebar-closed');
         localStorage.setItem('sidebar-closed', currentStatus);
     }
 }

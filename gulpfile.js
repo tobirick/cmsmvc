@@ -3,7 +3,6 @@ const watch = require('gulp-watch');
 const sass = require('gulp-sass');
 const sourcemaps = require('gulp-sourcemaps');
 const babel = require('gulp-babel');
-const browserSync = require('browser-sync');
 const webpack = require('gulp-webpack');
 
 gulp.task('styles', function() {
@@ -23,15 +22,8 @@ gulp.task('scripts', function() {
     .pipe(gulp.dest('./public/admin/js'))
 });
 
-browserSync.init({
-  open: "http://ppcms.local", // Change with your dev url
-  host: "http://ppcms.local", // Change with your dev url
-  proxy: "http://ppcms.local", // Change with your dev url
-  notify: false
-});
-
 //Watch task
 gulp.task('default',function() {
-  gulp.watch('./resources/styles/**/*.scss',['styles']).on('change', browserSync.reload);;
-  gulp.watch('./resources/scripts/**/*.js', ['scripts']).on('change', browserSync.reload);;
+  gulp.watch('./resources/styles/**/*.scss',['styles']);
+  gulp.watch('./resources/scripts/**/*.js', ['scripts']);
 });

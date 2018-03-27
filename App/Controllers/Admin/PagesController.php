@@ -10,9 +10,12 @@ class PagesController extends BaseController {
     public function index($params) {
         $pageNumber = isset($_GET['p']) ? $_GET['p'] : 1;
         $numberOfPagesPerPage = 12;
-        $numberOfPages = round(DefaultPage::countPages() / $numberOfPagesPerPage);
+        $numberOfPages = ceil(DefaultPage::countPages() / $numberOfPagesPerPage);
 
-        // TODO: Get all Pages from Database
+        if($numberOfPages <= 0 || $numberOfPages == 1) {
+            $numberOfPages = 1;
+        }
+
         $pagesadmin = DefaultPage::getAllPages($pageNumber, $numberOfPagesPerPage);
         self::render('admin/pages/index', [
             'pagesadmin' => $pagesadmin,

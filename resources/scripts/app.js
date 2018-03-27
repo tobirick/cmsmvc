@@ -1,10 +1,13 @@
 import ko from 'knockout';
-import { validator } from './validate';
 import $ from 'jquery';
 import 'knockout-sortable';
 import 'knockout-file-bindings';
 import 'jquery-ui';
 import 'spectrum-colorpicker';
+import './bindings';
+
+import { validator } from './validate';
+import loading from './loading';
 
 import Sidebar from './admin-sidebar';
 import Form from './admin-form';
@@ -14,67 +17,14 @@ import MediaMainViewModel from './VM/Media/MediaMainViewModel';
 import CreatePagebuilderMainViewModel from './VM/CreatePagebuilder/CreatePagebuilderMainViewModel';
 import ThemeMainViewModel from './VM/Theme/ThemeMainViewModel';
 
-import loading from './loading';
-
+// Validator
 validator.init('#validate-form');
 validator.addBasicRules();
 const sidebar = new Sidebar();
 const form = new Form();
 
+// Knockout VieModels
 const pathName = window.location.pathname;
-
-// Knockout //
-ko.bindingHandlers.tabs = {
-    init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
-        $('.popup__content').find('.tab-content').css('display', 'none');
-        $('.popup__content').find('.tab-content:first-child').css('display', 'block');
-
-        $(element).find('li').on('click', function () {
-            const section = $(this).data('tabsection');
-            $(element).find('li').removeClass('active');
-            $(this).addClass('active');
-            $('.popup__content').find('.tab-content').css('display', 'none');
-            $('.popup__content').find('#' + section).css('display', 'block');
-        });
-    }
-};
-
-ko.bindingHandlers.colorPicker = {
-   init: function(element, valueAccessor, allBindings) {
-     const value = valueAccessor();
-     $(element).val(ko.utils.unwrapObservable(value));
-     $(element).spectrum({
-      preferredFormat: "rgb",
-      showAlpha: true,
-      showInput: true,
-      showButtons: false
-     });
-     $(element).on('move.spectrum', function(e, color) {
-        value(color.toRgbString());
-      });
-      $(element).on('hide.spectrum', function(e, color) { 
-         value(color.toRgbString());
-       });
-   },
-   update: function(element, valueAccessor) {
-    const value = valueAccessor();
-    ko.bindingHandlers.value.update(element,valueAccessor);
-    $(element).val(ko.utils.unwrapObservable(valueAccessor()));
-  }
- }
-
- ko.bindingHandlers.numericText = {
-    update: function(element, valueAccessor, allBindingsAccessor) {
-       var value = ko.utils.unwrapObservable(valueAccessor()),
-           precision = ko.utils.unwrapObservable(allBindingsAccessor().precision) || ko.bindingHandlers.numericText.defaultPrecision,
-           formattedValue = value.toFixed(precision);
-
-        ko.bindingHandlers.text.update(element, function() { return formattedValue; });
-    },
-    defaultPrecision: 1  
-};
-
-
 // Edit Menu Page
 if(pathName.includes('/admin/menus/') && pathName.includes('edit')) {
     const menuListMainViewModel = new MenuListMainViewModel();
@@ -88,9 +38,9 @@ if(pathName.includes('/admin/menus/') && pathName.includes('edit')) {
             loading.removeSpinner();
         });
     });
-
-}
-
+  
+  }
+  
 // Pagebuilder
 if(pathName.includes('/admin/pages/') && pathName.includes('edit')) {
     const pagebuilderMainViewModel = new PagebuilderMainViewModel();
@@ -133,8 +83,7 @@ if(pathName.includes('/admin/themes/') && pathName.includes('edit')) {
    })
 }
 
-
-// Languages
+// Change Language
 const changeLangEl = document.getElementById('langChange');
 if(changeLangEl) {
     const currentLang = changeLangEl.value;
@@ -174,7 +123,7 @@ $('.admin-box-grid-fixed').draggable({
     containment: 'parent'
 });
 
-// Delete Button
+// Delete Button Confirm Message
 const deleteFormElements = document.querySelectorAll('.delete-form');
 
 const submitDeleteForm = function(e) {
