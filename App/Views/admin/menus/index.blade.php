@@ -21,7 +21,7 @@
                                     <div class="card__title">{{$menu['name']}}</div>
                                     <div class="card__actions">
                                         <a href="/{{$curLang}}/admin/menus/{{$menu['id']}}/edit"><i class="fa fa-pencil"></i></a>
-                                        <form action="/admin/menus/{{$menu['id']}}" method="POST">
+                                        <form class="delete-form" action="/admin/menus/{{$menu['id']}}" method="POST">
                                             <input type="hidden" name='_METHOD' value="DELETE">
                                             <input name="csrf_token" type="hidden" value="{{$csrf}}">
                                             <button><i class="fa fa-trash"></i></button>

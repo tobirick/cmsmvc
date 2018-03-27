@@ -33,7 +33,7 @@
                          <li data-tabsection="integration" class="popup__tabs-item">Integration</li>
                      </ul>
                  </div>
-               <div class="popup__content">
+               <div class="popup__content no-scroll">
 
                   <div class="tab-content" id="general">
                      <div class="form-row">

@@ -25,7 +25,7 @@
                                             <input name="csrf_token" type="hidden" value="{{$csrf}}">
                                             <button><i class="fa fa-check {{$theme['name'] === $activetheme ? 'active' : ''}}"></i></button>
                                         </form>
-                                        <form action="/admin/themes/{{$theme['name']}}/{{$theme['id']}}" method="POST">
+                                        <form class="delete-form" action="/admin/themes/{{$theme['name']}}/{{$theme['id']}}" method="POST">
                                             <input type="hidden" name='_METHOD' value="DELETE">
                                             <input name="csrf_token" type="hidden" value="{{$csrf}}">
                                             <button><i class="fa fa-trash"></i></button>

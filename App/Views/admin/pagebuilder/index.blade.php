@@ -20,7 +20,7 @@
                                     <div class="card__title">{{$pagebuilderitem['item_name']}}</div>
                                     <div class="card__actions">
                                         <a href="/{{$curLang}}/admin/pagebuilder/{{$pagebuilderitem['id']}}/edit"><i class="fa fa-pencil"></i></a>
-                                        <form action="/admin/pagebuilder/{{$pagebuilderitem['id']}}" method="POST">
+                                        <form class="delete-form" action="/admin/pagebuilder/{{$pagebuilderitem['id']}}" method="POST">
                                             <input type="hidden" name='_METHOD' value="DELETE">
                                             <input name="csrf_token" type="hidden" value="{{$csrf}}">
                                             <button><i class="fa fa-trash"></i></button>

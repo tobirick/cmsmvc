@@ -29,7 +29,7 @@
                             <td class="action">
                                 <a href="/{{$curLang}}/admin/pages/{{$page['id']}}/edit"><i class="fa fa-pencil"></i></a>
                                 <a target="_blank" href="/{{$page['slug']}}"><i class="fa fa-arrow-right"></i></a>
-                                <form action="/admin/pages/{{$page['id']}}" method="POST">
+                                <form class="delete-form" action="/admin/pages/{{$page['id']}}" method="POST">
                                     <input type="hidden" name='_METHOD' value="DELETE">
                                     <input name="csrf_token" type="hidden" value="{{$csrf}}">
                                     <button><i class="fa fa-trash"></i></button>

@@ -167,10 +167,10 @@ class Media extends Model {
                   $count++;
                }
             } else {
-               return filesize($path) . ' KB';
+               return number_format(filesize($path)) . ' KB';
             }
         }
-        return $bytestotal . ' KB / ' . $count . ' Files';
+        return number_format($bytestotal) . ' KB / ' . $count . ' Files';
     }
 
     public static function deleteDir($dirPath) {

@@ -1,6 +1,7 @@
 const loading = {};
 
 loading.loadingElement = '.loading-spinner'
+loading.target = document.querySelector('#content');
 
 loading.createElement = function() {
   const element = document.createElement('div');
@@ -12,9 +13,13 @@ loading.createElement = function() {
   this.loadingElementHTML = element;
 }
 
+loading.setTarget = function(element) {
+  this.target = document.querySelector(element);
+}
+
 loading.addSpinner = function() {
   this.createElement();
-  document.getElementById('content').insertAdjacentElement('afterbegin', this.loadingElementHTML);
+  this.target.insertAdjacentElement('afterbegin', this.loadingElementHTML);
 }
 
 loading.removeSpinner = function() {

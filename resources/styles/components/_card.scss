@@ -48,13 +48,15 @@
     &__actions {
         text-align: center;
         margin-top: 1.5rem;
+        overflow: visible;
+        white-space: nowrap;
 
         & form button, a {
             color: inherit;
             opacity: .4;
             border: none;
             background: transparent;
-            @include transition(.2s ease-in all);
+            @include transition(.2s ease-in color);
 
             & i {
                 font-size: 1.8rem;

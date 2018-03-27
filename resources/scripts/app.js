@@ -63,6 +63,17 @@ ko.bindingHandlers.colorPicker = {
   }
  }
 
+ ko.bindingHandlers.numericText = {
+    update: function(element, valueAccessor, allBindingsAccessor) {
+       var value = ko.utils.unwrapObservable(valueAccessor()),
+           precision = ko.utils.unwrapObservable(allBindingsAccessor().precision) || ko.bindingHandlers.numericText.defaultPrecision,
+           formattedValue = value.toFixed(precision);
+
+        ko.bindingHandlers.text.update(element, function() { return formattedValue; });
+    },
+    defaultPrecision: 1  
+};
+
 
 // Edit Menu Page
 if(pathName.includes('/admin/menus/') && pathName.includes('edit')) {
@@ -161,4 +172,38 @@ if (toggleAdminBoxEl) toggleAdminBoxEl.addEventListener('click', toggleAdminBox)
 $('.admin-box-grid-fixed').draggable({ 
     axis: 'y',
     containment: 'parent'
+});
+
+// Delete Button
+const deleteFormElements = document.querySelectorAll('.delete-form');
+
+const submitDeleteForm = function(e) {
+    e.target.parentNode.parentNode.submit();
+}
+
+const openDeletePopup = function(form) {
+    form.preventDefault();
+    const button = form.target.querySelector('button');
+    button.id = 'error-mode';
+    button.querySelector('i').style.display = 'none';
+
+    if(button.querySelectorAll('.error-mode-span').length === 0) {
+        const span = document.createElement('span');
+        span.classList.add('error-mode-span');
+        span.appendChild(document.createTextNode('Are you sure?'));
+        button.appendChild(span);
+
+        button.addEventListener('click', submitDeleteForm);
+
+        setTimeout(() => {
+            button.id = '';
+            button.querySelector('i').style.display = 'block';
+            span.parentNode.removeChild(span);
+            button.removeEventListener('click', submitDeleteForm);
+        }, 3000);
+    }
+};
+
+deleteFormElements.forEach(deleteFormElement => {
+    deleteFormElement.addEventListener('submit', openDeletePopup);
 });

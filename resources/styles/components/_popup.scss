@@ -94,6 +94,11 @@
         padding: 2rem;
         max-height: 70vh;
         overflow-y: auto;
+
+        &.no-scroll {
+            max-height: inherit;
+            overflow: visible;
+        }
     }
     &__subsection {
         margin-bottom: 4rem;
