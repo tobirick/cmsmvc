@@ -14,6 +14,15 @@ export default class ThemeMainViewModel {
       this.possibleFontFamilies = ko.observableArray(['Roboto', 'Lato', 'Open Sans']);
       this.possibleHeadings = ['h1', 'h2', 'h3', 'h4'];
 
+      this.body = ko.observable('');
+      this.possibleHeadings.forEach(heading => {
+        this[heading] = ko.observable('')
+        });
+        this.headingFontFamily = ko.observable('');
+        this.headingColor = ko.observable('');
+        this.headingLineHeight = ko.observable('');
+        this.headingLetterSpacing = ko.observable('');
+
       this.id = ko.observable('');
       this.name = ko.observable('');
       this.path = ko.observable('');
@@ -34,17 +43,6 @@ export default class ThemeMainViewModel {
       this.css = ko.observable('');
 
       this.footerColumns = ko.observableArray([]);
-
-      this.body = ko.observable('');
-      this.possibleHeadings.forEach(heading => {
-        this[heading] = ko.observable('')
-        });
-        this.headingFontFamily = ko.observable('');
-        this.headingColor = ko.observable('');
-        this.headingLineHeight = ko.observable('');
-        this.headingLetterSpacing = ko.observable('');
-      
-      this.fetchThemeSettings();
 
       this.mediaPopupVM = ko.observable(new MediaPopupMainViewModel());
 
@@ -101,6 +99,11 @@ export default class ThemeMainViewModel {
         };
     }
 
+    this.headingFontFamily(fontLayout.heading.font_family || '');
+    this.headingColor(fontLayout.heading.color || '');
+    this.headingLineHeight(fontLayout.heading.line_height || '');
+    this.headingLetterSpacing(fontLayout.heading.letter_spacing || '');
+
     this.body({
         'font_family': ko.observable(fontLayout.body.font_family || ''),
         'font_size': ko.observable(fontLayout.body.font_size || ''),
@@ -108,13 +111,6 @@ export default class ThemeMainViewModel {
         'line_height': ko.observable(fontLayout.body.line_height || ''),
         'letter_spacing': ko.observable(fontLayout.body.letter_spacing || '')
     });
-
-    this.headingFontFamily(fontLayout.heading.font_family || '');
-    this.headingColor(fontLayout.heading.color || '');
-    this.headingLineHeight(fontLayout.heading.line_height || '');
-    this.headingLetterSpacing(fontLayout.heading.letter_spacing || '');
-
-    console.log(this.headingColor());
 
 
     this.possibleHeadings.forEach(heading => {
@@ -156,13 +152,13 @@ export default class ThemeMainViewModel {
       this.alert().visible(false);
   }
 
-   fetchThemeSettings() {
+   async fetchThemeSettings() {
       const data = {
          themeID: this.themeID,
          csrf_token: csrf.getToken(),
       }
 
-      ThemeHandler.fetchThemeSettings(data).then(response => {
+      return ThemeHandler.fetchThemeSettings(data).then(response => {
          for(let key in response.theme) {
             this[key](response.theme[key]);
          }

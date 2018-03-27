@@ -53,7 +53,12 @@ ko.bindingHandlers.colorPicker = {
       $(element).on('hide.spectrum', function(e, color) { 
          value(color.toRgbString());
        });
-   }
+   },
+   update: function(element, valueAccessor) {
+    const value = valueAccessor();
+    ko.bindingHandlers.value.update(element,valueAccessor);
+    $(element).val(ko.utils.unwrapObservable(valueAccessor()));
+  }
  }
 
 
@@ -93,7 +98,9 @@ if(pathName.includes('/admin/pagebuilder/')) {
 // Theme
 if(pathName.includes('/admin/themes/') && pathName.includes('edit')) {
    const themeMainViewModel = new ThemeMainViewModel();
-   ko.applyBindings(themeMainViewModel);
+   themeMainViewModel.fetchThemeSettings().then(() => {
+       ko.applyBindings(themeMainViewModel);
+   })
 }
 
 
