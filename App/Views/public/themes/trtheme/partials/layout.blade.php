@@ -25,7 +25,18 @@
     {{$themesettings['header_code']}}
     {{$themesettings['google_analytics']}}
    </head>
-   <body class="{{$themesettings['fixed_navigation'] ? 'fixed' : ''}} {{isset($id) ? 'page-id-' . $id : 'home'}}">
+   <body class="{{$user ? 'logged-in' : ''}}{{$themesettings['fixed_navigation'] ? 'fixed' : ''}} {{isset($id) ? 'page-id-' . $id : 'home'}}">
+      @if($user)
+      <div class="admin-bar">
+         <ul>
+            <li><a target="_blank" href="/admin/dashboard">PPCMS</a></li>
+            <li><a target="_blank" href="/admin/pages/{{$id}}/edit">Edit Page</a></li>
+         </ul>
+         <ul>
+         <li><a target="_blank" href="/admin/users/{{$user['name']}}">Hey, {{$user['name']}}!</a></li>
+         </ul>
+      </div>
+      @endif
       @if($themesettings['to_top'])
          <a href="">To Top</a>
       @endif

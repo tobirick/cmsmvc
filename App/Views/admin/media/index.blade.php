@@ -46,7 +46,12 @@
                     </tr>
                     <tbody data-bind="visible: mediaElements().length > 0, sortable: {data: mediaElements, connectWith: 'tbody', connectClass: 'media-element', options: {revert: 'invalid', cancel: 'td:not(.editable), a:not(.arrow)'}}">
                         <tr class="media-element" data-bind="visible: $root.currentDir() == path(), css: {file: type() === 'file'}, droppable: type() === 'dir' ? {data: changeFolder, accept: '.media-element', isEnabled: $root.enableDrop} : {options: {disabled: true}}">
-                            <td class="cancel cursor-p" style="position: relative;" data-bind="event: type() === 'file' ? {mouseover: hoverFile, mouseleave: removeHoverFile} : {}, click: type() === 'dir' ? openFolder : openFile"><span data-bind="if: type() === 'dir'"><i class="fa fa-folder pr-1"></span></i><span data-bind="if: type() === 'file'"><i class="fa fa-image pr-1"></span></i> <span data-bind="text: name"></span></td>
+                            <td class="cancel cursor-p" style="position: relative;" data-bind="event: type() === 'file' ? {mouseover: hoverFile, mouseleave: removeHoverFile} : {}, click: type() === 'dir' ? openFolder : openFile">
+                               <span data-bind="if: type() === 'dir'"><i class="fa fa-folder pr-1"></i></span>
+                               <span data-bind="if: type() === 'file'"><i class="fa fa-image pr-1"></i></span>
+                               <span data-bind="text: name"></span>
+                               <span data-bind="if: type() === 'file' && imagePreview"><img class="img-preview" data-bind="attr: {src: $root.baseURL + '/content/media' + path() + name()}"></span>
+                              </td>
                             <td data-bind="text: size">Größe</td>
                             <td class="action editable auto-width">
                                 <a data-bind="click: deleteMediaElement" href="#"><i class="fa fa-trash"></i></a>

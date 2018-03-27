@@ -40,7 +40,7 @@ class DefaultPage extends Model {
 
     public static function getHomePage() {
         $db = static::getDB();
-        $stmt = $db->prepare('SELECT * FROM pages INNER JOIN config ON config.name = "home_page_id" AND config.value = pages.id');
+        $stmt = $db->prepare('SELECT pages.* FROM pages INNER JOIN config ON config.name = "home_page_id" AND config.value = pages.id');
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 

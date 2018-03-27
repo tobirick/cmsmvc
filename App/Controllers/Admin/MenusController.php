@@ -18,10 +18,14 @@ class MenusController extends BaseController {
         $id = $params['params']['id'];
         $menu = Menu::getMenuById($id);
         $menuitems = Menu::getMenuItemsByMenuId($id);
-        self::render('admin/menus/edit', [
-            'menu' => $menu,
-            'menuitems' => $menuitems
-        ]);
+        if($menu) {
+           self::render('admin/menus/edit', [
+               'menu' => $menu,
+               'menuitems' => $menuitems
+           ]);
+        } else {
+         self::render('error/404');
+         }
     }
 
     public function create() {

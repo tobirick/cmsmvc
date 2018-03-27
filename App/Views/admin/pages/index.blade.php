@@ -30,7 +30,7 @@
                             <td style="width: 10%;">{{$page['id']}}</td>
                             <td><strong>{{$page['name']}}</strong><br><span class="light-text smaller-text">/{{$page['slug']}}</span></td>
                             <td style="width: 10%;">{{$page['author']}}</td>
-                            <td style="width: 20%;">{{date_format(new DateTime($page['created_at']), 'd.m.Y')}}</td>
+                            <td style="width: 20%;"><span class="smaller">Published</span><br>{{date_format(new DateTime($page['created_at']), 'd.m.Y')}}</td>
                             <td class="action auto-width">
                                 <a href="/{{$curLang}}/admin/pages/{{$page['id']}}/edit"><i class="fa fa-pencil"></i></a>
                                 <a target="_blank" href="/{{$page['slug']}}"><i class="fa fa-arrow-right"></i></a>

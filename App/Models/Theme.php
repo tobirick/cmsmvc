@@ -47,8 +47,10 @@ class Theme extends Model {
          ':id' => $id
       ]);
       $result = $stmt->fetch(PDO::FETCH_ASSOC);
-      $result['fixed_navigation'] = intval($result['fixed_navigation']);
-      $result['to_top'] = intval($result['to_top']);
+      if($result) {
+         $result['fixed_navigation'] = intval($result['fixed_navigation']);
+         $result['to_top'] = intval($result['to_top']);
+      }
 
       return $result;
    }
@@ -90,7 +92,8 @@ class Theme extends Model {
             ':path' => 'App/Views/public/themes/' . $name
         ]);
 
-        return true;
+        $lastID = $db->lastInsertId();
+        return self::getThemeById($lastID);
     }
 
     public static function getAllThemeNames() {

@@ -35,9 +35,13 @@ class PagesController extends BaseController {
     public function edit($params) {
         $id = $params['params']['id'];
         $page = DefaultPage::getPageById($id);
-        self::render('admin/pages/edit', [
-            'page' => $page
-        ]);
+        if($page) {
+           self::render('admin/pages/edit', [
+               'page' => $page
+           ]);
+        } else {
+           self::render('error/404');
+        }
     }
 
     public function create() {

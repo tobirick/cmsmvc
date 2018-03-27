@@ -17,7 +17,11 @@ class PagebuilderController extends BaseController {
     public function edit($params) {
         $id = $params['params']['id'];
         $item = Pagebuilder::getItemById($id);
-        self::render('admin/pagebuilder/edit', $item);
+        if($item) {
+           self::render('admin/pagebuilder/edit', $item);
+        } else {
+           self::render('error/404');
+        }
     }
 
     public function create() {

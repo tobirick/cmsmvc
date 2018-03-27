@@ -77,7 +77,16 @@
     }
 }
 
-.images-preview {
-    position: absolute;
-    width: 30rem;
+.img-preview {
+   position: absolute;
+   z-index: 999999;
+   max-width: 15rem;
+   left: 50%;
+   top: 50%;
+   transform: translate(0, -50%);
+   border: 1px solid #eee;
+   border-radius: 3px;
+   padding: 1rem;
+   @include box-shadow();
+   background-color: #fff;
 }

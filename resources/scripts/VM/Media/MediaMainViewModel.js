@@ -47,7 +47,7 @@ export default class MediaManViewModel {
             }
         });
 
-        this.baseURL = 'http://testseite.local:8081';
+        this.baseURL = window.location.origin;
 
         this.alert = ko.observable({
             visible: ko.observable(false),
@@ -241,23 +241,12 @@ export default class MediaManViewModel {
         win.focus();
     }
 
-    hoverFile = (file, event) => {
-        const url = `${this.baseURL}/content/media${file.path()}${file.name()}`;
-        if(event.target.querySelectorAll('.img-preview').length === 0) {
-            const img = document.createElement('img');
-            img.classList.add('img-preview');
-            img.src = url;
-            event.target.appendChild(img);
-        }
-        console.log(event);
+    hoverFile = (file) => {
+      file.imagePreview(true);
     }
 
-    removeHoverFile = (file,event) => {
-        const imgs = event.target.querySelectorAll('.img-preview');
-
-        imgs.forEach(img => {
-            img.parentNode.removeChild(img);
-        })
+    removeHoverFile = (file) => {
+      file.imagePreview(false);
     }
 
     async changeFolder(element) {

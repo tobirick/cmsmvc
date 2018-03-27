@@ -6,6 +6,8 @@ export default class MediaElementModel {
             this[key] = ko.observable(data[key]);
         }
 
+        this.imagePreview = ko.observable(false);
+
         this.deleteMediaElement = delegates.deleteMediaElement;
         this.openFolder = delegates.openFolder;    
         this.openFile = delegates.openFile;

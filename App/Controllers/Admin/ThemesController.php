@@ -21,9 +21,13 @@ class ThemesController extends BaseController {
     public function edit($params) {
       $id = $params['params']['id'];
       $theme = Theme::getThemeById($id);
-      self::render('admin/themes/edit', [
-         'theme' => $theme
-      ]);
+      if($theme) {
+         self::render('admin/themes/edit', [
+            'theme' => $theme
+         ]);
+      } else {
+         self::render('error/404');
+      }
     }
 
     public function getThemeSettings($params) {
@@ -87,11 +91,11 @@ class ThemesController extends BaseController {
             mkdir($themePath . '/' . $_POST['theme']['name'], 0777, true);
 
             Theme::copyBaseTheme(__DIR__ . '/../../../Core/basetheme', $themePath . '/' . $_POST['theme']['name'], $_POST['theme']['name']);
-            Theme::addTheme($_POST['theme']['name']);
+            $theme = Theme::addTheme($_POST['theme']['name']);
             Theme::combineCSS($_POST['theme']['name']);
             Theme::combineJS($_POST['theme']['name']);
 
-            self::redirect('/admin/themes');
+            self::redirect('/admin/themes/' . $theme['id'] . '/edit');
         }
     }
 
