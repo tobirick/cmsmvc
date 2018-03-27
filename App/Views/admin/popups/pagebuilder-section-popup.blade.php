@@ -1,5 +1,5 @@
 <div data-bind="with: sectionSelected">
-   <div data-bind="visible: mediaPopupVM().mediaPopupOpen, click: mediaPopupVM().closeMediaPopup" class="popup__overlay higher-z"></div>
+   <div style="display: none;" data-bind="visible: mediaPopupVM().mediaPopupOpen, click: mediaPopupVM().closeMediaPopup" class="popup__overlay higher-z"></div>
    @include('admin.popups.media-images-overview-popup')
 </div>
 <div style="display:none;" data-bind="visible: sectionSelected" class="popup pagebuilder-section-popup">

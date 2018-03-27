@@ -48,6 +48,18 @@
                             <input type="text" placeholder="z.B. https://pp-systeme.de" name="settings[siteurl]" value="{{$settings['siteurl']}}" id="url" class="form-input">
                         </div>
                     </div>
+                    <div class="form-row">
+                        <div class="col-4">
+                            <label class="form-label" for="homepage">Home Page</label>
+                        </div>
+                        <div class="col-8">
+                            <select name="settings[home_page_id]" id="homepage" class="form-input">
+                                @foreach ($pages as $page)
+                                    <option value="{{$page['id']}}" {{$page['id'] === $settings['home_page_id'] ? 'selected' : ''}}>{{$page['name']}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-5">

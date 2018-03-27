@@ -68,7 +68,7 @@
             <div class="admin-box">
                 <h3 class="admin-box__title">{{$lang['Menu']}} Item's</h3>
                     <div id="menu-list">
-                        <table class="table">
+                        <table data-bind="visible: menuListItems().length > 0" class="table">
                             <thead>
                                 <tr>
                                     <th>Position</th>
@@ -94,6 +94,10 @@
                                 </tr>
                             </tbody>
                         </table>
+                        <div data-bind="visible: menuListItems().length === 0" class="empty-state">
+                            <span class="empty-state__icon"><i class="fa fa-user-secret"></i></span>
+                            <div class="empty-state__text">No Menu Items ...</div>
+                        </div>
                     </div>
                 </div>
             </div>

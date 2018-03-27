@@ -46,7 +46,7 @@
                         <td></td>
                         <td></td>                
                     </tr>
-                    <tbody data-bind="sortable: {data: mediaElements, connectWith: 'tbody', connectClass: 'media-element', options: {revert: 'invalid', cancel: 'td:not(.editable), a:not(.arrow)'}}">
+                    <tbody data-bind="visible: mediaElements().length > 0, sortable: {data: mediaElements, connectWith: 'tbody', connectClass: 'media-element', options: {revert: 'invalid', cancel: 'td:not(.editable), a:not(.arrow)'}}">
                         <tr class="media-element" data-bind="visible: $root.currentDir() == path(), css: {file: type() === 'file'}, droppable: type() === 'dir' ? {data: changeFolder, accept: '.media-element', isEnabled: $root.enableDrop} : {options: {disabled: true}}">
                             <td>#</td>
                             <td class="cancel cursor-p" data-bind="click: type() === 'dir' ? openFolder : openFile"><span data-bind="if: type() === 'dir'"><i class="fa fa-folder"></span></i> <span data-bind="text: name"></span></td>
@@ -58,6 +58,10 @@
                         </tr>
                     </tbody>
                 </table>
+                <div data-bind="visible: mediaElements().length === 0" class="empty-state">
+                    <span class="empty-state__icon"><i class="fa fa-file"></i></span>
+                    <div class="empty-state__text">No Files/Folders ...</div>
+                </div>
                 </div>
             </div>
         </div>

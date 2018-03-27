@@ -13,6 +13,7 @@
     <div class="row">
         <div class="col-12">
             <div class="admin-box">
+                @if(sizeof($pagesadmin) > 0)
                 <table class="table">
                     <thead>
                         <tr>
@@ -40,6 +41,12 @@
                     </tbody>
                 </table>
                 @component('admin.components.pagination', ['currentpage' => $currentpage, 'numberofpages' => $numberofpages])@endcomponent
+                @else
+                <div class="empty-state">
+                    <span class="empty-state__icon"><i class="fa fa-file"></i></span>
+                    <div class="empty-state__text">No Pages ...</div>
+                </div>
+                @endif
             </div>
         </div>
     </div>

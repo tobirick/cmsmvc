@@ -19,6 +19,8 @@ export default class PagebuilderItem {
             config.elements.forEach(configelement => {
                 this.addPagebuilderField(configelement);
             });
+        } else {
+            this.addPagebuilderField({});
         }
 
         this.defaultField = ko.observable(null);

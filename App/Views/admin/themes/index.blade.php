@@ -14,6 +14,7 @@
             <div class="col-12">
                 <div class="admin-box">
                     <div class="row">
+                        @if(sizeof($themes) > 0)
                         @foreach ($themes as $theme)
                             <div class="col-12 col-md-4 col-lg-3 col-xl-2">
                                 <div class="card {{$theme['name'] === $activetheme ? 'active-theme' : ''}}">
@@ -34,6 +35,12 @@
                                 </div>
                             </div>
                         @endforeach
+                        @else
+                        <div class="empty-state">
+                            <span class="empty-state__icon"><i class="fa fa-paint-brush"></i></span>
+                            <div class="empty-state__text">No Themes ...</div>
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>

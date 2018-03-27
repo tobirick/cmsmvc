@@ -34,7 +34,6 @@
                 opacity: .4;
                 border: none;
                 background: transparent;
-                @include transition(.2s ease-in color);
 
                 & i {
                     font-size: 1.8rem;

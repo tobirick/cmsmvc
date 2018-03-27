@@ -14,7 +14,7 @@
             <div class="col-12">
                 <div class="admin-box">
                     <div class="row">
-                        @if(isset($menus))
+                        @if(isset($menus) && sizeof($menus) > 0)
                         @foreach($menus as $menu)
                             <div class="col-12 col-md-4 col-lg-3 col-xl-2">
                                 <div class="card {{$menu['id'] === $allmenus['active_menu_id']['value'] ? 'active-menu' : ''}}">
@@ -30,6 +30,11 @@
                                 </div>
                             </div>
                         @endforeach
+                        @else
+                        <div class="empty-state">
+                            <span class="empty-state__icon"><i class="fa fa-bars"></i></span>
+                            <div class="empty-state__text">No Menus ...</div>
+                        </div>
                         @endif
                     </div>
                 </div>

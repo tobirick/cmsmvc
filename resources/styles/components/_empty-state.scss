@@ -1,0 +1,21 @@
+.empty-state {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 10rem;
+  flex-direction: column;
+  padding: 4rem;
+  width: 100%;
+
+  &__icon {
+    font-size: 5rem;
+    color: $primary-color;
+    opacity: .7;
+  }
+
+  &__text {
+    font-size: 2.5rem;
+    font-weight: 500;
+    color: lighten($default-text-color, 30%);
+  }
+}
