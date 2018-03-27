@@ -36,6 +36,7 @@ class BaseController {
 
         if(filter_var(getenv('DEV'), FILTER_VALIDATE_BOOLEAN)) {
             Theme::combineCSS($activeTheme['name']);
+            Theme::combineJS($activeTheme['name']);
         }
 
          if(!in_array(get_class($this), $this->publicPages)) {

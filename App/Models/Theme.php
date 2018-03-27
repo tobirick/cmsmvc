@@ -11,26 +11,32 @@ use MatthiasMullie\Minify;
 
 class Theme extends Model {
     public static function combineCSS($themename) {
-        // Reset
-        $reset = __DIR__  . '/../../public/' . $themename . '/css/default/reset.css';
-        $minifier = new Minify\CSS($reset);
-        // Typo
-        $typo = __DIR__  . '/../../public/' . $themename . '/css/default/typography.css';
-        $minifier->add($typo);
-        // Footer
-        $footer = __DIR__  . '/../../public/' . $themename . '/css/default/footer.css';
-        $minifier->add($footer);
-        //Header
-        $header = __DIR__  . '/../../public/' . $themename . '/css/default/header.css';
-        $minifier->add($header);
-        //Responsive
-        $responsive = __DIR__  . '/../../public/' . $themename . '/css/default/responsive.css';
-        $minifier->add($responsive);
-        // Custom Styles
-        $custom = __DIR__  . '/../../public/' . $themename . '/css/customize.css';
-        $minifier->add($custom);
+        $dir =  __DIR__  . '/../../public/' . $themename . '/css/default/';
+        $minifier = new Minify\CSS();
 
-        $minifiedPath = __DIR__  . '/../../public/' . $themename . '/css/main.css';
+        foreach (new DirectoryIterator($dir) as $fileInfo) {
+            if($fileInfo->isDot()) continue;
+            $minifier->add($dir . $fileInfo->getFilename());
+        }
+
+        $minifier->add(__DIR__  . '/../../public/' . $themename . '/css/customize.css');
+
+        $minifiedPath = __DIR__  . '/../../public/' . $themename . '/css/main.min.css';
+        $minifier->minify($minifiedPath);
+    }
+
+    public static function combineJS($themename) {
+        $dir =  __DIR__  . '/../../public/' . $themename . '/js/default/';
+        $minifier = new Minify\JS();
+
+        foreach (new DirectoryIterator($dir) as $fileInfo) {
+            if($fileInfo->isDot()) continue;
+            $minifier->add($dir . $fileInfo->getFilename());
+        }
+
+        $minifier->add(__DIR__  . '/../../public/' . $themename . '/js/customize.js');
+
+        $minifiedPath = __DIR__  . '/../../public/' . $themename . '/js/app.min.js';
         $minifier->minify($minifiedPath);
     }
 

@@ -1,1 +1,1 @@
-<script src="/{{$activetheme}}/js/app.js"></script>
+<script src="/{{$activetheme}}/js/app.min.js"></script>

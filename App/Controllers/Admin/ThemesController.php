@@ -70,6 +70,7 @@ class ThemesController extends BaseController {
       file_put_contents(__DIR__  . '/../../../public/' . $decoded['theme']['name'] . '/css/default/typography.css', $typocss);
 
       Theme::combineCSS($decoded['theme']['name']);
+      Theme::combineJS($decoded['theme']['name']);
 
 
       header('Content-type: application/json');
@@ -88,6 +89,7 @@ class ThemesController extends BaseController {
             Theme::copyBaseTheme(__DIR__ . '/../../../Core/basetheme', $themePath . '/' . $_POST['theme']['name'], $_POST['theme']['name']);
             Theme::addTheme($_POST['theme']['name']);
             Theme::combineCSS($_POST['theme']['name']);
+            Theme::combineJS($_POST['theme']['name']);
 
             self::redirect('/admin/themes');
         }
