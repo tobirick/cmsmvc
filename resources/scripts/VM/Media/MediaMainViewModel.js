@@ -115,7 +115,9 @@ export default class MediaManViewModel {
             openFolder: this.openFolder,
             openFile: this.openFile,
             changeFolder: this.changeFolder,
-            deleteMediaElement: this.deleteMediaElement
+            deleteMediaElement: this.deleteMediaElement,
+            hoverFile: this.hoverFile,
+            removeHoverFile: this.removeHoverFile
         })
     }
 
@@ -237,6 +239,25 @@ export default class MediaManViewModel {
         const url = `${this.baseURL}/content/media${file.path()}${file.name()}`;
         const win = window.open(url, '_blank');
         win.focus();
+    }
+
+    hoverFile = (file, event) => {
+        const url = `${this.baseURL}/content/media${file.path()}${file.name()}`;
+        if(event.target.querySelectorAll('.img-preview').length === 0) {
+            const img = document.createElement('img');
+            img.classList.add('img-preview');
+            img.src = url;
+            event.target.appendChild(img);
+        }
+        console.log(event);
+    }
+
+    removeHoverFile = (file,event) => {
+        const imgs = event.target.querySelectorAll('.img-preview');
+
+        imgs.forEach(img => {
+            img.parentNode.removeChild(img);
+        })
     }
 
     async changeFolder(element) {

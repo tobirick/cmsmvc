@@ -1,3 +1,6 @@
+import ko from 'knockout';
+import $ from 'jquery';
+
 ko.bindingHandlers.tabs = {
   init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
       $('.popup__content').find('.tab-content').css('display', 'none');
@@ -12,8 +15,6 @@ ko.bindingHandlers.tabs = {
       });
   }
 };
-
-import ko from 'knockout';
 
 ko.bindingHandlers.colorPicker = {
  init: function(element, valueAccessor, allBindings) {

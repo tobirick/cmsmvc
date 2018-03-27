@@ -9,7 +9,7 @@ use \Core\CSRF;
 class PagesController extends BaseController {
     public function index($params) {
         $pageNumber = isset($_GET['p']) ? $_GET['p'] : 1;
-        $numberOfPagesPerPage = 12;
+        $numberOfPagesPerPage = 4;
         $numberOfPages = ceil(DefaultPage::countPages() / $numberOfPagesPerPage);
 
         if($numberOfPages <= 0 || $numberOfPages == 1) {
@@ -48,7 +48,8 @@ class PagesController extends BaseController {
         CSRF::checkToken();
         if(isset($_POST)) {
             $page = new DefaultPage();
-            $newPage = $page->addPage($_POST['page']);
+            $userID = self::getUser()['id'];
+            $newPage = $page->addPage($_POST['page'], $userID);
             self::redirect('/admin/pages/' . $newPage['id'] . '/edit');
         }
     }

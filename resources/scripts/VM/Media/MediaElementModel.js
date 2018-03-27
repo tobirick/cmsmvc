@@ -9,6 +9,8 @@ export default class MediaElementModel {
         this.deleteMediaElement = delegates.deleteMediaElement;
         this.openFolder = delegates.openFolder;    
         this.openFile = delegates.openFile;
+        this.hoverFile = delegates.hoverFile;
         this.changeFolder = delegates.changeFolder.bind(this);
+        this.removeHoverFile = delegates.removeHoverFile;
     }
 }

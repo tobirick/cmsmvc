@@ -49,7 +49,7 @@ class DefaultPage extends Model {
 
     public static function getAllPages($pageNumber = 1, $numberOfPagesPerPage = 9999) {
         $db = static::getDB();
-        $stmt = $db->prepare('SELECT * FROM pages LIMIT :numberOfPagesPerPage OFFSET :offset');
+        $stmt = $db->prepare('SELECT pages.*, users.name as author FROM pages LEFT JOIN users ON pages.created_by = users.id LIMIT :numberOfPagesPerPage OFFSET :offset');
         $stmt->bindValue(':numberOfPagesPerPage', $numberOfPagesPerPage, \PDO::PARAM_INT);
         $stmt->bindValue(':offset', $numberOfPagesPerPage * ($pageNumber - 1), \PDO::PARAM_INT);
 
@@ -69,13 +69,14 @@ class DefaultPage extends Model {
         return $result['numberofpages'];
     }
 
-    public function addPage($page) {
+    public function addPage($page, $userid) {
         $db = static::getDB();
-        $stmt = $db->prepare('INSERT INTO pages (name, slug, title, created_at) VALUES(:name, :slug, :title, now())');
+        $stmt = $db->prepare('INSERT INTO pages (name, slug, title, created_at, created_by) VALUES(:name, :slug, :title, now(), :created_by)');
         $stmt->execute([
             ':name' => $page['name'],
             ':slug' => $page['slug'],
-            ':title' => $page['title']
+            ':title' => $page['title'],
+            ':created_by' => $userid
             ]);
 
         $lastID = $db->lastInsertId();

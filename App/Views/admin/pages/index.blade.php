@@ -17,17 +17,21 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>#</th>
+                            <th style="width: 10%;">#</th>
                             <th>Name</th>
+                            <th style="width: 10%;">Autor</th>
+                            <th style="width: 20%;">Date</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
                     @foreach($pagesadmin as $page)
                         <tr>
-                            <td>{{$page['id']}}</td>
+                            <td style="width: 10%;">{{$page['id']}}</td>
                             <td><strong>{{$page['name']}}</strong><br><span class="light-text smaller-text">/{{$page['slug']}}</span></td>
-                            <td class="action">
+                            <td style="width: 10%;">{{$page['author']}}</td>
+                            <td style="width: 20%;">{{date_format(new DateTime($page['created_at']), 'd.m.Y')}}</td>
+                            <td class="action auto-width">
                                 <a href="/{{$curLang}}/admin/pages/{{$page['id']}}/edit"><i class="fa fa-pencil"></i></a>
                                 <a target="_blank" href="/{{$page['slug']}}"><i class="fa fa-arrow-right"></i></a>
                                 <form class="delete-form" action="/admin/pages/{{$page['id']}}" method="POST">
