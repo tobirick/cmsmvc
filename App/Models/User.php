@@ -47,7 +47,7 @@ class User extends Model {
             return false;
         }
         $passwordHash = password_hash($user['password'], PASSWORD_BCRYPT);
-        var_dump($passwordHash);
+        
         $db = static::getDB();
         $stmt = $db->prepare('INSERT INTO users (email, name, password_hash, created_at) VALUES(:email, :name, :password_hash, :created_at)');
         $stmt->execute([
