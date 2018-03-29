@@ -75,17 +75,17 @@
         <li class="main-sidebar__nav-item {{checkIfNavItemIsActive('users') ? 'active' : ''}}">
             <a class="main-sidebar__nav-item-link" href="/{{$curLang}}/admin/users">
                 <i class="fa fa-users" aria-hidden="true"></i>
-                <span>Users</span>
+                <span>{{$lang['Users']}}</span>
             </a>
             <ul class="main-sidebar__sub-nav">
                 <li class="main-sidebar__sub-nav-item">
                     <a class="main-sidebar__sub-nav-item-link" href="/{{$curLang}}/admin/users/roles">
-                        <span>User Roles</span>
+                        <span>{{$lang['User Roles']}}</span>
                     </a>    
                 </li>
                 <li class="main-sidebar__sub-nav-item">
                     <a class="main-sidebar__sub-nav-item-link" href="/{{$curLang}}/admin/users/{{$user['name']}}">
-                        <span>Your Profile</span>
+                        <span>{{$lang['Your Profile']}}</span>
                     </a>    
                 </li>
             </ul>

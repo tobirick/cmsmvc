@@ -4,7 +4,7 @@
 @section('content')
     <div class="box-wrapper">
         <div class="box">
-            <div class="box__title"><h2>Login to <strong>PPCMS</strong></h2></div>
+            <div class="box__title"><h2>{{$lang['Login']}} to <strong>PPCMS</strong></h2></div>
             @if(isset($formErrors))
             @foreach ($formErrors as $formError)
                 <p class="form-error">{{$formError}}</p>
@@ -26,10 +26,10 @@
                         <input data-required="true" data-valtype="password" placeholder="Password" class="form-input validate" type="password" name="user[password]">
                     </div>
                 </div>
-                <button class="button-primary block">Login</button>
+                <button class="button-primary block">{{$lang['Login']}}</button>
             </form>
 
-            <span class="box__info">No account? - <a href="/admin/register">Register here</a></span>
+            <span class="box__info">{{$lang['No account']}} - <a href="/admin/register">{{$lang['Register here']}}</a></span>
         </div>
     </div>
 @stop

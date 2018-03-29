@@ -33,7 +33,7 @@
                         @else
                         <div class="empty-state">
                             <span class="empty-state__icon"><i class="fa fa-bars"></i></span>
-                            <div class="empty-state__text">No Menus ...</div>
+                            <div class="empty-state__text">{{$lang['No Menus']}}</div>
                         </div>
                         @endif
                     </div>

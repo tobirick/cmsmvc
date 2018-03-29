@@ -23,7 +23,7 @@
                 <div class="admin-box">
                         <div class="form-row">
                            <div class="col-3">
-                              <label for="title" class="form-label">Title</label>
+                              <label for="title" class="form-label">{{$lang['Title']}}</label>
                            </div>
                            <div class="col-9">
                               <input id="title" placeholder="Name" data-bind="value: name" class="form-input" type="text">
@@ -53,8 +53,8 @@
             <div class="col-4">
                 <div class="admin-box">
                     <div class="admin-box__header">
-                        <h3 class="admin-box__title">Fields</h3>
-                        <button data-bind="click: $root.openPopup" class="button-primary">Add</button>
+                        <h3 class="admin-box__title">{{$lang['Fields']}}</h3>
+                        <button data-bind="click: $root.openPopup" class="button-primary">{{$lang['Add']}}</button>
                     </div>
                     <div class="row">
                         <div class="col-12">

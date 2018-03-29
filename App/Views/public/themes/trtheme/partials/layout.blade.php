@@ -14,7 +14,7 @@
     <meta name="twitter:site" content="{{$settings['sitetitle']}}" />
     <meta name="twitter:title" content="{{$settings['sitetitle']}} - @yield('metatitle')" />
     <meta name="twitter:description" content="@yield('metadescription')" />
-    <title itemprop="name">@yield('title')</title>
+    <title itemprop="name">{{$settings['sitetitle']}} - @yield('title')</title>
 
     <link rel="apple-touch-icon" sizes="256x256" href="{{$themesettings['favicon']}}"/>
     <link rel="icon" type="image/png" sizes="256x256" href="{{$themesettings['favicon']}}"/>
@@ -29,7 +29,7 @@
       @if($user)
       <div class="admin-bar">
          <ul>
-            <li><a target="_blank" href="/admin/dashboard">PPCMS</a></li>
+            <li><a target="_blank" href="/admin/dashboard">{{$settings['sitetitle']}}</a></li>
             <li><a target="_blank" href="/admin/pages/{{$id}}/edit">Edit Page</a></li>
          </ul>
          <ul>

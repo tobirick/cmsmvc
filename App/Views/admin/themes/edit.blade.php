@@ -22,7 +22,7 @@
         <div class="col-12">
             <div class="admin-box no-padding popup__container">
                <div class="popup__header">
-                  <h3 class="popup__title">Theme Settings for '{{$theme['name']}}'</h3>
+                  <h3 class="popup__title">{{$lang['Theme Settings']}} {{$lang['for']}} '{{$theme['name']}}'</h3>
                </div>
                <div data-bind="tabs: true" class="popup__tabs">
                      <ul>
@@ -43,7 +43,7 @@
                        <div class="col-9">
                           <div class="center-v-flex">
                              <input data-bind="value: logo" type="text" id="logo" class="form-input">
-                             <button data-bind="click: openMediaPopup.bind($data, logo)" class="ml-1 button-primary">Choose Logo</button>
+                             <button data-bind="click: openMediaPopup.bind($data, logo)" class="ml-1 button-primary">{{$lang['Choose']}} Logo</button>
                           </div>
                        </div>
                     </div>
@@ -54,7 +54,7 @@
                        <div class="col-9">
                           <div class="center-v-flex">
                              <input data-bind="value: favicon" type="text" id="favicon" class="form-input">
-                             <button data-bind="click: openMediaPopup.bind($data, favicon)" class="ml-1 button-primary">Choose Favicon</button>
+                             <button data-bind="click: openMediaPopup.bind($data, favicon)" class="ml-1 button-primary">{{$lang['Choose']}} Favicon</button>
                           </div>
                        </div>
                     </div>
@@ -89,7 +89,7 @@
                      </div>
                      <div class="form-row">
                         <div class="col-3">
-                           <label for="defaultcolor" class="form-label">Default Color</label>
+                           <label for="defaultcolor" class="form-label">{{$lang['Default Color']}}</label>
                         </div>
                         <div class="col-9 center-v-flex">
                            <input id="defaultcolor" class="form-input" type="text" data-bind="colorPicker: default_color">
@@ -162,7 +162,7 @@
                         <div class="popup__subcontent">
                             <div class="form-row">
                                <div class="col-3">
-                                  <label for="bodysize" class="form-label">Body Text Size</label>
+                                  <label for="bodysize" class="form-label">Body Text {{$lang['Size']}}</label>
                                </div>
                                <div class="col-9 center-v-flex">
                                   <input max="10" min="1" step="0.1" data-bind="textInput: font_size, attr:{min: 1, max: 10, step: .1}" class="form-input" type="range">
@@ -204,7 +204,7 @@
                             </div>
                             <div class="form-row">
                                <div class="col-3">
-                                  <label for="bodycolor" class="form-label">Body Text Color</label>
+                                  <label for="bodycolor" class="form-label">Body Text {{$lang['Color']}}</label>
                                </div>
                                <div class="col-9 center-v-flex">
                                   <input id="bodycolor" class="form-input" type="text" data-bind="colorPicker: color">
@@ -219,7 +219,7 @@
                         <div class="popup__subcontent">
                             <div data-bind="with: h1" class="form-row">
                                <div class="col-3">
-                                  <label for="h1size" class="form-label">H1 Text Size</label>
+                                  <label for="h1size" class="form-label">H1 Text {{$lang['Size']}}</label>
                                </div>
                                <div class="col-9 center-v-flex">
                                   <input max="10" min="1" step="0.1" data-bind="textInput: font_size, attr:{min: 1, max: 10, step: .1}" id="h1size" class="form-input" type="range">
@@ -230,7 +230,7 @@
                             </div>
                             <div data-bind="with: h2" class="form-row">
                                <div class="col-3">
-                                  <label for="h2size" class="form-label">H2 Text Size</label>
+                                  <label for="h2size" class="form-label">H2 Text {{$lang['Size']}}</label>
                                </div>
                                <div class="col-9 center-v-flex">
                                   <input max="10" min="1" step="0.1" data-bind="textInput: font_size, attr:{min: 1, max: 10, step: .1}" id="h2size" class="form-input" type="range">
@@ -241,7 +241,7 @@
                             </div>
                             <div data-bind="with: h3" class="form-row">
                                <div class="col-3">
-                                  <label for="h3size" class="form-label">H3 Text Size</label>
+                                  <label for="h3size" class="form-label">H3 Text {{$lang['Size']}}</label>
                                </div>
                                <div class="col-9 center-v-flex">
                                   <input max="10" min="1" step="0.1" data-bind="textInput: font_size, attr:{min: 1, max: 10, step: .1}" id="h3size" class="form-input" type="range">
@@ -252,7 +252,7 @@
                             </div>
                             <div data-bind="with: h4" class="form-row">
                                <div class="col-3">
-                                  <label for="h4size" class="form-label">H4 Text Size</label>
+                                  <label for="h4size" class="form-label">H4 Text {{$lang['Size']}}</label>
                                </div>
                                <div class="col-9 center-v-flex">
                                   <input max="10" min="1" step="0.1" data-bind="textInput: font_size, attr:{min: 1, max: 10, step: .1}" id="h4size" class="form-input" type="range">
@@ -294,7 +294,7 @@
                             </div>                     
                             <div class="form-row">
                                <div class="col-3">
-                                  <label for="hcolor" class="form-label">Heading Text Color</label>
+                                  <label for="hcolor" class="form-label">Heading Text {{$lang['Color']}}</label>
                                </div>
                                <div class="col-9 center-v-flex">
                                   <input id="hcolor" class="form-input" type="text" data-bind="colorPicker: headingColor">
@@ -308,7 +308,7 @@
                          <div id="css" class="tab-content">
                             <div class="form-row">
                               <div class="col-3">
-                                 <label for="css" class="form-label">Custom CSS</label>
+                                 <label for="css" class="form-label">{{$lang['Custom']}} CSS</label>
                               </div>
                               <div class="col-9">
                                  <textarea data-bind="value: css" id="css" class="form-input"></textarea>
@@ -319,7 +319,7 @@
                          <div id="integration" class="tab-content">
                             <div class="form-row">
                               <div class="col-3">
-                                 <label for="customstyles" class="form-label">Custom Stylesheets</label>
+                                 <label for="customstyles" class="form-label">{{$lang['Custom']}} Stylesheets</label>
                               </div>
                               <div class="col-9">
                                  <textarea data-bind="value: custom_styles" id="customstyles" class="form-input"></textarea>
@@ -327,7 +327,7 @@
                            </div>
                            <div class="form-row">
                                <div class="col-3">
-                                  <label for="customscripts" class="form-label">Custom Scripts</label>
+                                  <label for="customscripts" class="form-label">{{$lang['Custom']}} Scripts</label>
                                </div>
                                <div class="col-9">
                                   <textarea data-bind="value: custom_scripts" id="customscripts" class="form-input"></textarea>
@@ -335,7 +335,7 @@
                             </div>
                             <div class="form-row">
                               <div class="col-3">
-                                 <label for="headercode" class="form-label">Code for Header</label>
+                                 <label for="headercode" class="form-label">Code {{$lang['for']}} Header</label>
                               </div>
                               <div class="col-9">
                                  <textarea data-bind="value: header_code" id="headercode" class="form-input"></textarea>
@@ -343,7 +343,7 @@
                            </div>
                            <div class="form-row">
                                <div class="col-3">
-                                  <label for="bodycode" class="form-label">Code for Body</label>
+                                  <label for="bodycode" class="form-label">Code {{$lang['for']}} Body</label>
                                </div>
                                <div class="col-9">
                                   <textarea data-bind="value: body_code" id="bodycode" class="form-input"></textarea>

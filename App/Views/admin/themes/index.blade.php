@@ -38,7 +38,7 @@
                         @else
                         <div class="empty-state">
                             <span class="empty-state__icon"><i class="fa fa-paint-brush"></i></span>
-                            <div class="empty-state__text">No Themes ...</div>
+                            <div class="empty-state__text">{{$lang['No Themes']}}</div>
                         </div>
                         @endif
                     </div>

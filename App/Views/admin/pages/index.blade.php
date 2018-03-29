@@ -18,9 +18,9 @@
                     <thead>
                         <tr>
                             <th style="width: 10%;">#</th>
-                            <th>Name</th>
-                            <th style="width: 10%;">Autor</th>
-                            <th style="width: 20%;">Date</th>
+                            <th>{{$lang['Name']}}</th>
+                            <th style="width: 10%;">{{$lang['Author']}}</th>
+                            <th style="width: 20%;">{{$lang['Date']}}</th>
                             <th></th>
                         </tr>
                     </thead>

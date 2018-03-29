@@ -5,7 +5,7 @@
 @section('content')
 @component('admin.partials.secondary-navigation')
     @slot('left')
-        <button class="button-primary" data-bind="click: openAddUserRolePopup">Add User Role</button>
+        <button class="button-primary" data-bind="click: openAddUserRolePopup">{{$lang['Add User Role']}}</button>
     @endslot
     @slot('right')
         <a data-bind="click: saveToDB" href="#" class="button-primary">{{$lang['Save']}}</a>
@@ -45,10 +45,10 @@
                             </div>
                             <div>
                                 <span data-bind="visible: !($root.userPermissions().length === activePermissions().length)">
-                                    <button data-bind="click: checkAllPermissions" class="button-primary-border">Check all Permissions</button>
+                                    <button data-bind="click: checkAllPermissions" class="button-primary-border">{{$lang['Check all Permissions']}}</button>
                                 </span>
                                 <span data-bind="visible: $root.userPermissions().length === activePermissions().length">
-                                    <button data-bind="click: uncheckAllPermissions" class="button-primary-border">Uncheck all Permissions</button>
+                                    <button data-bind="click: uncheckAllPermissions" class="button-primary-border">{{$lang['Uncheck all Permissions']}}</button>
                                 </span>
                             </div>
                         </div>
@@ -56,14 +56,14 @@
                             <span class="form-checkbox">
                                 <label data-bind="attr: {for: id()}, click: $parent.toggleCheckbox" for="enable-drop">
                                     <input class="form-checkbox__input" type="checkbox" data-bind="attr: {id: id()},checked: $parent.activePermissions().indexOf(id()) !== -1">
-                                    <span class="form-checkbox__label" data-bind="text: permission_name">Enable Drop</span>
+                                    <span class="form-checkbox__label" data-bind="text: permission_name"></span>
                                 </label>
                             </span>
                         </div>
                     </div>
                     <div data-bind="visible: userRoles().length === 0" class="empty-state">
                         <span class="empty-state__icon"><i class="fa fa-users"></i></span>
-                        <div class="empty-state__text">No User Roles ...</div>
+                        <div class="empty-state__text">{{$lang['No User Roles']}}</div>
                     </div>
                 </div>
             </div>

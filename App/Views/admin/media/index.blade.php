@@ -22,7 +22,7 @@
                     <span class="form-checkbox">
                         <label for="enable-drop">
                             <input class="form-checkbox__input" id="enable-drop" type="checkbox" data-bind="checked: enableDrop">
-                            <span class="form-checkbox__label">Enable Drop</span>
+                            <span class="form-checkbox__label">{{$lang['Enable Drop']}}</span>
                         </label>
                     </span>
                   </div>
@@ -34,13 +34,13 @@
                     <table class="table">
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Größe</th>
+                            <th>{{$lang['Name']}}</th>
+                            <th>{{$lang['Size']}}</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tr data-bind="visible: $root.currentDir() !== '/', droppable: {data: moveDirBack, options:{greedy:true, accept: '.media-element'}}">
-                        <td class="cursor-p" data-bind="click: goDirBack"><i class="fa fa-arrow-left pr-1"></span></i> <span>Go back</span></td>
+                        <td class="cursor-p" data-bind="click: goDirBack"><i class="fa fa-arrow-left pr-1"></span></i> <span>{{$lang['Go back']}}</span></td>
                         <td></td>
                         <td></td>                
                     </tr>
@@ -52,7 +52,7 @@
                                <span data-bind="text: name"></span>
                                <span data-bind="if: type() === 'file' && imagePreview"><img class="img-preview" data-bind="attr: {src: $root.baseURL + '/content/media' + path() + name()}"></span>
                               </td>
-                            <td data-bind="text: size">Größe</td>
+                            <td data-bind="text: size">{{$lang['Size']}}</td>
                             <td class="action editable auto-width">
                                 <a data-bind="click: deleteMediaElement" href="#"><i class="fa fa-trash"></i></a>
                                 <a class="cursor-m arrow" href="#"><i class="fa fa-arrows"></i></a>
@@ -62,7 +62,7 @@
                 </table>
                 <div data-bind="visible: mediaElements().length === 0" class="empty-state">
                     <span class="empty-state__icon"><i class="fa fa-file"></i></span>
-                    <div class="empty-state__text">No Files/Folders ...</div>
+                    <div class="empty-state__text">{{$lang['No Files/Folders']}}</div>
                 </div>
                 </div>
             </div>

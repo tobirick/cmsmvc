@@ -68,8 +68,6 @@ class Permission extends AbstractMigration
 
         $userPermissionRows = [
             ['user_role_id' => 1, 'permission_id' => 1],
-            ['user_role_id' => 1, 'permission_id' => 2],
-            ['user_role_id' => 1, 'permission_id' => 3],
             ['user_role_id' => 1, 'permission_id' => 4],
             ['user_role_id' => 1, 'permission_id' => 5],
             ['user_role_id' => 1, 'permission_id' => 6],

@@ -18,7 +18,7 @@
                         <div class="admin-grid-col-wrapper" data-bind="css: 'col-'+col(), droppable: {data: setElement, options: {greedy: true, accept: '.admin-element-list-item, .admin-grid-element'}}">
                             <div class="admin-grid-col">
                                 <div data-bind="ifnot: elementSelected, style: { display: elementSelected() ? 'none' : 'flex'}">
-                                    <i class="fa fa-plus"></i> <span class="smaller">Drag Module here</span>
+                                    <i class="fa fa-plus"></i> <span class="smaller">{{$lang['Drag Elements here']}}</span>
                                 </div>
                                 <div class="admin-grid-element-wrapper" data-bind="if: elementSelected, style: { display: elementSelected() ? 'flex' : 'none'}">
                                     <div data-bind="draggable: {data: $data.element, connectClass: 'admin-grid-element-wrapper', options: {helper: 'clone', appendTo: 'body', revert: 'invalid', greedy: true}}" class="admin-grid-element">
@@ -37,7 +37,7 @@
                 </div>
             </div>
         </div>
-    <span data-bind="click: addRow" class="admin-grid__add-row"><i class="fa fa-plus"></i> Add Row</span>
+    <span data-bind="click: addRow" class="admin-grid__add-row"><i class="fa fa-plus"></i> {{$lang['Add Row']}}</span>
     </div>
      </div>
   </div>

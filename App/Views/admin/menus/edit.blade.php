@@ -71,9 +71,9 @@
                         <table data-bind="visible: menuListItems().length > 0" class="table">
                             <thead>
                                 <tr>
-                                    <th>Position</th>
-                                    <th>Name</th>
-                                    <th>Zugehörige Seite</th>
+                                    <th>{{$lang['Position']}}</th>
+                                    <th>{{$lang['Name']}}</th>
+                                    <th>{{$lang['Connected Page']}}</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -96,7 +96,7 @@
                         </table>
                         <div data-bind="visible: menuListItems().length === 0" class="empty-state">
                             <span class="empty-state__icon"><i class="fa fa-user-secret"></i></span>
-                            <div class="empty-state__text">No Menu Items ...</div>
+                            <div class="empty-state__text">{{$lang['No Menu Items']}}</div>
                         </div>
                     </div>
                 </div>

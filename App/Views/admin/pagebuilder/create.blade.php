@@ -36,8 +36,8 @@
                     <div class="col-4">
                         <div class="admin-box">
                             <div class="admin-box__header">
-                                <h3 class="admin-box__title">Fields</h3>
-                                <button data-bind="click: $root.openPopup" class="button-primary">Add</button>
+                                <h3 class="admin-box__title">{{$lang['Fields']}}</h3>
+                                <button data-bind="click: $root.openPopup" class="button-primary">{{$lang['Add']}}</button>
                             </div>
                             <div class="row">
                                 <div class="col-12">

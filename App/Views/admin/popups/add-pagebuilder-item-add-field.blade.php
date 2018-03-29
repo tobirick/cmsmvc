@@ -2,18 +2,18 @@
         <div data-bind="with: selectedField" class="popup__container">
             <div class="popup__header">
                 <h3 class="popup__title">
-                    <span data-bind="if: name">Update Field <span data-bind="text: name"></span></span>
-                    <span data-bind="ifnot: name">Add Field</span>
+                    <span data-bind="if: name">{{$lang['Update Field']}} <span data-bind="text: name"></span></span>
+                    <span data-bind="ifnot: name">{{$lang['Add Field']}}</span>
                 </h3>
                 <span data-bind="click: $root.closePopup" class="popup__close"></span>
             </div>
             <div class="popup__content">
                 <div class="popup__subsection">
-               <h3 class="popup__subtitle">Field Settings</h3>
+               <h3 class="popup__subtitle">{{$lang['Field Settings']}}</h3>
                <div class="popup__subcontent">
                   <div class="form-row">
                      <div class="col-3">
-                        <label for="name" class="form-label">Name</label>
+                        <label for="name" class="form-label">{{$lang['Name']}}</label>
                      </div>
                      <div class="col-9">
                         <input data-bind="textInput: name" type="text" id="name" class="form-input" placeholder="Field Name">
@@ -21,7 +21,7 @@
                   </div>
                   <div class="form-row">
                         <div class="col-3">
-                           <label for="key" class="form-label">Key</label>
+                           <label for="key" class="form-label">{{$lang['Key']}}</label>
                         </div>
                         <div class="col-9">
                            <input data-bind="textInput: key, attr:{disabled: true}" type="text" id="key" class="form-input" placeholder="Field Key">
@@ -29,7 +29,7 @@
                      </div>
                      <div class="form-row">
                         <div class="col-3">
-                            <label for="value" class="form-label">Default Value</label>
+                            <label for="value" class="form-label">{{$lang['Default Value']}}</label>
                         </div>
                         <div class="col-9">
                             <input data-bind="value: value" type="text" id="value" class="form-input" placeholder="Default Value">
@@ -37,7 +37,7 @@
                     </div>
                     <div class="form-row">
                         <div class="col-3">
-                            <label for="type" class="form-label">Field Type</label>
+                            <label for="type" class="form-label">{{$lang['Field Type']}}</label>
                         </div>
                         <div class="col-9">
                             <select class="form-input" id="type" data-bind="options: $root.possibleFieldTypes, value: type"></select>
@@ -62,7 +62,7 @@
                                     </div>-->
                                 </div>
                             </div>
-                            <div data-bind="click: addButton" class="add-pagebuilder-button"><i class="fa fa-plus"></i> Add new Button</div>
+                            <div data-bind="click: addButton" class="add-pagebuilder-button"><i class="fa fa-plus"></i> {{$lang['Add new']}} Button</div>
                         </div>
                     </div>
                </div>

@@ -5,7 +5,7 @@
 <div style="display:none;" data-bind="visible: elementSelected" class="popup pagebuilder-element-popup">
     <div data-bind="with: elementSelected" class="popup__container">
         <div class="popup__header">
-            <h3 class="popup__title">Element Settings <span data-bind="visible: name">for '<span data-bind="text: name"></span>'</span></h3>
+            <h3 class="popup__title">{{$lang['Element Settings']}} <span data-bind="visible: name">{{$lang['for']}} '<span data-bind="text: name"></span>'</span></h3>
             <span data-bind="click: $root.closeSettings" class="popup__close"></span>
         </div>
         <div data-bind="tabs: true" class="popup__tabs">
@@ -26,10 +26,10 @@
                             <div data-bind="if: type() === 'image-src'">
                                 <div class="center-v-flex">
                                     <input type="text" class="form-input" data-bind="textInput: value, attr:{id: key, placeholder: name}">
-                                    <button data-bind="click: $parent.openMediaPopup" class="ml-1 button-primary">Choose Media</button>
+                                    <button data-bind="click: $parent.openMediaPopup" class="ml-1 button-primary">{{$lang['Choose Media']}}</button>
                                 </div>
                                 <div data-bind="visible: value" class="mt-2">
-                                    <strong class="mb-1 dp">Image Preview:</strong>
+                                    <strong class="mb-1 dp">{{$lang['Image Preview']}}</strong>
                                     <div class="center-h-flex center-v-flex p-2" style="border: 1px solid #ddd; border-radius: 2px;">
                                        <img class="mw-100" data-bind="attr: {src: value}">
                                     </div>
@@ -61,11 +61,11 @@
                 </div>
             </div>
             <div class="popup__subsection">
-               <h3 class="popup__subtitle">General Settings</h3>
+               <h3 class="popup__subtitle">{{$lang['General Settings']}}</h3>
                <div class="popup__subcontent">
                   <div class="form-row">
                      <div class="col-3">
-                        <label for="name" class="form-label">Name</label>
+                        <label for="name" class="form-label">{{$lang['Name']}}</label>
                      </div>
                      <div class="col-9">
                         <input data-bind="textInput: name" type="text" id="name" class="form-input" placeholder="Element Name">
@@ -124,11 +124,11 @@
          </div>
          <div class="tab-content" id="designtab">
             <div class="popup__subsection">
-               <h3 class="popup__subtitle">Background</h3>
+               <h3 class="popup__subtitle">{{$lang['Background']}}</h3>
                <div class="popup__subcontent">
                   <div class="form-row">
                      <div class="col-3">
-                        <label for="bgcolor" class="form-label">Background Color</label>
+                        <label for="bgcolor" class="form-label">{{$lang['Background Color']}}</label>
                      </div>
                      <div class="col-9">
                         <input data-bind="value: bg_color" type="text" id="bgcolor" class="form-input" placeholder="#f5f5f5">
@@ -137,11 +137,11 @@
                </div>
             </div>
             <div class="popup__subsection">
-               <h3 class="popup__subtitle">CSS ID & Classes</h3>
+               <h3 class="popup__subtitle">CSS ID & {{$lang['Classes']}}</h3>
                <div class="popup__subcontent">
                   <div class="form-row">
                      <div class="col-3">
-                        <label for="cssclass" class="form-label">CSS Class</label>
+                        <label for="cssclass" class="form-label">CSS {{$lang['Class']}}</label>
                      </div>
                      <div class="col-9">
                         <input data-bind="value: css_class" type="text" id="cssclass" class="form-input" placeholder=".test">
@@ -158,11 +158,11 @@
                </div>
             </div>
             <div class="popup__subsection">
-               <h3 class="popup__subtitle">Custom CSS</h3>
+               <h3 class="popup__subtitle">{{$lang['Custom']}} CSS</h3>
                <div class="popup__subcontent">
                   <div class="form-row">
                      <div class="col-3">
-                        <label for="customcss" class="form-label">Custom CSS</label>
+                        <label for="customcss" class="form-label">{{$lang['Custom']}} CSS</label>
                      </div>
                      <div class="col-9">
                         <textarea data-bind="value: styles" id="customcss" class="form-input" placeholder="color: red;"></textarea>
