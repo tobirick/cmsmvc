@@ -8,6 +8,4 @@ cache/
 public/admin/css
 public/admin/js
 public/admin/img
-./gulpfile.js
-public/.htaccess
 cache/
