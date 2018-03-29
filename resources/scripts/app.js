@@ -169,3 +169,7 @@ const openDeletePopup = function(form) {
 deleteFormElements.forEach(deleteFormElement => {
     deleteFormElement.addEventListener('submit', openDeletePopup);
 });
+
+// Close Alert on click
+const alertEls = document.querySelectorAll('.alert');
+if(alertEls) {alertEls.forEach(alertEl => alertEl.querySelector('.alert__close').addEventListener('click', (e) => { alertEl.parentNode.removeChild(alertEl) }))};

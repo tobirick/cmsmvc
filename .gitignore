@@ -1,6 +1,7 @@
 vendor/
 node_modules/
 .env
+phinx.yml
 .vscode/
 .vs/
 cache/

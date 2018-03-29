@@ -141,6 +141,7 @@ class ThemesController extends BaseController {
             Theme::deleteTheme($themePath . '/' . $params['params']['name'], $params['params']['name'], $params['params']['id']);
             self::redirect('/admin/themes');
         } else {
+            self::addFlash('error', 'You can not delete an active Theme!');
             self::redirect('/admin/themes');
         }
     }
