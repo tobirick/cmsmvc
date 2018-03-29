@@ -17,6 +17,7 @@
         "Add new Theme": "Add new Theme",
         "New Theme": "New Theme",
         "New Pagebuilder Item": "New Pagebuilder Item",
+        "Create Pagebuilder Item": "Create Pagebuilder Item",
         "Pages": "Pages",
         "Menu": "Menu",
         "Menus": "Menus",
@@ -105,6 +106,14 @@
         "Add User Role": "Add User Role",
         "No User Roles": "No User Roles",
         "Check all Permissions": "Check all Permissions",
-        "Uncheck all Permissions": "Uncheck all Permissions"
+        "Uncheck all Permissions": "Uncheck all Permissions",
+        "Add new User": "Add new User",
+        "Role": "Role",
+        "New User": "New User",
+        "No Pagebuilder Elements": "No Pagebuilder Elements ...",
+        "Pagebuilder Items": "Pagebuilder Items",
+        "Pagetitle": "Pagetitle",
+        "Subtitle": "Subtitle",
+        "Sitedescription": "Sitedescription"
     }
 }

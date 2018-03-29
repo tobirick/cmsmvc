@@ -1,5 +1,5 @@
 @extends('admin.partials.layout')
-@section('title', 'Edit Page')
+@section('title', $lang['Edit'] . ' ' .$page['name'])
 @section('content-title')
 {{$lang['Edit']}} '{{$page['name']}}'
 @stop

@@ -1,5 +1,5 @@
 @extends('admin.partials.layout')
-@section('title', 'Create Theme')
+@section('title', $lang['Add new Theme'])
 @section('content-title', $lang['Add new Theme'])
 
 @section('content')

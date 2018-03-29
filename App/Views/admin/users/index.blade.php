@@ -1,11 +1,11 @@
 @extends('admin.partials.layout')
-@section('title', 'Admin Users')
-@section('content-title', 'Users')
+@section('title', $lang['Users'])
+@section('content-title', $lang['Users'])
 
 @section('content')
 @component('admin.partials.secondary-navigation')
     @slot('left')
-        <a href="/{{$curLang}}/admin/users/create" class="button-primary">New User</a>
+        <a href="/{{$curLang}}/admin/users/create" class="button-primary">{{$lang['New User']}}</a>
     @endslot
 @endcomponent
 <div id="content">
@@ -17,9 +17,9 @@
                     <thead>
                         <tr>
                             <th style="width: 10%;">#</th>
-                            <th>Name</th>
+                            <th>{{$lang['Name']}}</th>
                             <th>E-Mail</th>
-                            <th>Role</th>
+                            <th>{{$lang['Role']}}</th>
                             <th></th>
                         </tr>
                     </thead>

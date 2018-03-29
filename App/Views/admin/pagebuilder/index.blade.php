@@ -1,6 +1,6 @@
 @extends('admin.partials.layout')
-@section('title', 'Admin Pagebuilder Items')
-@section('content-title', 'Pagebuilder Items')
+@section('title', $lang['Pagebuilder Items'])
+@section('content-title', $lang['Pagebuilder Items'])
 
 @section('content')
 @component('admin.partials.secondary-navigation')
@@ -33,7 +33,7 @@
                         @else
                         <div class="empty-state">
                             <span class="empty-state__icon"><i class="fa fa-building"></i></span>
-                            <div class="empty-state__text">No Pagebuilder Elements ...</div>
+                            <div class="empty-state__text">{{$lang['No Pagebuilder Elements']}}</div>
                         </div>
                         @endif
                     </div>

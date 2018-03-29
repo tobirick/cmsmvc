@@ -1,5 +1,5 @@
 @extends('admin.partials.layout')
-@section('title', 'Edit Pagebuilder Item')
+@section('title', $lang['Edit'] . ' ' . $item_name)
 @section('content-title')
 {{$lang['Edit']}} '{{$item_name}}'
 @stop

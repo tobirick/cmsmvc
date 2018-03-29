@@ -1,7 +1,7 @@
 @extends('admin.partials.layout')
-@section('title', 'Create User')
+@section('title', $lang['Add new User'])
 @section('content-title')
-'Add new User'
+{{$lang['Add new User']}}
 @stop
 
 @section('content')
@@ -21,7 +21,7 @@
             <input name="csrf_token" type="hidden" value="{{$csrf}}">
         <div class="col-12">
             <div class="admin-box">
-               <h3 class="admin-box__title">Create User</h3>
+               <h3 class="admin-box__title">{{$lang['Add new User']}}</h3>
                 <div class="form-row">
                     <div id="user" class="form-input-icon">
                         <input data-required="true" data-valtype="text" class="form-input validate" placeholder="Name" type="text" name="user[name]">

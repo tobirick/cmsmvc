@@ -17,6 +17,7 @@
         "Add new Theme": "Neues Theme hinzufügen",
         "New Theme": "Neues Theme",
         "New Pagebuilder Item": "Neues Pagebuilder Item",
+        "Create Pagebuilder Item": "Erstelle Pagebuilder Item",
         "Pages": "Seiten",
         "Menu": "Menü",
         "Menus": "Menüs",
@@ -105,6 +106,14 @@
         "Add User Role": "Benutzerrole hinzufügen",
         "No User Roles": "Keine Benutzerrollen",
         "Check all Permissions": "Alle Rechte auswählen",
-        "Uncheck all Permissions": "Alle Rechte abwählen"
+        "Uncheck all Permissions": "Alle Rechte abwählen",
+        "Add new User": "Neuen Benutzer hinzufügen",
+        "Role": "Rolle",
+        "New User": "Neuer Benutzer",
+        "No Pagebuilder Elements": "Keine Pagebuilder Elemente ...",
+        "Pagebuilder Items": "Pagebuilder Items",
+        "Pagetitle": "Titel der Seite",
+        "Subtitle": "Untertitel",
+        "Sitedescription": "Seitenbeschreibung"
     }
 }

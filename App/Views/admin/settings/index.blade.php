@@ -1,5 +1,5 @@
 @extends('admin.partials.layout')
-@section('title', 'Admin Settings')
+@section('title', $lang['Change Settings'])
 @section('content-title', $lang['Change Settings'])
 
 @section('content')
@@ -15,10 +15,10 @@
         <div class="row">
             <div class="col-7">
                 <div class="admin-box">
-                    <h3 class="admin-box__title">Allgemeine Einstellungen</h3>
+                    <h3 class="admin-box__title">{{$lang['General Settings']}}</h3>
                     <div class="form-row">
                         <div class="col-4">
-                            <label class="form-label" for="title">Titel der Seite</label>
+                            <label class="form-label" for="title">{{$lang['Pagetitle']}}</label>
                         </div>
                         <div class="col-8">
                             <input type="text" placeholder="z.B. PP IT-Systeme" value="{{$settings['sitetitle']}}" name="settings[sitetitle]" id="title" class="form-input">
@@ -26,7 +26,7 @@
                     </div>
                     <div class="form-row">
                         <div class="col-4">
-                            <label class="form-label" for="subtitle">Untertitel</label>
+                            <label class="form-label" for="subtitle">{{$lang['Subtitle']}}</label>
                         </div>
                         <div class="col-8">
                             <input type="text" placeholder="z.B. Das ist schön" name="settings[sitesubtitle]" value="{{$settings['sitesubtitle']}}" id="subtitle" class="form-input">
@@ -34,7 +34,7 @@
                     </div>
                     <div class="form-row">
                         <div class="col-4">
-                            <label class="form-label" for="sitedescription">Seitenbeschreibung</label>
+                            <label class="form-label" for="sitedescription">{{$lang['Sitedescription']}}</label>
                         </div>
                         <div class="col-8">
                             <input type="text" placeholder="z.B. Das ist schön" name="settings[sitedescription]" value="{{$settings['sitedescription']}}" id="sitedescription" class="form-input">
