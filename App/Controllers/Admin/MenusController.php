@@ -16,7 +16,7 @@ class MenusController extends BaseController {
 
     public function edit($params) {
         if(!self::checkPermission('edit_menu')) {         
-            self::addFlash('error', 'You have not the permission to do that!');
+            self::addFlash('error', self::getTrans('You have not the permission to do that!'));
             self::redirect('/admin/dashboard');
         }
 
@@ -35,7 +35,7 @@ class MenusController extends BaseController {
 
     public function create() {
         if(!self::checkPermission('add_menu')) {         
-            self::addFlash('error', 'You have not the permission to do that!');
+            self::addFlash('error', self::getTrans('You have not the permission to do that!'));
             self::redirect('/admin/dashboard');
         }
         self::render('admin/menus/create');
@@ -43,7 +43,7 @@ class MenusController extends BaseController {
 
     public function store() {
         if(!self::checkPermission('add_menu')) {         
-            self::addFlash('error', 'You have not the permission to do that!');
+            self::addFlash('error', self::getTrans('You have not the permission to do that!'));
             self::redirect('/admin/dashboard');
         }
         CSRF::checkToken();
@@ -67,7 +67,7 @@ class MenusController extends BaseController {
 
     public function delete($params) {
         if(!self::checkPermission('delete_menu')) {         
-            self::addFlash('error', 'You have not the permission to do that!');
+            self::addFlash('error', self::getTrans('You have not the permission to do that!'));
             self::redirect('/admin/dashboard');
         }
         Menu::deleteMenu($params['params']['id']);
@@ -76,7 +76,7 @@ class MenusController extends BaseController {
 
     public function update($params, $post) {
         if(!self::checkPermission('edit_menu')) {         
-            self::addFlash('error', 'You have not the permission to do that!');
+            self::addFlash('error', self::getTrans('You have not the permission to do that!'));
             self::redirect('/admin/dashboard');
         }
         Menu::updateMenu($params['params']['id'], $post['menu']);

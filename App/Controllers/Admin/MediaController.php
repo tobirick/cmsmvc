@@ -18,7 +18,7 @@ class MediaController extends BaseController {
         CSRF::checkTokenAjax($decoded['csrf_token']);
 
         if(!self::checkPermission('upload_media')) {         
-            $data['error'] = 'You have not the permission to do that!';
+            $data['error'] = self::getTrans('You have not the permission to do that!');
         } else {
             if($decoded['type'] === 'dir') {
                 $element = Media::createFolder($decoded['folder']);
@@ -31,7 +31,7 @@ class MediaController extends BaseController {
         if(isset($element) && $element) {
            $data['element'] = $element;
         } else if(!isset($data['error'])) {
-           $data['error'] = 'There was a error!';
+           $data['error'] = self::getTrans('There was a error!');
         }
         $data['csrfToken'] = CSRF::getToken();
         
@@ -74,7 +74,7 @@ class MediaController extends BaseController {
 
     public function update($params, $post) {
         if(!self::checkPermission('edit_media')) {         
-            $data['error'] = 'You have not the permission to do that!';
+            $data['error'] = self::getTrans('You have not the permission to do that!');
         } else {
         if(isset($post['bulk'])) {
             foreach($post['elements'] as $element) {
@@ -90,7 +90,7 @@ class MediaController extends BaseController {
         $data['csrfToken'] = CSRF::getToken();
 
         if(!isset($data['error']) && !$element) {
-            $data['error'] = 'There was a error!';
+            $data['error'] = self::getTrans('There was a error!');
         }
 
         echo json_encode($data);
@@ -98,7 +98,7 @@ class MediaController extends BaseController {
 
     public function destroy($params) {
         if(!self::checkPermission('delete_media')) {         
-            $data['error'] = 'You have not the permission to do that!';
+            $data['error'] = self::getTrans('You have not the permission to do that!');
         } else {
             Media::deleteMediaElement($params['params']['id']);
         }

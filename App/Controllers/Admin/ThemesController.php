@@ -16,7 +16,7 @@ class ThemesController extends BaseController {
 
     public function create() {
         if(!self::checkPermission('add_theme')) {         
-            self::addFlash('error', 'You have not the permission to do that!');
+            self::addFlash('error', self::getTrans('You have not the permission to do that!'));
             self::redirect('/admin/dashboard');
         }
         self::render('admin/themes/create');
@@ -24,7 +24,7 @@ class ThemesController extends BaseController {
 
     public function edit($params) {
         if(!self::checkPermission('edit_theme')) {         
-            self::addFlash('error', 'You have not the permission to do that!');
+            self::addFlash('error', self::getTrans('You have not the permission to do that!'));
             self::redirect('/admin/dashboard');
         }
       $id = $params['params']['id'];
@@ -94,7 +94,7 @@ class ThemesController extends BaseController {
 
     public function store() {
         if(!self::checkPermission('add_theme')) {         
-            self::addFlash('error', 'You have not the permission to do that!');
+            self::addFlash('error', self::getTrans('You have not the permission to do that!'));
             self::redirect('/admin/dashboard');
         }
         CSRF::checkToken();
@@ -124,7 +124,7 @@ class ThemesController extends BaseController {
 
     public function update($params, $post) {
         if(!self::checkPermission('edit_theme')) {         
-            self::addFlash('error', 'You have not the permission to do that!');
+            self::addFlash('error', self::getTrans('You have not the permission to do that!'));
             self::redirect('/admin/dashboard');
         }
         Theme::activateTheme($params['params']['id']);
@@ -133,7 +133,7 @@ class ThemesController extends BaseController {
 
     public function delete($params) {
         if(!self::checkPermission('delete_theme')) {         
-            self::addFlash('error', 'You have not the permission to do that!');
+            self::addFlash('error', self::getTrans('You have not the permission to do that!'));
             self::redirect('/admin/dashboard');
         }
         if(Theme::getActiveTheme()['id'] !== $params['params']['id']) {
@@ -141,7 +141,7 @@ class ThemesController extends BaseController {
             Theme::deleteTheme($themePath . '/' . $params['params']['name'], $params['params']['name'], $params['params']['id']);
             self::redirect('/admin/themes');
         } else {
-            self::addFlash('error', 'You can not delete an active Theme!');
+            self::addFlash('error', self::getTrans('You can not delete an active Theme!'));
             self::redirect('/admin/themes');
         }
     }

@@ -34,7 +34,7 @@ class PagesController extends BaseController {
 
     public function edit($params) {
         if(!self::checkPermission('edit_page')) {         
-            self::addFlash('error', 'You have not the permission to do that!');
+            self::addFlash('error', self::getTrans('You have not the permission to do that!'));
             self::redirect('/admin/dashboard');
         }
 
@@ -51,7 +51,7 @@ class PagesController extends BaseController {
 
     public function create() {
         if(!self::checkPermission('add_page')) {         
-            self::addFlash('error', 'You have not the permission to do that!');
+            self::addFlash('error', self::getTrans('You have not the permission to do that!'));
             self::redirect('/admin/dashboard');
         }
         self::render('admin/pages/create');
@@ -59,7 +59,7 @@ class PagesController extends BaseController {
 
     public function store() {
         if(!self::checkPermission('add_page')) {         
-            self::addFlash('error', 'You have not the permission to do that!');
+            self::addFlash('error', self::getTrans('You have not the permission to do that!'));
             self::redirect('/admin/dashboard');
         }
         CSRF::checkToken();
@@ -84,7 +84,7 @@ class PagesController extends BaseController {
 
     public function delete($params) {
         if(!self::checkPermission('delete_page')) {         
-            self::addFlash('error', 'You have not the permission to do that!');
+            self::addFlash('error', self::getTrans('You have not the permission to do that!'));
             self::redirect('/admin/dashboard');
         }
         DefaultPage::deletePage($params['params']['id']);
@@ -93,7 +93,7 @@ class PagesController extends BaseController {
 
     public function update($params, $post) {
         if(!self::checkPermission('edit_page')) {         
-            self::addFlash('error', 'You have not the permission to do that!');
+            self::addFlash('error', self::getTrans('You have not the permission to do that!'));
             self::redirect('/admin/dashboard');
         }
         DefaultPage::updatePage($params['params']['id'], $post['page']);

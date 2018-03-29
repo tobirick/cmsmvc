@@ -114,6 +114,9 @@
         "Pagebuilder Items": "Pagebuilder Items",
         "Pagetitle": "Pagetitle",
         "Subtitle": "Subtitle",
-        "Sitedescription": "Sitedescription"
+        "Sitedescription": "Sitedescription",
+        "You can not delete an active Theme!": "You can not delete an active Theme!",
+        "You have not the permission to do that!": "You have not the permission to do that!",
+        "There was a error!": "There was a error!"
     }
 }

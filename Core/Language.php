@@ -9,6 +9,10 @@ class Language {
     protected $languageArray = [];
     protected $allLanguagesArray = [];
 
+    public function getTrans($string) {
+      return $this->languageArray['translations'][$string];
+    }
+
     public function __construct($lang = 'en') {
         $this->setLanguage($lang);
     }

@@ -17,7 +17,7 @@ class SettingsController extends BaseController {
 
     public function update() {
         if(!self::checkPermission('change_settings')) {         
-            self::addFlash('error', 'You have not the permission to do that!');
+            self::addFlash('error', self::getTrans('You have not the permission to do that!'));
             self::redirect('/admin/dashboard');
         }
         CSRF::checkToken();

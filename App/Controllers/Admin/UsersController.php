@@ -10,7 +10,7 @@ use \Core\CSRF;
 class UsersController extends BaseController {
     public function index($params) {
         if(!self::checkPermission('view_users')) {         
-            self::addFlash('error', 'You have not the permission to do that!');
+            self::addFlash('error', self::getTrans('You have not the permission to do that!'));
             self::redirect('/admin/dashboard');
         }
         $users = User::getAllUsers();
@@ -21,7 +21,7 @@ class UsersController extends BaseController {
 
     public function edit($params) {
         if(!self::checkPermission('edit_user')) {         
-            self::addFlash('error', 'You have not the permission to do that!');
+            self::addFlash('error', self::getTrans('You have not the permission to do that!'));
             self::redirect('/admin/dashboard');
         }
         $id = $params['params']['id'];
@@ -39,7 +39,7 @@ class UsersController extends BaseController {
 
     public function create() {
         if(!self::checkPermission('add_user')) {         
-            self::addFlash('error', 'You have not the permission to do that!');
+            self::addFlash('error', self::getTrans('You have not the permission to do that!'));
             self::redirect('/admin/dashboard');
         }
         self::render('admin/users/create');
@@ -47,7 +47,7 @@ class UsersController extends BaseController {
 
     public function store() {
         if(!self::checkPermission('add_user')) {         
-            self::addFlash('error', 'You have not the permission to do that!');
+            self::addFlash('error', self::getTrans('You have not the permission to do that!'));
             self::redirect('/admin/dashboard');
         }
         CSRF::checkToken();
@@ -79,7 +79,7 @@ class UsersController extends BaseController {
 
     public function delete($params) {
         if(!self::checkPermission('delete_user')) {         
-            self::addFlash('error', 'You have not the permission to do that!');
+            self::addFlash('error', self::getTrans('You have not the permission to do that!'));
             self::redirect('/admin/dashboard');
         }
         User::deleteUser($params['params']['id']);
@@ -88,7 +88,7 @@ class UsersController extends BaseController {
 
     public function update($params, $post) {
         if(!self::checkPermission('edit_user')) {         
-            self::addFlash('error', 'You have not the permission to do that!');
+            self::addFlash('error', self::getTrans('You have not the permission to do that!'));
             self::redirect('/admin/dashboard');
         }
         User::updateUser($params['params']['id'], $post['user']);

@@ -114,6 +114,9 @@
         "Pagebuilder Items": "Pagebuilder Items",
         "Pagetitle": "Titel der Seite",
         "Subtitle": "Untertitel",
-        "Sitedescription": "Seitenbeschreibung"
+        "Sitedescription": "Seitenbeschreibung",
+        "You can not delete an active Theme!": "Du kannst kein aktiviertes Theme löschen!",
+        "You have not the permission to do that!": "Du hast keine Berechtigung hierfür!",
+        "There was a error!": "Ein Fehler ist aufgetreten!"
     }
 }

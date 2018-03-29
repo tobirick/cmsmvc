@@ -55,6 +55,11 @@ class BaseController {
         $view->render($template, $args, $shares);
     }
 
+    public static function getTrans($string) {
+      $language = Router::getLanguage();
+      return $language->getTrans($string);
+    }
+
     public static function redirect($url) {
         $language = Router::getLanguage();
         $redirectTo = '/' . $language->getCurrentLanguage() . $url;

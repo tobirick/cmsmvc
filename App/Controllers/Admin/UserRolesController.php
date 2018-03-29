@@ -9,7 +9,7 @@ use \Core\CSRF;
 class UserRolesController extends BaseController {
     public function index() {
         if(!self::checkPermission('view_user_roles')) {         
-            self::addFlash('error', 'You have not the permission to do that!');
+            self::addFlash('error', self::getTrans('You have not the permission to do that!'));
             self::redirect('/admin/dashboard');
         }
         self::render('admin/user-roles/index');

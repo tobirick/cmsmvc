@@ -16,7 +16,7 @@ class PagebuilderController extends BaseController {
 
     public function edit($params) {
         if(!self::checkPermission('edit_pagebuilder_item')) {         
-            self::addFlash('error', 'You have not the permission to do that!');
+            self::addFlash('error', self::getTrans('You have not the permission to do that!'));
             self::redirect('/admin/dashboard');
         }
         $id = $params['params']['id'];
@@ -30,7 +30,7 @@ class PagebuilderController extends BaseController {
 
     public function create() {
         if(!self::checkPermission('add_pagebuilder_item')) {         
-            self::addFlash('error', 'You have not the permission to do that!');
+            self::addFlash('error', self::getTrans('You have not the permission to do that!'));
             self::redirect('/admin/dashboard');
         }
         self::render('admin/pagebuilder/create');
@@ -38,7 +38,7 @@ class PagebuilderController extends BaseController {
 
     public function store() {
         if(!self::checkPermission('add_pagebuilder_item')) {         
-            self::addFlash('error', 'You have not the permission to do that!');
+            self::addFlash('error', self::getTrans('You have not the permission to do that!'));
             self::redirect('/admin/dashboard');
         }
         CSRF::checkToken();
@@ -62,7 +62,7 @@ class PagebuilderController extends BaseController {
 
     public function delete($params) {
         if(!self::checkPermission('delete_pagebuilder_item')) {         
-            self::addFlash('error', 'You have not the permission to do that!');
+            self::addFlash('error', self::getTrans('You have not the permission to do that!'));
             self::redirect('/admin/dashboard');
         }
         Pagebuilder::deleteItem($params['params']['id']);
@@ -71,7 +71,7 @@ class PagebuilderController extends BaseController {
 
     public function update($params, $post) {
         if(!self::checkPermission('edit_pagebuilder_item')) {         
-            self::addFlash('error', 'You have not the permission to do that!');
+            self::addFlash('error', self::getTrans('You have not the permission to do that!'));
             self::redirect('/admin/dashboard');
         }
         Pagebuilder::updateItem($params['params']['id'], $post['item']);
