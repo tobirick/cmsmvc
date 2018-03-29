@@ -3,9 +3,10 @@ namespace Core;
 
 use \App\Models\User;
 use \App\Models\Theme;
+use \Core\Permission;
 
 class BaseController {
-   private $publicPages = ['App\Controllers\DefaultPageController', 'App\Controllers\DefaultPostController'];
+    private $publicPages = ['App\Controllers\DefaultPageController', 'App\Controllers\DefaultPostController'];
 
     public function render($template, $args = []) {
         $csrf = new CSRF();
@@ -13,7 +14,6 @@ class BaseController {
         $mainMenuPages = \App\Models\Menu::getActiveMenuPages();
         $getAllMenuNames = \App\Models\Menu::getAllMenuTypeNames();
         $activeTheme = \App\Models\Theme::getActiveTheme();
-        // Language
         $language = Router::getLanguage();
         $languagesArray = $language->getLanguagesArray();
         $currentLanguage = $language->getCurrentLanguage();
@@ -31,14 +31,22 @@ class BaseController {
             ['key' => 'lang', 'value' => $languagesArray],
             ['key' => 'curLang', 'value' => $currentLanguage],
             ['key' => 'allLanguages', 'value' => $allLanguages],
-            ['key' => 'settings', 'value' => $settings]
+            ['key' => 'settings', 'value' => $settings],
         ];
 
+        // Minify CSS and JS
         if(filter_var(getenv('DEV'), FILTER_VALIDATE_BOOLEAN)) {
             Theme::combineCSS($activeTheme['name']);
             Theme::combineJS($activeTheme['name']);
         }
 
+        // Flash Messages
+        if(isset($_SESSION['flash'])) {
+            $flash = $_SESSION['flash'];
+            $shares[] = ['key' => 'flash', 'value' => $flash];
+        }
+
+        // Disable CSRF for Public Pages
          if(!in_array(get_class($this), $this->publicPages)) {
             $shares[] = ['key' => 'csrf', 'value' => $csrf->getToken()];
          }
@@ -51,6 +59,7 @@ class BaseController {
         $language = Router::getLanguage();
         $redirectTo = '/' . $language->getCurrentLanguage() . $url;
         header('Location: ' . $redirectTo  );
+        exit;
     }
 
     public function getUser() {
@@ -58,5 +67,21 @@ class BaseController {
             return User::findById($_SESSION['userid']);        
         }
         return false;
+    }
+    
+    public function checkPermission($permissionname) {
+        $id = Permission::getPerm($permissionname);
+        if(array_search($id, self::getUser()['permissions']) !== false) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function addFlash($type, $message) {
+        $_SESSION['flash'] = [
+            'type' => $type,
+            'message' => $message
+        ];
     }
 }

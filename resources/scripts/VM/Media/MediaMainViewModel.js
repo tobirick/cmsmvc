@@ -169,11 +169,13 @@ export default class MediaManViewModel {
         }
         const response = await MediaHandler.deleteMediaElement(data);
 
-        if(response.message === 'success') {
+        if(response.message === 'success' && !response.error) {
             this.mediaElements.remove(element);
-            csrf.updateToken(response.csrfToken);
             this.showAlert('success', 'Element deleted');
+        } else {
+            this.showAlert('error', response.error);
         }
+        csrf.updateToken(response.csrfToken);
     }
 
     async uploadFile(file) {

@@ -21,14 +21,10 @@ class LoginController extends BaseController {
                     User::doLogin($user);
                     self::redirect('/admin/dashboard');
                 } else {
-                    self::render('admin/login/index', [
-                       'error' => 'There was an error'
-                    ]);
+                    self::redirect('/admin/login');
                 }
             } else {
-                self::render('admin/login/index', [
-                    'formErrors' => $formErrors
-                 ]);
+                self::redirect('/admin/login');
             }
         }
     }

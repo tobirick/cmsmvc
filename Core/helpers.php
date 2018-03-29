@@ -7,3 +7,7 @@ function checkIfNavItemIsActive($navitem) {
 function getURL() {
     return explode('?', $_SERVER['REQUEST_URI'])[0];
 }
+
+function removeFlashSession() {
+    unset($_SESSION['flash']);
+}

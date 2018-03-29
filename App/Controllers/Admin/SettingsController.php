@@ -16,6 +16,10 @@ class SettingsController extends BaseController {
     }
 
     public function update() {
+        if(!self::checkPermission('change_settings')) {         
+            self::addFlash('error', 'You have not the permission to do that!');
+            self::redirect('/admin/dashboard');
+        }
         CSRF::checkToken();
         if(isset($_POST)) {
             foreach($_POST['settings'] as $index => $setting) {

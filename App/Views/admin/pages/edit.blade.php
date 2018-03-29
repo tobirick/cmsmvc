@@ -52,7 +52,7 @@
                        </div>
                        <div class="col-9">
                           <input id="pagename" autocomplete="off" class="form-input" value="{{$page['name']}}" type="text" placeholder="Name" name="page[name]">
-                          <strong>Permalink: </strong> <a target="_blank" class="aurl" href="{{$settings['siteurl']}}{{$page['slug']}}"> {{$settings['siteurl']}}{{$page['slug']}}</a>
+                          <strong>Permalink: </strong> <a target="_blank" class="aurl" href="{{$settings['siteurl']}}/{{$page['slug']}}"> {{$settings['siteurl']}}/{{$page['slug']}}</a>
                        </div>
                     </div>
                     <div class="form-row">
@@ -91,8 +91,13 @@
 
         <div class="col-8">
             <div class="admin-box">
-                <h3 class="admin-box__title">Pagebuilder</h3>
-                <button class="button-primary fr" data-bind="click: savetoDB">{{$lang['Save']}}</button>
+                <div class="admin-box__header">
+                    <h3 class="admin-box__title">Pagebuilder</h3>
+                    <div class="center-v-flex">
+                        <a href="{{$settings['siteurl']}}/{{$page['slug']}}" target="_blank" class="button-primary-border mr-1">Preview</a>
+                        <button class="button-primary fr" data-bind="click: savetoDB">{{$lang['Save']}}</button>
+                    </div>
+                </div>
                 <div class="admin-grid-sections" data-bind="sortable: {data: sections, connectClass: 'admin-grid-sections', options: {revert: 'invalid'}}">
                     @component('admin.components.pagebuilder-section')@endcomponent
                 </div>
@@ -103,7 +108,7 @@
             <div class="admin-box">
                 <div class="admin-box__header">
                     <h3 class="admin-box__title">Elements</h3>
-                    <a class="center-v-flex dif button-primary" target="_blank" style="max-height: 3.5rem;" href="/{{$curLang}}/admin/pagebuilder/create">Add new</a>
+                    <a class="center-v-flex dif button-primary" target="_blank" href="/{{$curLang}}/admin/pagebuilder/create">Add new</a>
                 </div>
                 <div data-bind="foreach: elements" class="row">
                     <div class="col-6">

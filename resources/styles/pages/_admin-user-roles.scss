@@ -1,0 +1,46 @@
+.user-role-menu {
+  display: flex;
+  flex-direction: column;
+
+  &__item {
+    margin: 0.5rem 0;
+    padding: 0.75rem;
+    border-radius: 3px;
+    @include transition(.2s ease-in all);
+    cursor: pointer;
+
+    &.empty {
+      span {
+        background-color: #eee;
+        width: 80%;
+        height: 3rem;
+        border-radius: 50px;
+        margin: 1rem 0;
+        display: block;
+
+        &:last-child {
+          width: 55%;
+        }
+      }
+    }
+    
+    &:not(.empty).active,
+    &:not(.empty):hover {
+      box-shadow: 0 4px 7.5px 1px rgba(22, 27, 53, 0.11);
+      background-color: #f1f1f1;
+      font-weight: bold;
+    }
+  }
+}
+
+.user-role-checkboxes {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  & > span {
+    flex: 0 0 50%;
+    max-width: 50%;
+    flex-grow: 1;
+  }
+}

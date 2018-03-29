@@ -21,14 +21,10 @@ class RegisterController extends BaseController {
                 if($user) {
                     self::redirect('/admin/dashboard');
                 } else {
-                    self::render('admin/register/index', [
-                        'error' => 'errorororro'
-                     ]);
+                    self::redirect('/admin/register');
                 }
             } else {
-                self::render('admin/register/index', [
-                    'formErrors' => $formErrors
-                 ]);
+                self::redirect('/admin/register');
             }
         }
     }

@@ -21,7 +21,46 @@ class User extends Model {
             $errors[] = 'Please enter at least 6 characters for the password';
         }
 
+        if(isset($user['repeat_password']) && $user['password'] !==  $user['repeat_password']) {
+            $errors[] = 'Passwords do not match';
+        }
+
         return $errors;
+    }
+
+    public static function getAllUsers() {
+        $sql = 'SELECT users.*, user_roles.user_role_name as role_name FROM users LEFT JOIN user_roles ON user_roles.id = users.user_role_id';
+        
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->execute();
+        
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function updateUser($id, $user) {
+        $db = static::getDB();
+        $stmt = $db->prepare('UPDATE users SET name = :name, email = :email, user_role_id = :user_role_id WHERE id = :id');
+        $stmt->execute([
+            ':id' => $id,
+            ':name' => $user['name'],
+            ':email' => $user['email'],
+            ':user_role_id' => $user['user_role_id']
+        ]);
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
+    public static function deleteUser($userid) {
+        $db = static::getDB();
+        $stmt = $db->prepare('DELETE FROM users WHERE id = :id');
+        $stmt->execute([
+            ':id' => $userid
+        ]);
+
+        return true;
     }
 
     public static function checkIfUserExists($user) {
@@ -47,7 +86,7 @@ class User extends Model {
             return false;
         }
         $passwordHash = password_hash($user['password'], PASSWORD_BCRYPT);
-        
+
         $db = static::getDB();
         $stmt = $db->prepare('INSERT INTO users (email, name, password_hash, created_at) VALUES(:email, :name, :password_hash, :created_at)');
         $stmt->execute([
@@ -56,7 +95,9 @@ class User extends Model {
             ':password_hash'=> $passwordHash,
             ':created_at' => time()
         ]);
-        return true;
+        
+        $lastID = $db->lastInsertId();
+        return self::findById($lastID);
     }
 
     public static function comparePasswords($password, $hash) {
@@ -116,6 +157,9 @@ class User extends Model {
 
         $stmt->execute();
         
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $result['permissions'] = UserRoles::getPermissionsByRoleID($result['user_role_id']);
+
+        return $result;
     }
 }

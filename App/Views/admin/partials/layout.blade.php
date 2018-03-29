@@ -8,6 +8,9 @@
     @include('admin.partials.styles')
 </head>
 <body>
+    @if(isset($flash))
+        @include('admin.components.flash')
+    @endif
     @include('admin.partials.sidebar')
     <div class="main-content">
         <div class="main-content__header">

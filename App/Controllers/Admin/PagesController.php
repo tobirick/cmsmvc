@@ -33,6 +33,11 @@ class PagesController extends BaseController {
     }
 
     public function edit($params) {
+        if(!self::checkPermission('edit_page')) {         
+            self::addFlash('error', 'You have not the permission to do that!');
+            self::redirect('/admin/dashboard');
+        }
+
         $id = $params['params']['id'];
         $page = DefaultPage::getPageById($id);
         if($page) {
@@ -45,10 +50,18 @@ class PagesController extends BaseController {
     }
 
     public function create() {
+        if(!self::checkPermission('add_page')) {         
+            self::addFlash('error', 'You have not the permission to do that!');
+            self::redirect('/admin/dashboard');
+        }
         self::render('admin/pages/create');
     }
 
     public function store() {
+        if(!self::checkPermission('add_page')) {         
+            self::addFlash('error', 'You have not the permission to do that!');
+            self::redirect('/admin/dashboard');
+        }
         CSRF::checkToken();
         if(isset($_POST)) {
             $page = new DefaultPage();
@@ -70,11 +83,19 @@ class PagesController extends BaseController {
     }
 
     public function delete($params) {
+        if(!self::checkPermission('delete_page')) {         
+            self::addFlash('error', 'You have not the permission to do that!');
+            self::redirect('/admin/dashboard');
+        }
         DefaultPage::deletePage($params['params']['id']);
         self::redirect('/admin/pages');
     }
 
     public function update($params, $post) {
+        if(!self::checkPermission('edit_page')) {         
+            self::addFlash('error', 'You have not the permission to do that!');
+            self::redirect('/admin/dashboard');
+        }
         DefaultPage::updatePage($params['params']['id'], $post['page']);
         self::redirect('/admin/pages');
     }

@@ -15,10 +15,18 @@ class ThemesController extends BaseController {
     }
 
     public function create() {
+        if(!self::checkPermission('add_theme')) {         
+            self::addFlash('error', 'You have not the permission to do that!');
+            self::redirect('/admin/dashboard');
+        }
         self::render('admin/themes/create');
     }
 
     public function edit($params) {
+        if(!self::checkPermission('edit_theme')) {         
+            self::addFlash('error', 'You have not the permission to do that!');
+            self::redirect('/admin/dashboard');
+        }
       $id = $params['params']['id'];
       $theme = Theme::getThemeById($id);
       if($theme) {
@@ -85,6 +93,10 @@ class ThemesController extends BaseController {
     }
 
     public function store() {
+        if(!self::checkPermission('add_theme')) {         
+            self::addFlash('error', 'You have not the permission to do that!');
+            self::redirect('/admin/dashboard');
+        }
         CSRF::checkToken();
         if(isset($_POST)) {
             $themePath = realpath(__DIR__ . '/../../Views/public/themes');
@@ -111,11 +123,19 @@ class ThemesController extends BaseController {
     }
 
     public function update($params, $post) {
+        if(!self::checkPermission('edit_theme')) {         
+            self::addFlash('error', 'You have not the permission to do that!');
+            self::redirect('/admin/dashboard');
+        }
         Theme::activateTheme($params['params']['id']);
         self::redirect('/admin/themes');
     }
 
     public function delete($params) {
+        if(!self::checkPermission('delete_theme')) {         
+            self::addFlash('error', 'You have not the permission to do that!');
+            self::redirect('/admin/dashboard');
+        }
         if(Theme::getActiveTheme()['id'] !== $params['params']['id']) {
             $themePath = realpath(__DIR__ . '/../../Views/public/themes');
             Theme::deleteTheme($themePath . '/' . $params['params']['name'], $params['params']['name'], $params['params']['id']);

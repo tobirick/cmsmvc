@@ -7,6 +7,10 @@
     display: flex;
     align-items: center;
 
+    &.top {
+        margin-top: 0;
+    }
+
     &-error {
         background-color: $error-color;
         color: #fff;

@@ -15,6 +15,11 @@ class MenusController extends BaseController {
     }
 
     public function edit($params) {
+        if(!self::checkPermission('edit_menu')) {         
+            self::addFlash('error', 'You have not the permission to do that!');
+            self::redirect('/admin/dashboard');
+        }
+
         $id = $params['params']['id'];
         $menu = Menu::getMenuById($id);
         $menuitems = Menu::getMenuItemsByMenuId($id);
@@ -29,10 +34,18 @@ class MenusController extends BaseController {
     }
 
     public function create() {
+        if(!self::checkPermission('add_menu')) {         
+            self::addFlash('error', 'You have not the permission to do that!');
+            self::redirect('/admin/dashboard');
+        }
         self::render('admin/menus/create');
     }
 
     public function store() {
+        if(!self::checkPermission('add_menu')) {         
+            self::addFlash('error', 'You have not the permission to do that!');
+            self::redirect('/admin/dashboard');
+        }
         CSRF::checkToken();
         if(isset($_POST)) {
             $menu = new Menu();
@@ -53,11 +66,19 @@ class MenusController extends BaseController {
     }
 
     public function delete($params) {
+        if(!self::checkPermission('delete_menu')) {         
+            self::addFlash('error', 'You have not the permission to do that!');
+            self::redirect('/admin/dashboard');
+        }
         Menu::deleteMenu($params['params']['id']);
         self::redirect('/admin/menus');
     }
 
     public function update($params, $post) {
+        if(!self::checkPermission('edit_menu')) {         
+            self::addFlash('error', 'You have not the permission to do that!');
+            self::redirect('/admin/dashboard');
+        }
         Menu::updateMenu($params['params']['id'], $post['menu']);
         self::redirect('/admin/menus');
     }

@@ -4,6 +4,16 @@
     margin-bottom: 4rem;
     overflow: hidden;
 
+    & .action-icon {
+        @include transition(.2s ease-in all);
+        cursor: pointer;
+        padding: 0 0.75rem;
+
+        &:hover {
+            color: $primary-color;
+        }
+    }
+
     &.no-padding {
       padding: 0;
     }
@@ -13,6 +23,11 @@
         justify-content: space-between;
         align-items: center;
         margin-bottom: 1.2rem;
+
+        & > div {
+            display: flex;
+            align-items: center;
+        }    
 
         & .admin-box__title {
             margin-bottom: 0;

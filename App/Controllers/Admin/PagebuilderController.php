@@ -15,6 +15,10 @@ class PagebuilderController extends BaseController {
     }
 
     public function edit($params) {
+        if(!self::checkPermission('edit_pagebuilder_item')) {         
+            self::addFlash('error', 'You have not the permission to do that!');
+            self::redirect('/admin/dashboard');
+        }
         $id = $params['params']['id'];
         $item = Pagebuilder::getItemById($id);
         if($item) {
@@ -25,10 +29,18 @@ class PagebuilderController extends BaseController {
     }
 
     public function create() {
+        if(!self::checkPermission('add_pagebuilder_item')) {         
+            self::addFlash('error', 'You have not the permission to do that!');
+            self::redirect('/admin/dashboard');
+        }
         self::render('admin/pagebuilder/create');
     }
 
     public function store() {
+        if(!self::checkPermission('add_pagebuilder_item')) {         
+            self::addFlash('error', 'You have not the permission to do that!');
+            self::redirect('/admin/dashboard');
+        }
         CSRF::checkToken();
         if(isset($_POST)) {
             // TODO: Add new pagebuilder item
@@ -49,11 +61,19 @@ class PagebuilderController extends BaseController {
     }
 
     public function delete($params) {
+        if(!self::checkPermission('delete_pagebuilder_item')) {         
+            self::addFlash('error', 'You have not the permission to do that!');
+            self::redirect('/admin/dashboard');
+        }
         Pagebuilder::deleteItem($params['params']['id']);
         self::redirect('/admin/pagebuilder');
     }
 
     public function update($params, $post) {
+        if(!self::checkPermission('edit_pagebuilder_item')) {         
+            self::addFlash('error', 'You have not the permission to do that!');
+            self::redirect('/admin/dashboard');
+        }
         Pagebuilder::updateItem($params['params']['id'], $post['item']);
         self::redirect('/admin/pagebuilder');
     }

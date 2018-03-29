@@ -17,17 +17,20 @@ class MediaController extends BaseController {
 
         CSRF::checkTokenAjax($decoded['csrf_token']);
 
-        if($decoded['type'] === 'dir') {
-            $element = Media::createFolder($decoded['folder']);
-        } else if($decoded['type'] === 'file') {
-            $element = Media::createFile($decoded['file']);            
+        if(!self::checkPermission('upload_media')) {         
+            $data['error'] = 'You have not the permission to do that!';
+        } else {
+            if($decoded['type'] === 'dir') {
+                $element = Media::createFolder($decoded['folder']);
+            } else if($decoded['type'] === 'file') {
+                $element = Media::createFile($decoded['file']);            
+            }
         }
         
         header('Content-type: application/json');
-        $data = [];
-        if($element) {
+        if(isset($element) && $element) {
            $data['element'] = $element;
-        } else {
+        } else if(!isset($data['error'])) {
            $data['error'] = 'There was a error!';
         }
         $data['csrfToken'] = CSRF::getToken();
@@ -70,20 +73,23 @@ class MediaController extends BaseController {
     }
 
     public function update($params, $post) {
-       if(isset($post['bulk'])) {
-          foreach($post['elements'] as $element) {
-            Media::updateMediaElementPosition($element);
-          }
-          $element = true;
-      } else {
-         $element = Media::updateMediaElement($params['params']['id'], $post['element'], $post['targetpath']);
-      }
+        if(!self::checkPermission('edit_media')) {         
+            $data['error'] = 'You have not the permission to do that!';
+        } else {
+        if(isset($post['bulk'])) {
+            foreach($post['elements'] as $element) {
+                Media::updateMediaElementPosition($element);
+            }
+            $element = true;
+        } else {
+            $element = Media::updateMediaElement($params['params']['id'], $post['element'], $post['targetpath']);
+        }
+        }
 
         header('Content-type: application/json');
-        $data = [];
         $data['csrfToken'] = CSRF::getToken();
 
-        if(!$element) {
+        if(!isset($data['error']) && !$element) {
             $data['error'] = 'There was a error!';
         }
 
@@ -91,9 +97,12 @@ class MediaController extends BaseController {
     }
 
     public function destroy($params) {
-        Media::deleteMediaElement($params['params']['id']);
+        if(!self::checkPermission('delete_media')) {         
+            $data['error'] = 'You have not the permission to do that!';
+        } else {
+            Media::deleteMediaElement($params['params']['id']);
+        }
         header('Content-type: application/json');
-        $data = [];
         $data['csrfToken'] = CSRF::getToken();
 
         echo json_encode($data);

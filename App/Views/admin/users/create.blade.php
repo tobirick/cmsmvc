@@ -1,21 +1,27 @@
-@extends('admin.partials.background-layout')
-@section('title', 'Register')
+@extends('admin.partials.layout')
+@section('title', 'Create User')
+@section('content-title')
+'Add new User'
+@stop
 
 @section('content')
-    <div class="box-wrapper">
-        <div class="box">
-            <div class="box__title"><h2>Register for <strong>PPCMS</strong></h2></div>
-            @if(isset($formErrors))
-                @foreach ($formErrors as $formError)
-                    <p>{{$formError}}</p>
-                @endforeach
-            @endif
-
-            @if(isset($error))
-                <p>{{$error}}</p>
-            @endif
-            <form id="validate-form" method="POST" action="/admin/register">
-                <input name="csrf_token" type="hidden" value="{{$csrf}}">
+@component('admin.partials.secondary-navigation')
+    @slot('left')
+        <a href="/{{$curLang}}/admin/users" class="button-primary-border">{{$lang['Go back']}}</a>
+    @endslot
+    @slot('right')
+        <a id="submit-form-btn" href="#" class="button-primary">{{$lang['Save']}}</a>
+    @endslot
+@endcomponent
+<div id="content">
+<div class="container">
+    <div class="row">
+        
+        <form class="w-100 df" id="submit-form" action="/admin/users" method="POST">
+            <input name="csrf_token" type="hidden" value="{{$csrf}}">
+        <div class="col-12">
+            <div class="admin-box">
+               <h3 class="admin-box__title">Create User</h3>
                 <div class="form-row">
                     <div id="user" class="form-input-icon">
                         <input data-required="true" data-valtype="text" class="form-input validate" placeholder="Name" type="text" name="user[name]">
@@ -36,10 +42,9 @@
                         <input data-required="true" data-valtype="repeatpassword" class="form-input validate" placeholder="Repeat Password" type="password" name="user[repeat_password]">
                     </div>
                 </div>
-                <button class="button-primary block">Register</button>
-            </form>
-
-            <span class="box__info">Already have an account? - <a href="/admin/login">Login here</a></span>
+            </div>
         </div>
+    </form>
     </div>
+</div>
 @stop

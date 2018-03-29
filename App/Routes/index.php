@@ -35,6 +35,8 @@ require_once(__DIR__ . '/SettingsAdmin.php');
 require_once(__DIR__ . '/MediaAdmin.php');
 require_once(__DIR__ . '/DownloadsAdmin.php');
 require_once(__DIR__ . '/FormsAdmin.php');
+require_once(__DIR__ . '/UsersAdmin.php');
+require_once(__DIR__ . '/UserRolesAdmin.php');
 
 ## Public ##
 require_once(__DIR__ . '/PagesPublic.php');

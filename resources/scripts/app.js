@@ -16,6 +16,7 @@ import PagebuilderMainViewModel from './VM/Pagebuilder/PagebuilderMainViewModel'
 import MediaMainViewModel from './VM/Media/MediaMainViewModel';
 import CreatePagebuilderMainViewModel from './VM/CreatePagebuilder/CreatePagebuilderMainViewModel';
 import ThemeMainViewModel from './VM/Theme/ThemeMainViewModel';
+import UserRolesMainViewModel from './VM/UserRoles/UserRolesMainViewModel';
 
 // Validator
 validator.init('#validate-form');
@@ -25,6 +26,18 @@ const form = new Form();
 
 // Knockout VieModels
 const pathName = window.location.pathname;
+// User Roles
+if(pathName.includes('/admin/users/roles')) {
+    const userRolesMainViewModel = new UserRolesMainViewModel();
+    loading.addSpinner();
+    userRolesMainViewModel.fetchUserRoles().then(() => {
+        userRolesMainViewModel.fetchUserPermissions().then(() => {
+            ko.applyBindings(userRolesMainViewModel);
+            loading.removeSpinner();
+        });
+    });
+}
+
 // Edit Menu Page
 if(pathName.includes('/admin/menus/') && pathName.includes('edit')) {
     const menuListMainViewModel = new MenuListMainViewModel();

@@ -79,7 +79,7 @@ MediaHandler.deleteMediaElement = function(data) {
         method: 'POST'
     })
         .then(response => response.json())
-        .then(data => ({message: 'success', csrfToken: data.csrfToken}))
+        .then(data => ({message: 'success', csrfToken: data.csrfToken, error: data.error}))
         .catch(data => ({message: 'error', csrfToken: data.csrfToken}));
 }
 
