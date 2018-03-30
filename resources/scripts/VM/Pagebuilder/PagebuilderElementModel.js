@@ -25,29 +25,47 @@ export default class PagebuilderElementModel {
             html: ko.observable(this.item_html())
         });
 
-        const config = !data.config ? this.item_json_config() : helpers.isJsonString(data.config) ? JSON.parse(data.config) : data.config;
+        const config = this.item_json_config();
 
-        if(config.elements) {
-            config.elements.forEach(configelement => {
-                const newconfigelement = {};
-                for(let key in configelement) {
-                    if(Array.isArray(configelement[key])) {
-                        const array = ko.observableArray([]);
-                        configelement[key].forEach((element) => {
-                            const newconfigelementarr = {};
-                            for(let keyarr in element) {
-                                newconfigelementarr[keyarr] = ko.observable(element[keyarr]);
-                            }
-                            array.push(newconfigelementarr);
-                        });
-                        newconfigelement[key] = array;
-                    } else {
-                        newconfigelement[key] = ko.observable(configelement[key]);
-                    }
-                }
-                this.config().elements.push(ko.observable(newconfigelement));
+        config.elements.forEach(configelement => {
+         const newconfigelement = {};
+         for(let key in configelement) {
+            if(Array.isArray(configelement[key])) {
+               const array = ko.observableArray([]);
+               configelement[key].forEach((element) => {
+                   const newconfigelementarr = {};
+                   for(let keyarr in element) {
+                       newconfigelementarr[keyarr] = ko.observable(element[keyarr]);
+                   }
+                   array.push(newconfigelementarr);
+               });
+               newconfigelement[key] = array;
+           } else {
+               newconfigelement[key] = ko.observable(configelement[key]);
+           }
+         }
+
+         const configDB = helpers.isJsonString(data.config) ? JSON.parse(data.config) : data.config;
+         if(configDB) {
+            configDB.elements.forEach(element => {
+               if(element.key === newconfigelement.key()) {
+                  if(element.buttons.length > 0) {
+                     const buttonArr = ko.observableArray([]);
+                     element.buttons.forEach(buttonEl => {
+                        const configElementButtonArr = {};
+                        for(let keyArr in buttonEl) {
+                           configElementButtonArr[keyArr] = ko.observable(buttonEl[keyArr]);
+                        }
+                        buttonArr.push(configElementButtonArr);
+                     });
+                     newconfigelement.buttons = buttonArr;
+                  } 
+                  newconfigelement.value(element.value);
+               }
             });
-        }
+         }
+         this.config().elements.push(ko.observable(newconfigelement));
+        });
         
         this.paddingVM = ko.observable(data.paddingVM ? {
             top: ko.observable(data.paddingVM.top || ''),
