@@ -8,6 +8,10 @@ use \Core\CSRF;
 
 class MediaController extends BaseController {
     public function index() {
+      if(!self::checkPermission('view_media')) {         
+         self::addFlash('error', self::getTrans('You have not the permission to do that!'));
+         self::redirect('/admin/dashboard');
+      }
         self::render('admin/media/index');
     }
 

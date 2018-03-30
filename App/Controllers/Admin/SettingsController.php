@@ -9,6 +9,11 @@ use \Core\CSRF;
 
 class SettingsController extends BaseController {
     public function index() {
+      if(!self::checkPermission('view_settings')) {         
+         self::addFlash('error', self::getTrans('You have not the permission to do that!'));
+         self::redirect('/admin/dashboard');
+      }
+
         $settings = Settings::getSettings();
     
         self::render('admin/settings/index', [
@@ -40,6 +45,11 @@ class SettingsController extends BaseController {
     }
 
     public function languageIndex() {
+      if(!self::checkPermission('view_language')) {         
+         self::addFlash('error', self::getTrans('You have not the permission to do that!'));
+         self::redirect('/admin/dashboard');
+      }
+
       $languages = Language::getAllLanguages();
       self::render('admin/languages/index', [
          'languages' => $languages
@@ -47,10 +57,18 @@ class SettingsController extends BaseController {
     }
 
     public function languageCreate() {
+      if(!self::checkPermission('add_language')) {         
+         self::addFlash('error', self::getTrans('You have not the permission to do that!'));
+         self::redirect('/admin/dashboard');
+      }
       self::render('admin/languages/create');
     }
 
     public function languageEdit($params) {
+      if(!self::checkPermission('edit_language')) {         
+         self::addFlash('error', self::getTrans('You have not the permission to do that!'));
+         self::redirect('/admin/dashboard');
+      }
        $language = Language::getLanguageById($params['params']['id']);
       self::render('admin/languages/edit', [
          'language' => $language
@@ -58,6 +76,10 @@ class SettingsController extends BaseController {
     }
 
     public function languageStore() {
+      if(!self::checkPermission('add_language')) {         
+         self::addFlash('error', self::getTrans('You have not the permission to do that!'));
+         self::redirect('/admin/dashboard');
+      }
       CSRF::checkToken();
       if(isset($_POST)) {
           $language = Language::addLanguage($_POST['language']);
@@ -77,11 +99,19 @@ class SettingsController extends BaseController {
     }
 
     public function languageDelete($params) {
+      if(!self::checkPermission('delete_language')) {         
+         self::addFlash('error', self::getTrans('You have not the permission to do that!'));
+         self::redirect('/admin/dashboard');
+      }
       Language::deleteLanguage($params['params']['id']);
       self::redirect('/admin/settings/languages');
   }
 
   public function languageUpdate($params, $post) {
+   if(!self::checkPermission('edit_language')) {         
+      self::addFlash('error', self::getTrans('You have not the permission to do that!'));
+      self::redirect('/admin/dashboard');
+   }
       Language::updateLanguage($params['params']['id'], $post['language']);
       self::redirect('/admin/settings/languages');
   }

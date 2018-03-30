@@ -8,6 +8,11 @@ use \Core\CSRF;
 
 class ThemesController extends BaseController {
     public function index() {
+      if(!self::checkPermission('view_theme')) {         
+         self::addFlash('error', self::getTrans('You have not the permission to do that!'));
+         self::redirect('/admin/dashboard');
+      }
+
         $themes = Theme::getAllThemeNames();
         self::render('admin/themes/index', [
             'themes' => $themes

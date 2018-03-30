@@ -8,6 +8,10 @@ use \Core\CSRF;
 
 class PagebuilderController extends BaseController {
     public function index() {
+      if(!self::checkPermission('view_pagebuilder_item')) {         
+         self::addFlash('error', self::getTrans('You have not the permission to do that!'));
+         self::redirect('/admin/dashboard');
+      }
         $pagebuilderitems = Pagebuilder::getAllItems();
         self::render('admin/pagebuilder/index', [
             'pagebuilderitems' => $pagebuilderitems

@@ -20,10 +20,20 @@
                   <input name="csrf_token" type="hidden" value="{{$csrf}}">
                   <input type="hidden" name='_METHOD' value="PUT">
                   <div class="form-row">
-                  <input class="form-input" type="text" value="{{$language['name']}}" placeholder="Name" name="language[name]">
+                     <div class="col-2">
+                        <label class="form-label" for="name">Name</label>
+                     </div>
+                     <div class="col-10">
+                        <input id="name" class="form-input" type="text" value="{{$language['name']}}" placeholder="Name" name="language[name]">
+                     </div>
                   </div>
                   <div class="form-row">
-                      <input class="form-input" type="text" value="{{$language['iso']}}" placeholder="ISO" name="language[iso]">
+                     <div class="col-2">
+                        <label class="form-label" for="iso">ISO</label>
+                     </div>
+                     <div class="col-10">
+                        <input id="iso" class="form-input" type="text" value="{{$language['iso']}}" placeholder="ISO" name="language[iso]">
+                     </div>
                   </div>
               </form>
          </div>

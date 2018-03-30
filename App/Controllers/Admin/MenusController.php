@@ -8,6 +8,11 @@ use \Core\CSRF;
 
 class MenusController extends BaseController {
     public function index() {
+      if(!self::checkPermission('view_menu')) {         
+         self::addFlash('error', self::getTrans('You have not the permission to do that!'));
+         self::redirect('/admin/dashboard');
+      }
+
         $menus = Menu::getAllMenus();
         self::render('admin/menus/index', [
             'menus' => $menus

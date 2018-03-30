@@ -8,6 +8,10 @@ use \Core\CSRF;
 
 class PagesController extends BaseController {
     public function index($params) {
+      if(!self::checkPermission('view_page')) {         
+         self::addFlash('error', self::getTrans('You have not the permission to do that!'));
+         self::redirect('/admin/dashboard');
+      }
         $pageNumber = isset($_GET['p']) ? $_GET['p'] : 1;
         $numberOfPagesPerPage = 4;
         $numberOfPages = ceil(DefaultPage::countPages() / $numberOfPagesPerPage);
