@@ -25,12 +25,14 @@ class DefaultPage extends Model {
         return $result;
     }
 
-    public function getPageBySlug() {
+    public function getPageBySlug($languageID) {
         if($this->slug) {
             $db = static::getDB();
-            $stmt = $db->prepare('SELECT * FROM pages WHERE slug = :slug');
+            $stmt = $db->prepare('SELECT p.*, pc.content as langcontent FROM pages as p INNER JOIN page_contents as pc ON
+                                 pc.page_id = p.id WHERE pc.language_id = :language_id AND p.slug = :slug');
             $stmt->execute([
-                ':slug' => $this->slug
+                ':slug' => $this->slug,
+                ':language_id' => $languageID
             ]);
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
 

@@ -13,14 +13,24 @@
 <div id="content">
     <div class="container">
         <div class="row">
-            <div class="col-8">
+            <div class="col-5">
                 <div class="admin-box">
-                    <h3 class="admin-box__title">Statistiken</h3>
+                    <h3 class="admin-box__title"></h3>
                 </div>
+            </div>
+            <div class="col-3">
+               <div class="admin-box weather-clock">
+                  <span class="time">12:25</span>
+                  <span class="date">30. März 2018</span>
+                  <div>
+                     <span class="city">Aichach</span>
+                     <span class="weather">17° C</span>
+                  </div>
+               </div>
             </div>
             <div class="col-4">
                 <div class="admin-box">
-                    
+                     <h3 class="admin-box__title"></h3>
                 </div>
             </div>
         </div>

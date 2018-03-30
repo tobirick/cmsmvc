@@ -37,6 +37,14 @@ class UserRoles extends Model {
         return self::getUserRoleByID($lastID);
     }
 
+    public static function deleteUserRole($userRole) {
+      $db = static::getDB();
+      $stmt = $db->prepare('DELETE FROM user_roles WHERE id = :id');
+      $stmt->execute([
+          ':id' => $userRole['id']
+      ]);
+    }
+
     public static function getUserRoleByID($id) {
         $sql = 'SELECT * FROM user_roles WHERE id = :id';
         

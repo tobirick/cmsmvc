@@ -67,6 +67,21 @@ class UserRolesController extends BaseController {
         echo json_encode($data);
     }
 
+    public function deleteUserRole() {
+      $content = trim(file_get_contents("php://input"));
+      $decoded = json_decode($content, true);
+
+      CSRF::checkTokenAjax($decoded['csrf_token']);
+
+      UserRoles::deleteUserRole($decoded['userRole']);
+
+      header('Content-type: application/json');
+      $data = [];
+      $data['csrfToken'] = CSRF::getToken();
+  
+      echo json_encode($data);
+    }
+
     public function getPermissionsForRole($params) {
         $content = trim(file_get_contents("php://input"));
         $decoded = json_decode($content, true);

@@ -76,9 +76,18 @@ export default class UserRolesMainViewModel {
       return;
     }
     if(this.userRoles().length > 1 ) {
-      this.userRoles.remove(userRole);
-      this.showAlert('success', 'Role successfully deleted!');
-      this.setSelectedUserRole(this.userRoles()[0]);
+      const data = {
+         csrf_token: csrf.getToken(),
+         userRole: ko.toJS(userRole)
+      }
+
+      UserRolesHandler.deleteUserRole(data).then(response => {
+         csrf.updateToken(response.csrfToken);
+         this.showAlert('success', 'Role successfully deleted!');
+         this.setSelectedUserRole(this.userRoles()[0]);
+
+         this.userRoles.remove(userRole);
+      });
     } else {
       this.showAlert('error', 'You need to have at least one User Role!');
     }
@@ -94,7 +103,7 @@ export default class UserRolesMainViewModel {
       userRoles: ko.toJS(this.userRoles)
     }
 
-    const response = UserRolesHandler.updateUserRoles(data).then(response => {
+    UserRolesHandler.updateUserRoles(data).then(response => {
       csrf.updateToken(response.csrfToken);
       this.showAlert('success', 'Successfully saved User Roles!');
     });

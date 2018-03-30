@@ -2,6 +2,7 @@
 @import 'vendors/font-awesome/font-awesome.scss';
 @import '../../node_modules/spectrum-colorpicker/spectrum';
 @import 'vendors/codemirror/codemirror';
+@import 'vendors/flag-icon/flag-icon.scss';
 
 @import 'utils/functions';
 @import 'utils/mixins';
@@ -35,5 +36,6 @@
 @import 'pages/admin-pagebuilder';
 @import 'pages/admin-themes';
 @import 'pages/admin-user-roles';
+@import 'pages/admin-dashboard';
 
 @import 'utils/helpers';

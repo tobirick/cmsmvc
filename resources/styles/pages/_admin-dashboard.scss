@@ -1,0 +1,41 @@
+.weather-clock {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   text-align: center;
+   color: #fff;
+   position: relative;
+   background-image: url(https://images.pexels.com/photos/395196/pexels-photo-395196.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260);
+   background-size: cover;
+
+   &:before {
+      content: "";
+      background-color: $primary-color;
+      opacity: .6;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+   }
+
+   & > div {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      z-index:9;
+      opacity: .8;
+   }
+
+   & .time {
+      font-size: 3.5rem;
+      z-index:9;
+   }
+
+   & .date {
+      font-size: 1.5rem;
+      z-index:9;
+      opacity: .8;
+      margin-bottom: 1rem;
+   }
+}

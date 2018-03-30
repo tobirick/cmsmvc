@@ -8,19 +8,10 @@ export default class UserRoleViewModel {
     this.user_role_name = ko.observable(data.user_role_name || '');
     this.is_admin = ko.observable(!!parseInt(data.is_admin) || false);
     this.activePermissions = ko.observableArray([]);
-    this.editMode = ko.observable(false);
 
     this.checkAllPermissions = delegates.checkAllPermissions;
     this.uncheckAllPermissions = delegates.uncheckAllPermissions;
     this.deleteUserRole = delegates.deleteUserRole;
-  }
-
-  toggleEditMode = () => {
-    if(this.editMode()) {
-      this.editMode(false);
-      return;
-    }
-    this.editMode(true);
   }
 
   toggleCheckbox = (permission) => {

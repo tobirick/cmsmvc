@@ -28,11 +28,15 @@ PagebuilderHandler.savePagebuilder = async function(data) {
         .then(data => data);
 }
 
-PagebuilderHandler.fetchSections = async function(pageID) {
-    const url = `/pages/${pageID}/pagebuilder/sections`;
+PagebuilderHandler.fetchSections = async function(data) {
+    const url = `/pages/${data.pageID}/pagebuilder/sections`;
     return fetch(url, {
+         body: JSON.stringify(data),
+        headers: {
+            'content-type': 'application/json'
+        },
         credentials: 'include',
-        method: 'GET'
+        method: 'POST'
     })
         .then(response => response.json())
         .then(data => data);

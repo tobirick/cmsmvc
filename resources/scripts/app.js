@@ -61,10 +61,14 @@ if(pathName.includes('/admin/pages/') && pathName.includes('edit')) {
         pagebuilderMainViewModel.setPossibleColumns();
     }
     loading.addSpinner();
-    pagebuilderMainViewModel.fetchSections().then(() => {
-        ko.applyBindings(pagebuilderMainViewModel);
-        loading.removeSpinner();
-    });
+    pagebuilderMainViewModel.fetchLanguages().then(() => {
+       pagebuilderMainViewModel.getPageBuilderElements().then(() => {
+          pagebuilderMainViewModel.fetchSections().then(() => {
+              ko.applyBindings(pagebuilderMainViewModel);
+              loading.removeSpinner();
+          });
+       });
+    })
 }
 
 // Media

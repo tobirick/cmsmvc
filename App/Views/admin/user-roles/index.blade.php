@@ -39,7 +39,6 @@
                             <div>
                                 <h3 class="admin-box__title" data-bind="text: user_role_name"></h3>
                                 <span data-bind="ifnot: is_admin()">
-                                    <i data-bind="click: toggleEditMode" class="action-icon fa fa-pencil"></i>
                                     <i data-bind="click: deleteUserRole" class="action-icon fa fa-trash"></i>
                                 </span>
                             </div>

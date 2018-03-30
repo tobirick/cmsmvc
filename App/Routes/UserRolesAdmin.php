@@ -9,3 +9,4 @@ $router->map('POST', '/admin/roles/[i:id]/permissions', requireLogin('Admin\User
 $router->map('POST', '/admin/roles/permissions', requireLogin('Admin\UserRolesController@getPermissions'));
 $router->map('POST', '/admin/roles/edit', requireLogin('Admin\UserRolesController@updateUserRoles'));
 $router->map('POST', '/admin/roles/create', requireLogin('Admin\UserRolesController@createUserRole'));
+$router->map('POST', '/admin/roles/delete', requireLogin('Admin\UserRolesController@deleteUserRole'));

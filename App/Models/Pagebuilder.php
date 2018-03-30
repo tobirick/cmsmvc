@@ -125,9 +125,11 @@ class Pagebuilder extends Model {
     public static function saveSection($pageID, $section) {
         $db = static::getDB();
         $stmt = $db->prepare('INSERT INTO pagebuilder_sections (page_id, css_class, css_id, styles, name, bg_color, bg_image, bg_image_size, bg_image_position, bg_image_repeat, padding, margin, current_bg_mode,
-                            bg_gradient_first_color, bg_gradient_second_color, bg_gradient_type, bg_gradient_direction, bg_gradient_start_position, bg_gradient_end_position)
+                            bg_gradient_first_color, bg_gradient_second_color, bg_gradient_type, bg_gradient_direction, bg_gradient_start_position, bg_gradient_end_position,
+                            language_id)
                               VALUES(:page_id, :css_class, :css_id, :styles, :name, :bg_color, :bg_image, :bg_image_size, :bg_image_position, :bg_image_repeat, :padding, :margin, :current_bg_mode,
-                              :bg_gradient_first_color, :bg_gradient_second_color, :bg_gradient_type, :bg_gradient_direction, :bg_gradient_start_position, :bg_gradient_end_position)');
+                              :bg_gradient_first_color, :bg_gradient_second_color, :bg_gradient_type, :bg_gradient_direction, :bg_gradient_start_position, :bg_gradient_end_position,
+                              :language_id)');
         $stmt->execute([
             ':page_id' => $pageID,
             ':css_class' => $section['css_class'],
@@ -147,7 +149,8 @@ class Pagebuilder extends Model {
             ':bg_gradient_type' => $section['bg_gradient_type'],
             ':bg_gradient_direction' => $section['bg_gradient_direction'],
             ':bg_gradient_start_position' => $section['bg_gradient_start_position'],
-            ':bg_gradient_end_position' => $section['bg_gradient_end_position']
+            ':bg_gradient_end_position' => $section['bg_gradient_end_position'],
+            ':language_id' => $section['language_id']
             ]);
 
         $lastID = $db->lastInsertId();
@@ -236,6 +239,14 @@ class Pagebuilder extends Model {
         ]);
     }
 
+    public static function deletePageContentsByPageID($pageID) {
+      $db = static::getDB();
+      $stmt = $db->prepare('DELETE FROM page_contents WHERE page_id = :page_id');
+      $stmt->execute([
+          ':page_id' => $pageID
+      ]);
+    }
+
     public static function saveHTMLToPage($pageid, $html) {
         $db = static::getDB();
         $stmt = $db->prepare('UPDATE pages SET content = :content WHERE id = :id');
@@ -245,5 +256,17 @@ class Pagebuilder extends Model {
             ]);
 
         return true;
+    }
+
+    public static function saveHTMLToPageContent($pageID, $languageID, $html) {
+      $db = static::getDB();
+      $stmt = $db->prepare('INSERT INTO page_contents SET page_id = :page_id, language_id = :language_id, content = :content');
+      $stmt->execute([
+          ':content' => $html,
+          ':page_id' => $pageID,
+          ':language_id' => $languageID
+          ]);
+
+      return true;
     }
 }

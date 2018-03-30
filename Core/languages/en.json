@@ -117,6 +117,11 @@
         "Sitedescription": "Sitedescription",
         "You can not delete an active Theme!": "You can not delete an active Theme!",
         "You have not the permission to do that!": "You have not the permission to do that!",
-        "There was a error!": "There was a error!"
+        "There was a error!": "There was a error!",
+        "Languages": "Languages",
+        "Language": "Language",
+        "Language Settings": "Language Settings",
+        "New Language": "New Language",
+        "Create Language": "Create Language"
     }
 }

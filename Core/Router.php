@@ -9,7 +9,7 @@ class Router {
     private $params;
     private $namespace;
     private static $language;
-    private $defaultPages = ['App\Controllers\DefaultPageController', 'App\Controllers\DefaultPostController'];
+    private $defaultPages = ['App\Controllers\DefaultPageController', 'App\Controllers\DefaultPostController', 'App\Controllers\IndexController'];
 
     public function __construct($router) {
         $this->namespace = 'App\Controllers\\';
@@ -49,12 +49,24 @@ class Router {
             ];
 
             if(in_array($this->controller, $this->defaultPages)) {
-                $slug = substr($_SERVER['REQUEST_URI'],1);
-                $data = [
-                    'slug' => $slug
-                ];
-                $page = new DefaultPage($data);
-                $this->params['page-args'] = $page->getPageBySlug();
+               if(isset($this->params['params']['slug'])) {
+                  $slug = $this->params['params']['slug'];
+               } else {
+                  $slug = DefaultPage::getHomePage()['slug'];
+               }
+
+               if(isset($this->params['params']['languagePublic']) && $this->params['params']['languagePublic']) {
+                  $lang = \App\Models\Language::getLanguageByISO($this->params['params']['languagePublic']);
+                  $langID = $lang['id'];
+               } else {
+                  $langID = \App\Models\Language::getDefaultLanguageID();
+               }
+
+               $data = [
+                   'slug' => $slug
+               ];
+               $page = new DefaultPage($data);
+               $this->params['page-args'] = $page->getPageBySlug($langID);
             }
 
             $ctrl = new $this->controller();

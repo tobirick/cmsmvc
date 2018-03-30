@@ -18,6 +18,7 @@ class BaseController {
         $languagesArray = $language->getLanguagesArray();
         $currentLanguage = $language->getCurrentLanguage();
         $allLanguages = $language->getAllLanguages();
+        $publicLanguages = \App\Models\Language::getAllLanguages();
         $settings = \App\Models\Settings::getSettings();
         $footercols = json_decode($activeTheme['footer_layout'], true)['columns'];
         $shares = [
@@ -32,6 +33,7 @@ class BaseController {
             ['key' => 'curLang', 'value' => $currentLanguage],
             ['key' => 'allLanguages', 'value' => $allLanguages],
             ['key' => 'settings', 'value' => $settings],
+            ['key' => 'publicLanguages', 'value' => $publicLanguages]
         ];
 
         // Minify CSS and JS

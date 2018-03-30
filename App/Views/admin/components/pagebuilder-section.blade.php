@@ -1,4 +1,4 @@
-<div class="row">
+<div data-bind="if: $root.currentLanguage().id === language_id()" class="row">
     <div class="admin-grid-section">
         <div class="admin-grid-section__action">
             <button data-bind="click: $root.openSettings"><i class="fa fa-bars"></i></button>

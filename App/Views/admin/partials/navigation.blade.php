@@ -65,6 +65,13 @@
                 <i class="fa fa-cogs" aria-hidden="true"></i> 
                 <span>{{$lang['Settings']}}</span>
             </a>
+            <ul class="main-sidebar__sub-nav">
+               <li class="main-sidebar__sub-nav-item">
+                   <a class="main-sidebar__sub-nav-item-link" href="/{{$curLang}}/admin/settings/languages">
+                       <span>{{$lang['Languages']}}</span>
+                   </a>    
+               </li>
+           </ul>
         </li>
         <li class="main-sidebar__nav-item {{checkIfNavItemIsActive('pagebuilder') ? 'active' : ''}}">
             <a class="main-sidebar__nav-item-link" href="/{{$curLang}}/admin/pagebuilder">

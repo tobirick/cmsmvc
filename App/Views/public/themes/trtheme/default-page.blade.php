@@ -7,6 +7,6 @@
 <div class="container">
     <h1>{{$title}}</h1>
 
-    {!! trim($content) !!}
+    {!! trim($langcontent) !!}
 </div>
 @stop

@@ -70,4 +70,18 @@ UserRolesHandler.addUserRole = async function(data) {
   return await response.json();
 }
 
+UserRolesHandler.deleteUserRole = async function(data) {
+   const url = `/admin/roles/delete`;
+   const response = await fetch(url, {
+     body: JSON.stringify(data),
+     headers: {
+        'content-type': 'application/json'
+    },
+     method: 'POST',
+     credentials: 'include'
+   });
+ 
+   return await response.json();
+ }
+
 export default UserRolesHandler;

@@ -5,14 +5,15 @@ import PagebuilderRowModel from './PagebuilderRowModel';
 import PagebuilderElementModel from './PagebuilderElementModel';
 
 import PagebuilderHandler from '../../Handlers/PagebuilderHandler';
+import LanguagesHandler from '../../Handlers/LanguagesHandler';
 
 export default class PagebuilderMainViewModel {
    constructor() {
       this.csrfToken = document.getElementById('csrftoken');
       this.csrfTokenVal = document.getElementById('csrftoken').value;
-      this.html = ko.observable('');
       this.possibleColumns = ko.observableArray([]);
       this.pageID = document.getElementById('pageid').value;
+      this.pageContentID = 1;
       this.sections = ko.observableArray();
       this.elements = ko.observableArray([]);
 
@@ -20,10 +21,11 @@ export default class PagebuilderMainViewModel {
       this.sectionSelected = ko.observable(false);
       this.rowSelected = ko.observable(false);
       this.elementSelected = ko.observable(false);
-      
-      this.setPossibleColumns();
 
-      this.getPageBuilderElements();
+      this.languages = ko.observableArray([]);
+      this.currentLanguage = ko.observable(null);
+
+      this.setPossibleColumns();
       //this.addSection();
 
       this.alert = ko.observable({
@@ -45,6 +47,24 @@ export default class PagebuilderMainViewModel {
 
     closeAlert = () => {
         this.alert().visible(false);
+    }
+
+    setCurrentLanguage = (language) => {
+       this.currentLanguage(language);
+    }
+
+    fetchLanguages() {
+      const data = {
+         csrf_token: this.csrfTokenVal
+      };
+
+      return LanguagesHandler.fetchLanguages(data).then((response) => {
+         this.updateCSRF(response.csrfToken);
+         response.languages.forEach(language => {
+            this.languages.push(language);
+         });
+         this.currentLanguage(this.languages()[0]);
+      });
     }
 
    updateCSRF(newCsrfToken) {
@@ -83,13 +103,22 @@ export default class PagebuilderMainViewModel {
    };
 
    async savetoDB() {
-       this.generateHTML();
       const data = {
          csrf_token: this.csrfTokenVal,
          sections: ko.toJS(this.sections),
          page_id: this.pageID,
-         html: ko.toJS(this.html)
+         languages: []
       };
+
+      this.languages().forEach(language => {
+         const sections = ko.toJS(this.sections).filter(section => {
+            return section.language_id === language.id;
+         })
+         data.languages.push({
+            language_id: language.id,
+            html: this.generateHTML(sections)
+         })
+      })
 
       const response = await PagebuilderHandler.savePagebuilder(data);
 
@@ -100,9 +129,17 @@ export default class PagebuilderMainViewModel {
    }
 
    fetchSections() {
-      return PagebuilderHandler.fetchSections(this.pageID).then(response => {
-          if (response.length > 0) {
-             response.forEach(section => {
+      const data = {
+         csrf_token: this.csrfTokenVal,
+         pageID: this.pageID
+      };
+
+      this.sections([]);
+
+      return PagebuilderHandler.fetchSections(data).then(response => {
+         this.updateCSRF(response.csrfToken);
+          if (response.sections.length > 0) {
+             response.sections.forEach(section => {
                 const paddingArr = section.padding.split(' ');
                 const marginArr = section.margin.split(' ');  
                 const paddingVM = {top: paddingArr[0], right: paddingArr[1], bottom: paddingArr[2], left: paddingArr[3]};
@@ -116,7 +153,9 @@ export default class PagebuilderMainViewModel {
              });
           } else {
             this.sections.push(
-                new PagebuilderSectionModel({}, {
+                new PagebuilderSectionModel({
+                   language_id: this.currentLanguage().id
+                }, {
                    cloneSection: this.cloneSection,
                    deleteSection: this.deleteSection
                 })
@@ -141,24 +180,26 @@ export default class PagebuilderMainViewModel {
          csrf_token: this.csrfTokenVal
       };
 
-      const response = await PagebuilderHandler.loadPagebuilderElements(data);
-      response.pagebuilderItems.forEach(dataItem => {
-         this.elements.push(
-            new PagebuilderElementModel({
-               ...dataItem,
-               id: '',
-               item_id: dataItem.id
-            })
-         );
+      return PagebuilderHandler.loadPagebuilderElements(data).then((response) => {
+         this.updateCSRF(response.csrfToken);
+         response.pagebuilderItems.forEach(dataItem => {
+            this.elements.push(
+               new PagebuilderElementModel({
+                  ...dataItem,
+                  id: '',
+                  item_id: dataItem.id
+               })
+            );
+         });
       });
-
-      this.updateCSRF(response.csrfToken);
    }
 
    addSection() {
       this.sections.push(
          new PagebuilderSectionModel(
-            {},
+            {
+               language_id: this.currentLanguage().id
+            },
             {
                cloneSection: this.cloneSection,
                deleteSection: this.deleteSection
@@ -189,21 +230,21 @@ export default class PagebuilderMainViewModel {
       this.sections.remove(section);
    };
 
-   generateHTML() {
+   generateHTML(sections) {
       let html = '';
-      this.sections().forEach(section => {
-         html += section.html();
-         section.rows().forEach(row => {
-            html += row.html();
-            row.columnrows().forEach(columnrow => {
-               columnrow.columns().forEach(column => {
-                html += `<div class="col-${column.col()}">${column.element() !== null ? column.element().generatedHTML() : ''}</div>`;
+      sections.forEach(section => {
+         html += section.html;
+         section.rows.forEach(row => {
+            html += row.html;
+            row.columnrows.forEach(columnrow => {
+               columnrow.columns.forEach(column => {
+                html += `<div class="col-${column.col}">${column.element !== null ? column.element.generatedHTML : ''}</div>`;
                });
             });
             html += `</div>`;
          });
          html += `</section>`;
       });
-      this.html(html.replace(/\s\s+/g, ' '));
+      return html;
    }
 }

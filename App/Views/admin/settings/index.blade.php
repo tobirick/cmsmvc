@@ -62,6 +62,18 @@
                     </div>
                     <div class="form-row">
                         <div class="col-4">
+                            <label class="form-label" for="defaultlanguage">Default Language</label>
+                        </div>
+                        <div class="col-8">
+                            <select name="settings[default_language_id]" id="defaultlanguage" class="form-input">
+                              @foreach ($publicLanguages as $language)
+                                 <option value="{{$language['id']}}" {{$language['id'] === $settings['default_language_id'] ? 'selected' : ''}}>{{$language['name']}}</option>
+                             @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-4">
                            <label class="form-label">Maintenance Mode</label>
                         </div>
                         <div class="col-8">

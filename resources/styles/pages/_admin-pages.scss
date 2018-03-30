@@ -334,3 +334,25 @@
         }
     }
 }
+
+.languages-tab {
+
+   & ul {
+
+      & li {
+         display: inline-block;
+         cursor: pointer;
+         padding: 0.5rem 1rem;
+         margin: 0 .5rem;
+         border-radius: 3px;
+         @include transition(.2s ease-in all);
+
+         &.active,
+         &:hover {
+            background-color: #f1f1f1;
+            @include box-shadow();
+            font-weight: bold;
+         }
+      }
+   }
+}

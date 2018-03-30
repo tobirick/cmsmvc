@@ -19,7 +19,6 @@ function requireLogin($ctrl) {
 }
 
 ## Base URLs ##
-$router->map('GET', '/', 'IndexController@index');
 
 $router->map('GET', $langString . '/admin/dashboard', requireLogin('Admin\DashboardController@index'));
 $router->map('POST', '/admin/changelang', requireLogin('Admin\LanguageController@changeLang'));

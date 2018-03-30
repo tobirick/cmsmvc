@@ -105,7 +105,11 @@
         <div class="col-8">
             <div class="admin-box">
                 <div class="admin-box__header">
-                    <h3 class="admin-box__title">Pagebuilder</h3>
+                    <div class="languages-tab">
+                       <ul data-bind="foreach: languages">
+                          <li data-bind="click: $root.setCurrentLanguage, text: name, css: {active: id === $root.currentLanguage().id}">Deutsch</li>
+                       </ul>
+                    </div>
                     <div class="center-v-flex">
                         <a href="{{$settings['siteurl']}}{{$page['slug']}}" target="_blank" class="button-primary-border mr-1">{{$lang['Preview']}}</a>
                         <button class="button-primary fr" data-bind="click: savetoDB">{{$lang['Save']}}</button>

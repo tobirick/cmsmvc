@@ -24,6 +24,7 @@ export default class PagebuilderSectionModel {
       ]);
 
       this.id = ko.observable(data.id || '');
+      this.language_id = ko.observable(data.language_id || '');
       this.name = ko.observable(data.name || '');
       this.position = ko.observable(data.position || '');
       this.css_class = ko.observable(data.css_class || '');

@@ -155,7 +155,10 @@ class PagebuilderController extends BaseController {
 
         // Delete all sections
         Pagebuilder::deleteSectionsByPageID($decoded['page_id']);
-        Pagebuilder::saveHTMLToPage($decoded['page_id'], $decoded['html']);
+        Pagebuilder::deletePageContentsByPageID($decoded['page_id']);
+        foreach($decoded['languages'] as $language) {
+            Pagebuilder::saveHTMLToPageContent($decoded['page_id'], $language['language_id'], $language['html']);
+        }
 
         // Insert updated sections, rows, columnsrows and rows
         foreach($sections as $key => $section) {
@@ -185,11 +188,20 @@ class PagebuilderController extends BaseController {
     }
 
     public function getSectionsByPageID($params) {
+      $content = trim(file_get_contents("php://input"));
+      $decoded = json_decode($content, true);
+
+      CSRF::checkTokenAjax($decoded['csrf_token']);
+
         $pageID = $params['params']['pageid'];
         $sections = Pagebuilder::getSectionsByPageID($pageID);
         
         header('Content-type: application/json');
-        echo json_encode($sections);
+        $data = [];
+        $data['csrfToken'] = CSRF::getToken();
+        $data['sections'] = $sections;
+
+        echo json_encode($data);
     }
 
     public function getRowsBySectionID($params) {
