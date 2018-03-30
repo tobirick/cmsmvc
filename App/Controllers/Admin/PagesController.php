@@ -96,6 +96,7 @@ class PagesController extends BaseController {
             self::addFlash('error', self::getTrans('You have not the permission to do that!'));
             self::redirect('/admin/dashboard');
         }
+
         DefaultPage::updatePage($params['params']['id'], $post['page']);
         self::redirect('/admin/pages');
     }

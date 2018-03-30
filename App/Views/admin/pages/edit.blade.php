@@ -52,7 +52,7 @@
                        </div>
                        <div class="col-9">
                           <input id="pagename" autocomplete="off" class="form-input" value="{{$page['name']}}" type="text" placeholder="Name" name="page[name]">
-                          <strong>Permalink: </strong> <a target="_blank" class="aurl" href="{{$settings['siteurl']}}/{{$page['slug']}}"> {{$settings['siteurl']}}/{{$page['slug']}}</a>
+                          <strong>Permalink: </strong> <a target="_blank" class="aurl" href="{{$settings['siteurl']}}{{$page['slug']}}"> {{$settings['siteurl']}}{{$page['slug']}}</a>
                        </div>
                     </div>
                     <div class="form-row">
@@ -61,6 +61,19 @@
                        </div>
                        <div class="col-9">
                           <input id="pagetitle" class="form-input" value="{{$page['title']}}" type="text" placeholder="Title" name="page[title]">
+                       </div>
+                    </div>
+                    <div class="form-row">
+                       <div class="col-3">
+                          <label class="form-label">Status</label>
+                       </div>
+                       <div class="col-9">
+                        <span class="form-checkbox">
+                           <label for="active">
+                              <input value="1" name="page[is_active]" class="form-checkbox__input" id="active" type="checkbox" {{$page['is_active'] ? 'checked' : ''}}>
+                              <span class="form-checkbox__label">Active</span>
+                           </label>
+                        </span>
                        </div>
                     </div>
             </div>
@@ -94,7 +107,7 @@
                 <div class="admin-box__header">
                     <h3 class="admin-box__title">Pagebuilder</h3>
                     <div class="center-v-flex">
-                        <a href="{{$settings['siteurl']}}/{{$page['slug']}}" target="_blank" class="button-primary-border mr-1">{{$lang['Preview']}}</a>
+                        <a href="{{$settings['siteurl']}}{{$page['slug']}}" target="_blank" class="button-primary-border mr-1">{{$lang['Preview']}}</a>
                         <button class="button-primary fr" data-bind="click: savetoDB">{{$lang['Save']}}</button>
                     </div>
                 </div>

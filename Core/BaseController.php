@@ -6,7 +6,7 @@ use \App\Models\Theme;
 use \Core\Permission;
 
 class BaseController {
-    private $publicPages = ['App\Controllers\DefaultPageController', 'App\Controllers\DefaultPostController'];
+    private $publicPages = ['App\Controllers\IndexController', 'App\Controllers\DefaultPageController', 'App\Controllers\DefaultPostController'];
 
     public function render($template, $args = []) {
         $csrf = new CSRF();
@@ -51,6 +51,11 @@ class BaseController {
             $shares[] = ['key' => 'csrf', 'value' => $csrf->getToken()];
          }
 
+         //Public pages maintenance mode
+         if(in_array(get_class($this), $this->publicPages) && $settings['maintenance_mode'] && !self::getUser()) {
+            self::redirect('/admin/dashboard');
+         }
+
         $view = new View();
         $view->render($template, $args, $shares);
     }
@@ -65,6 +70,10 @@ class BaseController {
         $redirectTo = '/' . $language->getCurrentLanguage() . $url;
         header('Location: ' . $redirectTo  );
         exit;
+    }
+
+    public static function publicRedirect($url) {
+      header('Location: ' . $url  );
     }
 
     public function getUser() {

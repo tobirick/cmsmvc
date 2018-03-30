@@ -60,6 +60,19 @@
                             </select>
                         </div>
                     </div>
+                    <div class="form-row">
+                        <div class="col-4">
+                           <label class="form-label">Maintenance Mode</label>
+                        </div>
+                        <div class="col-8">
+                         <span class="form-checkbox">
+                            <label for="mode">
+                               <input value="1" name="settings[maintenance_mode]" class="form-checkbox__input" id="mode" type="checkbox" {{$settings['maintenance_mode'] ? 'checked' : ''}}>
+                               <span class="form-checkbox__label">Active</span>
+                            </label>
+                         </span>
+                        </div>
+                     </div>
                 </div>
             </div>
             <div class="col-5">

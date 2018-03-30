@@ -71,12 +71,13 @@ class DefaultPage extends Model {
 
     public function addPage($page, $userid) {
         $db = static::getDB();
-        $stmt = $db->prepare('INSERT INTO pages (name, slug, title, created_at, created_by) VALUES(:name, :slug, :title, now(), :created_by)');
+        $stmt = $db->prepare('INSERT INTO pages (name, slug, title, created_at, created_by, is_active) VALUES(:name, :slug, :title, now(), :created_by, :is_active)');
         $stmt->execute([
             ':name' => $page['name'],
             ':slug' => $page['slug'],
             ':title' => $page['title'],
-            ':created_by' => $userid
+            ':created_by' => $userid,
+            ':is_active' => 1
             ]);
 
         $lastID = $db->lastInsertId();
@@ -85,14 +86,15 @@ class DefaultPage extends Model {
     
     public static function updatePage($pageid, $page) {
         $db = static::getDB();
-        $stmt = $db->prepare('UPDATE pages SET name = :name, slug = :slug, title = :title, seo_title = :seo_title, seo_description = :seo_description, updated_at = now() WHERE id = :id');
+        $stmt = $db->prepare('UPDATE pages SET name = :name, slug = :slug, title = :title, seo_title = :seo_title, seo_description = :seo_description, updated_at = now(), is_active = :is_active WHERE id = :id');
         $stmt->execute([
             ':id' => $pageid,
             ':name' => $page['name'],
             ':slug' => $page['slug'],
             ':title' => $page['title'],
             ':seo_title' => $page['seo_title'],
-            ':seo_description' => $page['seo_description']
+            ':seo_description' => $page['seo_description'],
+            ':is_active' => isset($page['is_active']) ? $page['is_active'] : 0
         ]);
 
         $result = $stmt->fetch(PDO::FETCH_ASSOC);

@@ -9,6 +9,10 @@
       vertical-align: middle;
       text-align: left;
       padding: 1.25rem 0.25rem;
+
+      &.center {
+         text-align: center;
+      }
     }
 
     & tr {
@@ -51,4 +55,21 @@
             }
         }
     }
+}
+
+.bullet {
+   width: 1.5rem;
+   height: 1.5rem;
+   border-radius: 100%;
+   display: block;
+   margin: 0 auto;
+
+   &.active {
+      background-color: $primary-color;
+
+   }
+
+   &.inactive {
+      background-color: #bdbdbd;
+   }
 }

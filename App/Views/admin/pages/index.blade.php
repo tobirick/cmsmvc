@@ -19,7 +19,8 @@
                         <tr>
                             <th style="width: 10%;">#</th>
                             <th>{{$lang['Name']}}</th>
-                            <th style="width: 10%;">{{$lang['Author']}}</th>
+                            <th class="center" style="width: 10%;">Status</th>
+                            <th style="width: 15%;">{{$lang['Author']}}</th>
                             <th style="width: 20%;">{{$lang['Date']}}</th>
                             <th></th>
                         </tr>
@@ -29,7 +30,8 @@
                         <tr>
                             <td style="width: 10%;">{{$page['id']}}</td>
                             <td><strong>{{$page['name']}}</strong><br><span class="light-text smaller-text">/{{$page['slug']}}</span></td>
-                            <td style="width: 10%;">{{$page['author']}}</td>
+                           <td class="center" style="width: 10%;"><div class="bullet {{$page['is_active'] ? 'active' : 'inactive'}}"></div></td>
+                            <td style="width: 15%;">{{$page['author']}}</td>
                             <td style="width: 20%;"><span class="smaller">Published</span><br>{{date_format(new DateTime($page['created_at']), 'd.m.Y')}}</td>
                             <td class="action auto-width">
                                 <a href="/{{$curLang}}/admin/pages/{{$page['id']}}/edit"><i class="fa fa-pencil"></i></a>

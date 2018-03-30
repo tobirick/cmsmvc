@@ -22,6 +22,12 @@ class SettingsController extends BaseController {
         }
         CSRF::checkToken();
         if(isset($_POST)) {
+           if(!isset($_POST['settings']['maintenance_mode'])) {
+               Settings::updateSetting([
+                  'name' => 'maintenance_mode',
+                  'value' => 0
+            ]);
+           }
             foreach($_POST['settings'] as $index => $setting) {
                 Settings::updateSetting([
                     'name' => $index,
