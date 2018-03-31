@@ -18,11 +18,6 @@ class DefaultPageController extends BaseController {
           self::publicRedirect('/');
       }
 
-      if(!$args['page-args']) {
-         self::publicRedirect('/');
-         exit;
-      }
-
       $activeTheme = Theme::getActiveTheme();
       self::render('public/themes/' . $activeTheme['name'] . '/default-page', $args['page-args']);
     }

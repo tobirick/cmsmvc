@@ -89,9 +89,9 @@
   padding: 0 1.5rem;
 }
 
-.admin-bar ul li a {
+.admin-bar ul li a, .admin-bar ul li {
   color: #eee;
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   text-decoration: none;
 }
 
@@ -100,7 +100,7 @@
 }
 
 
-.logged-in .header, .logged-in #content, .logged-in #footer {
+.logged-in .header, .logged-in #content, .logged-in #footer, .logged-in #footer-bottom {
    top: 4rem;
    position: relative;
 }

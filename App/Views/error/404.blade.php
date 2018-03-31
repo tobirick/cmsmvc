@@ -8,6 +8,7 @@
     @include('admin.partials.styles')
 </head>
 <body>
+   <p>Error 404</p>
     <a href="#" onclick="history.go(-1); return false;">Go back</a>
     @include('admin.partials.scripts')
 </body>

@@ -19,6 +19,7 @@ class BaseController {
         $currentLanguage = $language->getCurrentLanguage();
         $allLanguages = $language->getAllLanguages();
         $publicLanguages = \App\Models\Language::getAllLanguages();
+        $currentPublicLanguage = Router::getCurrentPublicLanguage();
         $settings = \App\Models\Settings::getSettings();
         $footercols = json_decode($activeTheme['footer_layout'], true)['columns'];
         $shares = [
@@ -33,7 +34,8 @@ class BaseController {
             ['key' => 'curLang', 'value' => $currentLanguage],
             ['key' => 'allLanguages', 'value' => $allLanguages],
             ['key' => 'settings', 'value' => $settings],
-            ['key' => 'publicLanguages', 'value' => $publicLanguages]
+            ['key' => 'publiclanguages', 'value' => $publicLanguages],
+            ['key' => 'currentpubliclanguage', 'value' => $currentPublicLanguage]
         ];
 
         // Minify CSS and JS
@@ -75,7 +77,9 @@ class BaseController {
     }
 
     public static function publicRedirect($url) {
-      header('Location: ' . $url  );
+      $currentPublicLanguage = Router::getCurrentPublicLanguage();
+      $redirectTo = '/' . $currentPublicLanguage['iso'] . $url;
+      header('Location: ' . $redirectTo  );
     }
 
     public function getUser() {

@@ -9,6 +9,7 @@ class Router {
     private $params;
     private $namespace;
     private static $language;
+    private static $currentPublicLanguage;
     private $defaultPages = ['App\Controllers\DefaultPageController', 'App\Controllers\DefaultPostController', 'App\Controllers\IndexController'];
 
     public function __construct($router) {
@@ -21,6 +22,10 @@ class Router {
 
     public static function getLanguage() {
         return self::$language;
+    }
+
+    public static function getCurrentPublicLanguage() {
+       return self::$currentPublicLanguage;
     }
 
     private function setLanguage($match) {
@@ -48,6 +53,7 @@ class Router {
                 'params' => $match['params']
             ];
 
+
             if(in_array($this->controller, $this->defaultPages)) {
                if(isset($this->params['params']['slug'])) {
                   $slug = $this->params['params']['slug'];
@@ -57,14 +63,21 @@ class Router {
 
                if(isset($this->params['params']['languagePublic']) && $this->params['params']['languagePublic']) {
                   $lang = \App\Models\Language::getLanguageByISO($this->params['params']['languagePublic']);
-                  $langID = $lang['id'];
+               } else if(!isset($_SESSION['publicLang'])) {
+                  $lang = \App\Models\Language::getDefaultLanguage();
                } else {
-                  $langID = \App\Models\Language::getDefaultLanguageID();
+                  $lang = $_SESSION['publicLang'];
                }
+
+               $langID = $lang['id'];
 
                $data = [
                    'slug' => $slug
                ];
+
+               self::$currentPublicLanguage = $lang;
+               $_SESSION['publicLang'] = self::$currentPublicLanguage;
+               
                $page = new DefaultPage($data);
                $this->params['page-args'] = $page->getPageBySlug($langID);
             }

@@ -13,4 +13,5 @@ foreach($languages as $language) {
 $langString .= ':languagePublic]?';
 
 $router->map('GET', $langString  . '/', 'DefaultPageController@index');
+$router->map('GET', $langString, 'DefaultPageController@index');
 $router->map('GET', $langString . '/[a:slug]', 'DefaultPageController@index');

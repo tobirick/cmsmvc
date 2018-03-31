@@ -4,7 +4,7 @@
           <nav class="header__main-nav">
               <ul>
                   @foreach ($mainmenupages as $page)
-                      <li class="header__main-nav-item {{checkIfNavItemIsActive($page['slug']) ? 'active' : ''}}"><a class="header__main-nav-item-link" href="/{{$page['slug']}}">{{$page['name']}}</a></li>
+              <li class="header__main-nav-item {{checkIfNavItemIsActive($page['slug']) ? 'active' : ''}}"><a class="header__main-nav-item-link" href="/{{$currentpubliclanguage['iso']}}/{{$page['slug']}}">{{$page['name']}}</a></li>
                   @endforeach
               </ul>
           </nav>

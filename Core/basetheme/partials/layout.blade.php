@@ -31,6 +31,7 @@
          <ul>
             <li><a target="_blank" href="/admin/dashboard">{{$settings['sitetitle']}}</a></li>
             <li><a target="_blank" href="/admin/pages/{{$id}}/edit">Edit Page</a></li>
+            <li><a target="_blank" href="/admin/settings">Maintenance Mode: {{$settings['maintenance_mode'] ? ' On' : ' Off'}}</a></li>
          </ul>
          <ul>
          <li><a target="_blank" href="/admin/users/{{$user['name']}}">Hey, {{$user['name']}}!</a></li>
@@ -46,7 +47,6 @@
     <div id="content">
        @yield('content')
     </div>
-    @include('public.themes.' . $activetheme . '.partials.scripts')
     {{$themesettings['custom_scripts']}}
     <footer id="footer">
        <div class="container">
@@ -60,5 +60,13 @@
         @endif
        </div>
     </footer>
+    <footer id="footer-bottom">
+       <select id="changePublicLang" name="publicLang">
+          @foreach($publiclanguages as $lang)
+            <option value="{{$lang['iso']}}" {{$lang['id'] === $currentpubliclanguage['id'] ? 'selected' : ''}}>{{$lang['name']}}</option>
+         @endforeach
+       </select>
+    </footer>
+    @include('public.themes.' . $activetheme . '.partials.scripts')
 </body>
 </html>

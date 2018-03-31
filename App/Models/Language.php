@@ -74,7 +74,16 @@ class Language extends Model {
       return $result;
    }
 
-   public static function getDefaultLanguageID() {
+   public static function getDefaultLanguage() {
+      $browserLang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+      $allLang = self::getAllLanguages();
+      $langFound = false;
+      foreach($allLang as $lang) {
+         if($lang['iso'] === $browserLang) {
+            return $lang;
+         }
+      }
+
       $db = static::getDB();
       $stmt = $db->prepare('SELECT value FROM config WHERE name = "default_language_id"');
 
@@ -82,6 +91,6 @@ class Language extends Model {
 
       $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-      return $result['value'];
+      return self::getLanguageById($result['value']);
    }
 }   
