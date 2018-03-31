@@ -66,7 +66,7 @@
                         </div>
                         <div class="col-8">
                             <select name="settings[default_language_id]" id="defaultlanguage" class="form-input">
-                              @foreach ($publicLanguages as $language)
+                              @foreach ($publiclanguages as $language)
                                  <option value="{{$language['id']}}" {{$language['id'] === $settings['default_language_id'] ? 'selected' : ''}}>{{$language['name']}}</option>
                              @endforeach
                             </select>
