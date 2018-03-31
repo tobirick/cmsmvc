@@ -64,7 +64,7 @@ class Router {
                if(isset($this->params['params']['languagePublic']) && $this->params['params']['languagePublic']) {
                   $lang = \App\Models\Language::getLanguageByISO($this->params['params']['languagePublic']);
                } else if(!isset($_SESSION['publicLang'])) {
-                  $lang = \App\Models\Language::getDefaultLanguage();
+                  $lang = \App\Models\Language::getDefaultLanguage(true);
                } else {
                   $lang = $_SESSION['publicLang'];
                }
@@ -79,11 +79,18 @@ class Router {
                $_SESSION['publicLang'] = self::$currentPublicLanguage;
                
                $page = new DefaultPage($data);
-               $this->params['page-args'] = $page->getPageBySlug($langID);
+               $pageData = $page->getPageBySlug($langID);
+               if($pageData) {
+                  $this->params['page-args'] = $pageData;
+               } else {
+                  $view = new View();
+                  $view->render('error/404');
+                  return;
+               }
             }
-
             $ctrl = new $this->controller();
             call_user_func([$ctrl, $this->method], $this->params);
+
         } else {
             $view = new View();
             $view->render('error/404');

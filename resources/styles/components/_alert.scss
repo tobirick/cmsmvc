@@ -45,3 +45,11 @@
         }
     }
 }
+
+.sidebar-closed .alert {
+   width: calc(100% - 7rem);
+
+   &.top {
+      width: 100%;
+   }
+}

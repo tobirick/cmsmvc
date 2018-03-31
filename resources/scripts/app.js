@@ -61,14 +61,16 @@ if(pathName.includes('/admin/pages/') && pathName.includes('edit')) {
         pagebuilderMainViewModel.setPossibleColumns();
     }
     loading.addSpinner();
-    pagebuilderMainViewModel.fetchLanguages().then(() => {
-       pagebuilderMainViewModel.getPageBuilderElements().then(() => {
-          pagebuilderMainViewModel.fetchSections().then(() => {
-              ko.applyBindings(pagebuilderMainViewModel);
-              loading.removeSpinner();
+    pagebuilderMainViewModel.fetchPage().then(() => {
+       pagebuilderMainViewModel.fetchLanguages().then(() => {
+          pagebuilderMainViewModel.getPageBuilderElements().then(() => {
+             pagebuilderMainViewModel.fetchSections().then(() => {
+                 ko.applyBindings(pagebuilderMainViewModel);
+                 loading.removeSpinner();
+             });
           });
-       });
-    })
+       })
+    });
 }
 
 // Media
@@ -177,3 +179,16 @@ deleteFormElements.forEach(deleteFormElement => {
 // Close Alert on click
 const alertEls = document.querySelectorAll('.alert');
 if(alertEls) {alertEls.forEach(alertEl => alertEl.querySelector('.alert__close').addEventListener('click', (e) => { alertEl.parentNode.removeChild(alertEl) }))};
+
+// Dashboard Time and Weather Widget
+const currentDate = new Date(); 
+const monthNames = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+];
+const currentDateString = `${currentDate.getDay()}. ${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
+const currentTimeString = `${currentDate.getHours()}:${currentDate.getMinutes()}`;
+const dateEl = document.querySelector('.date');
+const timeEl = document.querySelector('.time');
+
+if(dateEl) dateEl.innerHTML = currentDateString;
+if(timeEl) timeEl.innerHTML = currentTimeString;

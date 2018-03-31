@@ -122,6 +122,7 @@
         "Language": "Sprache",
         "Language Settings": "Spracheinstellungen",
         "New Language": "Neue Sprache",
-        "Create Language": "Neue Sprache erstellen"
+        "Create Language": "Neue Sprache erstellen",
+        "You can not delete the default language!": "Du kannst die Standardsprache nicht löschen!"
     }
 }

@@ -12,4 +12,18 @@ PagesHandler.loadPageItems = async function() {
     return data;
 };
 
+PagesHandler.fetchPage = async function(data) {
+   const url = `/pages/${data.pageID}`;
+   const response = await fetch(url, {
+      body: JSON.stringify(data),
+      headers: {
+         'content-type': 'application/json'
+     },
+      method: 'POST',
+      credentials: 'include'
+   });
+
+   return await response.json();
+};
+
 export default PagesHandler;

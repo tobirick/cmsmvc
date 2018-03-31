@@ -10,7 +10,10 @@
         <a href="/{{$curLang}}/admin/pages" class="button-primary-border">{{$lang['Go back']}}</a>
     @endslot
     @slot('right')
-        <a id="submit-form-btn" href="#" class="button-primary">{{$lang['Save']}}</a>
+    <div class="center-v-flex">
+       <a href="{{$settings['siteurl']}}{{$page['slug']}}" target="_blank" class="button-primary-border mr-1">{{$lang['Preview']}}</a>
+       <button class="button-primary fr" data-bind="click: savetoDB">{{$lang['Save']}}</button>
+    </div>
     @endslot
 @endcomponent
 <div class="admin-box admin-box-grid-fixed">
@@ -36,22 +39,18 @@
 @component('admin.components.alert')@endcomponent    
 <div class="container">
     <div class="row">
-        
-        <form class="w-100 df" id="submit-form" action="/admin/pages/{{$page['id']}}" method="POST">
-            <input type="hidden" name='_METHOD' value="PUT">
-            <input name="csrf_token" type="hidden" value="{{$csrf}}">
         <div class="col-7">
             <div class="admin-box">
                <h3 class="admin-box__title">{{$lang['Default Settings']}}</h3>
                     <div class="dn form-row">
-                        <input class="form-input" value="{{$page['slug']}}" type="text" placeholder="Slug" name="page[slug]">
+                        <input class="form-input" data-bind="value: page().slug" type="text" placeholder="Slug" name="page[slug]">
                     </div>
                     <div class="form-row">
                        <div class="col-3">
                         <label for="pagename" class="form-label">{{$lang['Page Name']}}</label>
                        </div>
                        <div class="col-9">
-                          <input id="pagename" autocomplete="off" class="form-input" value="{{$page['name']}}" type="text" placeholder="Name" name="page[name]">
+                          <input id="pagename" autocomplete="off" class="form-input" data-bind="value: page().name"  type="text" placeholder="Name" name="page[name]">
                           <strong>Permalink: </strong> <a target="_blank" class="aurl" href="{{$settings['siteurl']}}{{$page['slug']}}"> {{$settings['siteurl']}}{{$page['slug']}}</a>
                        </div>
                     </div>
@@ -60,7 +59,7 @@
                         <label for="pagetitle" class="form-label">{{$lang['Page Title']}}</label>
                        </div>
                        <div class="col-9">
-                          <input id="pagetitle" class="form-input" value="{{$page['title']}}" type="text" placeholder="Title" name="page[title]">
+                          <input id="pagetitle" class="form-input" data-bind="value: page().title" type="text" placeholder="Title" name="page[title]">
                        </div>
                     </div>
                     <div class="form-row">
@@ -70,7 +69,7 @@
                        <div class="col-9">
                         <span class="form-checkbox">
                            <label for="active">
-                              <input value="1" name="page[is_active]" class="form-checkbox__input" id="active" type="checkbox" {{$page['is_active'] ? 'checked' : ''}}>
+                              <input name="page[is_active]" class="form-checkbox__input" id="active" type="checkbox" data-bind="checked: page().is_active">
                               <span class="form-checkbox__label">Active</span>
                            </label>
                         </span>
@@ -87,7 +86,7 @@
                      <label for="seotitle" class="form-label">SEO {{$lang['Title']}}</label>
                   </div>
                   <div class="col-9">
-                     <input id="seotitle" class="form-input" value="{{$page['seo_title']}}" type="text" placeholder="SEO Title" name="page[seo_title]">
+                     <input id="seotitle" class="form-input" data-bind="value: page().seo_title" type="text" placeholder="SEO Title" name="page[seo_title]">
                   </div>
                  </div>
                  <div class="form-row">
@@ -95,12 +94,11 @@
                      <label for="seodescription" class="form-label">SEO {{$lang['Description']}}</label>
                   </div>
                   <div class="col-9">
-                     <textarea id="seodescription" class="form-input" type="text" placeholder="SEO Description" name="page[seo_description]">{{$page['seo_description']}}</textarea>
+                     <textarea data-bind="value: page().seo_description" id="seodescription" class="form-input" type="text" placeholder="SEO Description" name="page[seo_description]"></textarea>
                   </div>
                  </div>
             </div>
         </div>
-    </form>
 
         <div class="col-8">
             <div class="admin-box">
@@ -109,10 +107,6 @@
                        <ul data-bind="foreach: languages">
                           <li data-bind="click: $root.setCurrentLanguage, text: name, css: {active: id === $root.currentLanguage().id}">Deutsch</li>
                        </ul>
-                    </div>
-                    <div class="center-v-flex">
-                        <a href="{{$settings['siteurl']}}{{$page['slug']}}" target="_blank" class="button-primary-border mr-1">{{$lang['Preview']}}</a>
-                        <button class="button-primary fr" data-bind="click: savetoDB">{{$lang['Save']}}</button>
                     </div>
                 </div>
                 <div class="admin-grid-sections" data-bind="sortable: {data: sections, connectClass: 'admin-grid-sections', options: {revert: 'invalid'}}">

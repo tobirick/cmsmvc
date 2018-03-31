@@ -122,6 +122,7 @@
         "Language": "Language",
         "Language Settings": "Language Settings",
         "New Language": "New Language",
-        "Create Language": "Create Language"
+        "Create Language": "Create Language",
+        "You can not delete the default language!": "You can not delete the default language!"
     }
 }

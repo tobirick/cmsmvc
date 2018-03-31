@@ -103,8 +103,14 @@ class SettingsController extends BaseController {
          self::addFlash('error', self::getTrans('You have not the permission to do that!'));
          self::redirect('/admin/dashboard');
       }
-      Language::deleteLanguage($params['params']['id']);
-      self::redirect('/admin/settings/languages');
+
+      if(Language::getDefaultLanguage()['id'] !== $params['params']['id']) {
+         Language::deleteLanguage($params['params']['id']);
+         self::redirect('/admin/settings/languages');
+      } else {
+         self::addFlash('error', self::getTrans('You can not delete the default language!'));
+         self::redirect('/admin/settings/languages');
+      }
   }
 
   public function languageUpdate($params, $post) {

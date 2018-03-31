@@ -4,6 +4,7 @@ namespace App\Controllers\Admin;
 
 use \Core\BaseController;
 use \App\Models\Pagebuilder;
+use \App\Models\DefaultPage;
 use \Core\CSRF;
 
 class PagebuilderController extends BaseController {
@@ -163,6 +164,8 @@ class PagebuilderController extends BaseController {
         foreach($decoded['languages'] as $language) {
             Pagebuilder::saveHTMLToPageContent($decoded['page_id'], $language['language_id'], $language['html']);
         }
+
+        DefaultPage::updatePage($decoded['page_id'], $decoded['page']);
 
         // Insert updated sections, rows, columnsrows and rows
         foreach($sections as $key => $section) {

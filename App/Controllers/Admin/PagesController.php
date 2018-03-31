@@ -104,4 +104,19 @@ class PagesController extends BaseController {
         DefaultPage::updatePage($params['params']['id'], $post['page']);
         self::redirect('/admin/pages');
     }
+
+    public function getPageByID($params) {
+      $content = trim(file_get_contents("php://input"));
+      $decoded = json_decode($content, true);
+
+      CSRF::checkTokenAjax($decoded['csrf_token']);
+
+      $page = DefaultPage::getPageById($params['params']['id']);
+
+      header('Content-type: application/json');
+      $data['page'] = $page;
+      $data['csrfToken'] = CSRF::getToken();
+        
+      echo json_encode($data);
+    }
 }

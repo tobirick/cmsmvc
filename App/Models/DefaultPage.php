@@ -96,7 +96,7 @@ class DefaultPage extends Model {
             ':title' => $page['title'],
             ':seo_title' => $page['seo_title'],
             ':seo_description' => $page['seo_description'],
-            ':is_active' => isset($page['is_active']) ? $page['is_active'] : 0
+            ':is_active' => $page['is_active'] ? 1 : 0
         ]);
 
         $result = $stmt->fetch(PDO::FETCH_ASSOC);

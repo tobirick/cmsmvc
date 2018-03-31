@@ -20,8 +20,8 @@
             </div>
             <div class="col-3">
                <div class="admin-box weather-clock">
-                  <span class="time">12:25</span>
-                  <span class="date">30. März 2018</span>
+                  <span class="time"></span>
+                  <span class="date"></span>
                   <div>
                      <span class="city">Aichach</span>
                      <span class="weather">17° C</span>

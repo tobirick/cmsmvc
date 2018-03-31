@@ -6,6 +6,7 @@ import PagebuilderElementModel from './PagebuilderElementModel';
 
 import PagebuilderHandler from '../../Handlers/PagebuilderHandler';
 import LanguagesHandler from '../../Handlers/LanguagesHandler';
+import PagesHandler from '../../Handlers/PagesHandler';
 
 export default class PagebuilderMainViewModel {
    constructor() {
@@ -16,6 +17,7 @@ export default class PagebuilderMainViewModel {
       this.pageContentID = 1;
       this.sections = ko.observableArray();
       this.elements = ko.observableArray([]);
+      this.page = ko.observable();
 
       this.popupOpen = ko.observable(false);
       this.sectionSelected = ko.observable(false);
@@ -51,6 +53,25 @@ export default class PagebuilderMainViewModel {
 
     setCurrentLanguage = (language) => {
        this.currentLanguage(language);
+    }
+
+    fetchPage() {
+      const data = {
+         csrf_token: this.csrfTokenVal,
+         pageID: this.pageID
+      };
+
+      return PagesHandler.fetchPage(data).then((response) => {
+         this.updateCSRF(response.csrfToken);
+         const page = {};
+         for(let key in response.page) {
+            page[key] = ko.observable(response.page[key]);
+         }
+        this.page(page);
+        const isActive = parseInt(this.page().is_active());
+        this.page().is_active(isActive);
+        console.log(ko.toJS(this.page));
+      });
     }
 
     fetchLanguages() {
@@ -107,7 +128,8 @@ export default class PagebuilderMainViewModel {
          csrf_token: this.csrfTokenVal,
          sections: ko.toJS(this.sections),
          page_id: this.pageID,
-         languages: []
+         languages: [],
+         page: ko.toJS(this.page)
       };
 
       this.languages().forEach(language => {
@@ -124,7 +146,7 @@ export default class PagebuilderMainViewModel {
 
       if(response) {
           this.updateCSRF(response.csrfToken);
-          this.showAlert('success', 'Pagebuilder successfully saved!');
+          this.showAlert('success', 'Page successfully saved!');
       }
    }
 
