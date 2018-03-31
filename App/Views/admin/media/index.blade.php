@@ -5,7 +5,7 @@
 @section('content')
 @component('admin.partials.secondary-navigation')
     @slot('right')
-        <a href="#" data-bind="click: $root.openAddFolderPopup" class="button-primary-border">{{$lang['New Folder']}}</a>
+        <a href="#" data-bind="click: $root.openAddFolderPopup" class="button-primary-border mr-1">{{$lang['New Folder']}}</a>
         <a href="#" data-bind="click: $root.openUploadPopup" class="button-primary">{{$lang['Upload']}}</a>
     @endslot
 @endcomponent
