@@ -17,6 +17,7 @@ import MediaMainViewModel from './VM/Media/MediaMainViewModel';
 import CreatePagebuilderMainViewModel from './VM/CreatePagebuilder/CreatePagebuilderMainViewModel';
 import ThemeMainViewModel from './VM/Theme/ThemeMainViewModel';
 import UserRolesMainViewModel from './VM/UserRoles/UserRolesMainViewModel';
+import MediaPopupMainViewModel from './VM/MediaPopup/MediaPopupMainViewModel';
 
 // Validator
 validator.init('#validate-form');
@@ -30,11 +31,11 @@ const pathName = window.location.pathname;
 if(pathName.includes('/admin/users/roles')) {
     const userRolesMainViewModel = new UserRolesMainViewModel();
     loading.addSpinner();
-    userRolesMainViewModel.fetchUserRoles().then(() => {
-        userRolesMainViewModel.fetchUserPermissions().then(() => {
+    userRolesMainViewModel.fetchUserRoles()
+        .then(() => userRolesMainViewModel.fetchUserPermissions())
+        .then(() => {
             ko.applyBindings(userRolesMainViewModel);
             loading.removeSpinner();
-        });
     });
 }
 
@@ -45,13 +46,12 @@ if(pathName.includes('/admin/menus/') && pathName.includes('edit')) {
         menuListMainViewModel.updateMenuPositions(args);
     }
     loading.addSpinner();
-    menuListMainViewModel.getPages().then(() => {
-        menuListMainViewModel.getMenuListItems().then(() => {
+    menuListMainViewModel.getPages()
+        .then(() => menuListMainViewModel.getMenuListItems())
+        .then(() => {
             ko.applyBindings(menuListMainViewModel);
             loading.removeSpinner();
         });
-    });
-  
   }
   
 // Pagebuilder
@@ -61,16 +61,14 @@ if(pathName.includes('/admin/pages/') && pathName.includes('edit')) {
         pagebuilderMainViewModel.setPossibleColumns();
     }
     loading.addSpinner();
-    pagebuilderMainViewModel.fetchPage().then(() => {
-       pagebuilderMainViewModel.fetchLanguages().then(() => {
-          pagebuilderMainViewModel.getPageBuilderElements().then(() => {
-             pagebuilderMainViewModel.fetchSections().then(() => {
+    pagebuilderMainViewModel.fetchPage()
+        .then(() => pagebuilderMainViewModel.fetchLanguages())
+        .then(() => pagebuilderMainViewModel.getPageBuilderElements())
+        .then(() => pagebuilderMainViewModel.fetchSections())
+        .then(() => {
                  ko.applyBindings(pagebuilderMainViewModel);
                  loading.removeSpinner();
-             });
-          });
-       })
-    });
+       });
 }
 
 // Media
@@ -80,7 +78,8 @@ if(pathName.includes('/admin/media')) {
         mediaMainViewModel.updatePositions();
     }
     loading.addSpinner();
-    mediaMainViewModel.fetchMediaElements().then(() => {
+    mediaMainViewModel.fetchMediaElements()
+        .then(() => {
         ko.applyBindings(mediaMainViewModel);
         loading.removeSpinner();
     });
@@ -96,9 +95,10 @@ if(pathName.includes('/admin/pagebuilder/')) {
 if(pathName.includes('/admin/themes/') && pathName.includes('edit')) {
    const themeMainViewModel = new ThemeMainViewModel();
     loading.addSpinner();
-   themeMainViewModel.fetchThemeSettings().then(() => {
-       ko.applyBindings(themeMainViewModel);
-       loading.removeSpinner();
+   themeMainViewModel.fetchThemeSettings()
+    .then(() => {
+        ko.applyBindings(themeMainViewModel);
+        loading.removeSpinner();
    })
 }
 
@@ -192,3 +192,25 @@ const timeEl = document.querySelector('.time');
 
 if(dateEl) dateEl.innerHTML = currentDateString;
 if(timeEl) timeEl.innerHTML = currentTimeString;
+
+// User IMG Popup
+if(pathName.includes('/admin/users/') && pathName.includes('edit')) {
+    const UserEditViewModel = function() {
+        this.mediaPopupVM = ko.observable(new MediaPopupMainViewModel());
+
+        this.openMediaPopup = (element) => {
+            this.mediaPopupVM().openMediaPopup();
+            const subscription = this.mediaPopupVM().selectedMediaElement.subscribe(() => {
+                const path = this.mediaPopupVM().selectedMediaElementPath();
+                if(path) {
+                    document.querySelector('.user-img-preview').setAttribute('src',  path);
+                    document.querySelector('#userimg').value = path;
+                } else {
+                   subscription.dispose();
+                }
+            });
+        }
+    }
+
+    ko.applyBindings(new UserEditViewModel());
+ }

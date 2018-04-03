@@ -39,13 +39,21 @@ class User extends Model {
     }
 
     public static function updateUser($id, $user) {
+        if($user['user_img'] === '') {
+            $user['user_img'] = '/content/default-profile.png';
+        }
+
         $db = static::getDB();
-        $stmt = $db->prepare('UPDATE users SET name = :name, email = :email, user_role_id = :user_role_id WHERE id = :id');
+        $stmt = $db->prepare('UPDATE users SET name = :name, email = :email, user_role_id = :user_role_id, first_name = :first_name, last_name = :last_name, user_desc = :user_desc, user_img = :user_img WHERE id = :id');
         $stmt->execute([
             ':id' => $id,
             ':name' => $user['name'],
             ':email' => $user['email'],
-            ':user_role_id' => $user['user_role_id']
+            ':user_role_id' => $user['user_role_id'],
+            ':first_name' => $user['first_name'],
+            ':last_name' => $user['last_name'],
+            ':user_desc' => $user['user_desc'],
+            ':user_img' => $user['user_img'],
         ]);
 
         $result = $stmt->fetch(PDO::FETCH_ASSOC);

@@ -24,6 +24,8 @@
 .smaller {font-size: 80%};
 .bigger{font-size: 120%};
 
+.box-shadow { @include box-shadow(); }
+
 @for $i from 1 through 5 {
     .mt-#{$i} {
         margin-top: #{$i}rem;
