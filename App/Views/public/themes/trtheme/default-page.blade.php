@@ -4,9 +4,5 @@
 @section('metadescription', $seo_description)
 
 @section('content')
-<div class="container">
-    <h1>{{$title}}</h1>
-
-    {!! trim($langcontent) !!}
-</div>
+    {!! trim($content) !!}
 @stop

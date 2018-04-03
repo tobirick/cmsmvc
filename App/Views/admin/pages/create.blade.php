@@ -20,7 +20,7 @@
                     <input name="csrf_token" type="hidden" value="{{$csrf}}">
                     <div class="form-row">
                         <input autocomplete="off" class="form-input pagenameinput" type="text" placeholder="Name" name="page[name]">
-                        <strong>Permalink:</strong> <a target="_blank" class="aurl" href=""></a>
+                        <strong>Permalink:</strong> <a target="_blank" class="aurl" href="{{$settings['siteurl']}}">{{$settings['siteurl']}}</a>
                     </div>
                     <div class="form-row dn">
                         <input class="form-input pageluginput" type="text" placeholder="Slug" name="page[slug]">

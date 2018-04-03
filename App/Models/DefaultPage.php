@@ -28,7 +28,7 @@ class DefaultPage extends Model {
     public function getPageBySlug($languageID) {
         if($this->slug) {
             $db = static::getDB();
-            $stmt = $db->prepare('SELECT p.*, pc.content as langcontent FROM pages as p INNER JOIN page_contents as pc ON
+            $stmt = $db->prepare('SELECT p.*, pc.* FROM pages as p INNER JOIN page_contents as pc ON
                                  pc.page_id = p.id WHERE pc.language_id = :language_id AND p.slug = :slug');
             $stmt->execute([
                 ':slug' => $this->slug,
@@ -88,14 +88,11 @@ class DefaultPage extends Model {
     
     public static function updatePage($pageid, $page) {
         $db = static::getDB();
-        $stmt = $db->prepare('UPDATE pages SET name = :name, slug = :slug, title = :title, seo_title = :seo_title, seo_description = :seo_description, updated_at = now(), is_active = :is_active WHERE id = :id');
+        $stmt = $db->prepare('UPDATE pages SET name = :name, slug = :slug, updated_at = now(), is_active = :is_active WHERE id = :id');
         $stmt->execute([
             ':id' => $pageid,
             ':name' => $page['name'],
             ':slug' => $page['slug'],
-            ':title' => $page['title'],
-            ':seo_title' => $page['seo_title'],
-            ':seo_description' => $page['seo_description'],
             ':is_active' => $page['is_active'] ? 1 : 0
         ]);
 
@@ -112,5 +109,17 @@ class DefaultPage extends Model {
         ]);
 
         return true;
+    }
+
+    public static function getPageContentsByID($pageID, $langID) {
+        $db = static::getDB();
+        $stmt = $db->prepare('SELECT * FROM page_contents WHERE page_id = :page_id AND language_id = :language_id');
+        $stmt->execute([
+            ':page_id' => $pageID,
+            ':language_id' => $langID
+        ]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $result;
     }
 }

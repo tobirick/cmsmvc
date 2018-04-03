@@ -12,12 +12,16 @@ export default class PagebuilderColumnRowModel {
          this.fetchColumns();
       } else if (Object.keys(defaultColumns).length > 0) {
          defaultColumns.forEach(column => {
-            this.columns.push(new PagebuilderColumnModel({ col: column }));
+            this.columns.push(new PagebuilderColumnModel({ col: column }, {
+              removeCol: this.removeCol
+            }));
          });
       } else if (data.columns) {
          data.columns.forEach(column => {
             this.columns.push(
-               new PagebuilderColumnModel({ ...column, id: '' })
+               new PagebuilderColumnModel({ ...column, id: '' }, {
+                 removeCol: this.removeCol
+               })
             );
          });
       }
@@ -37,7 +41,14 @@ export default class PagebuilderColumnRowModel {
       this.columns.push(
          new PagebuilderColumnModel({
             ...column
-         })
+         }, 
+        {
+          removeCol: this.removeCol
+        })
       );
+   }
+
+   removeCol = (col) => {
+     this.columns.remove(col);
    }
 }

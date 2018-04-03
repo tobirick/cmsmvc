@@ -126,10 +126,10 @@ class Pagebuilder extends Model {
         $db = static::getDB();
         $stmt = $db->prepare('INSERT INTO pagebuilder_sections (page_id, css_class, css_id, styles, name, bg_color, bg_image, bg_image_size, bg_image_position, bg_image_repeat, padding, margin, current_bg_mode,
                             bg_gradient_first_color, bg_gradient_second_color, bg_gradient_type, bg_gradient_direction, bg_gradient_start_position, bg_gradient_end_position,
-                            language_id)
+                            language_id, full_width)
                               VALUES(:page_id, :css_class, :css_id, :styles, :name, :bg_color, :bg_image, :bg_image_size, :bg_image_position, :bg_image_repeat, :padding, :margin, :current_bg_mode,
                               :bg_gradient_first_color, :bg_gradient_second_color, :bg_gradient_type, :bg_gradient_direction, :bg_gradient_start_position, :bg_gradient_end_position,
-                              :language_id)');
+                              :language_id, :full_width)');
         $stmt->execute([
             ':page_id' => $pageID,
             ':css_class' => $section['css_class'],
@@ -150,7 +150,8 @@ class Pagebuilder extends Model {
             ':bg_gradient_direction' => $section['bg_gradient_direction'],
             ':bg_gradient_start_position' => $section['bg_gradient_start_position'],
             ':bg_gradient_end_position' => $section['bg_gradient_end_position'],
-            ':language_id' => $section['language_id']
+            ':language_id' => $section['language_id'],
+            ':full_width' => $section['full_width']
             ]);
 
         $lastID = $db->lastInsertId();
@@ -258,11 +259,14 @@ class Pagebuilder extends Model {
         return true;
     }
 
-    public static function saveHTMLToPageContent($pageID, $languageID, $html) {
+    public static function saveToPageContent($pageID, $languageID, $html, $page) {
       $db = static::getDB();
-      $stmt = $db->prepare('INSERT INTO page_contents SET page_id = :page_id, language_id = :language_id, content = :content');
+      $stmt = $db->prepare('INSERT INTO page_contents SET page_id = :page_id, language_id = :language_id, content = :content, title = :title, seo_title = :seo_title, seo_description = :seo_description');
       $stmt->execute([
           ':content' => $html,
+          ':title' => $page['title'],
+          ':seo_title' => $page['seo_title'],
+          ':seo_description' => $page['seo_description'],
           ':page_id' => $pageID,
           ':language_id' => $languageID
           ]);

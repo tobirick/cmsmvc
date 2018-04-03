@@ -4,6 +4,7 @@ namespace App\Controllers\Admin;
 
 use \Core\BaseController;
 use \App\Models\DefaultPage;
+use \App\Models\Language;
 use \Core\CSRF;
 
 class PagesController extends BaseController {
@@ -111,11 +112,20 @@ class PagesController extends BaseController {
 
       CSRF::checkTokenAjax($decoded['csrf_token']);
 
-      $page = DefaultPage::getPageById($params['params']['id']);
+      $defaultPage = DefaultPage::getPageById($params['params']['id']);
+
+        $data['langs'] = [];
+
+        $languages = Language::getAllLanguages();
+
+        foreach($languages as $language) {
+            $page = DefaultPage::getPageContentsByID($params['params']['id'], $language['id']);
+            $data['langs'][] = $page;
+        }
 
       header('Content-type: application/json');
-      $data['page'] = $page;
       $data['csrfToken'] = CSRF::getToken();
+      $data['defaultPage'] = $defaultPage;
         
       echo json_encode($data);
     }

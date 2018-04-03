@@ -132,7 +132,8 @@ export default class PagebuilderRowModel {
 
       if (response) {
          response.forEach(columnrow => {
-            this.columnrows.push(new PagebuilderColumnRowModel(columnrow));
+           const newColumnRow = new PagebuilderColumnRowModel(columnrow);
+            this.columnrows.push(newColumnRow);
          });
       }
    }

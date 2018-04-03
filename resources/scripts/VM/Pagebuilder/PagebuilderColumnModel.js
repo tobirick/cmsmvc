@@ -3,7 +3,7 @@ import PagebuilderElementModel from './PagebuilderElementModel';
 import PagebuilderHandler from '../../Handlers/PagebuilderHandler';
 
 export default class PagebuilderColumnModel {
-   constructor(data) {
+   constructor(data, delegates) {
       this.id = ko.observable(data.id || '');
       this.col = ko.observable(data.col);
 
@@ -21,6 +21,8 @@ export default class PagebuilderColumnModel {
          );
          this.elementSelected(true);
       }
+
+      this.removeCol = delegates.removeCol;
    }
 
    async fetchElement() {

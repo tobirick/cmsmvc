@@ -32,6 +32,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <button style="right: 10px;" data-bind="visible: element() === null, click: removeCol" class="admin-grid-element__button center-abs-top"><i class="fa fa-times"></i></button>
                         </div>
                     </div>
                 </div>

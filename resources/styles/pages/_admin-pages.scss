@@ -203,6 +203,10 @@
     }
 }
 
+.admin-grid-col-wrapper {
+    position: relative;
+}
+
 .admin-grid-cols {
     width: 88%;
     margin: 0 auto;
@@ -215,6 +219,7 @@
 
     & > div {
       flex-flow: row wrap;
+      position: relative;
         width: 100%;
         display: flex;
     }

@@ -27,6 +27,19 @@
                         <input data-bind="textInput: name" type="text" id="name" class="form-input" placeholder="Section Name">
                      </div>
                   </div>
+                  <div class="form-row">
+                      <div class="col-3">
+                          <label for="" class="form-label">Full width Section</label>
+                      </div>
+                      <div class="col-9">
+                          <span class="form-checkbox">
+                            <label for="full-width">
+                                <input class="form-checkbox__input" id="full-width" type="checkbox" data-bind="checked: full_width">
+                                <span class="form-checkbox__label">Yes</span>
+                            </label>
+                        </span>
+                      </div>
+                  </div>
                </div>
             </div>
             <div class="popup__subsection">

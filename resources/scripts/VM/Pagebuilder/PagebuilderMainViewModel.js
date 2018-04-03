@@ -17,6 +17,9 @@ export default class PagebuilderMainViewModel {
       this.pageContentID = 1;
       this.sections = ko.observableArray();
       this.elements = ko.observableArray([]);
+
+      this.langPages = ko.observableArray([]);
+      this.defaultPageSettings = ko.observable();
       this.page = ko.observable();
 
       this.popupOpen = ko.observable(false);
@@ -53,6 +56,12 @@ export default class PagebuilderMainViewModel {
 
     setCurrentLanguage = (language) => {
        this.currentLanguage(language);
+
+       const page = this.langPages().find(langPage => {
+        return langPage.language_id() === language.id;
+       });
+
+       this.page(page);
     }
 
     fetchPage() {
@@ -63,14 +72,28 @@ export default class PagebuilderMainViewModel {
 
       return PagesHandler.fetchPage(data).then((response) => {
         csrf.updateToken(response.csrfToken);
-         const page = {};
-         for(let key in response.page) {
-            page[key] = ko.observable(response.page[key]);
-         }
-        this.page(page);
-        const isActive = parseInt(this.page().is_active());
-        this.page().is_active(isActive);
-        console.log(ko.toJS(this.page));
+
+        let defaultPage = {};
+        for(let key in response.defaultPage) {
+          defaultPage[key] = ko.observable(response.defaultPage[key]);
+       }
+
+       const isActive = parseInt(defaultPage.is_active());
+       defaultPage.is_active(isActive);
+
+       this.defaultPageSettings(defaultPage);
+
+        response.langs.forEach(langPage => {
+          let page = {};
+          for(let key in langPage) {
+             page[key] = ko.observable(langPage[key]);
+          }
+
+          this.langPages.push(page);      
+        });
+
+        this.page(this.langPages()[0]);
+        console.log(ko.toJS(this.langPages));
       });
     }
 
@@ -118,16 +141,22 @@ export default class PagebuilderMainViewModel {
          sections: ko.toJS(this.sections),
          page_id: this.pageID,
          languages: [],
-         page: ko.toJS(this.page)
+         defaultPage: ko.toJS(this.defaultPageSettings)
       };
 
       this.languages().forEach(language => {
          const sections = ko.toJS(this.sections).filter(section => {
             return section.language_id === language.id;
-         })
+         });
+
+         const page = ko.toJS(this.langPages).find(page => {
+            return language.id === page.language_id;
+         });
+
          data.languages.push({
             language_id: language.id,
-            html: this.generateHTML(sections)
+            html: this.generateHTML(sections),
+            page: page
          })
       })
 
@@ -254,7 +283,7 @@ export default class PagebuilderMainViewModel {
             });
             html += `</div>`;
          });
-         html += `</section>`;
+         html += `</div></section>`;
       });
       return html;
    }

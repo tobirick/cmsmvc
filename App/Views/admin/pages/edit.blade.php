@@ -39,18 +39,27 @@
 @component('admin.components.alert')@endcomponent    
 <div class="container">
     <div class="row">
-        <div class="col-7">
+        <div class="col-12">
+            <div class="admin-box mb-1">
+                <div class="languages-tab">
+                    <ul data-bind="foreach: languages">
+                        <li data-bind="click: $root.setCurrentLanguage, text: name, css: {active: id === $root.currentLanguage().id}">Deutsch</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div data-bind="with: page" class="col-7">
             <div class="admin-box">
                <h3 class="admin-box__title">{{$lang['Default Settings']}}</h3>
                     <div class="dn form-row">
-                        <input class="form-input" data-bind="value: page().slug" type="text" placeholder="Slug" name="page[slug]">
+                        <input class="form-input" data-bind="value: $root.defaultPageSettings().slug" type="text" placeholder="Slug" name="page[slug]">
                     </div>
                     <div class="form-row">
                        <div class="col-3">
                         <label for="pagename" class="form-label">{{$lang['Page Name']}}</label>
                        </div>
                        <div class="col-9">
-                          <input id="pagename" autocomplete="off" class="form-input" data-bind="value: page().name"  type="text" placeholder="Name" name="page[name]">
+                          <input id="pagename" autocomplete="off" class="form-input" data-bind="value: $root.defaultPageSettings().name"  type="text" placeholder="Name" name="page[name]">
                           <strong>Permalink: </strong> <a target="_blank" class="aurl" href="{{$settings['siteurl']}}{{$page['slug']}}"> {{$settings['siteurl']}}{{$page['slug']}}</a>
                        </div>
                     </div>
@@ -59,7 +68,7 @@
                         <label for="pagetitle" class="form-label">{{$lang['Page Title']}}</label>
                        </div>
                        <div class="col-9">
-                          <input id="pagetitle" class="form-input" data-bind="value: page().title" type="text" placeholder="Title" name="page[title]">
+                          <input id="pagetitle" class="form-input" data-bind="value: title" type="text" placeholder="Title" name="page[title]">
                        </div>
                     </div>
                     <div class="form-row">
@@ -69,7 +78,7 @@
                        <div class="col-9">
                         <span class="form-checkbox">
                            <label for="active">
-                              <input name="page[is_active]" class="form-checkbox__input" id="active" type="checkbox" data-bind="checked: page().is_active">
+                              <input name="page[is_active]" class="form-checkbox__input" id="active" type="checkbox" data-bind="checked: $root.defaultPageSettings().is_active">
                               <span class="form-checkbox__label">Active</span>
                            </label>
                         </span>
@@ -78,7 +87,7 @@
             </div>
         </div>
 
-        <div class="col-5">
+        <div data-bind="with: page" class="col-5">
             <div class="admin-box">
                <h3 class="admin-box__title">SEO</h3>
                <div class="form-row">
@@ -86,7 +95,7 @@
                      <label for="seotitle" class="form-label">SEO {{$lang['Title']}}</label>
                   </div>
                   <div class="col-9">
-                     <input id="seotitle" class="form-input" data-bind="value: page().seo_title" type="text" placeholder="SEO Title" name="page[seo_title]">
+                     <input id="seotitle" class="form-input" data-bind="value: seo_title" type="text" placeholder="SEO Title" name="page[seo_title]">
                   </div>
                  </div>
                  <div class="form-row">
@@ -94,7 +103,7 @@
                      <label for="seodescription" class="form-label">SEO {{$lang['Description']}}</label>
                   </div>
                   <div class="col-9">
-                     <textarea data-bind="value: page().seo_description" id="seodescription" class="form-input" type="text" placeholder="SEO Description" name="page[seo_description]"></textarea>
+                     <textarea data-bind="value: seo_description" id="seodescription" class="form-input" type="text" placeholder="SEO Description" name="page[seo_description]"></textarea>
                   </div>
                  </div>
             </div>
@@ -102,13 +111,6 @@
 
         <div class="col-8">
             <div class="admin-box">
-                <div class="admin-box__header">
-                    <div class="languages-tab">
-                       <ul data-bind="foreach: languages">
-                          <li data-bind="click: $root.setCurrentLanguage, text: name, css: {active: id === $root.currentLanguage().id}">Deutsch</li>
-                       </ul>
-                    </div>
-                </div>
                 <div class="admin-grid-sections" data-bind="sortable: {data: sections, connectClass: 'admin-grid-sections', options: {revert: 'invalid'}}">
                     @component('admin.components.pagebuilder-section')@endcomponent
                 </div>

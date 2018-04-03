@@ -30,6 +30,7 @@ export default class PagebuilderSectionModel {
       this.css_class = ko.observable(data.css_class || '');
       this.css_id = ko.observable(data.css_id || '');
       this.styles = ko.observable(data.styles || '');
+      this.full_width = ko.observable(parseInt(data.full_width) || 0);
       this.bg_color = ko.observable(data.bg_color || '');
       this.bg_image = ko.observable(data.bg_image || '');
       this.bg_image_size = ko.observable(data.bg_image_size || '');
@@ -97,7 +98,8 @@ export default class PagebuilderSectionModel {
                     ${this.marginVM().right() !== '' ? `margin-right:${this.marginVM().right()}rem;` : ''}
                     ${this.marginVM().bottom() !== '' ? `margin-bottom:${this.marginVM().bottom()}rem;` : ''}
                     ${this.marginVM().left() !== '' ? `margin-left:${this.marginVM().left()}rem;` : ''}
-                    ">`;
+                    ">
+                    ${this.full_width() ? '<div class="container-fluid">' : '<div class="container">'}`;
         });
 
       this.rows = ko.observableArray([]);

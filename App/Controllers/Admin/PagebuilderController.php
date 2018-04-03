@@ -162,10 +162,10 @@ class PagebuilderController extends BaseController {
         Pagebuilder::deleteSectionsByPageID($decoded['page_id']);
         Pagebuilder::deletePageContentsByPageID($decoded['page_id']);
         foreach($decoded['languages'] as $language) {
-            Pagebuilder::saveHTMLToPageContent($decoded['page_id'], $language['language_id'], $language['html']);
+            Pagebuilder::saveToPageContent($decoded['page_id'], $language['language_id'], $language['html'], $language['page']);
         }
 
-        DefaultPage::updatePage($decoded['page_id'], $decoded['page']);
+        DefaultPage::updatePage($decoded['page_id'], $decoded['defaultPage']);
 
         // Insert updated sections, rows, columnsrows and rows
         foreach($sections as $key => $section) {
@@ -174,16 +174,18 @@ class PagebuilderController extends BaseController {
             foreach($section['rows'] as $key2 => $row) {
                 $rowID = Pagebuilder::saveRow($sectionID, $row);
 
-                foreach($row['columnrows'] as $key3 => $columnrow) {
-                    $columndRowID = Pagebuilder::saveColumnRow($rowID, $columnrow);
-
-                    foreach($columnrow['columns'] as $key4 => $column) {
-                        $columnID = Pagebuilder::saveColumn($columndRowID, $column);
-                        if($column['element']) {
-                           Pagebuilder::saveElement($columnID, $column['element']);
+                    foreach($row['columnrows'] as $key3 => $columnrow) {
+                        if(sizeof($columnrow['columns']) !== 0) {
+                            $columndRowID = Pagebuilder::saveColumnRow($rowID, $columnrow);
+        
+                            foreach($columnrow['columns'] as $key4 => $column) {
+                                $columnID = Pagebuilder::saveColumn($columndRowID, $column);
+                                if($column['element']) {
+                                   Pagebuilder::saveElement($columnID, $column['element']);
+                                }
+                            }
                         }
                     }
-                }
             }
         }
 

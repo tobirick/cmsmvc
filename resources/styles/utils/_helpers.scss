@@ -24,6 +24,12 @@
 .smaller {font-size: 80%};
 .bigger{font-size: 120%};
 
+.center-abs-top {
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+}
+
 .box-shadow { @include box-shadow(); }
 
 @for $i from 1 through 5 {

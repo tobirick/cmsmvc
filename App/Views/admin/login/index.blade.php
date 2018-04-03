@@ -29,7 +29,7 @@
                 <button class="button-primary block">{{$lang['Login']}}</button>
             </form>
 
-            <span class="box__info">{{$lang['No account']}} - <a href="/admin/register">{{$lang['Register here']}}</a></span>
+        <!--<span class="box__info">{{$lang['No account']}} - <a href="/admin/register">{{$lang['Register here']}}</a></span>-->
         </div>
     </div>
 @stop
