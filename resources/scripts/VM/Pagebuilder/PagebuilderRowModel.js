@@ -105,9 +105,7 @@ export default class PagebuilderRowModel {
          this.fetchColumnRows();
       } else if (data.columnrows) {
          data.columnrows.forEach(columnrow => {
-            this.columnrows.push(
-               new PagebuilderColumnRowModel({ ...columnrow, id: '' })
-            );
+            this.columnrows.push(this.newColumnRow({...columnrow, id: ''}));
          });
       }
 
@@ -132,14 +130,13 @@ export default class PagebuilderRowModel {
 
       if (response) {
          response.forEach(columnrow => {
-           const newColumnRow = new PagebuilderColumnRowModel(columnrow);
-            this.columnrows.push(newColumnRow);
+            this.columnrows.push(this.newColumnRow(columnrow));
          });
       }
    }
 
    addColumnRow() {
-      this.columnrows.push(new PagebuilderColumnRowModel({}));
+      this.columnrows.push(this.newColumnRow({}));
    }
 
    openMediaPopup = () => {
@@ -150,5 +147,9 @@ export default class PagebuilderRowModel {
               this.bg_image(path);
           }
       });
+  }
+
+  newColumnRow = (data) => {
+    return new PagebuilderColumnRowModel(data);
   }
 }

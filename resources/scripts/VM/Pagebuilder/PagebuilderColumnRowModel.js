@@ -12,17 +12,11 @@ export default class PagebuilderColumnRowModel {
          this.fetchColumns();
       } else if (Object.keys(defaultColumns).length > 0) {
          defaultColumns.forEach(column => {
-            this.columns.push(new PagebuilderColumnModel({ col: column }, {
-              removeCol: this.removeCol
-            }));
+            this.columns.push(this.newColumn({col: column}));
          });
       } else if (data.columns) {
          data.columns.forEach(column => {
-            this.columns.push(
-               new PagebuilderColumnModel({ ...column, id: '' }, {
-                 removeCol: this.removeCol
-               })
-            );
+            this.columns.push(this.newColumn({...column, id: ''}));
          });
       }
    }
@@ -32,23 +26,22 @@ export default class PagebuilderColumnRowModel {
 
       if (response) {
          response.forEach(column => {
-            this.addColumn(column);
+           this.columns.push(this.newColumn(column));
          });
       }
    }
 
    addColumn(column = {}) {
-      this.columns.push(
-         new PagebuilderColumnModel({
-            ...column
-         }, 
-        {
-          removeCol: this.removeCol
-        })
-      );
+      this.columns.push(this.newColumn({...column}));
    }
 
    removeCol = (col) => {
      this.columns.remove(col);
    }
+
+   newColumn = (data) => {
+    return new PagebuilderColumnModel(data, {
+      removeCol: this.removeCol
+    });
+   };
 }

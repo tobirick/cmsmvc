@@ -15,7 +15,8 @@ export default class PagebuilderMainViewModel {
       this.possibleColumns = ko.observableArray([]);
       this.pageID = document.getElementById('pageid').value;
       this.pageContentID = 1;
-      this.sections = ko.observableArray();
+      this.sections = ko.observableArray([]);
+      this.filteredSections = ko.observableArray([]);
       this.elements = ko.observableArray([]);
 
       this.langPages = ko.observableArray([]);
@@ -32,6 +33,10 @@ export default class PagebuilderMainViewModel {
 
       this.setPossibleColumns();
       //this.addSection();
+
+      this.sections.subscribe(() => {
+        this.filterSections(this.currentLanguage());
+      });
 
       this.alert = ko.observable({
         visible: ko.observable(false),
@@ -52,16 +57,6 @@ export default class PagebuilderMainViewModel {
 
     closeAlert = () => {
         this.alert().visible(false);
-    }
-
-    setCurrentLanguage = (language) => {
-       this.currentLanguage(language);
-
-       const page = this.langPages().find(langPage => {
-        return langPage.language_id() === language.id;
-       });
-
-       this.page(page);
     }
 
     fetchPage() {
@@ -93,7 +88,6 @@ export default class PagebuilderMainViewModel {
         });
 
         this.page(this.langPages()[0]);
-        console.log(ko.toJS(this.langPages));
       });
     }
 
@@ -109,6 +103,126 @@ export default class PagebuilderMainViewModel {
          });
          this.currentLanguage(this.languages()[0]);
       });
+    }
+
+    fetchSections() {
+      const data = {
+        csrf_token: csrf.getToken(),
+         pageID: this.pageID
+      };
+
+      this.sections([]);
+
+      return PagebuilderHandler.fetchSections(data).then(response => {
+        csrf.updateToken(response.csrfToken);
+          if (response.sections.length > 0) {
+             response.sections.forEach(section => {
+                const paddingArr = section.padding.split(' ');
+                const marginArr = section.margin.split(' ');  
+                const paddingVM = {top: paddingArr[0], right: paddingArr[1], bottom: paddingArr[2], left: paddingArr[3]};
+                const marginVM = {top: marginArr[0], right: marginArr[1], bottom: marginArr[2], left: marginArr[3]};
+                this.sections.push(this.newSection({...section, paddingVM, marginVM}));
+             });
+          } else {
+            this.sections.push(this.newSection({language_id: this.currentLanguage().id}));
+          }
+          this.filterSections(this.currentLanguage());
+      });
+   }
+
+   setPossibleColumns() {
+    this.possibleColumns([
+       new PagebuilderColumnRowModel({}, ['12']),
+       new PagebuilderColumnRowModel({}, ['9', '3']),
+       new PagebuilderColumnRowModel({}, ['8', '4']),
+       new PagebuilderColumnRowModel({}, ['6', '6']),
+       new PagebuilderColumnRowModel({}, ['4', '4', '4']),
+       new PagebuilderColumnRowModel({}, ['3', '3', '3', '3'])
+    ]);
+ }
+
+  async getPageBuilderElements() {
+      const data = {
+        csrf_token: csrf.getToken(),
+      };
+
+      return PagebuilderHandler.loadPagebuilderElements(data).then((response) => {
+        csrf.updateToken(response.csrfToken);
+        response.pagebuilderItems.forEach(dataItem => {
+            this.elements.push(
+              new PagebuilderElementModel({
+                  ...dataItem,
+                  id: '',
+                  item_id: dataItem.id
+              })
+            );
+        });
+      });
+  }
+
+    async savetoDB() {
+      const data = {
+        csrf_token: csrf.getToken(),
+        sections: ko.toJS(this.sections),
+        page_id: this.pageID,
+        languages: [],
+        defaultPage: ko.toJS(this.defaultPageSettings)
+      };
+
+      this.languages().forEach(language => {
+        const sections = ko.toJS(this.sections).filter(section => {
+            return section.language_id === language.id;
+        });
+
+        const page = ko.toJS(this.langPages).find(page => {
+            return language.id === page.language_id;
+        });
+
+        data.languages.push({
+            language_id: language.id,
+            html: this.generateHTML(sections),
+            page: page
+        })
+      })
+
+      const response = await PagebuilderHandler.savePagebuilder(data);
+
+      if(response) {
+        csrf.updateToken(response.csrfToken);
+          this.showAlert('success', 'Page successfully saved!');
+      }
+    }
+
+    copyFromLanguage = () => {
+      const sections = this.sections().filter(section => {
+        return section.language_id() === this.languages()[0].id
+      });
+
+      sections.forEach(section => {
+        const newSection = this.newSection({...ko.toJS(section), id: ''});
+
+        newSection.language_id(this.currentLanguage().id);
+        this.sections.push(newSection);
+      });
+
+    }
+
+    filterSections = (language) => {
+      const sections = this.sections().filter(section => {
+        return section.language_id() === language.id;
+      });
+      this.filteredSections(sections);
+    }
+
+    setCurrentLanguage = (language) => {
+       this.currentLanguage(language);
+       this.filterSections(language);
+
+       const page = this.langPages().find(langPage => {
+        return langPage.language_id() === language.id;
+       });
+
+       this.page(page);
     }
 
    openSettings = data => {
@@ -135,117 +249,8 @@ export default class PagebuilderMainViewModel {
       });
    };
 
-   async savetoDB() {
-      const data = {
-        csrf_token: csrf.getToken(),
-         sections: ko.toJS(this.sections),
-         page_id: this.pageID,
-         languages: [],
-         defaultPage: ko.toJS(this.defaultPageSettings)
-      };
-
-      this.languages().forEach(language => {
-         const sections = ko.toJS(this.sections).filter(section => {
-            return section.language_id === language.id;
-         });
-
-         const page = ko.toJS(this.langPages).find(page => {
-            return language.id === page.language_id;
-         });
-
-         data.languages.push({
-            language_id: language.id,
-            html: this.generateHTML(sections),
-            page: page
-         })
-      })
-
-      const response = await PagebuilderHandler.savePagebuilder(data);
-
-      if(response) {
-        csrf.updateToken(response.csrfToken);
-          this.showAlert('success', 'Page successfully saved!');
-      }
-   }
-
-   fetchSections() {
-      const data = {
-        csrf_token: csrf.getToken(),
-         pageID: this.pageID
-      };
-
-      this.sections([]);
-
-      return PagebuilderHandler.fetchSections(data).then(response => {
-        csrf.updateToken(response.csrfToken);
-          if (response.sections.length > 0) {
-             response.sections.forEach(section => {
-                const paddingArr = section.padding.split(' ');
-                const marginArr = section.margin.split(' ');  
-                const paddingVM = {top: paddingArr[0], right: paddingArr[1], bottom: paddingArr[2], left: paddingArr[3]};
-                const marginVM = {top: marginArr[0], right: marginArr[1], bottom: marginArr[2], left: marginArr[3]};
-                this.sections.push(
-                   new PagebuilderSectionModel({...section, paddingVM, marginVM}, {
-                      cloneSection: this.cloneSection,
-                      deleteSection: this.deleteSection
-                   })
-                );
-             });
-          } else {
-            this.sections.push(
-                new PagebuilderSectionModel({
-                   language_id: this.currentLanguage().id
-                }, {
-                   cloneSection: this.cloneSection,
-                   deleteSection: this.deleteSection
-                })
-             );
-          }
-      });
-   }
-
-   setPossibleColumns() {
-      this.possibleColumns([
-         new PagebuilderColumnRowModel({}, ['12']),
-         new PagebuilderColumnRowModel({}, ['9', '3']),
-         new PagebuilderColumnRowModel({}, ['8', '4']),
-         new PagebuilderColumnRowModel({}, ['6', '6']),
-         new PagebuilderColumnRowModel({}, ['4', '4', '4']),
-         new PagebuilderColumnRowModel({}, ['3', '3', '3', '3'])
-      ]);
-   }
-
-   async getPageBuilderElements() {
-      const data = {
-        csrf_token: csrf.getToken(),
-      };
-
-      return PagebuilderHandler.loadPagebuilderElements(data).then((response) => {
-        csrf.updateToken(response.csrfToken);
-         response.pagebuilderItems.forEach(dataItem => {
-            this.elements.push(
-               new PagebuilderElementModel({
-                  ...dataItem,
-                  id: '',
-                  item_id: dataItem.id
-               })
-            );
-         });
-      });
-   }
-
    addSection() {
-      this.sections.push(
-         new PagebuilderSectionModel(
-            {
-               language_id: this.currentLanguage().id
-            },
-            {
-               cloneSection: this.cloneSection,
-               deleteSection: this.deleteSection
-            }
-         )
-      );
+      this.sections.push(this.newSection({language_id: this.currentLanguage().id}));
    }
 
    cloneSection = section => {
@@ -253,16 +258,7 @@ export default class PagebuilderMainViewModel {
       this.sections.splice(
          index,
          0,
-         new PagebuilderSectionModel(
-            {
-               ...ko.toJS(section),
-               id: ''
-            },
-            {
-               cloneSection: this.cloneSection,
-               deleteSection: this.deleteSection
-            }
-         )
+         this.newSection({...ko.toJS(section), id: ''})
       );
    };
 
@@ -286,5 +282,14 @@ export default class PagebuilderMainViewModel {
          html += `</div></section>`;
       });
       return html;
+   }
+
+   newSection (data) {
+     return new PagebuilderSectionModel(data,
+      {
+         cloneSection: this.cloneSection,
+         deleteSection: this.deleteSection
+      }
+    )
    }
 }

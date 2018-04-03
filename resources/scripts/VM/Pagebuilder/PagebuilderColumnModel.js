@@ -13,12 +13,7 @@ export default class PagebuilderColumnModel {
       if (ko.toJS(this.id)) {
          this.fetchElement();
       } else if (data.element) {
-         this.element(
-            new PagebuilderElementModel({
-               ...ko.toJS(data.element),
-               id: ''
-            })
-         );
+         this.element(this.newElement({...ko.toJS(data.element), id: ''}));
          this.elementSelected(true);
       }
 
@@ -33,19 +28,14 @@ export default class PagebuilderColumnModel {
         const marginArr = response.margin.split(' ');  
         const paddingVM = {top: paddingArr[0], right: paddingArr[1], bottom: paddingArr[2], left: paddingArr[3]};
         const marginVM = {top: marginArr[0], right: marginArr[1], bottom: marginArr[2], left: marginArr[3]};
-         this.element(new PagebuilderElementModel({...response, paddingVM, marginVM}));
+         this.element(this.newElement({...response, paddingVM, marginVM}));
          this.elementSelected(true);
       }
    }
 
    setElement = element => {
       if (!this.elementSelected()) {
-         this.element(
-            new PagebuilderElementModel({
-               ...ko.toJS(element),
-               id: ''
-            })
-         );
+         this.element(this.newElement({...ko.toJS(element), id: ''}));
          this.elementSelected(true);
       }
    };
@@ -54,4 +44,8 @@ export default class PagebuilderColumnModel {
       this.elementSelected(false);
       this.element(null);
    };
+
+   newElement = (data) => {
+    return new PagebuilderElementModel(data);
+   }
 }

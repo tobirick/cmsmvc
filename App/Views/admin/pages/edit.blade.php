@@ -111,9 +111,10 @@
 
         <div class="col-8">
             <div class="admin-box">
-                <div class="admin-grid-sections" data-bind="sortable: {data: sections, connectClass: 'admin-grid-sections', options: {revert: 'invalid'}}">
+                <div class="admin-grid-sections" data-bind="sortable: {data: filteredSections, connectClass: 'admin-grid-sections', options: {revert: 'invalid'}}">
                     @component('admin.components.pagebuilder-section')@endcomponent
                 </div>
+                <div class="cursor-p" data-bind="visible: filteredSections().length === 0, click: copyFromLanguage">Copy Sections from Default Language</div>
                 <span data-bind="click: $root.addSection" class="admin-grid__add-section"><i class="fa fa-plus"></i> {{$lang['Add Section']}}</span>
             </div>  
         </div>

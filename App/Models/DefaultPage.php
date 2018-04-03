@@ -28,7 +28,7 @@ class DefaultPage extends Model {
     public function getPageBySlug($languageID) {
         if($this->slug) {
             $db = static::getDB();
-            $stmt = $db->prepare('SELECT p.*, pc.* FROM pages as p INNER JOIN page_contents as pc ON
+            $stmt = $db->prepare('SELECT p.*, pc.content, pc.title, pc.seo_title, pc.seo_description FROM pages as p INNER JOIN page_contents as pc ON
                                  pc.page_id = p.id WHERE pc.language_id = :language_id AND p.slug = :slug');
             $stmt->execute([
                 ':slug' => $this->slug,

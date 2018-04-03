@@ -108,26 +108,10 @@ export default class PagebuilderSectionModel {
          this.fetchRows();
       } else if (data.rows) {
          data.rows.forEach(row => {
-            this.rows.push(
-               new PagebuilderRowModel(
-                  {
-                     ...row,
-                     id: ''
-                  },
-                  {
-                     deleteRow: this.deleteRow,
-                     cloneRow: this.cloneRow
-                  }
-               )
-            );
+            this.rows.push(this.newRow({...row, id: ''}));
          });
       } else {
-        this.rows.push(
-          new PagebuilderRowModel({}, {
-             deleteRow: this.deleteRow,
-             cloneRow: this.cloneRow
-          })
-       );
+        this.rows.push(this.newRow({}));
       }
 
       this.deleteSection = delegates.deleteSection;
@@ -151,12 +135,7 @@ export default class PagebuilderSectionModel {
             const marginArr = row.margin.split(' ');  
             const paddingVM = {top: paddingArr[0], right: paddingArr[1], bottom: paddingArr[2], left: paddingArr[3]};
             const marginVM = {top: marginArr[0], right: marginArr[1], bottom: marginArr[2], left: marginArr[3]};
-            this.rows.push(
-               new PagebuilderRowModel({...row, paddingVM, marginVM}, {
-                  deleteRow: this.deleteRow,
-                  cloneRow: this.cloneRow
-               })
-            );
+            this.rows.push(this.newRow({...row, paddingVM, marginVM}));
          });
       }
    }
@@ -170,29 +149,12 @@ export default class PagebuilderSectionModel {
       this.rows.splice(
          index,
          0,
-         new PagebuilderRowModel(
-            {
-               ...ko.toJS(row),
-               id: ''
-            },
-            {
-               deleteRow: this.deleteRow,
-               cloneRow: this.cloneRow
-            }
-         )
+         this.newRow({...ko.toJS(row), id: ''})
       );
    };
 
    addRow() {
-      this.rows.push(
-         new PagebuilderRowModel(
-            {},
-            {
-               deleteRow: this.deleteRow,
-               cloneRow: this.cloneRow
-            }
-         )
-      );
+      this.rows.push(this.newRow({}));
    }
 
    openMediaPopup = () => {
@@ -203,5 +165,14 @@ export default class PagebuilderSectionModel {
               this.bg_image(path);
           }
       });
+  }
+
+  newRow = (data) => {
+    return new PagebuilderRowModel(data,
+      {
+         deleteRow: this.deleteRow,
+         cloneRow: this.cloneRow
+      }
+    );
   }
 }
