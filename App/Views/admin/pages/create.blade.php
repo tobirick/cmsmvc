@@ -25,9 +25,6 @@
                     <div class="form-row dn">
                         <input class="form-input pageluginput" type="text" placeholder="Slug" name="page[slug]">
                     </div>
-                    <div class="form-row">
-                        <input class="form-input" type="text" placeholder="Title" name="page[title]">
-                    </div>
                 </form>
             </div>
         </div>

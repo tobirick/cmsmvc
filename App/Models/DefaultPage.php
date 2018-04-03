@@ -73,11 +73,10 @@ class DefaultPage extends Model {
 
     public function addPage($page, $userid) {
         $db = static::getDB();
-        $stmt = $db->prepare('INSERT INTO pages (name, slug, title, created_at, created_by, is_active) VALUES(:name, :slug, :title, now(), :created_by, :is_active)');
+        $stmt = $db->prepare('INSERT INTO pages (name, slug, created_at, created_by, is_active) VALUES(:name, :slug, now(), :created_by, :is_active)');
         $stmt->execute([
             ':name' => $page['name'],
             ':slug' => $page['slug'],
-            ':title' => $page['title'],
             ':created_by' => $userid,
             ':is_active' => 1
             ]);
@@ -121,5 +120,14 @@ class DefaultPage extends Model {
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
         return $result;
+    }
+
+    public static function addPageContents($pageID, $langID) {
+      $db = static::getDB();
+      $stmt = $db->prepare('INSERT INTO page_contents SET page_id = :page_id, language_id = :language_id');
+      $stmt->execute([
+          ':page_id' => $pageID,
+          ':language_id' => $langID
+          ]);
     }
 }
