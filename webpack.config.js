@@ -1,14 +1,16 @@
 const path = require('path');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
     entry: {
         index: ['babel-polyfill', './resources/scripts/app.js']
     },
+    include: path.resolve(__dirname, "./resources/scripts"),
     output: {
         filename: "app.js",
         sourceMapFilename: "app.js.map",
     },
-    devtool: '#source-map',
+    devtool: 'source-map',
     module: {
         loaders: [
             {
@@ -20,5 +22,6 @@ module.exports = {
                 }
             }
         ]
-    }
+    },
+    plugins: [new UglifyJsPlugin({sourceMap: true})],
 }

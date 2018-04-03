@@ -211,6 +211,5 @@ if(pathName.includes('/admin/users/') && pathName.includes('edit')) {
             });
         }
     }
-
     ko.applyBindings(new UserEditViewModel());
  }

@@ -1,4 +1,6 @@
 import ko from 'knockout';
+import csrf from '../../csrf';
+
 import PageItemViewModel from '../Pages/PageItemViewModel';
 import MenuItemViewModel from './MenuItemViewModel';
 import PagesHandler from '../../Handlers/PagesHandler';
@@ -16,8 +18,6 @@ export default class MenuListMainViewModel {
       };
       this.menuListItems = ko.observableArray([]);
       this.pagesList = ko.observableArray([]);
-      this.csrfToken = document.getElementById('csrftoken');
-      this.csrfTokenVal = document.getElementById('csrftoken').value;
 
       this.newMenuItem = new MenuItemViewModel(this.defaultData, {
          deleteMenuListItem: this.deleteMenuListItem,
@@ -33,24 +33,13 @@ export default class MenuListMainViewModel {
       }
    }
 
-   updateCSRF(newCsrfToken) {
-      this.csrfTokenVal = newCsrfToken;
-      this.csrfToken.value = newCsrfToken;
-      const csrfTokenInputEls = document.querySelectorAll(
-         'input[name="csrf_token"]'
-      );
-      csrfTokenInputEls.forEach(csrfTokenInputEl => {
-         csrfTokenInputEl.value = newCsrfToken;
-      });
-   }
-
    async updateMenuPositions() {
       this.menuListItems().forEach((menuListItem, position) => {
          menuListItem.menu_position(position);
       });
 
       const data = {
-         csrf_token: this.csrfTokenVal,
+         csrf_token: csrf.getToken(),
          menuitems: ko.toJS(this.menuListItems)
       };
 
@@ -59,7 +48,7 @@ export default class MenuListMainViewModel {
          this.menuID
       );
 
-      this.updateCSRF(response.csrfToken);
+      csrf.updateToken(response.csrfToken);
    }
 
    getPages() {
@@ -89,7 +78,7 @@ export default class MenuListMainViewModel {
             ...ko.toJS(this.newMenuItem),
             menu_position: ko.toJS(this.menuListItems).length
          },
-         csrf_token: this.csrfTokenVal
+         csrf_token: csrf.getToken()
       };
 
       const response = await MenuListItemsHandler.handleAddMenuListItem(
@@ -105,7 +94,7 @@ export default class MenuListMainViewModel {
       );
       this.resetNewMenuItem();
 
-      this.updateCSRF(response.csrfToken);
+      csrf.updateToken(response.csrfToken);
    }
 
    updateMenuListItem = async item => {
@@ -114,7 +103,7 @@ export default class MenuListMainViewModel {
             name: item.name(),
             page: item.page_id()
          },
-         csrf_token: this.csrfTokenVal
+         csrf_token: csrf.getToken(),
       };
 
       const response = await MenuListItemsHandler.handleUpdateMenuListItem(
@@ -123,13 +112,13 @@ export default class MenuListMainViewModel {
          item.id()
       );
       if (response.message === 'success') {
-         this.updateCSRF(response.csrfToken);
+        csrf.updateToken(response.csrfToken);
       }
    };
 
    deleteMenuListItem = async item => {
       const data = {
-         csrf_token: this.csrfTokenVal
+        csrf_token: csrf.getToken(),
       };
 
       const response = await MenuListItemsHandler.handleDeleteMenuListItem(
@@ -139,7 +128,7 @@ export default class MenuListMainViewModel {
       );
       if (response.message === 'success') {
          this.menuListItems.remove(item);
-         this.updateCSRF(response.csrfToken);
+         csrf.updateToken(response.csrfToken);
       }
    };
 }

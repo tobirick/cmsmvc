@@ -53,7 +53,7 @@ class User extends Model {
             ':first_name' => $user['first_name'],
             ':last_name' => $user['last_name'],
             ':user_desc' => $user['user_desc'],
-            ':user_img' => $user['user_img'],
+            ':user_img' => $user['user_img']
         ]);
 
         $result = $stmt->fetch(PDO::FETCH_ASSOC);

@@ -22,7 +22,8 @@
     "knockout": "^3.5.0-beta",
     "knockout-file-bindings": "^1.1.0",
     "knockout-sortable": "^1.1.0",
-    "spectrum-colorpicker": "^1.8.0"
+    "spectrum-colorpicker": "^1.8.0",
+    "uglifyjs-webpack-plugin": "^1.2.4"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

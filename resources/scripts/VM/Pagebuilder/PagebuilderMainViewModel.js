@@ -1,4 +1,6 @@
 import ko from 'knockout';
+import csrf from '../../csrf';
+
 import PagebuilderSectionModel from './PagebuilderSectionModel';
 import PagebuilderColumnRowModel from './PagebuilderColumnRowModel';
 import PagebuilderRowModel from './PagebuilderRowModel';
@@ -10,8 +12,6 @@ import PagesHandler from '../../Handlers/PagesHandler';
 
 export default class PagebuilderMainViewModel {
    constructor() {
-      this.csrfToken = document.getElementById('csrftoken');
-      this.csrfTokenVal = document.getElementById('csrftoken').value;
       this.possibleColumns = ko.observableArray([]);
       this.pageID = document.getElementById('pageid').value;
       this.pageContentID = 1;
@@ -57,12 +57,12 @@ export default class PagebuilderMainViewModel {
 
     fetchPage() {
       const data = {
-         csrf_token: this.csrfTokenVal,
-         pageID: this.pageID
+        csrf_token: csrf.getToken(),
+        pageID: this.pageID
       };
 
       return PagesHandler.fetchPage(data).then((response) => {
-         this.updateCSRF(response.csrfToken);
+        csrf.updateToken(response.csrfToken);
          const page = {};
          for(let key in response.page) {
             page[key] = ko.observable(response.page[key]);
@@ -76,28 +76,17 @@ export default class PagebuilderMainViewModel {
 
     fetchLanguages() {
       const data = {
-         csrf_token: this.csrfTokenVal
+        csrf_token: csrf.getToken(),
       };
 
       return LanguagesHandler.fetchLanguages(data).then((response) => {
-         this.updateCSRF(response.csrfToken);
+        csrf.updateToken(response.csrfToken);
          response.languages.forEach(language => {
             this.languages.push(language);
          });
          this.currentLanguage(this.languages()[0]);
       });
     }
-
-   updateCSRF(newCsrfToken) {
-      this.csrfTokenVal = newCsrfToken;
-      this.csrfToken.value = newCsrfToken;
-      const csrfTokenInputEls = document.querySelectorAll(
-         'input[name="csrf_token"]'
-      );
-      csrfTokenInputEls.forEach(csrfTokenInputEl => {
-         csrfTokenInputEl.value = newCsrfToken;
-      });
-   }
 
    openSettings = data => {
       this.popupOpen(true);
@@ -125,7 +114,7 @@ export default class PagebuilderMainViewModel {
 
    async savetoDB() {
       const data = {
-         csrf_token: this.csrfTokenVal,
+        csrf_token: csrf.getToken(),
          sections: ko.toJS(this.sections),
          page_id: this.pageID,
          languages: [],
@@ -145,21 +134,21 @@ export default class PagebuilderMainViewModel {
       const response = await PagebuilderHandler.savePagebuilder(data);
 
       if(response) {
-          this.updateCSRF(response.csrfToken);
+        csrf.updateToken(response.csrfToken);
           this.showAlert('success', 'Page successfully saved!');
       }
    }
 
    fetchSections() {
       const data = {
-         csrf_token: this.csrfTokenVal,
+        csrf_token: csrf.getToken(),
          pageID: this.pageID
       };
 
       this.sections([]);
 
       return PagebuilderHandler.fetchSections(data).then(response => {
-         this.updateCSRF(response.csrfToken);
+        csrf.updateToken(response.csrfToken);
           if (response.sections.length > 0) {
              response.sections.forEach(section => {
                 const paddingArr = section.padding.split(' ');
@@ -199,11 +188,11 @@ export default class PagebuilderMainViewModel {
 
    async getPageBuilderElements() {
       const data = {
-         csrf_token: this.csrfTokenVal
+        csrf_token: csrf.getToken(),
       };
 
       return PagebuilderHandler.loadPagebuilderElements(data).then((response) => {
-         this.updateCSRF(response.csrfToken);
+        csrf.updateToken(response.csrfToken);
          response.pagebuilderItems.forEach(dataItem => {
             this.elements.push(
                new PagebuilderElementModel({
