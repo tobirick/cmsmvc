@@ -9,33 +9,17 @@ class BaseController {
     private $publicPages = ['App\Controllers\IndexController', 'App\Controllers\DefaultPageController', 'App\Controllers\DefaultPostController'];
 
     public function render($template, $args = []) {
-        $csrf = new CSRF();
         $pages = \App\Models\DefaultPage::getAllPages();
         $mainMenuPages = \App\Models\Menu::getActiveMenuPages();
-        $getAllMenuNames = \App\Models\Menu::getAllMenuTypeNames();
         $activeTheme = \App\Models\Theme::getActiveTheme();
-        $language = Router::getLanguage();
-        $languagesArray = $language->getLanguagesArray();
-        $currentLanguage = $language->getCurrentLanguage();
-        $allLanguages = $language->getAllLanguages();
-        $publicLanguages = \App\Models\Language::getAllLanguages();
-        $currentPublicLanguage = Router::getCurrentPublicLanguage();
         $settings = \App\Models\Settings::getSettings();
-        $footercols = self::doFooterShortode(json_decode($activeTheme['footer_layout'], true)['columns']);
         $shares = [
             ['key' => 'user', 'value' =>  self::getUser()],
             ['key' => 'pages', 'value' => $pages],
             ['key' => 'mainmenupages', 'value' => $mainMenuPages],
             ['key' => 'activetheme', 'value' => $activeTheme['name']],
             ['key' => 'themesettings', 'value' => $activeTheme],
-            ['key' => 'footercols', 'value' => $footercols],
-            ['key' => 'allmenus', 'value' => $getAllMenuNames],
-            ['key' => 'lang', 'value' => $languagesArray],
-            ['key' => 'curLang', 'value' => $currentLanguage],
-            ['key' => 'allLanguages', 'value' => $allLanguages],
-            ['key' => 'settings', 'value' => $settings],
-            ['key' => 'publiclanguages', 'value' => $publicLanguages],
-            ['key' => 'currentpubliclanguage', 'value' => $currentPublicLanguage]
+            ['key' => 'settings', 'value' => $settings]
         ];
 
         // Minify CSS and JS
@@ -47,12 +31,40 @@ class BaseController {
         // Flash Messages
         if(isset($_SESSION['flash'])) {
             $flash = $_SESSION['flash'];
+
             $shares[] = ['key' => 'flash', 'value' => $flash];
         }
 
-        // Disable CSRF for Public Pages
+        // Admin Pages
          if(!in_array(get_class($this), $this->publicPages)) {
+            $csrf = new CSRF();
+            $language = Router::getLanguage();
+            $languagesArray = $language->getLanguagesArray();
+            $currentLanguage = $language->getCurrentLanguage();
+            $allLanguages = $language->getAllLanguages();
+            $getAllMenuNames = \App\Models\Menu::getAllMenuTypeNames();
+
             $shares[] = ['key' => 'csrf', 'value' => $csrf->getToken()];
+            $shares[] = ['key' => 'lang', 'value' => $languagesArray];
+            $shares[] = ['key' => 'curLang', 'value' => $currentLanguage];
+            $shares[] = ['key' => 'allLanguages', 'value' => $allLanguages];
+            $shares[] = ['key' => 'allmenus', 'value' => $getAllMenuNames];
+         }
+
+         // Public pages
+         if(in_array(get_class($this), $this->publicPages)) {
+            $publicLanguages = \App\Models\Language::getAllLanguages();
+            $currentPublicLanguage = Router::getCurrentPublicLanguage();
+            $footercols = [];
+            foreach(json_decode($activeTheme['footer_layout'], true)['columns'] as $footercol) {
+                $footercol['html'] = self::doShortcode($footercol['html']);
+                $footercols[] = $footercol;
+            }
+
+            $shares[] = ['key' => 'footercols', 'value' => $footercols];
+            $shares[] = ['key' => 'settings', 'value' => $settings];
+            $shares[] = ['key' => 'publiclanguages', 'value' => $publicLanguages];
+            $shares[] = ['key' => 'currentpubliclanguage', 'value' => $currentPublicLanguage];
          }
 
          //Public pages maintenance mode
@@ -64,30 +76,22 @@ class BaseController {
         $view->render($template, $args, $shares);
     }
 
-    public static function doFooterShortode($footerCols) {
-        $returnFooterCols = [];
+    public static function doShortcode($html) {
+        $regex = "/\[(.*?)\]/";
+        preg_match_all($regex, $html, $matches);
+        $returnHTML = $html;
 
-        foreach($footerCols as $footerCol) {
-            $name = 'menu';
-            $regex = "/\[(.*?)\]/";
-            preg_match_all($regex, $footerCol['html'], $matches);
-
-            if($matches[0]) {
-                for($i = 0; $i < count($matches[1]); $i++){
-                    $match = $matches[1][$i];
-                    $array = explode(' ', $match);
-                    $shortcode = new Shortcode();
-                    $newHTML = $shortcode->call($array);
+        for($i = 0; $i < count($matches[1]); $i++){
+            $match = $matches[1][$i];
+            $array = explode(' ', $match);
+            $shortcode = new Shortcode();
+            $newHTML = $shortcode->call($array);
     
-                    $string = str_replace($matches[0][$i], $newHTML, $footerCol['html']);
-                    $footerCol['html'] = $string;
-                    $returnFooterCols[] = $footerCol;
-                }
-            } else {
-                $returnFooterCols[] = $footerCol;
-            }
+            $string = str_replace($matches[0][$i], $newHTML, $returnHTML);
+            $returnHTML = $string;
         }
-        return $returnFooterCols;
+
+        return $returnHTML;
     }
 
     public static function getTrans($string) {
