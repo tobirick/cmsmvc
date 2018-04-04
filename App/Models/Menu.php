@@ -122,12 +122,13 @@ class Menu extends Model {
 
     public static function addMenuItem($menuid, $menuitem) {
         $db = static::getDB();
-        $stmt = $db->prepare('INSERT INTO menu_items (name, menu_id, page_id, menu_position) VALUES(:name, :menu_id, :page_id, :menu_position)');
+        $stmt = $db->prepare('INSERT INTO menu_items (name, menu_id, page_id, menu_position, language_id) VALUES(:name, :menu_id, :page_id, :menu_position, :language_id)');
         $stmt->execute([
             ':name' => $menuitem['name'],
             ':menu_id' => $menuid,
             ':page_id' => $menuitem['page_id'],
-            ':menu_position' => $menuitem['menu_position']
+            ':menu_position' => $menuitem['menu_position'],
+            ':language_id' => $menuitem['language_id']
         ]);
 
         $lastID = $db->lastInsertId();
@@ -227,10 +228,22 @@ class Menu extends Model {
         $id = self::getActiveMenuID()['value'];
 
         $db = static::getDB();
-        $stmt = $db->prepare('SELECT mi.name, p.slug FROM menu_items as mi INNER JOIN pages as p ON p.id = mi.page_id WHERE menu_id = :id ORDER BY mi.menu_position');
+        $stmt = $db->prepare('SELECT mi.name, mi.language_id, p.slug FROM menu_items as mi INNER JOIN pages as p ON p.id = mi.page_id WHERE menu_id = :id ORDER BY mi.menu_position');
         $stmt->execute([
             ':id' => $id
         ]);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
+    public static function getMenuItemsWithSlugByMenuID($id) {
+        $db = static::getDB();
+        $stmt = $db->prepare('SELECT m.name, m.language_id, p.slug FROM menu_items as m INNER JOIN pages as p ON p.id = m.page_id WHERE menu_id = :menu_id ORDER BY menu_position');
+        $stmt->execute([
+            ':menu_id' => $id
+        ]);
+
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         return $result;

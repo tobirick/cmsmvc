@@ -21,7 +21,7 @@ class BaseController {
         $publicLanguages = \App\Models\Language::getAllLanguages();
         $currentPublicLanguage = Router::getCurrentPublicLanguage();
         $settings = \App\Models\Settings::getSettings();
-        $footercols = json_decode($activeTheme['footer_layout'], true)['columns'];
+        $footercols = self::doFooterShortode(json_decode($activeTheme['footer_layout'], true)['columns']);
         $shares = [
             ['key' => 'user', 'value' =>  self::getUser()],
             ['key' => 'pages', 'value' => $pages],
@@ -62,6 +62,32 @@ class BaseController {
 
         $view = new View();
         $view->render($template, $args, $shares);
+    }
+
+    public static function doFooterShortode($footerCols) {
+        $returnFooterCols = [];
+
+        foreach($footerCols as $footerCol) {
+            $name = 'menu';
+            $regex = "/\[(.*?)\]/";
+            preg_match_all($regex, $footerCol['html'], $matches);
+
+            if($matches[0]) {
+                for($i = 0; $i < count($matches[1]); $i++){
+                    $match = $matches[1][$i];
+                    $array = explode(' ', $match);
+                    $shortcode = new Shortcode();
+                    $newHTML = $shortcode->call($array);
+    
+                    $string = str_replace($matches[0][$i], $newHTML, $footerCol['html']);
+                    $footerCol['html'] = $string;
+                    $returnFooterCols[] = $footerCol;
+                }
+            } else {
+                $returnFooterCols[] = $footerCol;
+            }
+        }
+        return $returnFooterCols;
     }
 
     public static function getTrans($string) {

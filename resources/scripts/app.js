@@ -47,6 +47,7 @@ if(pathName.includes('/admin/menus/') && pathName.includes('edit')) {
     }
     loading.addSpinner();
     menuListMainViewModel.getPages()
+        .then(() => menuListMainViewModel.fetchLanguages())
         .then(() => menuListMainViewModel.getMenuListItems())
         .then(() => {
             ko.applyBindings(menuListMainViewModel);

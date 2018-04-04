@@ -65,21 +65,28 @@
  
     <div class="row">
         <div class="col-12">
+            <div class="admin-box mb-1">
+                <div class="languages-tab">
+                    <ul data-bind="foreach: languages">
+                        <li data-bind="click: $root.setCurrentLanguage, text: name, css: {active: id === $root.currentLanguage().id}">Deutsch</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
             <div class="admin-box">
                 <h3 class="admin-box__title">{{$lang['Menu']}} Item's</h3>
                     <div id="menu-list">
-                        <table data-bind="visible: menuListItems().length > 0" class="table">
+                        <table data-bind="visible: filteredMenuItems().length > 0" class="table">
                             <thead>
                                 <tr>
-                                    <th>{{$lang['Position']}}</th>
                                     <th>{{$lang['Name']}}</th>
                                     <th>{{$lang['Connected Page']}}</th>
                                     <th></th>
                                 </tr>
                             </thead>
-                            <tbody data-bind="sortable: {data: menuListItems, options: { cancel: 'td:not(.editable), button:not(.sort), input, select' }}">
+                            <tbody data-bind="sortable: {data: filteredMenuItems, options: { cancel: 'td:not(.editable), button:not(.sort), input, select' }}">
                                 <tr>
-                                    <td>#<span data-bind="text: menu_position"></span></td>
                                     <td>
                                         <input class="form-input" data-bind="value: name, valueUpdate: 'afterkeydown'" type="text" placeholder="Name" name="menuitem[name]">
                                     </td>
@@ -94,7 +101,7 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <div data-bind="visible: menuListItems().length === 0" class="empty-state">
+                        <div data-bind="visible: filteredMenuItems().length === 0" class="empty-state">
                             <span class="empty-state__icon"><i class="fa fa-user-secret"></i></span>
                             <div class="empty-state__text">{{$lang['No Menu Items']}}</div>
                         </div>

@@ -54,7 +54,7 @@
           @foreach($footercols as $footercol)
              <div>
                 <div>{{$footercol['title']}}</div>
-                <div>{{$footercol['html']}}</div>
+                <div>{!! trim($footercol['html']) !!}</div>
              </div>
           @endforeach
         @endif

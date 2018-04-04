@@ -5,6 +5,7 @@ import PageItemViewModel from '../Pages/PageItemViewModel';
 import MenuItemViewModel from './MenuItemViewModel';
 import PagesHandler from '../../Handlers/PagesHandler';
 import MenuListItemsHandler from '../../Handlers/MenuListItemsHandler';
+import LanguagesHandler from '../../Handlers/LanguagesHandler';
 
 export default class MenuListMainViewModel {
    constructor() {
@@ -19,11 +20,35 @@ export default class MenuListMainViewModel {
       this.menuListItems = ko.observableArray([]);
       this.pagesList = ko.observableArray([]);
 
-      this.newMenuItem = new MenuItemViewModel(this.defaultData, {
+      this.filteredMenuItems = ko.observableArray([]);
+
+      this.newMenuItem = new MenuItemViewModel({...this.defaultData}, {
          deleteMenuListItem: this.deleteMenuListItem,
          updateMenuListItem: this.updateMenuListItem
       });
+
+      
+      this.languages = ko.observableArray([]);
+      this.currentLanguage = ko.observable(null);
+
+      this.menuListItems.subscribe(() => {
+        this.filterMenuItems(this.currentLanguage());
+      });
    }
+
+   fetchLanguages() {
+    const data = {
+      csrf_token: csrf.getToken(),
+    };
+
+    return LanguagesHandler.fetchLanguages(data).then((response) => {
+      csrf.updateToken(response.csrfToken);
+       response.languages.forEach(language => {
+          this.languages.push(language);
+       });
+       this.currentLanguage(this.languages()[0]);
+    });
+  }
 
    resetNewMenuItem() {
       for (let key in this.newMenuItem) {
@@ -76,7 +101,8 @@ export default class MenuListMainViewModel {
       const data = {
          menuitem: {
             ...ko.toJS(this.newMenuItem),
-            menu_position: ko.toJS(this.menuListItems).length
+            menu_position: ko.toJS(this.menuListItems).length,
+            language_id: this.currentLanguage().id
          },
          csrf_token: csrf.getToken()
       };
@@ -131,4 +157,16 @@ export default class MenuListMainViewModel {
          csrf.updateToken(response.csrfToken);
       }
    };
+
+   setCurrentLanguage = (language) => {
+    this.currentLanguage(language);
+    this.filterMenuItems(language);
+ }
+
+ filterMenuItems = (language) => {
+  const menuItems = this.menuListItems().filter(menuListItem => {
+    return menuListItem.language_id() === language.id;
+  });
+  this.filteredMenuItems(menuItems);
+ }
 }
