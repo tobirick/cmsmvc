@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{$currentpubliclanguage['iso']}}">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -25,7 +25,7 @@
     {{$themesettings['header_code']}}
     {{$themesettings['google_analytics']}}
    </head>
-   <body class="{{$user ? 'logged-in' : ''}}{{$themesettings['fixed_navigation'] ? 'fixed' : ''}} {{isset($id) ? 'page-id-' . $id : 'home'}}">
+   <body class="{{$currentpubliclanguage['iso']}} {{$user ? 'logged-in' : ''}}{{$themesettings['fixed_navigation'] ? 'fixed' : ''}} {{isset($id) ? 'page-id-' . $id : 'home'}}">
       @if($user)
       <div class="admin-bar">
          <ul>
@@ -54,7 +54,7 @@
           @foreach($footercols as $footercol)
              <div>
                 <div>{{$footercol['title']}}</div>
-                <div>{{$footercol['html']}}</div>
+                <div>{!! trim($footercol['html']) !!}</div>
              </div>
           @endforeach
         @endif

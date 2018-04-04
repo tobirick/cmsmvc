@@ -13,13 +13,15 @@ class BaseController {
         $mainMenuPages = \App\Models\Menu::getActiveMenuPages();
         $activeTheme = \App\Models\Theme::getActiveTheme();
         $settings = \App\Models\Settings::getSettings();
+        $publicLanguages = \App\Models\Language::getAllLanguages();
         $shares = [
             ['key' => 'user', 'value' =>  self::getUser()],
             ['key' => 'pages', 'value' => $pages],
             ['key' => 'mainmenupages', 'value' => $mainMenuPages],
             ['key' => 'activetheme', 'value' => $activeTheme['name']],
             ['key' => 'themesettings', 'value' => $activeTheme],
-            ['key' => 'settings', 'value' => $settings]
+            ['key' => 'settings', 'value' => $settings],
+            ['key' => 'publiclanguages', 'value' => $publicLanguages]
         ];
 
         // Minify CSS and JS
@@ -53,7 +55,6 @@ class BaseController {
 
          // Public pages
          if(in_array(get_class($this), $this->publicPages)) {
-            $publicLanguages = \App\Models\Language::getAllLanguages();
             $currentPublicLanguage = Router::getCurrentPublicLanguage();
             $footercols = [];
             foreach(json_decode($activeTheme['footer_layout'], true)['columns'] as $footercol) {
@@ -63,7 +64,6 @@ class BaseController {
 
             $shares[] = ['key' => 'footercols', 'value' => $footercols];
             $shares[] = ['key' => 'settings', 'value' => $settings];
-            $shares[] = ['key' => 'publiclanguages', 'value' => $publicLanguages];
             $shares[] = ['key' => 'currentpubliclanguage', 'value' => $currentPublicLanguage];
          }
 

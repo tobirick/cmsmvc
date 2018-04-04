@@ -4,5 +4,5 @@
 @section('metadescription', $seo_description)
 
 @section('content')
-    {!! trim($langcontent) !!}
+    {!! trim($content) !!}
 @stop
