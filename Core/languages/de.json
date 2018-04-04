@@ -124,6 +124,7 @@
         "New Language": "Neue Sprache",
         "Create Language": "Neue Sprache erstellen",
         "You can not delete the default language!": "Du kannst die Standardsprache nicht löschen!",
-        "Translations": "Übersetzungen"
+        "Translations": "Übersetzungen",
+        "Add Translation": "Übersetzung hinzufügen"
     }
 }

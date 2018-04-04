@@ -203,9 +203,6 @@
     }
 }
 
-.admin-grid-col-wrapper {
-    position: relative;
-}
 
 .admin-grid-cols {
     width: 88%;
@@ -234,6 +231,7 @@
     border-color: #6d7984;
     color: lighten($default-text-color, 20%);
     justify-content: center;
+    position: relative;
     align-items: center;
     min-height: 3.5rem;
     flex-direction: row;

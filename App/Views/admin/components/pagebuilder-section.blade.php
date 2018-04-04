@@ -13,8 +13,8 @@
                     <button data-bind="click: cloneRow"><i class="fa fa-clone"></i></button>
                     <button data-bind="click: deleteRow"><i class="fa fa-times"></i></button>
                 </div>
-                <div class="admin-grid-cols" data-bind="css: {empty: columnrows().length === 0}, sortable: {data: columnrows, connectClass: 'admin-grid-col-wrapper', options: {revert: 'invalid'}}">
-                    <div data-bind="foreach: columns">
+                <div class="admin-grid-cols" data-bind="css: {empty: columnrows().length === 0}, sortable: {data: columnrows, containment: '.test', connectClass: 'admin-grid-col-wrapper', options: {revert: 'invalid'}}">
+                    <div data-bind="foreach: columns" class="test">
                         <div class="admin-grid-col-wrapper" data-bind="css: 'col-'+col(), droppable: {data: setElement, options: {greedy: true, accept: '.admin-element-list-item, .admin-grid-element'}}">
                             <div class="admin-grid-col">
                                 <div data-bind="ifnot: elementSelected, style: { display: elementSelected() ? 'none' : 'flex'}">
@@ -31,8 +31,8 @@
                                         </div>
                                     </div>
                                 </div>
+                                <button style="right: 10px;" data-bind="visible: element() === null, click: removeCol" class="admin-grid-element__button center-abs-top"><i class="fa fa-times"></i></button>
                             </div>
-                            <button style="right: 10px;" data-bind="visible: element() === null, click: removeCol" class="admin-grid-element__button center-abs-top"><i class="fa fa-times"></i></button>
                         </div>
                     </div>
                 </div>
