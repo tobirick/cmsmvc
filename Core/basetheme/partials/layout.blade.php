@@ -10,6 +10,7 @@
     <meta property="og:site_name" content="{{$settings['sitetitle']}}" />
     <meta property="og:title" content="{{$settings['sitetitle']}} - @yield('metatitle')" />
     <meta property="og:description" content="@yield('metadescription')" />
+    <meta property="og:url" content="{{$settings['siteurl']}}">
     <meta name="twitter:card" content="website" />
     <meta name="twitter:site" content="{{$settings['sitetitle']}}" />
     <meta name="twitter:title" content="{{$settings['sitetitle']}} - @yield('metatitle')" />
@@ -58,15 +59,16 @@
              </div>
           @endforeach
         @endif
-        <select id="changePublicLang" name="publicLang">
-            @foreach($publiclanguages as $lang)
-              <option value="{{$lang['iso']}}" {{$lang['id'] === $currentpubliclanguage['id'] ? 'selected' : ''}}>{{$lang['name']}}</option>
-          @endforeach
-        </select>
        </div>
     </footer>
     <footer id="footer-bottom">
       <div class="container">
+          <select id="changePublicLang" name="publicLang">
+              @foreach($publiclanguages as $lang)
+                <option value="{{$lang['iso']}}" {{$lang['id'] === $currentpubliclanguage['id'] ? 'selected' : ''}}>{{$lang['name']}}</option>
+            @endforeach
+          </select>
+          {!! trim($themesettings['footer_bottom']) !!}
       </div>
     </footer>
     @include('public.themes.' . $activetheme . '.partials.scripts')

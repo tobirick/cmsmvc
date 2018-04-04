@@ -274,7 +274,7 @@ export default class PagebuilderMainViewModel {
             html += row.html;
             row.columnrows.forEach(columnrow => {
                columnrow.columns.forEach(column => {
-                html += `<div class="col-${column.col}">${column.element !== null ? column.element.generatedHTML : ''}</div>`;
+                html += `<div class="col-12 col-md-${column.col}">${column.element !== null ? column.element.generatedHTML : ''}</div>`;
                });
             });
             html += `</div>`;

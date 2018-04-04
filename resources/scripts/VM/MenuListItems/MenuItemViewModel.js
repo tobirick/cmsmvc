@@ -14,6 +14,10 @@ export default class MenuItemViewModel {
             this.name(val);
         });
 
+        this.css_class.subscribe(val => {
+            this.css_class(val);
+        });
+
         this.deleteMenuListItem = delegates.deleteMenuListItem;
         this.updateMenuListItem = delegates.updateMenuListItem;
     }

@@ -158,10 +158,11 @@ class Menu extends Model {
 
     public static function updateMenuItem($menuitemid, $menuitem) {
         $db = static::getDB();
-        $stmt = $db->prepare('UPDATE menu_items SET name = :name, page_id = :page_id WHERE id = :id');
+        $stmt = $db->prepare('UPDATE menu_items SET name = :name, page_id = :page_id, css_class = :css_class WHERE id = :id');
         $stmt->execute([
             ':name' => $menuitem['name'],
             ':page_id' => $menuitem['page'],
+            ':css_class' => $menuitem['css_class'],
             ':id' => $menuitemid
         ]);
 
@@ -228,7 +229,7 @@ class Menu extends Model {
         $id = self::getActiveMenuID()['value'];
 
         $db = static::getDB();
-        $stmt = $db->prepare('SELECT mi.name, mi.language_id, p.slug FROM menu_items as mi INNER JOIN pages as p ON p.id = mi.page_id WHERE menu_id = :id ORDER BY mi.menu_position');
+        $stmt = $db->prepare('SELECT mi.name, mi.language_id, mi.css_class, p.slug FROM menu_items as mi INNER JOIN pages as p ON p.id = mi.page_id WHERE menu_id = :id ORDER BY mi.menu_position');
         $stmt->execute([
             ':id' => $id
         ]);
@@ -239,7 +240,7 @@ class Menu extends Model {
 
     public static function getMenuItemsWithSlugByMenuID($id) {
         $db = static::getDB();
-        $stmt = $db->prepare('SELECT m.name, m.language_id, p.slug FROM menu_items as m INNER JOIN pages as p ON p.id = m.page_id WHERE menu_id = :menu_id ORDER BY menu_position');
+        $stmt = $db->prepare('SELECT m.name, m.language_id, m.css_class, p.slug FROM menu_items as m INNER JOIN pages as p ON p.id = m.page_id WHERE menu_id = :menu_id ORDER BY menu_position');
         $stmt->execute([
             ':menu_id' => $id
         ]);

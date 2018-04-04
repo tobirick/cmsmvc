@@ -82,6 +82,7 @@
                                 <tr>
                                     <th>{{$lang['Name']}}</th>
                                     <th>{{$lang['Connected Page']}}</th>
+                                    <th>{{$lang['Class']}}</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -92,6 +93,9 @@
                                     </td>
                                     <td>
                                         <select class="form-input" data-bind="options: $root.pagesList, optionsText: 'name', value: page_id, optionsValue: 'id'" name="menuitem[page]"></select>
+                                    </td>
+                                    <td>
+                                        <input placeholder="z.B. button" data-bind="value: css_class, valueUpdate: 'afterkeydown'" type="text" class="form-input">
                                     </td>
                                     <td class="align-right editable auto-width">
                                         <button data-bind="click: updateMenuListItem" class="button-primary-icon"><i class="fa fa-check"></i></button>

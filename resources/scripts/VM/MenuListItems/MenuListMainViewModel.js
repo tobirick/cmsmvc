@@ -15,7 +15,8 @@ export default class MenuListMainViewModel {
          name: '',
          menu_id: this.menuID,
          page_id: 0,
-         menu_position: 0
+         menu_position: 0,
+         css_class: ''
       };
       this.menuListItems = ko.observableArray([]);
       this.pagesList = ko.observableArray([]);
@@ -127,7 +128,8 @@ export default class MenuListMainViewModel {
       const data = {
          menuitem: {
             name: item.name(),
-            page: item.page_id()
+            page: item.page_id(),
+            css_class: item.css_class()
          },
          csrf_token: csrf.getToken(),
       };

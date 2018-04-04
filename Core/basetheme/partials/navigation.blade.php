@@ -5,7 +5,7 @@
                 <ul>
                     @foreach ($mainmenupages as $page)
                     @if($page['language_id'] === $currentpubliclanguage['id'])
-                        <li class="header__main-nav-item {{checkIfNavItemIsActive($page['slug']) ? 'active' : ''}}"><a class="header__main-nav-item-link" href="/{{$currentpubliclanguage['iso']}}/{{$page['slug']}}">{{$page['name']}}</a></li>
+                        <li class="header__main-nav-item {{checkIfNavItemIsActive($page['slug']) ? 'active' : ''}} {{$page['css_class']}}"><a class="header__main-nav-item-link" href="/{{$currentpubliclanguage['iso']}}/{{$page['slug']}}">{{$page['name']}}</a></li>
                     @endif
                     @endforeach
                 </ul>
