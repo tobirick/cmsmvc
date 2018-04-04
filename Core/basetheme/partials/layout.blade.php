@@ -58,15 +58,15 @@
              </div>
           @endforeach
         @endif
-       </div>
-    </footer>
-    <footer id="footer-bottom">
-      <div class="container">
         <select id="changePublicLang" name="publicLang">
             @foreach($publiclanguages as $lang)
               <option value="{{$lang['iso']}}" {{$lang['id'] === $currentpubliclanguage['id'] ? 'selected' : ''}}>{{$lang['name']}}</option>
           @endforeach
         </select>
+       </div>
+    </footer>
+    <footer id="footer-bottom">
+      <div class="container">
       </div>
     </footer>
     @include('public.themes.' . $activetheme . '.partials.scripts')

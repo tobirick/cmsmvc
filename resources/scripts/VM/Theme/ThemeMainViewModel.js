@@ -40,6 +40,7 @@ export default class ThemeMainViewModel {
       this.custom_styles = ko.observable('');
       this.font_styles = ko.observable('');
       this.default_color = ko.observable('');
+      this.footer_bottom = ko.observable('');
       this.css = ko.observable('');
 
       this.footerColumns = ko.observableArray([]);

@@ -152,6 +152,14 @@
                                  </div>
                               </div>
                            </div>
+                           <div class="form-row">
+                               <div class="col-3">
+                                   <label for="footerbottom" class="form-label">Footer Bottom HTML</label>
+                               </div>
+                               <div class="col-9">
+                                    <textarea id="footerbottom" placeholder="Footer HTML" class="form-input" data-bind="value: footer_bottom"></textarea>
+                               </div>
+                           </div>
                         </div>
                      </div>
                   </div>
