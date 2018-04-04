@@ -82,7 +82,7 @@
                                 <tr>
                                     <th>{{$lang['Name']}}</th>
                                     <th>{{$lang['Connected Page']}}</th>
-                                    <th>{{$lang['Class']}}</th>
+                                    <th>CSS {{$lang['Class']}}</th>
                                     <th></th>
                                 </tr>
                             </thead>

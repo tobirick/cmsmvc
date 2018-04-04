@@ -23,11 +23,7 @@ export default class MenuListMainViewModel {
 
       this.filteredMenuItems = ko.observableArray([]);
 
-      this.newMenuItem = new MenuItemViewModel({...this.defaultData}, {
-         deleteMenuListItem: this.deleteMenuListItem,
-         updateMenuListItem: this.updateMenuListItem
-      });
-
+      this.newMenuItem = this.newMenuItemModel(this.defaultData);
       
       this.languages = ko.observableArray([]);
       this.currentLanguage = ko.observable(null);
@@ -88,12 +84,7 @@ export default class MenuListMainViewModel {
    getMenuListItems() {
       return MenuListItemsHandler.loadMenuListItems(this.menuID).then(response => {
         response.forEach(dataItem => {
-           this.menuListItems.push(
-              new MenuItemViewModel(dataItem, {
-                 deleteMenuListItem: this.deleteMenuListItem,
-                 updateMenuListItem: this.updateMenuListItem
-              })
-           );
+           this.menuListItems.push(this.newMenuItemModel(dataItem));
         });
       });
    }
@@ -113,12 +104,7 @@ export default class MenuListMainViewModel {
          this.menuID
       );
 
-      this.menuListItems.push(
-         new MenuItemViewModel(response.listItem, {
-            deleteMenuListItem: this.deleteMenuListItem,
-            updateMenuListItem: this.updateMenuListItem
-         })
-      );
+      this.menuListItems.push(this.newMenuItemModel(response.listItem));
       this.resetNewMenuItem();
 
       csrf.updateToken(response.csrfToken);
@@ -170,5 +156,12 @@ export default class MenuListMainViewModel {
     return menuListItem.language_id() === language.id;
   });
   this.filteredMenuItems(menuItems);
+ }
+
+ newMenuItemModel = (data) => {
+  return new MenuItemViewModel(data, {
+    deleteMenuListItem: this.deleteMenuListItem,
+    updateMenuListItem: this.updateMenuListItem
+ })
  }
 }

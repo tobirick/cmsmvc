@@ -115,5 +115,13 @@
             </ul>
         </li>
         @endif
+        @if(checkPerm('view_translations'))
+        <li class="main-sidebar__nav-item {{checkIfNavItemIsActive('translations') ? 'active' : ''}}">
+            <a class="main-sidebar__nav-item-link" href="/{{$curLang}}/admin/translations">
+                <i class="fa fa-globe" aria-hidden="true"></i> 
+                <span>{{$lang['Translations']}}</span>
+            </a>
+        </li>
+        @endif
     @endif
 </ul>

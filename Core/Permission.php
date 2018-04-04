@@ -46,6 +46,11 @@ abstract class Permission {
   const delete_language = 32;
   const view_language = 33;
 
+  const view_translations = 40;
+  const add_translations = 41; // Unused
+  const edit_translations = 42; // Unused
+  const delete_translations = 43; // Unused
+
   public static function getPerm($perm) {
     return constant('self::'. $perm);
   }

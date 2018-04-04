@@ -32,28 +32,4 @@
 </div>
 <input type="hidden" class="baseurl" value="{{$settings['siteurl']}}">
 </div>
-<script>
-    const nameInputEl = document.querySelector('.pagenameinput');
-    const slugInputEl = document.querySelector('.pageluginput');
-    const aUrlEl = document.querySelector('.aurl');
-    const baseurl = document.querySelector('.baseurl').value;
-
-    nameInputEl.addEventListener('keyup', () => {
-        const pageName = nameInputEl.value;
-        const newSlug = createSlug(pageName);
-
-        aUrlEl.innerHTML = ` ${baseurl}${newSlug}`;
-        aUrlEl.setAttribute('href', `${baseurl}${newSlug}`);
-        slugInputEl.value = newSlug;
-    });
-
-    const createSlug = (text) => {
-        return text.toString().toLowerCase()
-        .replace(/\s+/g, '-')
-        .replace(/[^\w\-]+/g, '')
-        .replace(/\-\-+/g, '-')
-        .replace(/^-+/, '')
-        .replace(/-+$/, ''); 
-    }
-</script>
 @stop

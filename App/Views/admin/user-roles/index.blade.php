@@ -67,7 +67,6 @@
                 </div>
             </div>
         </div>
-    </form>
 </div>
 </div>
 @stop

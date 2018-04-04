@@ -26,16 +26,14 @@ $router->map('POST', '/admin/changelang', requireLogin('Admin\LanguageController
 ## Admin ##
 require_once(__DIR__ . '/Auth.php');
 require_once(__DIR__ . '/PagesAdmin.php');
-require_once(__DIR__ . '/PostsAdmin.php');
 require_once(__DIR__ . '/MenusAdmin.php');
 require_once(__DIR__ . '/PagebuilderAdmin.php');
 require_once(__DIR__ . '/ThemesAdmin.php');
 require_once(__DIR__ . '/SettingsAdmin.php');
 require_once(__DIR__ . '/MediaAdmin.php');
-require_once(__DIR__ . '/DownloadsAdmin.php');
-require_once(__DIR__ . '/FormsAdmin.php');
 require_once(__DIR__ . '/UsersAdmin.php');
 require_once(__DIR__ . '/UserRolesAdmin.php');
+require_once(__DIR__ . '/TranslationsAdmin.php');
 
 ## Public ##
 require_once(__DIR__ . '/PagesPublic.php');

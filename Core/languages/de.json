@@ -79,7 +79,7 @@
         "Choose File": "Datei auswählen",
         "or": "oder",
         "Drag your Files": "Drag deine Dateien hier ...",
-        "Element Settings": "Elementeinstellungen für",
+        "Element Settings": "Elementeinstellungen",
         "for": "für",
         "Choose Media": "Bild wählen",
         "Image Preview": "Bildvorschau:",
@@ -123,6 +123,7 @@
         "Language Settings": "Spracheinstellungen",
         "New Language": "Neue Sprache",
         "Create Language": "Neue Sprache erstellen",
-        "You can not delete the default language!": "Du kannst die Standardsprache nicht löschen!"
+        "You can not delete the default language!": "Du kannst die Standardsprache nicht löschen!",
+        "Translations": "Übersetzungen"
     }
 }

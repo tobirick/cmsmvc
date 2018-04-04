@@ -26,4 +26,12 @@ class CustomShortcodes {
 
     return $html;
   }
+
+  public static function translate($methodParams) {
+    $array = explode(' ', $methodParams);
+    for($i = 0; $i < sizeof($array); $i++) {
+      $varArray = explode('=', $array[$i]);
+      ${$varArray[0]} = $varArray[1];
+    }
+  }
 }
