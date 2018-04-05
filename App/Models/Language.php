@@ -6,6 +6,20 @@ use \Core\Model;
 use PDO;
 
 class Language extends Model {
+    public static function validate($theme) {
+        $errors = [];
+        
+        if($theme['name'] === '') {
+            $errors[] = 'Name is required';
+        }
+
+        if($theme['iso'] === '') {
+            $errors[] = 'ISO is required';
+        }
+
+        return $errors;
+    }
+
    public static function addLanguage($language) {
       $db = static::getDB();
       $stmt = $db->prepare('INSERT INTO languages (name, iso) VALUES(:name, :iso)');

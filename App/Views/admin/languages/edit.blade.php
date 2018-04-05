@@ -24,7 +24,9 @@
                         <label class="form-label" for="name">Name</label>
                      </div>
                      <div class="col-10">
-                        <input id="name" class="form-input" type="text" value="{{$language['name']}}" placeholder="Name" name="language[name]">
+                         <div>
+                             <input id="name" data-required="true" class="form-input validate" type="text" value="{{$language['name']}}" placeholder="Name" name="language[name]">
+                         </div>
                      </div>
                   </div>
                   <div class="form-row">
@@ -32,7 +34,9 @@
                         <label class="form-label" for="iso">ISO</label>
                      </div>
                      <div class="col-10">
-                        <input id="iso" class="form-input" type="text" value="{{$language['iso']}}" placeholder="ISO" name="language[iso]">
+                         <div>
+                             <input id="iso" data-required="true" class="form-input validate" type="text" value="{{$language['iso']}}" placeholder="ISO" name="language[iso]">
+                         </div>
                      </div>
                   </div>
               </form>

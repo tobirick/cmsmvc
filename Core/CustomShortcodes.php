@@ -35,7 +35,8 @@ class CustomShortcodes {
       ${$varArray[0]} = $varArray[1];
     }
 
-    $translation = \App\Models\Translation::getTranslationByKey($name);
+    $currentPublicLanguage = Router::getCurrentPublicLanguage();
+    $translation = \App\Models\Translation::getTranslationByKey($name, $currentPublicLanguage['id']);
 
     return $translation['value'];
   }

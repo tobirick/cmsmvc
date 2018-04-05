@@ -65,13 +65,14 @@ class Translation extends Model {
     ]);
   }
 
-  public static function getTranslationByKey($key) {
-    $sql = 'SELECT value FROM translations WHERE `key` = :key';
+  public static function getTranslationByKey($key, $languageID) {
+    $sql = 'SELECT value FROM translations WHERE `key` = :key AND language_id = :language_id';
     
     $db = static::getDB();
     $stmt = $db->prepare($sql);
     $stmt->execute([
-        ':key' => $key
+        ':key' => $key,
+        ':language_id' => $languageID
     ]);
     
     return $stmt->fetch(PDO::FETCH_ASSOC);

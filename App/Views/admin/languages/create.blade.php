@@ -19,10 +19,14 @@
                <form id="submit-form" action="/admin/settings/languages" method="POST">
                   <input name="csrf_token" type="hidden" value="{{$csrf}}">
                   <div class="form-row">
-                      <input class="form-input" type="text" placeholder="Name" name="language[name]">
+                      <div class="col-12">
+                          <input data-required="true" class="form-input validate" type="text" placeholder="Name" name="language[name]">
+                      </div>
                   </div>
                   <div class="form-row">
-                      <input class="form-input" type="text" placeholder="ISO" name="language[iso]">
+                      <div class="col-12">
+                          <input data-required="true" class="form-input validate" type="text" placeholder="ISO" name="language[iso]">
+                      </div>
                   </div>
               </form>
          </div>

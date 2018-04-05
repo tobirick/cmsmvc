@@ -82,8 +82,14 @@ class SettingsController extends BaseController {
       }
       CSRF::checkToken();
       if(isset($_POST)) {
-          $language = Language::addLanguage($_POST['language']);
-          self::redirect('/admin/settings/languages');
+        $errors = Language::validate($_POST['language']);
+
+        if(!$errors) {
+            $language = Language::addLanguage($_POST['language']);
+            self::redirect('/admin/settings/languages');
+        } else {
+            self::redirect('/admin/settings/languages/create');
+        }
       }
     }
 
@@ -118,8 +124,14 @@ class SettingsController extends BaseController {
       self::addFlash('error', self::getTrans('You have not the permission to do that!'));
       self::redirect('/admin/dashboard');
    }
-      Language::updateLanguage($params['params']['id'], $post['language']);
-      self::redirect('/admin/settings/languages');
+   
+   $errors = Language::validate($post['language']);
+   if(!$errors) {
+       Language::updateLanguage($params['params']['id'], $post['language']);
+       self::redirect('/admin/settings/languages');
+   } else {
+       self::redirect('/admin/settings/languages/' . $params['params']['id'] . '/edit');
+   }
   }
 
   public function getAllLanguages() {
