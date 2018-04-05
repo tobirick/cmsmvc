@@ -38,4 +38,20 @@ helpers.createSlug = (text) => {
     .replace(/-+$/, ''); 
 }
 
+helpers.fadeOutEffect = (target, callback) => {
+    const fadeTarget = target;
+    const fadeEffect = setInterval(function () {
+        if (!fadeTarget.style.opacity) {
+            fadeTarget.style.opacity = 1;
+        }
+        if (fadeTarget.style.opacity < 0.1) {
+            clearInterval(fadeEffect);
+            callback();
+        } else {
+            fadeTarget.style.opacity -= 0.01;
+        }
+    }, 5);
+
+}
+
 export default helpers;

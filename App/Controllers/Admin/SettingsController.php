@@ -5,6 +5,7 @@ namespace App\Controllers\Admin;
 use \Core\BaseController;
 use \App\Models\Settings;
 use \App\Models\Language;
+use \App\Models\DefaultPage;
 use \Core\CSRF;
 
 class SettingsController extends BaseController {
@@ -86,6 +87,10 @@ class SettingsController extends BaseController {
 
         if(!$errors) {
             $language = Language::addLanguage($_POST['language']);
+            $pages = DefaultPage::getAllPages();
+            foreach($pages as $page) {
+                DefaultPage::addPageContents($page['id'], $language['id']);
+            }
             self::redirect('/admin/settings/languages');
         } else {
             self::redirect('/admin/settings/languages/create');

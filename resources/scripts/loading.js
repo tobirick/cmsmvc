@@ -1,3 +1,5 @@
+import helpers from './helpers';
+
 const loading = {};
 
 loading.loadingElement = '.loading-spinner'
@@ -24,7 +26,7 @@ loading.addSpinner = function() {
 
 loading.removeSpinner = function() {
   const loadingEl = document.querySelector(this.loadingElement);
-  loadingEl.parentNode.removeChild(loadingEl);
+  helpers.fadeOutEffect(loadingEl, () => loadingEl.parentNode.removeChild(loadingEl));
 }
 
 export default loading;

@@ -216,9 +216,9 @@ export default class PagebuilderMainViewModel {
       }
     }
 
-    copyFromLanguage = () => {
+    copyFromLanguage = (language) => {
       const sections = this.sections().filter(section => {
-        return section.language_id() === this.languages()[0].id
+        return section.language_id() === language.id
       });
 
       sections.forEach(section => {
@@ -242,10 +242,10 @@ export default class PagebuilderMainViewModel {
        this.filterSections(language);
 
        const page = this.langPages().find(langPage => {
-        return langPage.language_id() === language.id;
+           return langPage.language_id() === language.id;
        });
 
-       this.page(page);
+      this.page(page);
     }
 
    openSettings = data => {
