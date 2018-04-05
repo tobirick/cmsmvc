@@ -5,8 +5,8 @@
 @section('content')
 @component('admin.partials.secondary-navigation')
     @slot('right')
-        <a href="#" data-bind="click: $root.openAddFolderPopup" class="button-primary-border mr-1">{{$lang['New Folder']}}</a>
-        <a href="#" data-bind="click: $root.openUploadPopup" class="button-primary">{{$lang['Upload']}}</a>
+        <a data-bind="click: $root.openAddFolderPopup" class="button-primary-border mr-1">{{$lang['New Folder']}}</a>
+        <a data-bind="click: $root.openUploadPopup" class="button-primary">{{$lang['Upload']}}</a>
     @endslot
 @endcomponent
 <div style="display: none;" data-bind="visible: popupOpen, click: closePopup" class="popup__overlay"></div>
@@ -54,8 +54,8 @@
                               </td>
                             <td data-bind="text: size">{{$lang['Size']}}</td>
                             <td class="action editable auto-width">
-                                <a data-bind="click: deleteMediaElement" href="#"><i class="fa fa-trash"></i></a>
-                                <a class="cursor-m arrow" href="#"><i class="fa fa-arrows"></i></a>
+                                <a data-bind="click: deleteMediaElement" class="cursor-p"><i class="fa fa-trash"></i></a>
+                                <a class="cursor-m arrow"><i class="fa fa-arrows"></i></a>
                             </td>
                         </tr>
                     </tbody>

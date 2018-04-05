@@ -11,7 +11,7 @@
     @endslot
     @slot('right')
     <div class="center-v-flex">
-       <a href="{{$settings['siteurl']}}{{$page['slug']}}" target="_blank" class="button-primary-border mr-1">{{$lang['Preview']}}</a>
+       <a data-bind="attr: {href: $root.currentPageURL()}" target="_blank" class="button-primary-border mr-1">{{$lang['Preview']}}</a>
        <button class="button-primary fr" data-bind="click: savetoDB">{{$lang['Save']}}</button>
     </div>
     @endslot
