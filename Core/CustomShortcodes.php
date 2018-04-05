@@ -36,8 +36,14 @@ class CustomShortcodes {
     }
 
     $currentPublicLanguage = Router::getCurrentPublicLanguage();
-    $translation = \App\Models\Translation::getTranslationByKey($name, $currentPublicLanguage['id']);
+    $defaultLanguage = \App\Models\Language::getDefaultLanguage();
+    $translation = \App\Models\Translation::getTranslationByKey($name, $currentPublicLanguage['id'])['value'];
 
-    return $translation['value'];
+    if(!$translation) {
+      $translation = \App\Models\Translation::getTranslationByKey($name, $defaultLanguage['id'])['value'];
+    }
+
+
+    return $translation;
   }
 }
