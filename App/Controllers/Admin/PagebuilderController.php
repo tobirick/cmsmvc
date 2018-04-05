@@ -160,9 +160,9 @@ class PagebuilderController extends BaseController {
 
         // Delete all sections
         Pagebuilder::deleteSectionsByPageID($decoded['page_id']);
-        Pagebuilder::deletePageContentsByPageID($decoded['page_id']);
+        //Pagebuilder::deletePageContentsByPageID($decoded['page_id']);
         foreach($decoded['languages'] as $language) {
-            Pagebuilder::saveToPageContent($decoded['page_id'], $language['language_id'], $language['html'], $language['page']);
+            Pagebuilder::updatePageContent($decoded['page_id'], $language['language_id'], $language['html'], $language['page']);
         }
 
         DefaultPage::updatePage($decoded['page_id'], $decoded['defaultPage']);

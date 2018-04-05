@@ -273,4 +273,19 @@ class Pagebuilder extends Model {
 
       return true;
     }
+
+    public static function updatePageContent($pageID, $languageID, $html, $page) {
+        $db = static::getDB();
+        $stmt = $db->prepare('UPDATE page_contents SET content = :content, title = :title, seo_title = :seo_title, seo_description = :seo_description WHERE page_id = :page_id AND language_id = :language_id');
+        $stmt->execute([
+            ':content' => $html,
+            ':title' => $page['title'],
+            ':seo_title' => $page['seo_title'],
+            ':seo_description' => $page['seo_description'],
+            ':page_id' => $pageID,
+            ':language_id' => $languageID
+            ]);
+  
+        return true;
+      }
 }
