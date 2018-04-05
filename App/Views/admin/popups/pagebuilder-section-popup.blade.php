@@ -1,7 +1,3 @@
-<div data-bind="with: sectionSelected">
-   <div style="display: none;" data-bind="visible: mediaPopupVM().mediaPopupOpen, click: mediaPopupVM().closeMediaPopup" class="popup__overlay higher-z"></div>
-   @include('admin.popups.media-images-overview-popup')
-</div>
 <div style="display:none;" data-bind="visible: sectionSelected" class="popup pagebuilder-section-popup">
    <div data-bind="with: sectionSelected" class="popup__container">
       <div class="popup__header">
@@ -160,7 +156,7 @@
                          <div data-bind="if: current_bg_mode() === 'image'">
                              <div class="center-v-flex">
                                 <input data-bind="value: bg_image" type="text" id="bgimage" class="form-input" placeholder="Image URL">
-                                <button data-bind="click: openMediaPopup" class="ml-1 button-primary">{{$lang['Choose Media']}}</button>
+                                <button data-bind="click: $root.openMediaPopup" class="ml-1 button-primary">{{$lang['Choose Media']}}</button>
                              </div>                
                              <div data-bind="visible: bg_image" class="mt-2">
                                 <strong class="mb-1 dp">{{$lang['Image Preview']}}</strong>

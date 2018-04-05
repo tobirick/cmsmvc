@@ -1,4 +1,4 @@
-<div style="display:none;" data-bind="visible: mediaPopupVM().mediaPopupOpen, with: mediaPopupVM()" class="popup pagebuilder-media-overview-popup higher-z">
+<div style="display:none;" data-bind="visible: $root.mediaPopupVM().mediaPopupOpen, with: $root.mediaPopupVM()" class="popup pagebuilder-media-overview-popup higher-z">
         <div class="popup__container">
             <div class="popup__header">
                 <h3 class="popup__title">{{$lang['Choose Image']}}</h3>

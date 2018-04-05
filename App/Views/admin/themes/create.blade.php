@@ -19,7 +19,9 @@
                     <form id="submit-form" action="/admin/themes" method="POST">
                         <input name="csrf_token" type="hidden" value="{{$csrf}}">
                         <div class="form-row">
-                            <input class="form-input" type="text" placeholder="Name" name="theme[name]">
+                            <div class="col-12">
+                                <input class="form-input validate" data-required="true" type="text" placeholder="Name" name="theme[name]">
+                            </div>
                         </div>
                     </form>
                 </div>

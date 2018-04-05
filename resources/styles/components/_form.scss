@@ -176,13 +176,14 @@ input[type=range]::-webkit-slider-thumb {
     }
 }
 
-.form-input__error {
+.form-input.form-input__error {
    border-color: $error-color;
 }
 
 .form-input__error-message {
    font-weight: bold;
    color: $error-color;
+   padding: 0 0.75rem;
 }
 
 .form-row {

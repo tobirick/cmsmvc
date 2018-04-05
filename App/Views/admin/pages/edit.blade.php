@@ -35,6 +35,10 @@
 @component('admin.popups.pagebuilder-section-popup')@endcomponent
 @component('admin.popups.pagebuilder-row-popup')@endcomponent
 @component('admin.popups.pagebuilder-element-popup')@endcomponent
+<div data-bind="with: popupOpen">
+    <div style="display: none;" data-bind="visible: $root.mediaPopupVM().mediaPopupOpen, click: $root.mediaPopupVM().closeMediaPopup" class="popup__overlay higher-z"></div>
+    @include('admin.popups.media-images-overview-popup')
+</div>
 <div id="content">
 @component('admin.components.alert')@endcomponent    
 <div class="container">
@@ -60,7 +64,7 @@
                        </div>
                        <div class="col-9">
                           <input id="pagename" autocomplete="off" class="form-input" data-bind="value: $root.defaultPageSettings().name"  type="text" placeholder="Name" name="page[name]">
-                          <strong>Permalink: </strong> <a target="_blank" class="aurl" href="{{$settings['siteurl']}}{{$page['slug']}}"> {{$settings['siteurl']}}{{$page['slug']}}</a>
+                          <strong>Permalink: </strong> <a target="_blank" data-bind="text: $root.currentPageURL, attr: {href: $root.currentPageURL()}"></a>
                        </div>
                     </div>
                     <div class="form-row">

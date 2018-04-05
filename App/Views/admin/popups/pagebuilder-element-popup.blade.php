@@ -1,7 +1,3 @@
-<div data-bind="with: elementSelected">
-    <div style="display: none;" data-bind="visible: mediaPopupVM().mediaPopupOpen, click: mediaPopupVM().closeMediaPopup" class="popup__overlay higher-z"></div>
-    @include('admin.popups.media-images-overview-popup')
-</div>
 <div style="display:none;" data-bind="visible: elementSelected" class="popup pagebuilder-element-popup">
     <div data-bind="with: elementSelected" class="popup__container">
         <div class="popup__header">
@@ -26,7 +22,7 @@
                             <div data-bind="if: type() === 'image-src'">
                                 <div class="center-v-flex">
                                     <input type="text" class="form-input" data-bind="textInput: value, attr:{id: key, placeholder: name}">
-                                    <button data-bind="click: $parent.openMediaPopup" class="ml-1 button-primary">{{$lang['Choose Media']}}</button>
+                                    <button data-bind="click: $root.openMediaPopup" class="ml-1 button-primary">{{$lang['Choose Media']}}</button>
                                 </div>
                                 <div data-bind="visible: value" class="mt-2">
                                     <strong class="mb-1 dp">{{$lang['Image Preview']}}</strong>

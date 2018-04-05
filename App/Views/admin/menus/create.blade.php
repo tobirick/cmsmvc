@@ -19,7 +19,9 @@
                     <form id="submit-form" action="/admin/menus" method="POST">
                         <input name="csrf_token" type="hidden" value="{{$csrf}}">
                         <div class="form-row">
-                            <input class="form-input" type="text" placeholder="Name" name="menu[name]">
+                            <div class="col-12">
+                                <input data-required="true" class="form-input validate" type="text" placeholder="Name" name="menu[name]">
+                            </div>
                         </div>
                     </form>
                 </div>

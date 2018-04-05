@@ -13,6 +13,8 @@ export const validator = {
             const elements = document.querySelectorAll(form + ' .validate');
             this.data.elements = elements;
         }
+
+        return this;
     },
 
     addBasicRules() {

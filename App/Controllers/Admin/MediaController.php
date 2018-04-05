@@ -43,6 +43,11 @@ class MediaController extends BaseController {
     }
 
     public function getAllMediaElements() {
+        if(!self::checkPermission('view_media')) {         
+            self::addFlash('error', self::getTrans('You have not the permission to do that!'));
+            self::redirect('/admin/dashboard');
+         }
+
         $content = trim(file_get_contents("php://input"));
         $decoded = json_decode($content, true);
 
@@ -53,6 +58,11 @@ class MediaController extends BaseController {
     }
 
     public function getAllImages() {
+        if(!self::checkPermission('view_media')) {         
+            self::addFlash('error', self::getTrans('You have not the permission to do that!'));
+            self::redirect('/admin/dashboard');
+         }
+         
         $content = trim(file_get_contents("php://input"));
         $decoded = json_decode($content, true);
 

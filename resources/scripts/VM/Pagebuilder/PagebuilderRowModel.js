@@ -1,11 +1,8 @@
 import ko from 'knockout';
 import PagebuilderColumnRowModel from './PagebuilderColumnRowModel';
-import PagebuilderHandler from '../../Handlers/PagebuilderHandler';
-import MediaPopupMainViewModel from '../MediaPopup/MediaPopupMainViewModel';
 
 export default class PagebuilderRowModel {
    constructor(data, delegates) {
-      this.mediaPopupVM = ko.observable(new MediaPopupMainViewModel());
 
       this.bgImageSizeOptions = ko.observableArray([
         'cover', 'contain', 'auto'
@@ -102,7 +99,9 @@ export default class PagebuilderRowModel {
       this.columnrows = ko.observableArray([]);
 
       if (ko.toJS(this.id)) {
-         this.fetchColumnRows();
+         data.columnrows.forEach(columnrow => {
+          this.columnrows.push(this.newColumnRow(columnrow));
+       });
       } else if (data.columnrows) {
          data.columnrows.forEach(columnrow => {
             this.columnrows.push(this.newColumnRow({...columnrow, id: ''}));
@@ -125,29 +124,9 @@ export default class PagebuilderRowModel {
       return data;
    }
 
-   async fetchColumnRows() {
-      const response = await PagebuilderHandler.fetchColumnRows(this.id());
-
-      if (response) {
-         response.forEach(columnrow => {
-            this.columnrows.push(this.newColumnRow(columnrow));
-         });
-      }
-   }
-
    addColumnRow() {
       this.columnrows.push(this.newColumnRow({}));
    }
-
-   openMediaPopup = () => {
-      this.mediaPopupVM().openMediaPopup();
-      this.mediaPopupVM().selectedMediaElement.subscribe(() => {
-          const path = this.mediaPopupVM().selectedMediaElementPath();
-          if(path) {
-              this.bg_image(path);
-          }
-      });
-  }
 
   newColumnRow = (data) => {
     return new PagebuilderColumnRowModel(data);

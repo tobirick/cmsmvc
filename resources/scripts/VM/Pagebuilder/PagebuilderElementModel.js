@@ -1,11 +1,8 @@
 import ko from 'knockout';
 import helpers from '../../helpers';
-import MediaPopupMainViewModel from '../MediaPopup/MediaPopupMainViewModel';
 
 export default class PagebuilderElementModel {
     constructor(data) {
-        this.mediaPopupVM = ko.observable(new MediaPopupMainViewModel());
-
         this.item_name = ko.observable(data.item_name);
         this.item_type = ko.observable(data.item_type);
         this.item_html = ko.observable(data.item_html);
@@ -134,16 +131,6 @@ export default class PagebuilderElementModel {
                     ${this.html()}
                     </div>
                     `;
-        });
-    }
-
-    openMediaPopup = (element) => {
-        this.mediaPopupVM().openMediaPopup();
-        this.mediaPopupVM().selectedMediaElement.subscribe(() => {
-            const path = this.mediaPopupVM().selectedMediaElementPath();
-            if(path) {
-                element.value(path);
-            }
         });
     }
 

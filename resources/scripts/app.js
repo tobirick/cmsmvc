@@ -69,9 +69,7 @@ if(pathName.includes('/admin/pages/') && pathName.includes('edit')) {
         .then(() => pagebuilderMainViewModel.fetchSections())
         .then(() => {
             ko.applyBindings(pagebuilderMainViewModel);
-            setTimeout(() => {
-                loading.removeSpinner();
-            }, 3000);
+            loading.removeSpinner();
        });
 }
 
@@ -121,7 +119,7 @@ if(pathName.includes('/admin/translations')) {
 // Create Page Slug Generator
 if(pathName.includes('/admin/pages/create')) {
     const nameInputEl = document.querySelector('.pagenameinput');
-    const slugInputEl = document.querySelector('.pageluginput');
+    const slugInputEl = document.querySelector('.pagesluginput');
     const aUrlEl = document.querySelector('.aurl');
     const baseurl = document.querySelector('.baseurl').value;
 

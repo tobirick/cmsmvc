@@ -19,11 +19,15 @@
                 <form id="submit-form" action="/admin/pages" method="POST">
                     <input name="csrf_token" type="hidden" value="{{$csrf}}">
                     <div class="form-row">
-                        <input autocomplete="off" class="form-input pagenameinput" type="text" placeholder="Name" name="page[name]">
-                        <strong>Permalink:</strong> <a target="_blank" class="aurl" href="{{$settings['siteurl']}}">{{$settings['siteurl']}}</a>
+                        <div class="col-12">
+                            <input data-required="true" autocomplete="off" class="form-input pagenameinput validate" type="text" placeholder="Name" name="page[name]">
+                            <strong>Permalink:</strong> <a target="_blank" class="aurl" href="{{$settings['siteurl']}}">{{$settings['siteurl']}}</a>
+                        </div>
                     </div>
                     <div class="form-row dn">
-                        <input class="form-input pageluginput" type="text" placeholder="Slug" name="page[slug]">
+                        <div class="col-12">
+                            <input data-required="true" class="form-input pagesluginput validate" type="text" placeholder="Slug" name="page[slug]">
+                        </div>
                     </div>
                 </form>
             </div>

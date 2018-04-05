@@ -106,7 +106,7 @@ export default class MediaManViewModel {
                 response.elements.forEach(mediaElement => {
                    this.mediaElements.push(this.createElement(mediaElement));
                 });
-             }
+            }
         });
     }
 

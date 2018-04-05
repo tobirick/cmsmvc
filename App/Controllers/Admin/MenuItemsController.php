@@ -11,21 +11,29 @@ class MenuItemsController extends BaseController {
         $decoded = json_decode($content, true);
 
         CSRF::checkTokenAjax($decoded['csrf_token']);
-        $listItem = Menu::addMenuItem($params['params']['id'], $decoded['menuitem']);
+        if(!self::checkPermission('edit_menu')) {         
+            $data['error'] = self::getTrans('You have not the permission to do that!');
+        } else {
+            $listItem = Menu::addMenuItem($params['params']['id'], $decoded['menuitem']);
+            $data['listItem'] = $listItem;
+        }
 
         header('Content-type: application/json');
-        $data = [];
-        $data['listItem'] = $listItem;
         $data['csrfToken'] = CSRF::getToken();
 
         echo json_encode($data);
     }
 
     public function getAllListItems($params) {
-        $listItems = Menu::getMenuItemsByMenuId($params['params']['id']);
-
         header('Content-type: application/json');
-        echo json_encode($listItems);
+        if(!self::checkPermission('view_menu')) {         
+            $data['error'] = self::getTrans('You have not the permission to do that!');
+            echo json_encode($data);
+        } else {
+            $listItems = Menu::getMenuItemsByMenuId($params['params']['id']);
+            echo json_encode($listItems);
+        }
+
     }
 
     public function updatedestroy($params) {
@@ -41,18 +49,25 @@ class MenuItemsController extends BaseController {
     }
 
     public function update($params, $post) {
-        Menu::updateMenuItem($params['params']['menuitemid'], $post['menuitem']);
+        if(!self::checkPermission('edit_menu')) {         
+            $data['error'] = self::getTrans('You have not the permission to do that!');
+        } else {
+            Menu::updateMenuItem($params['params']['menuitemid'], $post['menuitem']);
+        }
+        
         header('Content-type: application/json');
-        $data = [];
         $data['csrfToken'] = CSRF::getToken();
 
         echo json_encode($data);
     }
 
     public function destroy($params) {
-        Menu::deleteMenuItem($params['params']['menuitemid']);
+        if(!self::checkPermission('delete_menu')) {         
+            $data['error'] = self::getTrans('You have not the permission to do that!');
+        } else {
+            Menu::deleteMenuItem($params['params']['menuitemid']);
+        }
         header('Content-type: application/json');
-        $data = [];
         $data['csrfToken'] = CSRF::getToken();
 
         echo json_encode($data);
@@ -64,11 +79,15 @@ class MenuItemsController extends BaseController {
 
         CSRF::checkTokenAjax($decoded['csrf_token']);
 
-        foreach($decoded['menuitems'] as $menuitem) {
-            Menu::updateMenuItemPosition($menuitem);
+        if(!self::checkPermission('edit_menu')) {         
+            $data['error'] = self::getTrans('You have not the permission to do that!');
+        } else {
+            foreach($decoded['menuitems'] as $menuitem) {
+                Menu::updateMenuItemPosition($menuitem);
+            }
         }
+        
         header('Content-type: application/json');
-        $data = [];
         $data['csrfToken'] = CSRF::getToken();
         echo json_encode($data);
     }

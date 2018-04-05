@@ -204,6 +204,30 @@ class PagebuilderController extends BaseController {
 
         $pageID = $params['params']['pageid'];
         $sections = Pagebuilder::getSectionsByPageID($pageID);
+
+        foreach($sections as $index => $section) {
+            $rows = Pagebuilder::getRowsBySectionID($section['id']);
+            $section['rows'] = $rows;
+            $sections[$index]['rows'] = $rows;
+
+            foreach($section['rows'] as $index2 => $row) {
+                $columnrows = Pagebuilder::getColumnRowsByRowID($row['id']);
+                $row['columnrows'] = $columnrows;
+                $sections[$index]['rows'][$index2]['columnrows'] = $columnrows;
+
+                foreach($row['columnrows'] as $index3 => $columnrow) {
+                    $columns = Pagebuilder::getColumnsByColumnRowID($columnrow['id']);
+                    $columnrow['columns'] = $columns;
+                    $sections[$index]['rows'][$index2]['columnrows'][$index3]['columns'] = $columns;
+
+                    foreach($columnrow['columns'] as $index4 => $column) {
+                        $element = Pagebuilder::getElementByColumnID($column['id']);
+                        $column['element'] = $element;
+                        $sections[$index]['rows'][$index2]['columnrows'][$index3]['columns'][$index4]['element'] = $element;
+                    }
+                }
+            }
+        }
         
         header('Content-type: application/json');
         $data = [];
@@ -211,37 +235,5 @@ class PagebuilderController extends BaseController {
         $data['sections'] = $sections;
 
         echo json_encode($data);
-    }
-
-    public function getRowsBySectionID($params) {
-        $sectionID = $params['params']['sectionid'];
-        $rows = Pagebuilder::getRowsBySectionID($sectionID);
-        
-        header('Content-type: application/json');
-        echo json_encode($rows);
-    }
-
-    public function getColumnRowsByRowID($params) {
-        $rowID = $params['params']['rowid'];
-        $columnrows = Pagebuilder::getColumnRowsByRowID($rowID);
-        
-        header('Content-type: application/json');
-        echo json_encode($columnrows);
-    }
-
-    public function getColumnsByColumnRowID($params) {
-        $columnRowID = $params['params']['columnrowid'];
-        $columns = Pagebuilder::getColumnsByColumnRowID($columnRowID);
-        
-        header('Content-type: application/json');
-        echo json_encode($columns);
-    }
-
-    public function getElementByColumnID($params) {
-      $columnID = $params['params']['columnid'];
-      $element = Pagebuilder::getElementByColumnID($columnID);
-      
-      header('Content-type: application/json');
-      echo json_encode($element);
     }
 }

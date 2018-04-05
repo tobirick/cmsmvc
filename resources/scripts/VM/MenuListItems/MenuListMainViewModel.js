@@ -56,13 +56,14 @@ export default class MenuListMainViewModel {
    }
 
    async updateMenuPositions() {
-      this.menuListItems().forEach((menuListItem, position) => {
+      console.log(ko.toJS(this.filteredMenuItems));
+      this.filteredMenuItems().forEach((menuListItem, position) => {
          menuListItem.menu_position(position);
       });
 
       const data = {
          csrf_token: csrf.getToken(),
-         menuitems: ko.toJS(this.menuListItems)
+         menuitems: ko.toJS(this.filteredMenuItems)
       };
 
       const response = await MenuListItemsHandler.handleUpdateMenuListItemPositions(

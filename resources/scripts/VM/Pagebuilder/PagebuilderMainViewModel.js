@@ -5,6 +5,7 @@ import PagebuilderSectionModel from './PagebuilderSectionModel';
 import PagebuilderColumnRowModel from './PagebuilderColumnRowModel';
 import PagebuilderRowModel from './PagebuilderRowModel';
 import PagebuilderElementModel from './PagebuilderElementModel';
+import MediaPopupMainViewModel from '../MediaPopup/MediaPopupMainViewModel';
 
 import PagebuilderHandler from '../../Handlers/PagebuilderHandler';
 import LanguagesHandler from '../../Handlers/LanguagesHandler';
@@ -12,6 +13,8 @@ import PagesHandler from '../../Handlers/PagesHandler';
 
 export default class PagebuilderMainViewModel {
    constructor() {
+      this.mediaPopupVM = ko.observable(new MediaPopupMainViewModel());
+
       this.possibleColumns = ko.observableArray([]);
       this.pageID = document.getElementById('pageid').value;
       this.pageContentID = 1;
@@ -38,12 +41,32 @@ export default class PagebuilderMainViewModel {
         this.filterSections(this.currentLanguage());
       });
 
+      this.currentPageURL = ko.computed(() => {
+        if(this.currentLanguage()) {
+          return `${window.location.origin}/${this.currentLanguage().iso}/${this.defaultPageSettings().slug()}`;
+        }
+      });
+
       this.alert = ko.observable({
         visible: ko.observable(false),
         text: ko.observable(),
         type: ko.observable()
     });
    }
+
+   openMediaPopup = (element) => {
+    this.mediaPopupVM().openMediaPopup();
+    this.mediaPopupVM().selectedMediaElement.subscribe(() => {
+        const path = this.mediaPopupVM().selectedMediaElementPath();
+        if(path) {
+          if (element instanceof PagebuilderSectionModel || element instanceof PagebuilderRowModel) {
+            element.bg_image(path);
+          } else {
+            element.value(path);
+          }
+        }
+    });
+  }
 
    showAlert(type, message) {
         this.alert().visible(true);

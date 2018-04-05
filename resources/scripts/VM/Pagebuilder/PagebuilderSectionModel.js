@@ -1,12 +1,8 @@
 import ko from 'knockout';
 import PagebuilderRowModel from './PagebuilderRowModel';
-import PagebuilderHandler from '../../Handlers/PagebuilderHandler';
-import MediaPopupMainViewModel from '../MediaPopup/MediaPopupMainViewModel';
 
 export default class PagebuilderSectionModel {
    constructor(data, delegates) {
-      this.mediaPopupVM = ko.observable(new MediaPopupMainViewModel());
-
       this.bgImageSizeOptions = ko.observableArray([
         'cover', 'contain', 'auto'
       ]);
@@ -105,7 +101,13 @@ export default class PagebuilderSectionModel {
       this.rows = ko.observableArray([]);
 
       if (ko.toJS(this.id)) {
-         this.fetchRows();
+         data.rows.forEach(row => {
+          const paddingArr = row.padding.split(' ');
+          const marginArr = row.margin.split(' ');  
+          const paddingVM = {top: paddingArr[0], right: paddingArr[1], bottom: paddingArr[2], left: paddingArr[3]};
+          const marginVM = {top: marginArr[0], right: marginArr[1], bottom: marginArr[2], left: marginArr[3]};
+          this.rows.push(this.newRow({...row, paddingVM, marginVM}));
+       });
       } else if (data.rows) {
          data.rows.forEach(row => {
             this.rows.push(this.newRow({...row, id: ''}));
@@ -126,20 +128,6 @@ export default class PagebuilderSectionModel {
       this.current_bg_mode(newMode);
    }
 
-   async fetchRows() {
-      const response = await PagebuilderHandler.fetchRows(this.id());
-
-      if (response) {
-         response.forEach(row => {
-            const paddingArr = row.padding.split(' ');
-            const marginArr = row.margin.split(' ');  
-            const paddingVM = {top: paddingArr[0], right: paddingArr[1], bottom: paddingArr[2], left: paddingArr[3]};
-            const marginVM = {top: marginArr[0], right: marginArr[1], bottom: marginArr[2], left: marginArr[3]};
-            this.rows.push(this.newRow({...row, paddingVM, marginVM}));
-         });
-      }
-   }
-
    deleteRow = row => {
       this.rows.remove(row);
    };
@@ -156,16 +144,6 @@ export default class PagebuilderSectionModel {
    addRow() {
       this.rows.push(this.newRow({}));
    }
-
-   openMediaPopup = () => {
-      this.mediaPopupVM().openMediaPopup();
-      this.mediaPopupVM().selectedMediaElement.subscribe(() => {
-          const path = this.mediaPopupVM().selectedMediaElementPath();
-          if(path) {
-              this.bg_image(path);
-          }
-      });
-  }
 
   newRow = (data) => {
     return new PagebuilderRowModel(data,

@@ -1,6 +1,5 @@
 import ko from 'knockout';
 import PagebuilderColumnModel from './PagebuilderColumnModel';
-import PagebuilderHandler from '../../Handlers/PagebuilderHandler';
 
 export default class PagebuilderColumnRowModel {
    constructor(data, defaultColumns = {}) {
@@ -9,7 +8,9 @@ export default class PagebuilderColumnRowModel {
 
       this.columns = ko.observableArray([]);
       if (ko.toJS(this.id)) {
-         this.fetchColumns();
+         data.columns.forEach(column => {
+          this.columns.push(this.newColumn(column));
+       });
       } else if (Object.keys(defaultColumns).length > 0) {
          defaultColumns.forEach(column => {
             this.columns.push(this.newColumn({col: column}));
@@ -17,16 +18,6 @@ export default class PagebuilderColumnRowModel {
       } else if (data.columns) {
          data.columns.forEach(column => {
             this.columns.push(this.newColumn({...column, id: ''}));
-         });
-      }
-   }
-
-   async fetchColumns() {
-      const response = await PagebuilderHandler.fetchColumns(this.id());
-
-      if (response) {
-         response.forEach(column => {
-           this.columns.push(this.newColumn(column));
          });
       }
    }
