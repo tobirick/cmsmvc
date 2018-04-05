@@ -59,6 +59,7 @@ class BaseController {
             $footercols = [];
             foreach(json_decode($activeTheme['footer_layout'], true)['columns'] as $footercol) {
                 $footercol['html'] = self::doShortcode($footercol['html']);
+                $footercol['title'] = self::doShortcode($footercol['title']);
                 $footercols[] = $footercol;
             }
 

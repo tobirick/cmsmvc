@@ -10,6 +10,16 @@ use RecursiveDirectoryIterator;
 use MatthiasMullie\Minify;
 
 class Theme extends Model {
+    public static function validate($theme) {
+        $errors = [];
+        
+        if($theme['name'] === '') {
+            $errors[] = 'Name is required';
+        }
+
+        return $errors;
+    }
+
     public static function combineCSS($themename) {
         $dir =  __DIR__  . '/../../public/' . $themename . '/css/default/';
         $minifier = new Minify\CSS();

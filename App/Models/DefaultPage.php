@@ -14,6 +14,19 @@ class DefaultPage extends Model {
         }
     }
 
+    public function validate() {
+        $errors = [];
+        if($this->name === '') {
+            $errors[] = 'Name is required';
+        }
+
+        if($this->slug === '') {
+            $errors[] = 'Slug is required';
+        }
+
+        return $errors;
+    }
+
     public static function getPageById($id) {
         $db = static::getDB();
         $stmt = $db->prepare('SELECT * FROM pages WHERE ID = :id');
@@ -71,12 +84,12 @@ class DefaultPage extends Model {
         return $result['numberofpages'];
     }
 
-    public function addPage($page, $userid) {
+    public function savePage($userid) {
         $db = static::getDB();
         $stmt = $db->prepare('INSERT INTO pages (name, slug, created_at, created_by, is_active) VALUES(:name, :slug, now(), :created_by, :is_active)');
         $stmt->execute([
-            ':name' => $page['name'],
-            ':slug' => $page['slug'],
+            ':name' => $this->name,
+            ':slug' => $this->slug,
             ':created_by' => $userid,
             ':is_active' => 1
             ]);

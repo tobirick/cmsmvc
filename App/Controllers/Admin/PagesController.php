@@ -69,14 +69,19 @@ class PagesController extends BaseController {
         }
         CSRF::checkToken();
         if(isset($_POST)) {
-            $page = new DefaultPage();
+            $page = new DefaultPage($_POST['page']);
             $userID = self::getUser()['id'];
-            $newPage = $page->addPage($_POST['page'], $userID);
-            $languages = Language::getAllLanguages();
-            foreach($languages as $language) {
-               DefaultPage::addPageContents($newPage['id'], $language['id']);
+            $errors = $page->validate();
+            if(!$errors) {
+                $newPage = $page->savePage($userID);
+                $languages = Language::getAllLanguages();
+                foreach($languages as $language) {
+                   DefaultPage::addPageContents($newPage['id'], $language['id']);
+                }
+                self::redirect('/admin/pages/' . $newPage['id'] . '/edit');
+            } else {
+                self::redirect('/admin/pages/create');
             }
-            self::redirect('/admin/pages/' . $newPage['id'] . '/edit');
         }
     }
 

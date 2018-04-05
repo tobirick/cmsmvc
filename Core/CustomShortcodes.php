@@ -29,9 +29,14 @@ class CustomShortcodes {
 
   public static function translate($methodParams) {
     $array = explode(' ', $methodParams);
+
     for($i = 0; $i < sizeof($array); $i++) {
       $varArray = explode('=', $array[$i]);
       ${$varArray[0]} = $varArray[1];
     }
+
+    $translation = \App\Models\Translation::getTranslationByKey($name);
+
+    return $translation['value'];
   }
 }

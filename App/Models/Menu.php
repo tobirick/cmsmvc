@@ -14,6 +14,16 @@ class Menu extends Model {
         }
     }
 
+    public function validate() {
+        $errors = [];
+        
+        if($this->name === '') {
+            $errors[] = 'Name is required';
+        }
+
+        return $errors;
+    }
+
     public static function getMenuById($id) {
         $db = static::getDB();
         $stmt = $db->prepare('SELECT * FROM menus WHERE ID = :id');
@@ -38,7 +48,7 @@ class Menu extends Model {
         $db = static::getDB();
         $stmt = $db->prepare('INSERT INTO menus (name) VALUES(:name)');
         $stmt->execute([
-            ':name' => $menu['name']
+            ':name' => $this->name
             ]);
 
          $lastID = $db->lastInsertId();

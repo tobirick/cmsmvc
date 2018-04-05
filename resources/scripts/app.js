@@ -18,6 +18,7 @@ import CreatePagebuilderMainViewModel from './VM/CreatePagebuilder/CreatePagebui
 import ThemeMainViewModel from './VM/Theme/ThemeMainViewModel';
 import UserRolesMainViewModel from './VM/UserRoles/UserRolesMainViewModel';
 import MediaPopupMainViewModel from './VM/MediaPopup/MediaPopupMainViewModel';
+import TranslationsMainViewModel from './VM/Translations/TranslationsMainViewModel';
 
 // Validator
 validator.init('#validate-form');
@@ -67,8 +68,10 @@ if(pathName.includes('/admin/pages/') && pathName.includes('edit')) {
         .then(() => pagebuilderMainViewModel.getPageBuilderElements())
         .then(() => pagebuilderMainViewModel.fetchSections())
         .then(() => {
-                 ko.applyBindings(pagebuilderMainViewModel);
-                 loading.removeSpinner();
+            ko.applyBindings(pagebuilderMainViewModel);
+            setTimeout(() => {
+                loading.removeSpinner();
+            }, 3000);
        });
 }
 
@@ -102,6 +105,18 @@ if(pathName.includes('/admin/themes/') && pathName.includes('edit')) {
         loading.removeSpinner();
    })
 }
+
+// Translations
+if(pathName.includes('/admin/translations')) {
+    const translationsMainViewModel = new TranslationsMainViewModel();
+    loading.addSpinner();
+    translationsMainViewModel.fetchLanguages()
+    .then(() => translationsMainViewModel.fetchTranslations())
+    .then(() => {
+         ko.applyBindings(translationsMainViewModel);
+         loading.removeSpinner();
+    })
+ }
 
 // Create Page Slug Generator
 if(pathName.includes('/admin/pages/create')) {

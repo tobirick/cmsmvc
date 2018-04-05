@@ -104,15 +104,21 @@ class ThemesController extends BaseController {
         }
         CSRF::checkToken();
         if(isset($_POST)) {
-            $themePath = realpath(__DIR__ . '/../../Views/public/themes');
-            mkdir($themePath . '/' . $_POST['theme']['name'], 0777, true);
+            $errors = Theme::validate($_POST['theme']);
 
-            Theme::copyBaseTheme(__DIR__ . '/../../../Core/basetheme', $themePath . '/' . $_POST['theme']['name'], $_POST['theme']['name']);
-            $theme = Theme::addTheme($_POST['theme']['name']);
-            Theme::combineCSS($_POST['theme']['name']);
-            Theme::combineJS($_POST['theme']['name']);
-
-            self::redirect('/admin/themes/' . $theme['id'] . '/edit');
+            if(!$errors) {
+                $themePath = realpath(__DIR__ . '/../../Views/public/themes');
+                mkdir($themePath . '/' . $_POST['theme']['name'], 0777, true);
+    
+                Theme::copyBaseTheme(__DIR__ . '/../../../Core/basetheme', $themePath . '/' . $_POST['theme']['name'], $_POST['theme']['name']);
+                $theme = Theme::addTheme($_POST['theme']['name']);
+                Theme::combineCSS($_POST['theme']['name']);
+                Theme::combineJS($_POST['theme']['name']);
+    
+                self::redirect('/admin/themes/' . $theme['id'] . '/edit');
+            } else {
+                self::redirect('/admin/themes/create');
+            }
         }
     }
 

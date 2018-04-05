@@ -53,9 +53,14 @@ class MenusController extends BaseController {
         }
         CSRF::checkToken();
         if(isset($_POST)) {
-            $menu = new Menu();
-            $newMenu = $menu->addMenu($_POST['menu']);
-            self::redirect('/admin/menus/' . $newMenu['id'] . '/edit');
+            $menu = new Menu($_POST['menu']);
+            $errors = $menu->validate();
+            if(!$errors) {
+                $newMenu = $menu->saveMenu($_POST['menu']);
+                self::redirect('/admin/menus/' . $newMenu['id'] . '/edit');
+            } else {
+                self::redirect('/admin/menus/create');
+            }
         }
     }
 
@@ -85,6 +90,6 @@ class MenusController extends BaseController {
             self::redirect('/admin/dashboard');
         }
         Menu::updateMenu($params['params']['id'], $post['menu']);
-        self::redirect('/admin/menus');
+        self::redirect('/admin/menus/' .  $params['params']['id'] . '/edit');
     }
 }

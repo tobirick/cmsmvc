@@ -125,6 +125,7 @@
         "Create Language": "Create Language",
         "You can not delete the default language!": "You can not delete the default language!",
         "Translations": "Translations",
-        "Add Translation": "Add Translation"
+        "Add Translation": "Add Translation",
+        "No Translations": "No Translations"
     }
 }
