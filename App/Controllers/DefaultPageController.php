@@ -8,15 +8,15 @@ use \App\Models\DefaultPage;
 
 class DefaultPageController extends BaseController {
     public function index($args) {
-       if(!$args['page-args']['is_active'] && !self::getUser()) {
-         self::publicRedirect('/');
-       }
+      $homePage = DefaultPage::getHomePage();
 
-       $homePage = DefaultPage::getHomePage();
-       
-       if($homePage['id'] === $args['page-args']['id'] && isset($args['params']['slug'])) {
-          self::publicRedirect('/');
-      }
+       if(!$args['page-args']['is_active'] && !self::getUser()) {
+         self::render('error/404');
+         return;
+       } else if($homePage['id'] === $args['page-args']['id'] && isset($args['params']['slug'])) {
+         self::publicRedirect('/');
+         return;
+       }
 
       $activeTheme = Theme::getActiveTheme();
       self::render('public/themes/' . $activeTheme['name'] . '/default-page', $args['page-args']);

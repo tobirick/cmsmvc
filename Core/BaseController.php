@@ -111,6 +111,7 @@ class BaseController {
       $currentPublicLanguage = Router::getCurrentPublicLanguage();
       $redirectTo = '/' . $currentPublicLanguage['iso'] . $url;
       header('Location: ' . $redirectTo  );
+      exit;
     }
 
     public function getUser() {
