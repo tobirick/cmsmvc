@@ -49,6 +49,7 @@ class PagesController extends BaseController {
            self::render('admin/pages/edit', [
                'page' => $page
            ]);
+           DefaultPage::setEditStatus($id, 1);
         } else {
            self::render('error/404');
         }

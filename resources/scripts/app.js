@@ -252,3 +252,7 @@ if (pathName.includes('/admin/users/') && pathName.includes('edit')) {
     }
     ko.applyBindings(new UserEditViewModel());
 }
+
+window.onbeforeunload = function() {
+    window.alert('My Window is closing');
+}

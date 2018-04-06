@@ -27,6 +27,17 @@ class DefaultPage extends Model {
         return $errors;
     }
 
+    public static function setEditStatus($id, $status) {
+        $db = static::getDB();
+        $stmt = $db->prepare('UPDATE pages SET in_edit = :status WHERE id = :id');
+        $stmt->execute([
+            ':id' => $id,
+            ':status' => $status
+        ]);
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     public static function getPageById($id) {
         $db = static::getDB();
         $stmt = $db->prepare('SELECT * FROM pages WHERE ID = :id');
