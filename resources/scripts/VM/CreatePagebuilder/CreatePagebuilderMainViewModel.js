@@ -16,7 +16,7 @@ export default class CreatePagebuilderMainViewModel {
         this.pagebuilderIDItem = document.getElementById('pagebuilderitemid');
         this.pagebuilderID = this.pagebuilderIDItem ? this.pagebuilderIDItem.value : '';
 
-        if(this.pagebuilderID) {
+        if (this.pagebuilderID) {
             this.fetchPagebuilderItem();
         } else {
             const data = {
@@ -60,7 +60,7 @@ export default class CreatePagebuilderMainViewModel {
 
     openPopup = (field) => {
         this.popupOpen(true);
-        if(field instanceof PagebuilderField) {
+        if (field instanceof PagebuilderField) {
             this.selectedField(field);
         } else {
             this.pagebuilderItem().setDefaultField();
@@ -74,7 +74,7 @@ export default class CreatePagebuilderMainViewModel {
         this.alert().text(message);
 
         setTimeout(() => {
-        this.alert().visible(false);
+            this.alert().visible(false);
         }, 3000);
     }
 
@@ -89,10 +89,10 @@ export default class CreatePagebuilderMainViewModel {
             pagebuilderitem: ko.toJS(this.pagebuilderItem)
         }
 
-        if(this.pagebuilderID) {
+        if (this.pagebuilderID) {
             data.pagebuilderID = this.pagebuilderID;
             const response = await PagebuilderHandler.updatePagebuilderItem(data);
-            if(response) {
+            if (response) {
                 csrf.updateToken(response.csrfToken);
                 this.showAlert('success', 'Item successfully updated!');
             }
@@ -100,11 +100,11 @@ export default class CreatePagebuilderMainViewModel {
             const response = await PagebuilderHandler.addPagebuilderItem(data);
             this.pagebuilderID = response.pagebuilderID;
 
-            if(response) {
+            if (response) {
                 csrf.updateToken(response.csrfToken);
                 this.showAlert('success', 'Item successfully added!');
             }
-        }       
+        }
     }
 
     addPagebuilderItem(data) {
@@ -120,13 +120,13 @@ export default class CreatePagebuilderMainViewModel {
             csrf_token: csrf.getToken(),
             pagebuilderID: this.pagebuilderID
         }
-    
+
         const response = await PagebuilderHandler.getPagebuilderItemByID(data);
 
-        if(response.message === 'success' && !response.error) {
+        if (response.message === 'success' && !response.error) {
             this.pagebuilderItem(this.addPagebuilderItem(response.pagebuilderitem));
-         }
+        }
 
-         csrf.updateToken(response.csrfToken);
+        csrf.updateToken(response.csrfToken);
     }
 }

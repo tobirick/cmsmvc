@@ -2,9 +2,9 @@ import ko from 'knockout';
 
 export default class MenuItemViewModel {
     constructor(data, delegates) {
-        for(let key in data) {
+        for (let key in data) {
             this[key] = ko.observable(data[key]);
-        }   
+        }
 
         this.page_id.subscribe(id => {
             this.page_id(id);

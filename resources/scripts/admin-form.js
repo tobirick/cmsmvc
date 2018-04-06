@@ -7,7 +7,7 @@ export default class Form {
         this.validator = validator.init('#submit-form');
         this.validator.addBasicRules();
 
-        if(this.submitBtnEl && this.submitFormEl) this.setEventListeners();
+        if (this.submitBtnEl && this.submitFormEl) this.setEventListeners();
     }
 
     setEventListeners() {

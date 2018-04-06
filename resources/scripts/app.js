@@ -29,7 +29,7 @@ const form = new Form();
 // Knockout VieModels
 const pathName = window.location.pathname;
 // User Roles
-if(pathName.includes('/admin/users/roles')) {
+if (pathName.includes('/admin/users/roles')) {
     const userRolesMainViewModel = new UserRolesMainViewModel();
     loading.addSpinner();
     userRolesMainViewModel.fetchUserRoles()
@@ -37,11 +37,11 @@ if(pathName.includes('/admin/users/roles')) {
         .then(() => {
             ko.applyBindings(userRolesMainViewModel);
             loading.removeSpinner();
-    });
+        });
 }
 
 // Edit Menu Page
-if(pathName.includes('/admin/menus/') && pathName.includes('edit')) {
+if (pathName.includes('/admin/menus/') && pathName.includes('edit')) {
     const menuListMainViewModel = new MenuListMainViewModel();
     ko.bindingHandlers.sortable.afterMove = (args) => {
         menuListMainViewModel.updateMenuPositions(args);
@@ -54,10 +54,10 @@ if(pathName.includes('/admin/menus/') && pathName.includes('edit')) {
             ko.applyBindings(menuListMainViewModel);
             loading.removeSpinner();
         });
-  }
-  
+}
+
 // Pagebuilder
-if(pathName.includes('/admin/pages/') && pathName.includes('edit')) {
+if (pathName.includes('/admin/pages/') && pathName.includes('edit')) {
     const pagebuilderMainViewModel = new PagebuilderMainViewModel();
     ko.bindingHandlers.sortable.afterMove = (args) => {
         pagebuilderMainViewModel.setPossibleColumns();
@@ -70,11 +70,11 @@ if(pathName.includes('/admin/pages/') && pathName.includes('edit')) {
         .then(() => {
             ko.applyBindings(pagebuilderMainViewModel);
             loading.removeSpinner();
-       });
+        });
 }
 
 // Media
-if(pathName.includes('/admin/media')) {
+if (pathName.includes('/admin/media')) {
     const mediaMainViewModel = new MediaMainViewModel();
     ko.bindingHandlers.sortable.afterMove = () => {
         mediaMainViewModel.updatePositions();
@@ -82,42 +82,42 @@ if(pathName.includes('/admin/media')) {
     loading.addSpinner();
     mediaMainViewModel.fetchMediaElements()
         .then(() => {
-        ko.applyBindings(mediaMainViewModel);
-        loading.removeSpinner();
-    });
+            ko.applyBindings(mediaMainViewModel);
+            loading.removeSpinner();
+        });
 }
 
 // Add/Edit Pagebuilder
-if(pathName.includes('/admin/pagebuilder/')) {
+if (pathName.includes('/admin/pagebuilder/')) {
     const createPagebuilderMainViewModel = new CreatePagebuilderMainViewModel();
     ko.applyBindings(createPagebuilderMainViewModel);
 }
 
 // Theme
-if(pathName.includes('/admin/themes/') && pathName.includes('edit')) {
-   const themeMainViewModel = new ThemeMainViewModel();
+if (pathName.includes('/admin/themes/') && pathName.includes('edit')) {
+    const themeMainViewModel = new ThemeMainViewModel();
     loading.addSpinner();
-   themeMainViewModel.fetchThemeSettings()
-    .then(() => {
-        ko.applyBindings(themeMainViewModel);
-        loading.removeSpinner();
-   })
+    themeMainViewModel.fetchThemeSettings()
+        .then(() => {
+            ko.applyBindings(themeMainViewModel);
+            loading.removeSpinner();
+        })
 }
 
 // Translations
-if(pathName.includes('/admin/translations')) {
+if (pathName.includes('/admin/translations')) {
     const translationsMainViewModel = new TranslationsMainViewModel();
     loading.addSpinner();
     translationsMainViewModel.fetchLanguages()
-    .then(() => translationsMainViewModel.fetchTranslations())
-    .then(() => {
-         ko.applyBindings(translationsMainViewModel);
-         loading.removeSpinner();
-    })
- }
+        .then(() => translationsMainViewModel.fetchTranslations())
+        .then(() => {
+            ko.applyBindings(translationsMainViewModel);
+            loading.removeSpinner();
+        })
+}
 
 // Create Page Slug Generator
-if(pathName.includes('/admin/pages/create')) {
+if (pathName.includes('/admin/pages/create')) {
     const nameInputEl = document.querySelector('.pagenameinput');
     const slugInputEl = document.querySelector('.pagesluginput');
     const aUrlEl = document.querySelector('.aurl');
@@ -134,17 +134,17 @@ if(pathName.includes('/admin/pages/create')) {
 
     const createSlug = (text) => {
         return text.toString().toLowerCase()
-        .replace(/\s+/g, '-')
-        .replace(/[^\w\-]+/g, '')
-        .replace(/\-\-+/g, '-')
-        .replace(/^-+/, '')
-        .replace(/-+$/, ''); 
+            .replace(/\s+/g, '-')
+            .replace(/[^\w\-]+/g, '')
+            .replace(/\-\-+/g, '-')
+            .replace(/^-+/, '')
+            .replace(/-+$/, '');
     }
 }
 
 // Change Language
 const changeLangEl = document.getElementById('langChange');
-if(changeLangEl) {
+if (changeLangEl) {
     const currentLang = changeLangEl.value;
     const changeLanguage = (e) => {
         const newLang = changeLangEl.value;
@@ -177,7 +177,7 @@ const toggleAdminBox = () => {
 if (toggleAdminBoxEl) toggleAdminBoxEl.addEventListener('click', toggleAdminBox);
 
 // Page Builder draggable Sidebar
-$('.admin-box-grid-fixed').draggable({ 
+$('.admin-box-grid-fixed').draggable({
     axis: 'y',
     containment: 'parent'
 });
@@ -185,17 +185,17 @@ $('.admin-box-grid-fixed').draggable({
 // Delete Button Confirm Message
 const deleteFormElements = document.querySelectorAll('.delete-form');
 
-const submitDeleteForm = function(e) {
+const submitDeleteForm = function (e) {
     e.target.parentNode.parentNode.submit();
 }
 
-const openDeletePopup = function(form) {
+const openDeletePopup = function (form) {
     form.preventDefault();
     const button = form.target.querySelector('button');
     button.id = 'error-mode';
     button.querySelector('i').style.display = 'none';
 
-    if(button.querySelectorAll('.error-mode-span').length === 0) {
+    if (button.querySelectorAll('.error-mode-span').length === 0) {
         const span = document.createElement('span');
         span.classList.add('error-mode-span');
         span.appendChild(document.createTextNode('Are you sure?'));
@@ -218,35 +218,35 @@ deleteFormElements.forEach(deleteFormElement => {
 
 // Close Alert on click
 const alertEls = document.querySelectorAll('.alert');
-if(alertEls) {alertEls.forEach(alertEl => alertEl.querySelector('.alert__close').addEventListener('click', (e) => { alertEl.parentNode.removeChild(alertEl) }))};
+if (alertEls) { alertEls.forEach(alertEl => alertEl.querySelector('.alert__close').addEventListener('click', (e) => { alertEl.parentNode.removeChild(alertEl) })) };
 
 // Dashboard Time and Weather Widget
-const currentDate = new Date(); 
+const currentDate = new Date();
 const monthNames = ["January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"
+    "July", "August", "September", "October", "November", "December"
 ];
 const currentDateString = `${currentDate.getDay() + 1}. ${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
 const currentTimeString = `${currentDate.getHours()}:${currentDate.getMinutes()}`;
 const dateEl = document.querySelector('.date');
 const timeEl = document.querySelector('.time');
 
-if(dateEl) dateEl.innerHTML = currentDateString;
-if(timeEl) timeEl.innerHTML = currentTimeString;
+if (dateEl) dateEl.innerHTML = currentDateString;
+if (timeEl) timeEl.innerHTML = currentTimeString;
 
 // User IMG Popup
-if(pathName.includes('/admin/users/') && pathName.includes('edit')) {
-    const UserEditViewModel = function() {
+if (pathName.includes('/admin/users/') && pathName.includes('edit')) {
+    const UserEditViewModel = function () {
         this.mediaPopupVM = ko.observable(new MediaPopupMainViewModel());
 
         this.openMediaPopup = (element) => {
             this.mediaPopupVM().openMediaPopup();
             const subscription = this.mediaPopupVM().selectedMediaElement.subscribe(() => {
                 const path = this.mediaPopupVM().selectedMediaElementPath();
-                if(path) {
-                    document.querySelector('.user-img-preview').setAttribute('src',  path);
+                if (path) {
+                    document.querySelector('.user-img-preview').setAttribute('src', path);
                     document.querySelector('#userimg').value = path;
                 } else {
-                   subscription.dispose();
+                    subscription.dispose();
                 }
             });
         }

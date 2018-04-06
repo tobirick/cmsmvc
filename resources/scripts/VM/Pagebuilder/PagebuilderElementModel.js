@@ -25,75 +25,75 @@ export default class PagebuilderElementModel {
         const config = this.item_json_config();
 
         config.elements.forEach(configelement => {
-         const newconfigelement = {};
-         for(let key in configelement) {
-            if(Array.isArray(configelement[key])) {
-               const array = ko.observableArray([]);
-               configelement[key].forEach((element) => {
-                   const newconfigelementarr = {};
-                   for(let keyarr in element) {
-                       newconfigelementarr[keyarr] = ko.observable(element[keyarr]);
-                   }
-                   array.push(newconfigelementarr);
-               });
-               newconfigelement[key] = array;
-           } else {
-               newconfigelement[key] = ko.observable(configelement[key]);
-           }
-         }
-
-         const configDB = helpers.isJsonString(data.config) ? JSON.parse(data.config) : data.config;
-         if(configDB) {
-            configDB.elements.forEach(element => {
-               if(element.key === newconfigelement.key()) {
-                  if(element.buttons.length > 0) {
-                     const buttonArr = ko.observableArray([]);
-                     element.buttons.forEach(buttonEl => {
-                        const configElementButtonArr = {};
-                        for(let keyArr in buttonEl) {
-                           configElementButtonArr[keyArr] = ko.observable(buttonEl[keyArr]);
+            const newconfigelement = {};
+            for (let key in configelement) {
+                if (Array.isArray(configelement[key])) {
+                    const array = ko.observableArray([]);
+                    configelement[key].forEach((element) => {
+                        const newconfigelementarr = {};
+                        for (let keyarr in element) {
+                            newconfigelementarr[keyarr] = ko.observable(element[keyarr]);
                         }
-                        buttonArr.push(configElementButtonArr);
-                     });
-                     newconfigelement.buttons = buttonArr;
-                  } 
-                  newconfigelement.value(element.value);
-               }
-            });
-         }
-         this.config().elements.push(ko.observable(newconfigelement));
+                        array.push(newconfigelementarr);
+                    });
+                    newconfigelement[key] = array;
+                } else {
+                    newconfigelement[key] = ko.observable(configelement[key]);
+                }
+            }
+
+            const configDB = helpers.isJsonString(data.config) ? JSON.parse(data.config) : data.config;
+            if (configDB) {
+                configDB.elements.forEach(element => {
+                    if (element.key === newconfigelement.key()) {
+                        if (element.buttons.length > 0) {
+                            const buttonArr = ko.observableArray([]);
+                            element.buttons.forEach(buttonEl => {
+                                const configElementButtonArr = {};
+                                for (let keyArr in buttonEl) {
+                                    configElementButtonArr[keyArr] = ko.observable(buttonEl[keyArr]);
+                                }
+                                buttonArr.push(configElementButtonArr);
+                            });
+                            newconfigelement.buttons = buttonArr;
+                        }
+                        newconfigelement.value(element.value);
+                    }
+                });
+            }
+            this.config().elements.push(ko.observable(newconfigelement));
         });
-        
+
         this.paddingVM = ko.observable(data.paddingVM ? {
             top: ko.observable(data.paddingVM.top || ''),
             right: ko.observable(data.paddingVM.right || ''),
             bottom: ko.observable(data.paddingVM.bottom || ''),
             left: ko.observable(data.paddingVM.left || '')
         } : {
-            top: ko.observable(''),
-            right: ko.observable(''),
-            bottom: ko.observable(''),
-          left: ko.observable('')
-        });
-        
+                top: ko.observable(''),
+                right: ko.observable(''),
+                bottom: ko.observable(''),
+                left: ko.observable('')
+            });
+
         this.marginVM = ko.observable(data.marginVM ? {
             top: ko.observable(data.marginVM.top || ''),
             right: ko.observable(data.marginVM.right || ''),
             bottom: ko.observable(data.marginVM.bottom || ''),
             left: ko.observable(data.marginVM.left || '')
         } : {
-            top: ko.observable(''),
-            right: ko.observable(''),
-            bottom: ko.observable(''),
-            left: ko.observable('')
-        });
-        
+                top: ko.observable(''),
+                right: ko.observable(''),
+                bottom: ko.observable(''),
+                left: ko.observable('')
+            });
+
         this.config().elements().forEach((element) => {
-            if(element().buttons().length > 0) {
+            if (element().buttons().length > 0) {
                 element().value = ko.computed(() => {
                     let html = '';
                     element().buttons().forEach((button) => {
-                        if(button.enabled()) {
+                        if (button.enabled()) {
                             html += button.value();
                         }
                     });
@@ -104,19 +104,19 @@ export default class PagebuilderElementModel {
                 this.updateHTML();
             })
         });
-  
+
         this.padding = ko.computed(() => {
             return `${this.paddingVM().top()} ${this.paddingVM().right()} ${this.paddingVM().bottom()} ${this.paddingVM().left()}`;
         })
-        
+
         this.margin = ko.computed(() => {
             return `${this.marginVM().top()} ${this.marginVM().right()} ${this.marginVM().bottom()} ${this.marginVM().left()}`;
         })
 
-          this.generatedHTML = ko.computed(() => {
+        this.generatedHTML = ko.computed(() => {
             return `<div
-                    ${this.css_class() !== '' ? `class="${this.css_class()}"` :''}
-                    ${this.css_id() !== '' ? `id="${this.css_id()}"` :''}
+                    ${this.css_class() !== '' ? `class="${this.css_class()}"` : ''}
+                    ${this.css_id() !== '' ? `id="${this.css_id()}"` : ''}
                     style="${this.styles()}
                     ${this.bg_color() !== '' ? `background-color:${this.bg_color()};` : ''}
                     ${this.paddingVM().top() !== '' ? `padding-top:${this.paddingVM().top()};` : ''}
@@ -135,7 +135,7 @@ export default class PagebuilderElementModel {
     }
 
     toggleButtonStatus(element) {
-        if(element.enabled()) {
+        if (element.enabled()) {
             element.enabled(false);
         } else {
             element.enabled(true);

@@ -1,6 +1,6 @@
 const helpers = {};
 
-helpers.mediaElementFormat = function(value) {
+helpers.mediaElementFormat = function (value) {
     value = value.toLowerCase();
 
     value = value.replace(/ä/g, 'ae');
@@ -15,12 +15,12 @@ helpers.mediaElementFormat = function(value) {
     value = value.replace(/ß/g, 'ss');
     value = value.replace(/\u00df/g, "ss")
 
-    value = value.replace(/ /g,"_");
+    value = value.replace(/ /g, "_");
 
     return value;
 }
 
-helpers.isJsonString = function(str) {
+helpers.isJsonString = function (str) {
     try {
         JSON.parse(str);
     } catch (e) {
@@ -31,11 +31,11 @@ helpers.isJsonString = function(str) {
 
 helpers.createSlug = (text) => {
     return text.toString().toLowerCase()
-    .replace(/\s+/g, '-')
-    .replace(/[^\w\-]+/g, '')
-    .replace(/\-\-+/g, '-')
-    .replace(/^-+/, '')
-    .replace(/-+$/, ''); 
+        .replace(/\s+/g, '-')
+        .replace(/[^\w\-]+/g, '')
+        .replace(/\-\-+/g, '-')
+        .replace(/^-+/, '')
+        .replace(/-+$/, '');
 }
 
 helpers.fadeOutEffect = (target, callback) => {

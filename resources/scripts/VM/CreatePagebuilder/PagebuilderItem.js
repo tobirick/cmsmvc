@@ -13,9 +13,9 @@ export default class PagebuilderItem {
             elements: ko.observableArray([])
         })
 
-        const config =  helpers.isJsonString(this.config()) ? JSON.parse(this.config()) : this.config();
+        const config = helpers.isJsonString(this.config()) ? JSON.parse(this.config()) : this.config();
 
-        if(config.elements) {
+        if (config.elements) {
             config.elements.forEach(configelement => {
                 this.addPagebuilderField(configelement);
             });

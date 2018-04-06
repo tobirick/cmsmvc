@@ -1,10 +1,10 @@
 export default class Sidebar {
     constructor() {
         this.toggleSidebarEl = document.querySelector('.main-content__toggle-sidebar');
-        if(this.toggleSidebarEl) {
+        if (this.toggleSidebarEl) {
             document.onreadystatechange = () => {
                 const sidebarCurrentStatus = localStorage.getItem('sidebar-closed');
-                if(JSON.parse(sidebarCurrentStatus)) {
+                if (JSON.parse(sidebarCurrentStatus)) {
                     this.toggleSidebarEl.classList.add('open');
                     document.body.classList.add('sidebar-closed');
                 }

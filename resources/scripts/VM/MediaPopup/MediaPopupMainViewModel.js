@@ -10,7 +10,7 @@ export default class MediaPopupMainViewModel {
 
         this.selectedMediaElement = ko.observable(null);
         this.selectedMediaElementPath = ko.computed(() => {
-            if(this.selectedMediaElement()) {
+            if (this.selectedMediaElement()) {
                 return '/content/media' + this.selectedMediaElement().path + this.selectedMediaElement().name;
             }
         });

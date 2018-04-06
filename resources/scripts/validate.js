@@ -8,7 +8,7 @@ export const validator = {
 
     init(form) {
         this.data.formEl = document.querySelector(form);
-        if(this.data.formEl) {
+        if (this.data.formEl) {
             this.data.formEl.addEventListener('submit', this.validate.bind(this))
             const elements = document.querySelectorAll(form + ' .validate');
             this.data.elements = elements;
@@ -42,7 +42,7 @@ export const validator = {
             message: 'Passwords do not match'
         });
     },
-    
+
     addRule(name, rules) {
         this.data.rules.push({
             ...rules,
@@ -53,13 +53,13 @@ export const validator = {
     validate(e) {
         e.preventDefault();
         for (let element of this.data.elements) {
-            if(element.dataset.required === 'true' && element.value.length === 0) {
+            if (element.dataset.required === 'true' && element.value.length === 0) {
                 this.addErrorToElement(element, { message: 'This field is required' });
                 continue;
             }
 
-            for(let rule of this.data.rules) {
-                if(element.dataset.valtype === rule.name) {
+            for (let rule of this.data.rules) {
+                if (element.dataset.valtype === rule.name) {
                     this.validateElement(element, rule);
                 }
             }
@@ -75,15 +75,15 @@ export const validator = {
         span.innerHTML = rule.message;
         const childNodes = element.parentNode.parentNode.childNodes;
         let hasError = false;
-        for(let i = 0; i < childNodes.length; i++) {
-            if(childNodes[i].nodeType === Node.ELEMENT_NODE) {
-                if(childNodes[i].classList.contains('form-input__error-message')) {
+        for (let i = 0; i < childNodes.length; i++) {
+            if (childNodes[i].nodeType === Node.ELEMENT_NODE) {
+                if (childNodes[i].classList.contains('form-input__error-message')) {
                     hasError = true;
                     break;
                 }
             }
         }
-        if(!hasError) {
+        if (!hasError) {
             element.parentNode.insertAdjacentElement('afterend', span);
         }
     },
@@ -92,37 +92,37 @@ export const validator = {
         //setTimeout(() => {element.classList.remove('form-input__error')}, 250);
         element.classList.remove('form-input__error');
         const spanEl = element.parentNode.nextSibling;
-        if(spanEl.nodeType === Node.ELEMENT_NODE) {
-            if(spanEl.classList.contains('form-input__error-message')) {
+        if (spanEl.nodeType === Node.ELEMENT_NODE) {
+            if (spanEl.classList.contains('form-input__error-message')) {
                 element.parentNode.parentNode.removeChild(spanEl);
             }
         }
     },
 
     validateElement(element, rule) {
-        if(rule.required) {
-            if(element.value.length === 0) {
+        if (rule.required) {
+            if (element.value.length === 0) {
                 this.addErrorToElement(element, rule);
             } else {
                 this.removeErrorFromElement(element, rule);
             }
         }
-        if(rule.regex) {
-            if(!rule.regex.test(element.value)) {
+        if (rule.regex) {
+            if (!rule.regex.test(element.value)) {
                 this.addErrorToElement(element, rule);
             } else {
                 this.removeErrorFromElement(element, rule);
             }
         }
-        if(rule.minlength) {
-            if(element.value.length < rule.minlength) {
+        if (rule.minlength) {
+            if (element.value.length < rule.minlength) {
                 this.addErrorToElement(element, rule);
             } else {
                 this.removeErrorFromElement(element, rule);
             }
         }
-        if(rule.matchto) {
-            if(element.value !== rule.matchto.value) {
+        if (rule.matchto) {
+            if (element.value !== rule.matchto.value) {
                 this.addErrorToElement(element, rule);
             } else {
                 this.removeErrorFromElement(element, rule);
@@ -131,7 +131,7 @@ export const validator = {
     },
 
     submit() {
-        if(!this.data.error) {
+        if (!this.data.error) {
             this.data.formEl.submit();
         } else {
             this.data.error = false;
