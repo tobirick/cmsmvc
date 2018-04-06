@@ -4,10 +4,12 @@ export default class Form {
     constructor() {
         this.submitBtnEl = document.getElementById('submit-form-btn');
         this.submitFormEl = document.getElementById('submit-form');
-        this.validator = validator.init('#submit-form');
-        this.validator.addBasicRules();
-
-        if (this.submitBtnEl && this.submitFormEl) this.setEventListeners();
+        
+        if (this.submitBtnEl && this.submitFormEl) {
+            this.validator = validator.init('#submit-form');
+            this.validator.addBasicRules();
+            this.setEventListeners();
+        }
     }
 
     setEventListeners() {

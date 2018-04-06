@@ -21,8 +21,7 @@ import MediaPopupMainViewModel from './VM/MediaPopup/MediaPopupMainViewModel';
 import TranslationsMainViewModel from './VM/Translations/TranslationsMainViewModel';
 
 // Validator
-validator.init('#validate-form');
-validator.addBasicRules();
+validator.init('#validate-form').addBasicRules();
 const sidebar = new Sidebar();
 const form = new Form();
 
