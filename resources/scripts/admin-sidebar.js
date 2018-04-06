@@ -5,7 +5,7 @@ export default class Sidebar {
             document.onreadystatechange = () => {
                 const sidebarCurrentStatus = localStorage.getItem('sidebar-closed');
                 if (JSON.parse(sidebarCurrentStatus)) {
-                    this.toggleSidebarEl.classList.add('open');
+                    this.toggleSidebarEl.classList.remove('open');
                     document.body.classList.add('sidebar-closed');
                 }
             };

@@ -2,6 +2,12 @@
     padding-left: 20rem;
     @include transition(.2s ease-in all);
 
+    @include media-sm-max {
+        padding-left: 0;
+        left: 20rem;
+        position: relative;
+    }
+
     & #content {
         background-color: #F0F0F0;
         position: relative;
@@ -44,6 +50,10 @@
 
         & h2 {
             padding-left: 2.5rem;
+
+            @include media-md-max {
+                display: none;
+            }
         }
     }
 
@@ -188,4 +198,9 @@
 
 .sidebar-closed .main-content {
     padding-left: 7rem;
+
+    @include media-sm-max {
+        padding-left: 0;
+        left: 0;
+    }
 }

@@ -1,9 +1,17 @@
+.table-responsive {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    
+    @include scrollbar();
+}
+
 .table {
     width: 100%;
     max-width: 100%;
     margin-bottom: 1rem;
     background-color: transparent;
-    border-collapse: collapse;
+    border-collapse: collapse; 
 
     & th, & td {
       vertical-align: middle;
@@ -15,6 +23,38 @@
       }
     }
 
+    &.scale {
+        border-collapse: separate; 
+        border-spacing: 0 1.5rem;
+
+        & tbody {
+            & tr {
+                @include box-shadow(sm);
+                @include transition(.2s ease-in all);
+                border-radius: 3px;
+                cursor: pointer;
+                background-color: #fff;
+    
+                &:hover {
+                    transform: scale(1.03);
+                }
+            }
+    
+            & td {
+                padding: 1rem;
+            }
+        }
+    }
+
+    &.normal {
+        & tbody {
+            & tr {
+                border-top: 1px solid #ddd;
+            }
+        }
+    }
+
+
     & tr {
         &.ui-droppable-hover {
             background-color: $primary-color;
@@ -23,7 +63,6 @@
     }
 
     & td {
-        border-top: 1px solid #d6d6d6;
 
         &.auto-width {
             width:1%;

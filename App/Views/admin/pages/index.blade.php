@@ -14,38 +14,40 @@
         <div class="col-12">
             <div class="admin-box">
                 @if(sizeof($pagesadmin) > 0)
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th style="width: 10%;">#</th>
-                            <th>{{$lang['Name']}}</th>
-                            <th class="center" style="width: 10%;">Status</th>
-                            <th style="width: 15%;">{{$lang['Author']}}</th>
-                            <th style="width: 20%;">{{$lang['Date']}}</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($pagesadmin as $page)
-                        <tr>
-                            <td style="width: 10%;">{{$page['id']}}</td>
-                            <td><strong>{{$page['name']}}</strong><br><span class="light-text smaller-text">/{{$page['slug']}}</span></td>
-                           <td class="center" style="width: 10%;"><div class="bullet {{$page['is_active'] ? 'active' : 'inactive'}}"></div></td>
-                            <td style="width: 15%;">{{$page['author']}}</td>
-                            <td style="width: 20%;"><span class="smaller">Published</span><br>{{date_format(new DateTime($page['created_at']), 'd.m.Y')}}</td>
-                            <td class="action auto-width">
-                                <a href="/{{$curLang}}/admin/pages/{{$page['id']}}/edit"><i class="fa fa-pencil"></i></a>
-                                <a target="_blank" href="/{{$page['slug']}}"><i class="fa fa-arrow-right"></i></a>
-                                <form class="delete-form" action="/admin/pages/{{$page['id']}}" method="POST">
-                                    <input type="hidden" name='_METHOD' value="DELETE">
-                                    <input name="csrf_token" type="hidden" value="{{$csrf}}">
-                                    <button><i class="fa fa-trash"></i></button>
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                </table>
+                <div class="">
+                    <table class="table scale">
+                        <thead>
+                            <tr>
+                                <th style="width: 10%;">#</th>
+                                <th>{{$lang['Name']}}</th>
+                                <th class="center" style="width: 10%;">Status</th>
+                                <th style="width: 15%;">{{$lang['Author']}}</th>
+                                <th style="width: 20%;">{{$lang['Date']}}</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($pagesadmin as $page)
+                            <tr>
+                                <td style="width: 10%;">{{$page['id']}}</td>
+                                <td><strong>{{$page['name']}}</strong><br><span class="light-text smaller-text">/{{$page['slug']}}</span></td>
+                            <td class="center" style="width: 10%;"><div class="bullet {{$page['is_active'] ? 'active' : 'inactive'}}"></div></td>
+                                <td style="width: 15%;">{{$page['author']}}</td>
+                                <td style="width: 20%;"><span class="smaller">Published</span><br>{{date_format(new DateTime($page['created_at']), 'd.m.Y')}}</td>
+                                <td class="action auto-width">
+                                    <a href="/{{$curLang}}/admin/pages/{{$page['id']}}/edit"><i class="fa fa-pencil"></i></a>
+                                    <a target="_blank" href="/{{$page['slug']}}"><i class="fa fa-arrow-right"></i></a>
+                                    <form class="delete-form" action="/admin/pages/{{$page['id']}}" method="POST">
+                                        <input type="hidden" name='_METHOD' value="DELETE">
+                                        <input name="csrf_token" type="hidden" value="{{$csrf}}">
+                                        <button><i class="fa fa-trash"></i></button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
                 @component('admin.components.pagination', ['currentpage' => $currentpage, 'numberofpages' => $numberofpages])@endcomponent
                 @else
                 <div class="empty-state">

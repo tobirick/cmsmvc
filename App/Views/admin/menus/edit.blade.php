@@ -16,7 +16,7 @@
 <div id="content">
 <div class="container">
     <div class="row">
-        <div class="col-6">
+        <div class="col-12 col-md-6">
             <div class="admin-box">
                 <h3 class="admin-box__title">{{$lang['Main Settings']}}</h3>
                 <form id="submit-form" action="/admin/menus/{{$menu['id']}}" method="POST">
@@ -41,7 +41,7 @@
                 </form>
             </div>
         </div>
-    <div class="col-6">
+    <div class="col-12 col-md-6">
             <div class="admin-box">
                 <h3 class="admin-box__title">{{$lang['New Menu Item']}}</h3>
                 <form data-bind="submit: addMenuListItem">
@@ -77,34 +77,36 @@
             <div class="admin-box">
                 <h3 class="admin-box__title">{{$lang['Menu']}} Item's</h3>
                     <div id="menu-list">
-                        <table data-bind="visible: filteredMenuItems().length > 0" class="table">
-                            <thead>
-                                <tr>
-                                    <th>{{$lang['Name']}}</th>
-                                    <th>{{$lang['Connected Page']}}</th>
-                                    <th>CSS {{$lang['Class']}}</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody data-bind="sortable: {data: filteredMenuItems, options: { cancel: 'td:not(.editable), button:not(.sort), input, select' }}">
-                                <tr>
-                                    <td>
-                                        <input class="form-input" data-bind="value: name, valueUpdate: 'afterkeydown'" type="text" placeholder="Name" name="menuitem[name]">
-                                    </td>
-                                    <td>
-                                        <select class="form-input" data-bind="options: $root.pagesList, optionsText: 'name', value: page_id, optionsValue: 'id'" name="menuitem[page]"></select>
-                                    </td>
-                                    <td>
-                                        <input placeholder="z.B. button" data-bind="value: css_class, valueUpdate: 'afterkeydown'" type="text" class="form-input">
-                                    </td>
-                                    <td class="align-right editable auto-width">
-                                        <button data-bind="click: updateMenuListItem" class="button-primary-icon"><i class="fa fa-check"></i></button>
-                                        <button data-bind="click: deleteMenuListItem" class="button-error-icon"><i class="fa fa-trash"></i></button>
-                                        <button class="button-warning-icon sort"><i class="fa fa-arrows"></i></button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div data-bind="visible: filteredMenuItems().length > 0" class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>{{$lang['Name']}}</th>
+                                        <th>{{$lang['Connected Page']}}</th>
+                                        <th>CSS {{$lang['Class']}}</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody data-bind="sortable: {data: filteredMenuItems, options: { cancel: 'td:not(.editable), button:not(.sort), input, select' }}">
+                                    <tr>
+                                        <td>
+                                            <input class="form-input" data-bind="value: name, valueUpdate: 'afterkeydown'" type="text" placeholder="Name" name="menuitem[name]">
+                                        </td>
+                                        <td>
+                                            <select class="form-input" data-bind="options: $root.pagesList, optionsText: 'name', value: page_id, optionsValue: 'id'" name="menuitem[page]"></select>
+                                        </td>
+                                        <td>
+                                            <input placeholder="z.B. button" data-bind="value: css_class, valueUpdate: 'afterkeydown'" type="text" class="form-input">
+                                        </td>
+                                        <td class="align-right editable auto-width">
+                                            <button data-bind="click: updateMenuListItem" class="button-primary-icon"><i class="fa fa-check"></i></button>
+                                            <button data-bind="click: deleteMenuListItem" class="button-error-icon"><i class="fa fa-trash"></i></button>
+                                            <button class="button-warning-icon sort"><i class="fa fa-arrows"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                         <div data-bind="visible: filteredMenuItems().length === 0" class="empty-state">
                             <span class="empty-state__icon"><i class="fa fa-user-secret"></i></span>
                             <div class="empty-state__text">{{$lang['No Menu Items']}}</div>

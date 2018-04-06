@@ -17,7 +17,7 @@
 @component('admin.components.alert')@endcomponent
 <div class="container">
   <div class="row">
-        <div class="col-3">
+        <div class="col-12 col-md-3">
             <div class="admin-box">
               <div class="user-role-menu" data-bind="foreach: languages">
                 <div class="user-role-menu__item" data-bind="click: $root.setCurrentLanguage, css: {active: id === $root.currentLanguage().id}">
@@ -26,7 +26,7 @@
             </div>
             </div>
         </div>
-        <div class="col-9">
+        <div class="col-12 col-md-6">
           <div class="admin-box">
             <div class="admin-box__header" data-bind="with: currentLanguage">
               <h3 class="admin-box__title" data-bind="text: name"></h3>

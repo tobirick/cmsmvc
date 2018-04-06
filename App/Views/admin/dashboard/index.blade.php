@@ -13,12 +13,12 @@
 <div id="content">
     <div class="container">
         <div class="row">
-            <div class="col-5">
+            <div class="col-12 col-md-5">
                 <div class="admin-box">
                     <h3 class="admin-box__title"></h3>
                 </div>
             </div>
-            <div class="col-3">
+            <div class="col-12 col-md-3">
                <div class="admin-box weather-clock">
                   <span class="time"></span>
                   <span class="date"></span>
@@ -28,19 +28,19 @@
                   </div>
                </div>
             </div>
-            <div class="col-4">
+            <div class="col-12 col-md-4">
                 <div class="admin-box">
                      <h3 class="admin-box__title"></h3>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-6">
+            <div class="col-12 col-md-6">
                 <div class="admin-box">
                     <h3 class="admin-box__title">Aktivitäten</h3>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col-12 col-md-6">
                 <div class="admin-box">
                     <h3 class="admin-box__title">Aktionen</h3>
                 </div>

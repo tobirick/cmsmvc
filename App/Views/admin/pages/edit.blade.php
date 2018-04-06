@@ -52,7 +52,7 @@
                 </div>
             </div>
         </div>
-        <div data-bind="with: page" class="col-7">
+        <div data-bind="with: page" class="col-12 col-md-7">
             <div class="admin-box">
                <h3 class="admin-box__title">{{$lang['Default Settings']}}</h3>
                     <div class="dn form-row">
@@ -91,7 +91,7 @@
             </div>
         </div>
 
-        <div data-bind="with: page" class="col-5">
+        <div data-bind="with: page" class="col-12 col-md-5">
             <div class="admin-box">
                <h3 class="admin-box__title">SEO</h3>
                <div class="form-row">
@@ -113,7 +113,7 @@
             </div>
         </div>
 
-        <div class="col-8">
+        <div class="col-12 col-md-8">
             <div class="admin-box">
                 <div class="admin-grid-sections" data-bind="sortable: {data: sections, connectClass: 'admin-grid-sections', options: {revert: 'invalid'}}">
                     @component('admin.components.pagebuilder-section')@endcomponent
@@ -126,7 +126,7 @@
                 <span data-bind="click: $root.addSection" class="admin-grid__add-section"><i class="fa fa-plus"></i> {{$lang['Add Section']}}</span>
             </div>  
         </div>
-        <div class="col-4">
+        <div class="col-12 col-md-4">
             <div class="admin-box">
                 <div class="admin-box__header">
                     <h3 class="admin-box__title">{{$lang['Elements']}}</h3>

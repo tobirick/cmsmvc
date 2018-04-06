@@ -11,12 +11,20 @@
     overflow: hidden;
     @include box-shadow();
 
+    @include media-md-max {
+        width: 90%;
+    }
+
     &.higher-z {
         z-index: 999999999;
     }
 
     &--small {
         width: 50%;
+
+        @include media-md-max {
+            width: 90%;
+        }
     }
 
     &__overlay {
@@ -68,8 +76,11 @@
     &__tabs {
         display: flex;
         align-items: center;
+        overflow-x: auto;
         background-color: #eee;
         @include box-shadow();
+        @include scrollbar();
+
         & ul {
             display: flex;
         }

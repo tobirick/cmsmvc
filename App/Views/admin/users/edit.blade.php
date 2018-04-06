@@ -19,10 +19,10 @@
 <div class="container">
     <div class="row">
         
-        <form class="w-100 df" id="submit-form" action="/admin/users/{{$user['id']}}" method="POST">
+        <form class="w-100 df fw" id="submit-form" action="/admin/users/{{$user['id']}}" method="POST">
             <input type="hidden" name='_METHOD' value="PUT">
             <input name="csrf_token" type="hidden" value="{{$csrf}}">
-        <div class="col-7">
+        <div class="col-12 col-md-7">
             <div class="admin-box">
                 <div class="form-row">
                   <div class="col-3">
@@ -55,7 +55,7 @@
             </div>
         </div>
 
-        <div class="col-5">
+        <div class="col-12 col-md-5">
             <div class="admin-box">
                <div class="form-row">
                 <div class="col-3">

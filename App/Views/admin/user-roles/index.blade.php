@@ -17,7 +17,7 @@
 @component('admin.components.alert')@endcomponent
 <div class="container">
         <div class="row">
-            <div class="col-3">
+            <div class="col-12 col-md-3">
                 <div class="admin-box">
                     <div class="user-role-menu" data-bind="foreach: userRoles">
                         <div class="user-role-menu__item" data-bind="click: $root.setSelectedUserRole, css: {active: id() === $root.selectedUserRole().id()}">
@@ -32,7 +32,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-9">
+            <div class="col-12 col-md-9">
                 <div class="admin-box">
                     <div data-bind="with: selectedUserRole">
                         <div class="admin-box__header">
@@ -52,12 +52,14 @@
                             </div>
                         </div>
                         <div class="user-role-checkboxes" data-bind="foreach: $root.userPermissions">
-                            <span class="form-checkbox">
-                                <label data-bind="attr: {for: id()}, click: $parent.toggleCheckbox" for="enable-drop">
-                                    <input class="form-checkbox__input" type="checkbox" data-bind="attr: {id: id()},checked: $parent.activePermissions().indexOf(id()) !== -1">
-                                    <span class="form-checkbox__label" data-bind="text: permission_name"></span>
-                                </label>
-                            </span>
+                            <div class="col-md-6 col-12">
+                                <span class="form-checkbox">
+                                    <label data-bind="attr: {for: id()}, click: $parent.toggleCheckbox" for="enable-drop">
+                                        <input class="form-checkbox__input" type="checkbox" data-bind="attr: {id: id()},checked: $parent.activePermissions().indexOf(id()) !== -1">
+                                        <span class="form-checkbox__label" data-bind="text: permission_name"></span>
+                                    </label>
+                                </span>
+                            </div>
                         </div>
                     </div>
                     <div data-bind="visible: userRoles().length === 0" class="empty-state">

@@ -19,7 +19,7 @@
 @component('admin.components.alert')@endcomponent  
     <div class="container">
         <div data-bind="with: pagebuilderItem" class="row">
-            <div class="col-8">
+            <div class="col-12 col-md-8">
                 <div class="admin-box">
                         <div class="form-row">
                            <div class="col-3">
@@ -50,7 +50,7 @@
                         </div>
                 </div>
             </div>
-            <div class="col-4">
+            <div class="col-12 col-md-4">
                 <div class="admin-box">
                     <div class="admin-box__header">
                         <h3 class="admin-box__title">{{$lang['Fields']}}</h3>

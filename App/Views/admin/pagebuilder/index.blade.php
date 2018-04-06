@@ -16,7 +16,7 @@
                     <div class="row">
                         @if(sizeof($pagebuilderitems) > 0)
                         @foreach ($pagebuilderitems as $pagebuilderitem)
-                            <div class="col-12 col-md-4 col-lg-3 col-xl-2">
+                            <div class="col-12 col-md-6 col-lg-4 col-xl-3">
                                 <div class="card">
                                     <div class="card__title">{{$pagebuilderitem['item_name']}}</div>
                                     <div class="card__actions">

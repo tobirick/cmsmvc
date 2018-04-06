@@ -13,7 +13,7 @@
     <form id="submit-form" action="/admin/settings" method="POST">
         <input name="csrf_token" type="hidden" value="{{$csrf}}">
         <div class="row">
-            <div class="col-7">
+            <div class="col-12 col-md-7">
                 <div class="admin-box">
                     <h3 class="admin-box__title">{{$lang['General Settings']}}</h3>
                     <div class="form-row">
@@ -87,7 +87,7 @@
                      </div>
                 </div>
             </div>
-            <div class="col-5">
+            <div class="col-12 col-md-5">
                 <div class="admin-box">
                     <h3 class="admin-box__title">Mail Einstellungen</h3>
                     <span>(Coming soon ...)</span>

@@ -13,7 +13,10 @@
 .dn { display: none; }
 
 .fr { float: right; }
-.fl {float: left; }
+.fl { float: left; }
+
+.fw { flex-wrap: wrap; }
+.nfw { flex-wrap: nowrap; }
 
 .mw-100 { max-width: 100%; }
 .w-100 { width:100%; }

@@ -14,7 +14,7 @@
     @include('admin.partials.sidebar')
     <div class="main-content">
         <div class="main-content__header">
-            <div class="main-content__toggle-sidebar">
+            <div class="main-content__toggle-sidebar open">
                 <span></span>
                 <span></span>
                 <span></span>
