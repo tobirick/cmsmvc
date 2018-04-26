@@ -38,6 +38,19 @@ class DefaultPage extends Model {
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public static function getEditStatus($id) {
+        $db = static::getDB();
+        $stmt = $db->prepare('SELECT in_edit FROM pages WHERE ID = :id');
+        $stmt->execute([
+            ':id' => $id
+        ]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $status = (int)$result['in_edit'];
+
+        return $status;
+    }
+
     public static function getPageById($id) {
         $db = static::getDB();
         $stmt = $db->prepare('SELECT * FROM pages WHERE ID = :id');

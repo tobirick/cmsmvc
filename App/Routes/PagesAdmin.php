@@ -12,3 +12,5 @@ $router->map('POST', '/admin/pages/[i:id]', requireLogin('Admin\PagesController@
 // Knockout
 $router->map('POST', '/pages', requireLogin('Admin\PagesController@getAllPages'));
 $router->map('POST', '/pages/[i:id]', requireLogin('Admin\PagesController@getPageByID'));
+
+$router->map('POST', '/pages/inedit/inactive', requireLogin('Admin\PagesController@setInEditInActive'));

@@ -54,6 +54,17 @@ export default class PagebuilderMainViewModel {
         });
     }
 
+    setInEditInActive = () => {
+        const data = {
+            csrf_token: csrf.getToken(),
+            pageID: this.pageID
+        };
+
+        const response = PagesHandler.setInEditInActive(data);
+        
+        csrf.updateToken(response.csrfToken);
+    }
+
     openMediaPopup = (element) => {
         this.mediaPopupVM().openMediaPopup();
         this.mediaPopupVM().selectedMediaElement.subscribe(() => {
@@ -97,7 +108,9 @@ export default class PagebuilderMainViewModel {
             }
 
             const isActive = parseInt(defaultPage.is_active());
+            const inEdit = parseInt(defaultPage.in_edit());
             defaultPage.is_active(isActive);
+            defaultPage.in_edit(inEdit);
 
             this.defaultPageSettings(defaultPage);
 

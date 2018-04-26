@@ -126,6 +126,7 @@
         "You can not delete the default language!": "Du kannst die Standardsprache nicht löschen!",
         "Translations": "Übersetzungen",
         "Add Translation": "Übersetzung hinzufügen",
-        "No Translations": "Keine Übersetzungen"
+        "No Translations": "Keine Übersetzungen",
+        "Page is currently in edit!": "Seite wird gerade bearbeitet!"
     }
 }

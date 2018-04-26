@@ -224,7 +224,7 @@ const currentDate = new Date();
 const monthNames = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
 ];
-const currentDateString = `${currentDate.getDay() + 1}. ${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
+const currentDateString = `${currentDate.getDate()}. ${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
 const currentTimeString = `${currentDate.getHours()}:${currentDate.getMinutes()}`;
 const dateEl = document.querySelector('.date');
 const timeEl = document.querySelector('.time');
@@ -251,8 +251,4 @@ if (pathName.includes('/admin/users/') && pathName.includes('edit')) {
         }
     }
     ko.applyBindings(new UserEditViewModel());
-}
-
-window.onbeforeunload = function() {
-    window.alert('My Window is closing');
 }

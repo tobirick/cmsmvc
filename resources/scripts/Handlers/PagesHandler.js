@@ -26,4 +26,18 @@ PagesHandler.fetchPage = async function(data) {
    return await response.json();
 };
 
+ PagesHandler.setInEditInActive = async function(data) {
+    const url = `/pages/inedit/inactive`;
+    const response = await fetch(url, {
+       body: JSON.stringify(data),
+       headers: {
+          'content-type': 'application/json'
+      },
+       method: 'POST',
+       credentials: 'include'
+    });
+ 
+    return await response.json();
+ };
+
 export default PagesHandler;

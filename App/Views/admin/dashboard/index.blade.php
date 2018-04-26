@@ -17,7 +17,7 @@
                 <div class="admin-box">
                     <h3 class="admin-box__title">Informations</h3>
                     <div class="mb-2">
-                        <div><strong>You have {{sizeof($pages)}} <a href="/admin/pages">Pages</a>!</strong> <a href="/admin/pages/create"><em>{{sizeof($pages) === 0 ? 'Add your first page!' : ''}}</em></a></div>
+                        <div><strong>You have {{sizeof($pages)}} <a href="/admin/pages">{{sizeof($pages) === 1 ? 'Page' : 'Pages'}}</a>!</strong> <a href="/admin/pages/create"><em>{{sizeof($pages) === 0 ? 'Add your first page!' : ''}}</em></a></div>
                         <div><strong>You're <a href="/admin/settings">Maintenance Mode</a> is {{$settings['maintenance_mode'] ? 'activated' : 'deactivated'}}!</strong></div>
                     </div>
                     You are using the Theme <a href="/admin/themes">{{$activetheme}}</a>!

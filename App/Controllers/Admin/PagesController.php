@@ -46,12 +46,11 @@ class PagesController extends BaseController {
         $id = $params['params']['id'];
         $page = DefaultPage::getPageById($id);
         if($page) {
-           self::render('admin/pages/edit', [
-               'page' => $page
-           ]);
-           DefaultPage::setEditStatus($id, 1);
+            self::render('admin/pages/edit', [
+                'page' => $page
+            ]);
         } else {
-           self::render('error/404');
+            self::render('error/404');
         }
     }
 
@@ -138,5 +137,19 @@ class PagesController extends BaseController {
       $data['defaultPage'] = $defaultPage;
         
       echo json_encode($data);
+    }
+
+    public function setInEditInActive() {
+        $content = trim(file_get_contents("php://input"));
+        $decoded = json_decode($content, true);
+
+        CSRF::checkTokenAjax($decoded['csrf_token']);
+
+        DefaultPage::setEditStatus($decoded['pageID'], 0);
+
+        header('Content-type: application/json');
+        $data['csrfToken'] = CSRF::getToken();
+
+        echo json_encode($data);
     }
 }
