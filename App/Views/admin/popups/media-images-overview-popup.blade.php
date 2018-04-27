@@ -5,9 +5,26 @@
                 <span data-bind="click: closeMediaPopup" class="popup__close"></span>
             </div>
             <div class="popup__content">
+                <div class="row mb-2 center-v-flex">
+                    <div class="col-8">
+                        <input type="text" class="form-input" placeholder="Search for name or path ..." data-bind="textInput: filterQuery">
+                    </div>
+                    <div class="col-4">
+                        <span class="form-checkbox">
+                            <label for="exclude-media-images">
+                                <input class="form-checkbox__input" id="exclude-media-images" type="checkbox" data-bind="checked: excludeMediaImages">
+                                <span class="form-checkbox__label">Exclude Media Images</span>
+                            </label>
+                        </span>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-8">
-                        <div data-bind="foreach: mediaElements" class="images-preview">
+                        <div data-bind="visible: filteredMediaElements().length === 0" class="empty-state">
+                            <span class="empty-state__icon"><i class="fa fa-image"></i></span>
+                            <div class="empty-state__text">No Images</div>
+                        </div>
+                        <div data-bind="foreach: filteredMediaElements" class="images-preview">
                             <div data-bind="click: $parent.setMediaElement, css: {active: $parent.selectedMediaElement() && $parent.selectedMediaElement().id === id}" class="images-preview__item">
                                 <img data-bind="attr: {src: '/content/media' + path + name}">
                             </div>
