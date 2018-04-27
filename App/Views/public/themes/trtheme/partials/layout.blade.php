@@ -48,7 +48,6 @@
     <div id="content">
        @yield('content')
     </div>
-    {{$themesettings['custom_scripts']}}
     <footer id="footer">
        <div class="container">
           @if(sizeof($footercols) > 0)
@@ -71,6 +70,7 @@
           {!! trim($themesettings['footer_bottom']) !!}
       </div>
     </footer>
+    {{$themesettings['custom_scripts']}}
     @include('public.themes.' . $activetheme . '.partials.scripts')
 </body>
 </html>

@@ -239,7 +239,7 @@ class Menu extends Model {
         $id = self::getActiveMenuID()['value'];
 
         $db = static::getDB();
-        $stmt = $db->prepare('SELECT mi.name, mi.language_id, mi.css_class, p.slug FROM menu_items as mi INNER JOIN pages as p ON p.id = mi.page_id WHERE menu_id = :id ORDER BY mi.menu_position');
+        $stmt = $db->prepare('SELECT mi.id as menu_id, mi.name, mi.language_id, mi.css_class, p.slug, p.id as page_id FROM menu_items as mi INNER JOIN pages as p ON p.id = mi.page_id WHERE menu_id = :id ORDER BY mi.menu_position');
         $stmt->execute([
             ':id' => $id
         ]);

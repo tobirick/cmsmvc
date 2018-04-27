@@ -26,7 +26,7 @@
     {{$themesettings['header_code']}}
     {{$themesettings['google_analytics']}}
    </head>
-   <body class="{{$currentpubliclanguage['iso']}} {{$user ? 'logged-in' : ''}}{{$themesettings['fixed_navigation'] ? 'fixed' : ''}} {{isset($id) ? 'page-id-' . $id : 'home'}}">
+   <body class="{{$white_logo_active === '1' ? 'white-logo' : 'colored-logo'}} {{$currentpubliclanguage['iso']}} {{$user ? 'logged-in' : ''}}{{$themesettings['fixed_navigation'] ? 'fixed' : ''}} {{isset($id) ? 'page-id-' . $id : 'home'}}">
       @if($user)
       <div class="admin-bar">
          <ul>
@@ -48,7 +48,6 @@
     <div id="content">
        @yield('content')
     </div>
-    {{$themesettings['custom_scripts']}}
     <footer id="footer">
        <div class="container">
           @if(sizeof($footercols) > 0)
@@ -71,6 +70,7 @@
           {!! trim($themesettings['footer_bottom']) !!}
       </div>
     </footer>
+    {{$themesettings['custom_scripts']}}
     @include('public.themes.' . $activetheme . '.partials.scripts')
 </body>
 </html>
