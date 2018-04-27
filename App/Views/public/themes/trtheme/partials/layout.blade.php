@@ -26,7 +26,7 @@
     {{$themesettings['header_code']}}
     {{$themesettings['google_analytics']}}
    </head>
-   <body class="{{$currentpubliclanguage['iso']}} {{$user ? 'logged-in' : ''}}{{$themesettings['fixed_navigation'] ? 'fixed' : ''}} {{isset($id) ? 'page-id-' . $id : 'home'}}">
+   <body class="{{$white_logo_active === '1' ? 'white-logo' : 'colored-logo'}} {{$currentpubliclanguage['iso']}} {{$user ? 'logged-in' : ''}}{{$themesettings['fixed_navigation'] ? 'fixed' : ''}} {{isset($id) ? 'page-id-' . $id : 'home'}}">
       @if($user)
       <div class="admin-bar">
          <ul>

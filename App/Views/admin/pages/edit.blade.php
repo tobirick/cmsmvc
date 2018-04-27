@@ -77,13 +77,26 @@
                     </div>
                     <div class="form-row">
                        <div class="col-3">
-                          <label class="form-label">Status</label>
+                          <label class="form-label">Page Active</label>
                        </div>
                        <div class="col-9">
                         <span class="form-checkbox">
                            <label for="active">
-                              <input name="page[is_active]" class="form-checkbox__input" id="active" type="checkbox" data-bind="checked: $root.defaultPageSettings().is_active">
-                              <span class="form-checkbox__label">Active</span>
+                              <input class="form-checkbox__input" id="active" type="checkbox" data-bind="checked: $root.defaultPageSettings().is_active">
+                              <span class="form-checkbox__label">&nbsp;</span>
+                           </label>
+                        </span>
+                       </div>
+                    </div>
+                    <div class="form-row">
+                       <div class="col-3">
+                          <label class="form-label">White Logo</label>
+                       </div>
+                       <div class="col-9">
+                        <span class="form-checkbox">
+                           <label for="white-logo">
+                              <input class="form-checkbox__input" id="white-logo" type="checkbox" data-bind="checked: $root.defaultPageSettings().white_logo_active">
+                              <span class="form-checkbox__label">&nbsp;</span>
                            </label>
                         </span>
                        </div>

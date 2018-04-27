@@ -1,6 +1,10 @@
 <header class="header {{$themesettings['header_layout']}}">
     <div class="container">
-      <a class="header__logo" href="/"><img src="{{$themesettings['logo']}}" alt="{{$settings['sitetitle']}}"></a>
+        @if($white_logo_active === '1')
+        <a class="header__logo" href="/"><img src="{{$themesettings['logo_white']}}" alt="{{$settings['sitetitle']}}"></a>
+        @else
+        <a class="header__logo" href="/"><img src="{{$themesettings['logo']}}" alt="{{$settings['sitetitle']}}"></a>
+        @endif
         <nav class="header__main-nav">
             <ul>
                 @foreach ($mainmenupages as $page)

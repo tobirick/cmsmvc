@@ -48,6 +48,17 @@
                        </div>
                     </div>
                     <div class="form-row">
+                        <div class="col-3">
+                          <label for="logo-white" class="form-label">Logo White</label>
+                       </div>
+                       <div class="col-9">
+                          <div class="center-v-flex">
+                             <input data-bind="value: logo_white" type="text" id="logo_white" class="form-input">
+                             <button data-bind="click: openMediaPopup.bind($data, logo_white)" class="ml-1 button-primary">{{$lang['Choose']}} Logo</button>
+                          </div>
+                       </div>
+                    </div>
+                    <div class="form-row">
                        <div class="col-3">
                           <label for="favicon" class="form-label">Favicon</label>
                        </div>

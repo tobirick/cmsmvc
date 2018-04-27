@@ -118,8 +118,10 @@ export default class PagebuilderMainViewModel {
 
             const isActive = parseInt(defaultPage.is_active());
             const inEdit = parseInt(defaultPage.in_edit());
+            const whiteLogoActive = parseInt(defaultPage.white_logo_active());
             defaultPage.is_active(isActive);
             defaultPage.in_edit(inEdit);
+            defaultPage.white_logo_active(whiteLogoActive);
 
             this.defaultPageSettings(defaultPage);
 

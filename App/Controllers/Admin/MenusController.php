@@ -56,7 +56,7 @@ class MenusController extends BaseController {
             $menu = new Menu($_POST['menu']);
             $errors = $menu->validate();
             if(!$errors) {
-                $newMenu = $menu->saveMenu($_POST['menu']);
+                $newMenu = $menu->saveMenu();
                 self::redirect('/admin/menus/' . $newMenu['id'] . '/edit');
             } else {
                 self::redirect('/admin/menus/create');

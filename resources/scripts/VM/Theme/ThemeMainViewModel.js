@@ -27,6 +27,7 @@ export default class ThemeMainViewModel {
         this.name = ko.observable('');
         this.path = ko.observable('');
         this.logo = ko.observable('');
+        this.logo_white = ko.observable('');
         this.favicon = ko.observable('');
         this.fixed_navigation = ko.observable(Number(0));
         this.google_analytics = ko.observable('');

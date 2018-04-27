@@ -77,7 +77,8 @@ class Theme extends Model {
                            google_analytics = :google_analytics, to_top = :to_top, header_code = :header_code,
                            body_code = :body_code, header_layout = :header_layout, footer_layout = :footer_layout,
                            google_font = :google_font, custom_scripts = :custom_scripts, custom_styles = :custom_styles,
-                           font_styles = :font_styles, default_color = :default_color, footer_bottom = :footer_bottom
+                           font_styles = :font_styles, default_color = :default_color, footer_bottom = :footer_bottom,
+                           logo_white = :logo_white
                            WHERE id = :id');
       $stmt->execute([
          ':id' => $id,
@@ -95,7 +96,8 @@ class Theme extends Model {
          ':custom_styles' => $theme['custom_styles'],
          ':font_styles' => $theme['font_styles'],
          ':default_color' => $theme['default_color'],
-         ':footer_bottom' => $theme['footer_bottom']
+         ':footer_bottom' => $theme['footer_bottom'],
+         ':logo_white' => $theme['logo_white']
          ]);
 
       return true;

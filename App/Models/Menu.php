@@ -44,7 +44,7 @@ class Menu extends Model {
         return $result;
     }
 
-    public static function addMenu($menu) {
+    public function saveMenu() {
         $db = static::getDB();
         $stmt = $db->prepare('INSERT INTO menus (name) VALUES(:name)');
         $stmt->execute([

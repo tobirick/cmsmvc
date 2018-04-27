@@ -115,7 +115,8 @@ class DefaultPage extends Model {
             ':name' => $this->name,
             ':slug' => $this->slug,
             ':created_by' => $userid,
-            ':is_active' => 1
+            ':is_active' => 1,
+            ':white_logo_active' => 0
             ]);
 
         $lastID = $db->lastInsertId();
@@ -124,12 +125,13 @@ class DefaultPage extends Model {
     
     public static function updatePage($pageid, $page) {
         $db = static::getDB();
-        $stmt = $db->prepare('UPDATE pages SET name = :name, slug = :slug, updated_at = now(), is_active = :is_active WHERE id = :id');
+        $stmt = $db->prepare('UPDATE pages SET name = :name, slug = :slug, updated_at = now(), is_active = :is_active, white_logo_active = :white_logo_active WHERE id = :id');
         $stmt->execute([
             ':id' => $pageid,
             ':name' => $page['name'],
             ':slug' => $page['slug'],
-            ':is_active' => $page['is_active'] ? 1 : 0
+            ':is_active' => $page['is_active'] ? 1 : 0,
+            ':white_logo_active' => $page['white_logo_active'] ? 1 : 0
         ]);
 
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
