@@ -145,7 +145,8 @@ export default class PagebuilderElementModel {
     updateHTML() {
         let html = this.config().html();
         this.config().elements().forEach((element) => {
-            html = html.replace(`[${element().key()}]`, element().value());
+            const regex = new RegExp(`\\[${element().key()}\\]`, 'g');
+            html = html.replace(regex, element().value());
         });
         this.html(html);
     }

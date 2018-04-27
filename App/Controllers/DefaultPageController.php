@@ -13,7 +13,7 @@ class DefaultPageController extends BaseController {
        if(!$args['page-args']['is_active'] && !self::getUser()) {
          self::render('error/404');
          return;
-       } else if($homePage['id'] === $args['page-args']['id'] && isset($args['params']['slug'])) {
+       } else if($homePage && $homePage['id'] === $args['page-args']['id'] && isset($args['params']['slug'])) {
          self::publicRedirect('/');
          return;
        }

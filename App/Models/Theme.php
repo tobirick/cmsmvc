@@ -29,6 +29,9 @@ class Theme extends Model {
             $minifier->add($dir . $fileInfo->getFilename());
         }
 
+        if(file_exists(__DIR__  . '/../../public/' . $themename . '/css/'  . $themename . '.css')) {
+            $minifier->add(__DIR__  . '/../../public/' . $themename . '/css/'  . $themename . '.css');
+        }
         $minifier->add(__DIR__  . '/../../public/' . $themename . '/css/customize.css');
 
         $minifiedPath = __DIR__  . '/../../public/' . $themename . '/css/main.min.css';
@@ -44,6 +47,9 @@ class Theme extends Model {
             $minifier->add($dir . $fileInfo->getFilename());
         }
 
+        if(file_exists(__DIR__  . '/../../public/' . $themename . '/js/'  . $themename . '.js')) {
+            $minifier->add(__DIR__  . '/../../public/' . $themename . '/js/'  . $themename . '.js');
+        }
         $minifier->add(__DIR__  . '/../../public/' . $themename . '/js/customize.js');
 
         $minifiedPath = __DIR__  . '/../../public/' . $themename . '/js/app.min.js';
