@@ -146,7 +146,13 @@ export default class PagebuilderElementModel {
         let html = this.config().html();
         this.config().elements().forEach((element) => {
             const regex = new RegExp(`\\[${element().key()}\\]`, 'g');
-            html = html.replace(regex, element().value());
+            if(element().type() === 'responsive-image-src') {
+                const splitArray = element().value().split('.');
+                const srcImageHtml = `src="${element().value()}" srcset="${splitArray[0]}@2x.${splitArray[1]} 2x, ${splitArray[0]}@3x.${splitArray[1]} 3x"`;
+                html = html.replace(regex, srcImageHtml);
+            } else {
+                html = html.replace(regex, element().value());
+            }
         });
         this.html(html);
     }

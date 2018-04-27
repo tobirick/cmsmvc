@@ -19,7 +19,7 @@
                             <label class="form-label" data-bind="text: name, attr:{for: key}"></label>
                         </div>
                         <div class="col-9">
-                            <div data-bind="if: type() === 'image-src'">
+                            <div data-bind="if: type() === 'image-src' || type() === 'responsive-image-src'">
                                 <div class="center-v-flex">
                                     <input type="text" class="form-input" data-bind="textInput: value, attr:{id: key, placeholder: name}">
                                     <button data-bind="click: $root.openMediaPopup" class="ml-1 button-primary">{{$lang['Choose Media']}}</button>
