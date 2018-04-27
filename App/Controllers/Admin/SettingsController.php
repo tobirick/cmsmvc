@@ -7,6 +7,7 @@ use \App\Models\Settings;
 use \App\Models\Language;
 use \App\Models\DefaultPage;
 use \Core\CSRF;
+use \Core\Backup;
 
 class SettingsController extends BaseController {
     public function index() {
@@ -46,34 +47,34 @@ class SettingsController extends BaseController {
     }
 
     public function languageIndex() {
-      if(!self::checkPermission('view_language')) {         
-         self::addFlash('error', self::getTrans('You have not the permission to do that!'));
-         self::redirect('/admin/dashboard');
-      }
+        if(!self::checkPermission('view_language')) {         
+            self::addFlash('error', self::getTrans('You have not the permission to do that!'));
+            self::redirect('/admin/dashboard');
+        }
 
-      $languages = Language::getAllLanguages();
-      self::render('admin/languages/index', [
-         'languages' => $languages
-      ]);
+        $languages = Language::getAllLanguages();
+        self::render('admin/languages/index', [
+            'languages' => $languages
+        ]);
     }
 
     public function languageCreate() {
-      if(!self::checkPermission('add_language')) {         
-         self::addFlash('error', self::getTrans('You have not the permission to do that!'));
-         self::redirect('/admin/dashboard');
-      }
-      self::render('admin/languages/create');
+        if(!self::checkPermission('add_language')) {         
+            self::addFlash('error', self::getTrans('You have not the permission to do that!'));
+            self::redirect('/admin/dashboard');
+        }
+        self::render('admin/languages/create');
     }
 
     public function languageEdit($params) {
-      if(!self::checkPermission('edit_language')) {         
-         self::addFlash('error', self::getTrans('You have not the permission to do that!'));
-         self::redirect('/admin/dashboard');
-      }
-       $language = Language::getLanguageById($params['params']['id']);
-      self::render('admin/languages/edit', [
-         'language' => $language
-      ]);
+        if(!self::checkPermission('edit_language')) {         
+            self::addFlash('error', self::getTrans('You have not the permission to do that!'));
+            self::redirect('/admin/dashboard');
+        }
+        $language = Language::getLanguageById($params['params']['id']);
+        self::render('admin/languages/edit', [
+            'language' => $language
+        ]);
     }
 
     public function languageStore() {
@@ -110,48 +111,56 @@ class SettingsController extends BaseController {
     }
 
     public function languageDelete($params) {
-      if(!self::checkPermission('delete_language')) {         
-         self::addFlash('error', self::getTrans('You have not the permission to do that!'));
-         self::redirect('/admin/dashboard');
-      }
+        if(!self::checkPermission('delete_language')) {         
+            self::addFlash('error', self::getTrans('You have not the permission to do that!'));
+            self::redirect('/admin/dashboard');
+        }
 
-      if(Language::getDefaultLanguage()['id'] !== $params['params']['id']) {
-         Language::deleteLanguage($params['params']['id']);
-         self::redirect('/admin/settings/languages');
-      } else {
-         self::addFlash('error', self::getTrans('You can not delete the default language!'));
-         self::redirect('/admin/settings/languages');
-      }
-  }
+        if(Language::getDefaultLanguage()['id'] !== $params['params']['id']) {
+            Language::deleteLanguage($params['params']['id']);
+            self::redirect('/admin/settings/languages');
+        } else {
+            self::addFlash('error', self::getTrans('You can not delete the default language!'));
+            self::redirect('/admin/settings/languages');
+        }
+    }
 
-  public function languageUpdate($params, $post) {
-   if(!self::checkPermission('edit_language')) {         
-      self::addFlash('error', self::getTrans('You have not the permission to do that!'));
-      self::redirect('/admin/dashboard');
-   }
+    public function languageUpdate($params, $post) {
+        if(!self::checkPermission('edit_language')) {         
+            self::addFlash('error', self::getTrans('You have not the permission to do that!'));
+            self::redirect('/admin/dashboard');
+        }
    
-   $errors = Language::validate($post['language']);
-   if(!$errors) {
-       Language::updateLanguage($params['params']['id'], $post['language']);
-       self::redirect('/admin/settings/languages');
-   } else {
-       self::redirect('/admin/settings/languages/' . $params['params']['id'] . '/edit');
-   }
-  }
+        $errors = Language::validate($post['language']);
+        if(!$errors) {
+            Language::updateLanguage($params['params']['id'], $post['language']);
+            self::redirect('/admin/settings/languages');
+        } else {
+            self::redirect('/admin/settings/languages/' . $params['params']['id'] . '/edit');
+        }
+    }
 
-  public function getAllLanguages() {
-   $content = trim(file_get_contents("php://input"));
-   $decoded = json_decode($content, true);
+    public function getAllLanguages() {
+        $content = trim(file_get_contents("php://input"));
+        $decoded = json_decode($content, true);
 
-   CSRF::checkTokenAjax($decoded['csrf_token']);
+        CSRF::checkTokenAjax($decoded['csrf_token']);
 
-   $languages = Language::getAllLanguages();
+        $languages = Language::getAllLanguages();
 
-   header('Content-type: application/json');
+        header('Content-type: application/json');
 
-   $data['csrfToken'] = CSRF::getToken();
-   $data['languages'] = $languages;
-   
-   echo json_encode($data);
-  }
+        $data['csrfToken'] = CSRF::getToken();
+        $data['languages'] = $languages;
+        
+        echo json_encode($data);
+    }
+
+    public function startDBBackup() {
+        Backup::startDBBackup();
+    }
+
+    public function startFTPBackup() {
+        Backup::startFTPBackup();
+    }
 }

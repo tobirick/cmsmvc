@@ -57,10 +57,12 @@ class BaseController {
          if(in_array(get_class($this), $this->publicPages)) {
             $currentPublicLanguage = Router::getCurrentPublicLanguage();
             $footercols = [];
-            foreach(json_decode($activeTheme['footer_layout'], true)['columns'] as $footercol) {
-                $footercol['html'] = self::doShortcode($footercol['html']);
-                $footercol['title'] = self::doShortcode($footercol['title']);
-                $footercols[] = $footercol;
+            if(json_decode($activeTheme['footer_layout'], true)['columns']) {
+                foreach(json_decode($activeTheme['footer_layout'], true)['columns'] as $footercol) {
+                    $footercol['html'] = self::doShortcode($footercol['html']);
+                    $footercol['title'] = self::doShortcode($footercol['title']);
+                    $footercols[] = $footercol;
+                }
             }
 
             $shares[] = ['key' => 'footercols', 'value' => $footercols];

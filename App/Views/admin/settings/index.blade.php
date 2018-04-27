@@ -4,6 +4,9 @@
 
 @section('content')
 @component('admin.partials.secondary-navigation')
+    @slot('left')
+        <a href="/admin/settings/backup/db" class="button-primary">Datenbank Backup</a>
+    @endslot
     @slot('right')
         <a id="submit-form-btn" href="#" class="button-primary">{{$lang['Save']}}</a>
     @endslot
