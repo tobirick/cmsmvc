@@ -20,11 +20,7 @@ export default class MediaPopupMainViewModel {
         this.filteredMediaElements = ko.computed(() => {
             const search = this.filterQuery().toLowerCase();
             const filtered = this.mediaElements().filter(element => {
-                if(this.excludeMediaImages()) {
-                    return (element.name.indexOf('@2x') === -1 && element.name.indexOf('@3x') === -1) && (element.name.toLowerCase().indexOf(search) >= 0 || element.path.toLowerCase().indexOf(search) >= 0);
-                } else {
-                    return (element.name.toLowerCase().indexOf(search) >= 0 || element.path.toLowerCase().indexOf(search) >= 0);
-                }
+                return (this.excludeMediaImages() ? (element.name.indexOf('@2x') === -1 && element.name.indexOf('@3x') === -1) : true) && (element.name.toLowerCase().indexOf(search) >= 0 || element.path.toLowerCase().indexOf(search) >= 0);
             });
             return filtered;
         })

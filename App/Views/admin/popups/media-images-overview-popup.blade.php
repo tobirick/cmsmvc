@@ -6,14 +6,14 @@
             </div>
             <div class="popup__content">
                 <div class="row mb-2 center-v-flex">
-                    <div class="col-8">
+                    <div class="col-7">
                         <input type="text" class="form-input" placeholder="Search for name or path ..." data-bind="textInput: filterQuery">
                     </div>
-                    <div class="col-4">
+                    <div class="col-5">
                         <span class="form-checkbox">
                             <label for="exclude-media-images">
                                 <input class="form-checkbox__input" id="exclude-media-images" type="checkbox" data-bind="checked: excludeMediaImages">
-                                <span class="form-checkbox__label">Exclude Media Images</span>
+                                <span class="form-checkbox__label">Exclude Media Images (@2x, @3x)</span>
                             </label>
                         </span>
                     </div>
