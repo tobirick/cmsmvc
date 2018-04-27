@@ -127,12 +127,15 @@
             </div>  
         </div>
         <div class="col-12 col-md-4">
-            <div class="admin-box">
+            <div style="position: sticky; top: 0;" class="admin-box">
                 <div class="admin-box__header">
                     <h3 class="admin-box__title">{{$lang['Elements']}}</h3>
                     <a class="center-v-flex dif button-primary" target="_blank" href="/{{$curLang}}/admin/pagebuilder/create">{{$lang['Add new']}}</a>
                 </div>
-                <div data-bind="foreach: elements" class="row">
+                <div class="mb-2">
+                    <input data-bind="textInput: elementsFilterQuery" type="text" placeholder="Search Elements ..." class="form-input">
+                </div>
+                <div data-bind="foreach: filteredElements" class="row">
                     <div class="col-6">
                         <div data-bind="draggable: {data: $data, options: {revert: 'invalid'}}" class="admin-element-list-item">
                             <span data-bind="css: item_type" class="admin-element-list-item__type"></span>
@@ -140,7 +143,7 @@
                         </div>
                     </div>
                 </div>
-                <div data-bind="visible: elements().length === 0" class="empty-state">
+                <div data-bind="visible: filteredElements().length === 0" class="empty-state">
                     <span class="empty-state__icon"><i class="fa fa-building-o"></i></span>
                     <div class="empty-state__text">{{$lang['No Elements']}}</div>
                 </div>

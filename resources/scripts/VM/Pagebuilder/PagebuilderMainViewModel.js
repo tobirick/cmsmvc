@@ -21,6 +21,15 @@ export default class PagebuilderMainViewModel {
         this.sections = ko.observableArray([]);
         this.filteredSections = ko.observableArray([]);
         this.elements = ko.observableArray([]);
+        this.elementsFilterQuery = ko.observable('');
+
+        this.filteredElements = ko.computed(() => {
+            const search = this.elementsFilterQuery().toLowerCase();
+            const filtered = this.elements().filter(element => {
+                return element.item_name().toLowerCase().indexOf(search) >= 0;
+            });
+            return filtered;
+        })
 
         this.langPages = ko.observableArray([]);
         this.defaultPageSettings = ko.observable();
