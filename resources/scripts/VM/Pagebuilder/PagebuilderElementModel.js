@@ -114,18 +114,18 @@ export default class PagebuilderElementModel {
         })
 
         this.generatedHTML = ko.computed(() => {
+            const style = `${this.styles()}
+                            ${this.bg_color() !== '' ? `background-color:${this.bg_color()};` : ''}
+                            ${this.paddingVM().top() !== '' ? `padding-top:${this.paddingVM().top()};` : ''}
+                            ${this.paddingVM().right() !== '' ? `padding-right:${this.paddingVM().right()};` : ''}
+                            ${this.paddingVM().bottom() !== '' ? `padding-bottom:${this.paddingVM().bottom()};` : ''}
+                            ${this.paddingVM().left() !== '' ? `padding-left:${this.paddingVM().left()};` : ''}
+                            ${this.marginVM().top() !== '' ? `margin-top:${this.marginVM().top()};` : ''}
+                            ${this.marginVM().right() !== '' ? `margin-right:${this.marginVM().right()};` : ''}
+                            ${this.marginVM().bottom() !== '' ? `margin-bottom:${this.marginVM().bottom()};` : ''}
+                            ${this.marginVM().left() !== '' ? `margin-left:${this.marginVM().left()};` : ''}`;
             return `<div
-                    style="${this.styles()}
-                    ${this.bg_color() !== '' ? `background-color:${this.bg_color()};` : ''}
-                    ${this.paddingVM().top() !== '' ? `padding-top:${this.paddingVM().top()};` : ''}
-                    ${this.paddingVM().right() !== '' ? `padding-right:${this.paddingVM().right()};` : ''}
-                    ${this.paddingVM().bottom() !== '' ? `padding-bottom:${this.paddingVM().bottom()};` : ''}
-                    ${this.paddingVM().left() !== '' ? `padding-left:${this.paddingVM().left()};` : ''}
-                    ${this.marginVM().top() !== '' ? `margin-top:${this.marginVM().top()};` : ''}
-                    ${this.marginVM().right() !== '' ? `margin-right:${this.marginVM().right()};` : ''}
-                    ${this.marginVM().bottom() !== '' ? `margin-bottom:${this.marginVM().bottom()};` : ''}
-                    ${this.marginVM().left() !== '' ? `margin-left:${this.marginVM().left()};` : ''}
-                    ">
+                    ${style.trim() !== '' ? `style="${style.trim()}"` : ''}>
                     ${this.html()}
                     </div>
                     `;
