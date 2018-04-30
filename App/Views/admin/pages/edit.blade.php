@@ -148,7 +148,7 @@
                 <div class="mb-2">
                     <input data-bind="textInput: elementsFilterQuery" type="text" placeholder="Search Elements ..." class="form-input">
                 </div>
-                <div data-bind="foreach: filteredElements" class="row">
+                <div style="overflow-x: auto; max-height: 60vh;" data-bind="foreach: filteredElements" class="row">
                     <div class="col-6">
                         <div data-bind="draggable: {data: $data, options: {revert: 'invalid'}}" class="admin-element-list-item">
                             <span data-bind="css: item_type" class="admin-element-list-item__type"></span>

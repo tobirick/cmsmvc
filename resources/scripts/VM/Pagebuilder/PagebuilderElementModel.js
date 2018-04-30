@@ -115,8 +115,6 @@ export default class PagebuilderElementModel {
 
         this.generatedHTML = ko.computed(() => {
             return `<div
-                    ${this.css_class() !== '' ? `class="${this.css_class()}"` : ''}
-                    ${this.css_id() !== '' ? `id="${this.css_id()}"` : ''}
                     style="${this.styles()}
                     ${this.bg_color() !== '' ? `background-color:${this.bg_color()};` : ''}
                     ${this.paddingVM().top() !== '' ? `padding-top:${this.paddingVM().top()};` : ''}
