@@ -16,7 +16,8 @@ export default class MenuListMainViewModel {
             menu_id: this.menuID,
             page_id: 0,
             menu_position: 0,
-            css_class: ''
+            css_class: '',
+            link_to: ''
         };
         this.menuListItems = ko.observableArray([]);
         this.pagesList = ko.observableArray([]);
@@ -50,7 +51,7 @@ export default class MenuListMainViewModel {
     resetNewMenuItem() {
         for (let key in this.newMenuItem) {
             if (ko.isObservable(this.newMenuItem[key])) {
-                if (key !== 'menu_id') this.newMenuItem[key](null);
+                if (key !== 'menu_id') this.newMenuItem[key]('');
             }
         }
     }
@@ -94,21 +95,46 @@ export default class MenuListMainViewModel {
         const data = {
             menuitem: {
                 ...ko.toJS(this.newMenuItem),
+                type: 'page',
                 menu_position: ko.toJS(this.menuListItems).length,
                 language_id: this.currentLanguage().id
             },
             csrf_token: csrf.getToken()
         };
 
-        const response = await MenuListItemsHandler.handleAddMenuListItem(
+        console.log(data);
+
+        MenuListItemsHandler.handleAddMenuListItem(
             data,
             this.menuID
-        );
+        ).then(response => {
+            this.menuListItems.push(this.newMenuItemModel(response.listItem));
+            this.resetNewMenuItem();
+            csrf.updateToken(response.csrfToken);
 
-        this.menuListItems.push(this.newMenuItemModel(response.listItem));
-        this.resetNewMenuItem();
+        });
+    }
 
-        csrf.updateToken(response.csrfToken);
+    async addMenuListItemLink() {
+        const data = {
+            menuitem: {
+                ...ko.toJS(this.newMenuItem),
+                type: 'link',
+                menu_position: ko.toJS(this.menuListItems).length,
+                language_id: this.currentLanguage().id
+            },
+            csrf_token: csrf.getToken()
+        };
+
+        MenuListItemsHandler.handleAddMenuListItem(
+            data,
+            this.menuID
+        ).then(response => {
+            this.menuListItems.push(this.newMenuItemModel(response.listItem));
+            this.resetNewMenuItem();
+            csrf.updateToken(response.csrfToken);
+
+        });
     }
 
     updateMenuListItem = async item => {
@@ -116,7 +142,8 @@ export default class MenuListMainViewModel {
             menuitem: {
                 name: item.name(),
                 page: item.page_id(),
-                css_class: item.css_class()
+                css_class: item.css_class(),
+                link_to: item.link_to()
             },
             csrf_token: csrf.getToken(),
         };
@@ -154,7 +181,8 @@ export default class MenuListMainViewModel {
 
     filterMenuItems = (language) => {
         const menuItems = this.menuListItems().filter(menuListItem => {
-            return menuListItem.language_id() === language.id;
+            const item = ko.toJS(menuListItem);
+            return item.language_id === language.id;
         });
         this.filteredMenuItems(menuItems);
     }

@@ -9,7 +9,7 @@
             <ul>
                 @foreach ($mainmenupages as $page)
                 @if($page['language_id'] === $currentpubliclanguage['id'])
-                    <li class="menu-item-{{$page['menu_id']}} page-id-{{$page['page_id']}} header__main-nav-item {{checkIfNavItemIsActive($page['slug']) ? 'active' : ''}} {{$page['css_class']}}"><a class="header__main-nav-item-link" href="/{{$currentpubliclanguage['iso']}}/{{$page['slug']}}">{{$page['name']}}</a></li>
+                    <li class="menu-item-{{$page['menu_id']}} page-id-{{$page['page_id']}} header__main-nav-item {{checkIfNavItemIsActive($page['slug']) ? 'active' : ''}} {{$page['css_class']}}"><a class="header__main-nav-item-link" href="{{$page['type'] === 'link' ? $page['link_to'] : '/' . $currentpubliclanguage['iso'] . '/' . $page['slug']}}">{{$page['name']}}</a></li>
                 @endif
                 @endforeach
             </ul>

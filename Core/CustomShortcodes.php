@@ -18,7 +18,8 @@ class CustomShortcodes {
         foreach ($menuItems as $menuItem) {
             $url = '';
             if ($currentPublicLanguage['id'] === $menuItem['language_id']) {
-                $html .= "<li class='footer__nav-item'><a href='/{$currentPublicLanguage['iso']}/{$menuItem['slug']}' class='footer__nav-item-link {$menuItem['css_class']}'>{$menuItem['name']}</a></li>";
+                $link = $menuItem['type'] === 'link' ? $menuItem['link_to'] : "/{$currentPublicLanguage['iso']}/{$menuItem['slug']}";
+                $html .= "<li class='footer__nav-item'><a href='{$link}' class='footer__nav-item-link {$menuItem['css_class']}'>{$menuItem['name']}</a></li>";
             }
         }
 

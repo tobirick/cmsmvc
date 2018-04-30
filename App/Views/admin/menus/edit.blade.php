@@ -16,7 +16,7 @@
 <div id="content">
 <div class="container">
     <div class="row">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-12">
             <div class="admin-box">
                 <h3 class="admin-box__title">{{$lang['Main Settings']}}</h3>
                 <form id="submit-form" action="/admin/menus/{{$menu['id']}}" method="POST">
@@ -41,25 +41,42 @@
                 </form>
             </div>
         </div>
-    <div class="col-12 col-md-6">
-            <div class="admin-box">
-                <h3 class="admin-box__title">{{$lang['New Menu Item']}}</h3>
-                <form data-bind="submit: addMenuListItem">
-                    <input name="csrf_token" type="hidden" value="{{$csrf}}">
-                    <input name="menu_id" type="hidden" value="{{$menu['id']}}">
-                    <div class="form-row">
-                        <div class="col-6">
-                            <input data-bind="value: newMenuItem.name" class="form-input" type="text" placeholder="Name" name="menuitem[name]">
+    <div class="col-12 col-md-12">
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <div class="admin-box">
+                    <h3 class="admin-box__title">{{$lang['New Menu Item']}}</h3>
+                        <div class="form-row">
+                            <div class="col-6">
+                                <input data-bind="value: newMenuItem.name" class="form-input" type="text" placeholder="Name">
+                            </div>
+                            <div class="col-4">
+                                <select class="form-input" data-bind="options: $root.pagesList, optionsText: 'name', optionsValue: 'id', value: newMenuItem.page_id"></select>
+                            </div>
+                            <div class="col-1">
+                                <button data-bind="click: addMenuListItem" class="button-primary-icon"><i class="fa fa-check"></i></button>
+                            </div>
                         </div>
-                        <div class="col-4">
-                            <select class="form-input" data-bind="options: $root.pagesList, optionsText: 'name', optionsValue: 'id', value: newMenuItem.page_id" name="menuitem[page]"></select>
-                        </div>
-                        <div class="col-1">
-                            <button class="button-primary-icon"><i class="fa fa-check"></i></button>
-                        </div>
-                    </div>
-                </form>
+                </div>
             </div>
+            <div class="col-12 col-md-6">
+                <div class="admin-box">
+                    <h3 class="admin-box__title">Add new Menu Item Link</h3>
+                        <div class="form-row">
+                            <div class="col-6">
+                                <input data-bind="value: newMenuItem.name" class="form-input" type="text" placeholder="Name">
+                            </div>
+                            <div class="col-4">
+                                <input type="text" data-bind="value: newMenuItem.link_to" class="form-input" placeholder="Link">
+                            </div>
+                            <div class="col-1">
+                                <button data-bind="click: addMenuListItemLink" class="button-primary-icon"><i class="fa fa-check"></i></button>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+
         </div>
     </div>
  
@@ -82,7 +99,7 @@
                                 <thead>
                                     <tr>
                                         <th>{{$lang['Name']}}</th>
-                                        <th>{{$lang['Connected Page']}}</th>
+                                        <th>{{$lang['Connected Page']}}/Link</th>
                                         <th>CSS {{$lang['Class']}}</th>
                                         <th></th>
                                     </tr>
@@ -90,10 +107,11 @@
                                 <tbody data-bind="sortable: {data: filteredMenuItems, options: { cancel: 'td:not(.editable), button:not(.sort), input, select' }}">
                                     <tr>
                                         <td>
-                                            <input class="form-input" data-bind="value: name, valueUpdate: 'afterkeydown'" type="text" placeholder="Name" name="menuitem[name]">
+                                            <input class="form-input" data-bind="value: name, valueUpdate: 'afterkeydown'" type="text" placeholder="Name">
                                         </td>
                                         <td>
-                                            <select class="form-input" data-bind="options: $root.pagesList, optionsText: 'name', value: page_id, optionsValue: 'id'" name="menuitem[page]"></select>
+                                            <input placeholder="Link" type="text" class="form-input" data-bind="visible: type() === 'link', value: link_to, valueUpdate: 'afterkeydown'">
+                                            <select class="form-input" data-bind="visible: type() === 'page', options: $root.pagesList, optionsText: 'name', value: page_id, optionsValue: 'id'"></select>
                                         </td>
                                         <td>
                                             <input placeholder="z.B. button" data-bind="value: css_class, valueUpdate: 'afterkeydown'" type="text" class="form-input">
