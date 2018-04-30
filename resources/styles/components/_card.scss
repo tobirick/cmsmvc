@@ -7,6 +7,11 @@
     @include transition(.2s ease-in all);
     cursor: pointer;
     margin-bottom: 5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
     &.active {
         &-menu, &-theme {

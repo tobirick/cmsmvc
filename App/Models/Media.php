@@ -112,8 +112,10 @@ class Media extends Model {
         $path = __DIR__ . '/../../public/content/media/';
         $filename = self::sonderzeichen($data['name']);
 
+        $base_to_php = explode(',', $data['base']);
+
         if(!file_exists($path . $data['path'] . $filename)) {
-         file_put_contents($path . $data['path'] . $filename, base64_decode($data['base']));
+         file_put_contents($path . $data['path'] . $filename, base64_decode($base_to_php[1]));
         $json = file_get_contents(self::$mediajsonpath);
         $elements = json_decode($json, true);
         $id = sizeof($elements) > 0 ? $elements[sizeof($elements) - 1]['id'] + 1 : 1;

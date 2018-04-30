@@ -16,7 +16,7 @@
                     <div class="row">
                         @if(isset($menus) && sizeof($menus) > 0)
                         @foreach($menus as $menu)
-                            <div class="col-12 col-md-4 col-lg-3 col-xl-2">
+                            <div class="df col-12 col-md-4 col-lg-3 col-xl-2">
                                 <div class="card {{$menu['id'] === $allmenus['active_menu_id']['value'] ? 'active-menu' : ''}}">
                                     <div class="card__title">{{$menu['name']}}</div>
                                     <div class="card__actions">

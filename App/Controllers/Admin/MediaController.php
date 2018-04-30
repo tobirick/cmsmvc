@@ -27,7 +27,11 @@ class MediaController extends BaseController {
             if($decoded['type'] === 'dir') {
                 $element = Media::createFolder($decoded['folder']);
             } else if($decoded['type'] === 'file') {
-                $element = Media::createFile($decoded['file']);            
+                $element = [];
+                foreach($decoded['files'] as $file) {
+                    $uploadedFile = Media::createFile($file);
+                    $element[] = $uploadedFile;
+                }
             }
         }
         

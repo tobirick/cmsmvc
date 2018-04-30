@@ -7,10 +7,10 @@ import helpers from '../../helpers';
 export default class MediaManViewModel {
     constructor() {
         this.fileData = ko.observable({
-            text: ko.observable(null),
-            dataURL: ko.observable(null),
             file: ko.observable(null),
-            base64String: ko.observable(null)
+            dataURL: ko.observable(null),
+            fileArray: ko.observableArray([]),
+            dataURLArray: ko.observableArray([])
         });
         this.mediaElements = ko.observableArray([]);
         this.currentDir = ko.observable(localStorage.getItem('mediapath') || '/');
@@ -34,7 +34,31 @@ export default class MediaManViewModel {
             localStorage.setItem('mediapath', this.currentDir());
         });
 
-        this.fileData().base64String.subscribe(() => {
+        this.imagePreviews = ko.observableArray([]);
+
+        this.fileData().fileArray.subscribe(async (fileArray) => {
+            this.imagePreviews([]);
+            console.log(ko.toJS(this.fileData));
+            if(fileArray.length > 0) {
+                const fileArrayToUpload = [];
+                for(let fileItem of fileArray) {
+                    const file = {
+                        name: helpers.mediaElementFormat(decodeURI(fileItem.name)),
+                        size: fileItem.size,
+                        path: this.currentDir(),
+                        base: null
+                    };
+    
+                    await helpers.getBase64(fileItem).then(base64String => {
+                        file.base = base64String;
+                        fileArrayToUpload.push(file);
+                    })
+
+                }
+                this.uploadFiles(fileArrayToUpload);
+            }
+
+            /*
             const data = ko.toJS(this.fileData);
             if (data.base64String) {
                 const file = {
@@ -45,6 +69,7 @@ export default class MediaManViewModel {
                 }
                 this.uploadFile(file);
             }
+            */
         });
 
         this.baseURL = window.location.origin;
@@ -178,19 +203,24 @@ export default class MediaManViewModel {
         csrf.updateToken(response.csrfToken);
     }
 
-    async uploadFile(file) {
+    async uploadFiles(files) {
         const data = {
             csrf_token: csrf.getToken(),
-            file,
+            files,
             type: 'file'
         }
 
-        const response = await MediaHandler.addFile(data);
+        const response = await MediaHandler.addFiles(data);
 
         if (response.message === 'success' && !response.error) {
-            const file = this.createElement(response.element);
-            this.mediaElements.push(file);
-            this.showAlert('success', 'File uploaded');
+            response.element.forEach(uploadedFile => {
+                if(uploadedFile) {
+                    this.imagePreviews.push(`/content/media${uploadedFile.path}${uploadedFile.name}`);
+                    const file = this.createElement(uploadedFile);
+                    this.mediaElements.push(file);
+                }
+            })
+            this.showAlert('success', 'Files uploaded');
         } else {
             this.showAlert('error', response.error);
         }

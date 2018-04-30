@@ -48,7 +48,7 @@
                     <h3 class="admin-box__title">{{$lang['New Menu Item']}}</h3>
                         <div class="form-row">
                             <div class="col-6">
-                                <input data-bind="value: newMenuItem.name" class="form-input" type="text" placeholder="Name">
+                                <input data-bind="value: newMenuItem.name, valueUpdate: 'afterkeydown'" class="form-input" type="text" placeholder="Name">
                             </div>
                             <div class="col-4">
                                 <select class="form-input" data-bind="options: $root.pagesList, optionsText: 'name', optionsValue: 'id', value: newMenuItem.page_id"></select>
@@ -64,10 +64,10 @@
                     <h3 class="admin-box__title">Add new Menu Item Link</h3>
                         <div class="form-row">
                             <div class="col-6">
-                                <input data-bind="value: newMenuItem.name" class="form-input" type="text" placeholder="Name">
+                                <input data-bind="value: newMenuItem.name, valueUpdate: 'afterkeydown'" class="form-input" type="text" placeholder="Name">
                             </div>
                             <div class="col-4">
-                                <input type="text" data-bind="value: newMenuItem.link_to" class="form-input" placeholder="Link">
+                                <input type="text" data-bind="value: newMenuItem.link_to, " class="form-input" placeholder="Link">
                             </div>
                             <div class="col-1">
                                 <button data-bind="click: addMenuListItemLink" class="button-primary-icon"><i class="fa fa-check"></i></button>

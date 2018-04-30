@@ -18,7 +18,9 @@
                 </div>
                 
                 <div class="upload-zone__preview">
-                    <img data-bind="attr: { src: fileData().dataURL }, visible: fileData().dataURL">
+                    <div data-bind="foreach: imagePreviews">
+                        <img data-bind="attr: { src: $data }">
+                    </div>
                 </div>
             </div>
         </div>

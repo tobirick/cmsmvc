@@ -50,7 +50,7 @@ MediaHandler.addFolder = function(data) {
         .catch(data => ({message: 'error', csrfToken: data.csrfToken}));
 }
 
-MediaHandler.addFile = function(data) {
+MediaHandler.addFiles = function(data) {
     const url = `/admin/media`;
 
     return fetch(url, {
