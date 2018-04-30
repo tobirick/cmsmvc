@@ -28,9 +28,9 @@
                         </thead>
                         <tbody>
                         @foreach($pagesadmin as $page)
-                            <tr>
+                            <tr class="open-page-edit">
                                 <td style="width: 10%;">{{$page['id']}}</td>
-                                <td><strong>{{$page['name']}}</strong><br><span class="light-text smaller-text">/{{$page['slug']}}</span></td>
+                                <td data-editlink="/{{$curLang}}/admin/pages/{{$page['id']}}/edit" class="name"><strong>{{$page['name']}}</strong><br><span class="light-text smaller-text">/{{$page['slug']}}</span></td>
                             <td class="center" style="width: 10%;"><div class="bullet {{$page['is_active'] ? 'active' : 'inactive'}}"></div></td>
                                 <td style="width: 15%;">{{$page['author']}}</td>
                                 <td style="width: 20%;"><span class="smaller">Published</span><br>{{date_format(new DateTime($page['created_at']), 'd.m.Y')}}</td>

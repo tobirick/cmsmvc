@@ -252,3 +252,17 @@ if (pathName.includes('/admin/users/') && pathName.includes('edit')) {
     }
     ko.applyBindings(new UserEditViewModel());
 }
+
+// Open Page Edit page
+const openEditPageEls = document.querySelectorAll('.open-page-edit .name');
+if(openEditPageEls) {
+    const openEditPage = (e) => {
+        e.stopPropagation();
+        const link = e.currentTarget.dataset.editlink;
+        location.href = link;
+    };
+
+    openEditPageEls.forEach(openEditPageEl => {
+        openEditPageEl.addEventListener('click', openEditPage);
+    });
+}

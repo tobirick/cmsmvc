@@ -296,6 +296,10 @@
     }
 }
 
+.admin-element-list-item-wrapper {
+    display: flex;
+}
+
 .admin-element-list-item {
     border-radius: 3px;
     background-color: #F0F0F0;
@@ -304,6 +308,7 @@
     display: flex;
     align-items: center;
     cursor: move;
+    flex: 1;
 
     &__type {
         margin: 0 0.75rem 0 0.5rem;
