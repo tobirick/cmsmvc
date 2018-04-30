@@ -43,10 +43,18 @@ export default class MediaPopupMainViewModel {
     closeMediaPopup = () => {
         this.mediaPopupOpen(false);
         this.selectedMediaElement(null);
+        console.log(this);
     }
 
     setMediaElement = (element) => {
         this.selectedMediaElement(element);
+    }
+
+    setInitialMediaElement = (path) => {
+        const element = this.mediaElements().find(mediaElement => {
+            return '/content/media' + mediaElement.path + mediaElement.name === path;
+        });
+        this.setMediaElement(element);
     }
 
     getActiveMediaElementURL() {

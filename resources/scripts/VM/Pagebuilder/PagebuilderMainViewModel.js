@@ -76,7 +76,8 @@ export default class PagebuilderMainViewModel {
 
     openMediaPopup = (element) => {
         this.mediaPopupVM().openMediaPopup();
-        this.mediaPopupVM().selectedMediaElement.subscribe(() => {
+        this.mediaPopupVM().setInitialMediaElement(element instanceof PagebuilderSectionModel || element instanceof PagebuilderRowModel ? element.bg_image() : element.value());
+        const subscription = this.mediaPopupVM().selectedMediaElement.subscribe(() => {
             const path = this.mediaPopupVM().selectedMediaElementPath();
             if (path) {
                 if (element instanceof PagebuilderSectionModel || element instanceof PagebuilderRowModel) {
@@ -84,6 +85,12 @@ export default class PagebuilderMainViewModel {
                 } else {
                     element.value(path);
                 }
+            }
+        });
+
+        this.mediaPopupVM().mediaPopupOpen.subscribe(() => {
+            if(!this.mediaPopupVM().mediaPopupOpen()) {
+                subscription.dispose();
             }
         });
     }

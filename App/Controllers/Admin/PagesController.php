@@ -14,7 +14,7 @@ class PagesController extends BaseController {
          self::redirect('/admin/dashboard');
       }
         $pageNumber = isset($_GET['p']) ? $_GET['p'] : 1;
-        $numberOfPagesPerPage = 4;
+        $numberOfPagesPerPage = 15;
         $numberOfPages = ceil(DefaultPage::countPages() / $numberOfPagesPerPage);
 
         if($numberOfPages <= 0 || $numberOfPages == 1) {
