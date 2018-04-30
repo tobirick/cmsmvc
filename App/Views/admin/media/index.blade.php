@@ -31,7 +31,7 @@
                             <li data-bind="text: text, click: $root.changeDir"></li>
                         </ul>
                     </div>
-                    <div class="table-responsive">
+                    <div class="">
                         <table class="table normal">
                         <thead>
                             <tr>

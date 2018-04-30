@@ -28,12 +28,12 @@
                         </thead>
                         <tbody>
                         @foreach($pagesadmin as $page)
-                            <tr class="open-page-edit">
-                                <td style="width: 10%;">{{$page['id']}}</td>
-                                <td data-editlink="/{{$curLang}}/admin/pages/{{$page['id']}}/edit" class="name"><strong>{{$page['name']}}</strong><br><span class="light-text smaller-text">/{{$page['slug']}}</span></td>
-                            <td class="center" style="width: 10%;"><div class="bullet {{$page['is_active'] ? 'active' : 'inactive'}}"></div></td>
-                                <td style="width: 15%;">{{$page['author']}}</td>
-                                <td style="width: 20%;"><span class="smaller">Published</span><br>{{date_format(new DateTime($page['created_at']), 'd.m.Y')}}</td>
+                            <tr data-editlink="/{{$curLang}}/admin/pages/{{$page['id']}}/edit" class="open-page-edit">
+                                <td class="name" style="width: 10%;">{{$page['id']}}</td>
+                                <td class="name"><strong>{{$page['name']}}</strong><br><span class="light-text smaller-text">/{{$page['slug']}}</span></td>
+                            <td class="center name" style="width: 10%;"><div class="bullet {{$page['is_active'] ? 'active' : 'inactive'}}"></div></td>
+                                <td class="name" style="width: 15%;">{{$page['author']}}</td>
+                                <td class="name" style="width: 20%;"><span class="smaller">Published</span><br>{{date_format(new DateTime($page['created_at']), 'd.m.Y')}}</td>
                                 <td class="action auto-width">
                                     <a href="/{{$curLang}}/admin/pages/{{$page['id']}}/edit"><i class="fa fa-pencil"></i></a>
                                     <a target="_blank" href="/{{$page['slug']}}"><i class="fa fa-arrow-right"></i></a>

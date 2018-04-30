@@ -258,7 +258,7 @@ const openEditPageEls = document.querySelectorAll('.open-page-edit .name');
 if(openEditPageEls) {
     const openEditPage = (e) => {
         e.stopPropagation();
-        const link = e.currentTarget.dataset.editlink;
+        const link = e.currentTarget.parentNode.dataset.editlink;
         location.href = link;
     };
 

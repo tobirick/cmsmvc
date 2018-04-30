@@ -89,9 +89,9 @@
    left: 50%;
    top: 50%;
    transform: translate(0, -50%);
-   border: 1px solid #eee;
-   border-radius: 3px;
    padding: 1rem;
+   border: 1px solid #d2d0d0;
+   background-color: #eee;
+   border-radius: 3px;
    @include box-shadow();
-   background-color: #fff;
 }
