@@ -110,7 +110,7 @@ class DefaultPage extends Model {
 
     public function savePage($userid) {
         $db = static::getDB();
-        $stmt = $db->prepare('INSERT INTO pages (name, slug, created_at, created_by, is_active) VALUES(:name, :slug, now(), :created_by, :is_active)');
+        $stmt = $db->prepare('INSERT INTO pages (name, slug, created_at, created_by, is_active, white_logo_active) VALUES(:name, :slug, now(), :created_by, :is_active, :white_logo_active)');
         $stmt->execute([
             ':name' => $this->name,
             ':slug' => $this->slug,

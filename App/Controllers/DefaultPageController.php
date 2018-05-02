@@ -21,4 +21,8 @@ class DefaultPageController extends BaseController {
       $activeTheme = Theme::getActiveTheme();
       self::render('public/themes/' . $activeTheme['name'] . '/default-page', $args['page-args']);
     }
+
+    public function error() {
+        self::render('error/404');
+    }
 }

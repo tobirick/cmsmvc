@@ -39,12 +39,25 @@ class Router {
     }
 
     private function matchRoute($match) {
+        $this->setLanguage($match);        
+        $language = self::$language->getCurrentLanguage();
+        $_SESSION['lang'] = $language;
+        self::$language->setLanguage($language);
+
+        if(isset($this->params['params']['languagePublic']) && $this->params['params']['languagePublic']) {
+            $lang = \App\Models\Language::getLanguageByISO($this->params['params']['languagePublic']);
+         } else if(!isset($_SESSION['publicLang'])) {
+            $lang = \App\Models\Language::getDefaultLanguage(true);
+         } else {
+            $lang = $_SESSION['publicLang'];
+         }
+
+         $langID = $lang['id'];
+
+         
+         self::$currentPublicLanguage = $lang;
+         $_SESSION['publicLang'] = self::$currentPublicLanguage;
         if($match) {
-            $this->setLanguage($match);        
-            $language = self::$language->getCurrentLanguage();
-            $_SESSION['lang'] = $language;
-            self::$language->setLanguage($language);
-            
             $details = explode("@", $match['target']);
             $this->controller = $this->namespace . $details[0];
             $this->method = $details[1];
@@ -60,40 +73,27 @@ class Router {
                } else {
                   $slug = DefaultPage::getHomePage()['slug'];
                }
-
-               if(isset($this->params['params']['languagePublic']) && $this->params['params']['languagePublic']) {
-                  $lang = \App\Models\Language::getLanguageByISO($this->params['params']['languagePublic']);
-               } else if(!isset($_SESSION['publicLang'])) {
-                  $lang = \App\Models\Language::getDefaultLanguage(true);
-               } else {
-                  $lang = $_SESSION['publicLang'];
-               }
-
-               $langID = $lang['id'];
-
+               
                $data = [
                    'slug' => $slug
                ];
 
-               self::$currentPublicLanguage = $lang;
-               $_SESSION['publicLang'] = self::$currentPublicLanguage;
-               
                $page = new DefaultPage($data);
                $pageData = $page->getPageBySlug($langID);
                if($pageData) {
                   $this->params['page-args'] = $pageData;
                } else {
-                  $view = new View();
-                  $view->render('error/404');
-                  return;
+                    $ctrl = new \App\Controllers\DefaultPageController;
+                    call_user_func([$ctrl,'error'], $this->params);
+                    return;
                }
             }
             $ctrl = new $this->controller();
             call_user_func([$ctrl, $this->method], $this->params);
 
         } else {
-            $view = new View();
-            $view->render('error/404');
+            $ctrl = new \App\Controllers\DefaultPageController;
+            call_user_func([$ctrl,'error'], $this->params);
         }
     }
 }
