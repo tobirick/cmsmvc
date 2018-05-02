@@ -3,6 +3,7 @@ import MediaElementModel from './MediaElementModel';
 import MediaHandler from '../../Handlers/MediaHandler';
 import csrf from '../../csrf';
 import helpers from '../../helpers';
+import loading from '../../loading';
 
 export default class MediaManViewModel {
     constructor() {
@@ -25,7 +26,7 @@ export default class MediaManViewModel {
 
         this.newFolderName = ko.observable(null);
 
-        this.enableDrop = ko.observable(false);
+        this.enableDrop = ko.observable(true);
 
         this.currentDir.subscribe(() => {
             this.mediaElements([]);
@@ -172,6 +173,8 @@ export default class MediaManViewModel {
             type: 'dir'
         }
 
+        loading.setTarget('.upload-zone');
+        loading.addSpinner();
         const response = await MediaHandler.addFolder(data);
 
         if (response.message === 'success' && !response.error) {
@@ -182,6 +185,7 @@ export default class MediaManViewModel {
         } else {
             this.showAlert('error', response.error);
         }
+        loading.removeSpinner();
         csrf.updateToken(response.csrfToken);
     }
 
@@ -210,21 +214,28 @@ export default class MediaManViewModel {
             type: 'file'
         }
 
-        const response = await MediaHandler.addFiles(data);
-
-        if (response.message === 'success' && !response.error) {
-            response.element.forEach(uploadedFile => {
-                if(uploadedFile) {
-                    this.imagePreviews.push(`/content/media${uploadedFile.path}${uploadedFile.name}`);
-                    const file = this.createElement(uploadedFile);
-                    this.mediaElements.push(file);
-                }
-            })
-            this.showAlert('success', 'Files uploaded');
-        } else {
-            this.showAlert('error', response.error);
+        
+        if(this.enableDrop()) {
+            this.enableDrop(false);
+            loading.setTarget('.upload-zone');
+            loading.addSpinner();
+            const response = await MediaHandler.addFiles(data);
+    
+            if (response.message === 'success' && !response.error) {
+                response.element.forEach(uploadedFile => {
+                    if(uploadedFile) {
+                        this.imagePreviews.push(`/content/media${uploadedFile.path}${uploadedFile.name}`);
+                        const file = this.createElement(uploadedFile);
+                        this.mediaElements.push(file);
+                    }
+                })
+            } else {
+                this.showAlert('error', response.error);
+            }
+            loading.removeSpinner();
+            this.enableDrop(true);
+            csrf.updateToken(response.csrfToken);
         }
-        csrf.updateToken(response.csrfToken);
     }
 
     openFolder = (element) => {

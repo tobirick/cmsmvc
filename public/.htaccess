@@ -20,6 +20,8 @@ Header set Cache-Control "max-age=2592000, public"
 </filesMatch>
 
 RewriteEngine on
+RewriteBase /
+RewriteRule ^(.+)/$ $1 [L,R=301,QSA]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule . index.php [L]
 php_value auto_prepend_file "./../vendor/autoload.php"

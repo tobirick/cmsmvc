@@ -5,7 +5,7 @@ const loading = {};
 loading.loadingElement = '.loading-spinner'
 loading.target = document.querySelector('#content');
 
-loading.createElement = function () {
+loading.createElement = function (target) {
     const element = document.createElement('div');
     element.classList.add('loading-spinner');
     const image = document.createElement('img');
