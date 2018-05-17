@@ -17,7 +17,8 @@ export default class MenuListMainViewModel {
             page_id: 0,
             menu_position: 0,
             css_class: '',
-            link_to: ''
+            link_to: '',
+            subListItems: []
         };
         this.menuListItems = ko.observableArray([]);
         this.pagesList = ko.observableArray([]);
@@ -60,6 +61,11 @@ export default class MenuListMainViewModel {
         console.log(ko.toJS(this.filteredMenuItems));
         this.filteredMenuItems().forEach((menuListItem, position) => {
             menuListItem.menu_position(position);
+            if(menuListItem.subListItems().length > 0) {
+                menuListItem.subListItems().forEach((subListItem, position) => {
+                    subListItem.menu_position(position);
+                });
+            }
         });
 
         const data = {
@@ -86,7 +92,14 @@ export default class MenuListMainViewModel {
     getMenuListItems() {
         return MenuListItemsHandler.loadMenuListItems(this.menuID).then(response => {
             response.forEach(dataItem => {
-                this.menuListItems.push(this.newMenuItemModel(dataItem));
+                const newMenuItem = this.newMenuItemModel(dataItem);
+                if(dataItem.subListItems) {
+                    newMenuItem.subListItems = ko.observableArray([]);
+                    dataItem.subListItems.forEach(subListItem => {
+                        newMenuItem.subListItems.push(this.newMenuItemModel(subListItem));
+                    });
+                }
+                this.menuListItems.push(newMenuItem);
             });
         });
     }
@@ -102,8 +115,6 @@ export default class MenuListMainViewModel {
             csrf_token: csrf.getToken()
         };
 
-        console.log(data);
-
         MenuListItemsHandler.handleAddMenuListItem(
             data,
             this.menuID
@@ -111,7 +122,6 @@ export default class MenuListMainViewModel {
             this.menuListItems.push(this.newMenuItemModel(response.listItem));
             this.resetNewMenuItem();
             csrf.updateToken(response.csrfToken);
-
         });
     }
 
@@ -188,7 +198,7 @@ export default class MenuListMainViewModel {
     }
 
     newMenuItemModel = (data) => {
-        return new MenuItemViewModel(data, {
+        return new MenuItemViewModel({subListItems: [], ...data}, {
             deleteMenuListItem: this.deleteMenuListItem,
             updateMenuListItem: this.updateMenuListItem
         })

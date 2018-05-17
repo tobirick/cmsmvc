@@ -120,7 +120,7 @@ class Menu extends Model {
 
     public static function getMenuItemsByMenuId($menuid) {
         $db = static::getDB();
-        $stmt = $db->prepare('SELECT * FROM menu_items WHERE menu_id = :menu_id ORDER BY menu_position');
+        $stmt = $db->prepare('SELECT * FROM menu_items WHERE menu_id = :menu_id AND parent_id = 0 ORDER BY menu_position');
         $stmt->execute([
             ':menu_id' => $menuid
         ]);
@@ -185,9 +185,10 @@ class Menu extends Model {
 
     public static function updateMenuItemPosition($menuitem) {
         $db = static::getDB();
-        $stmt = $db->prepare('UPDATE menu_items SET menu_position = :menu_position WHERE id = :id');
+        $stmt = $db->prepare('UPDATE menu_items SET menu_position = :menu_position, parent_id = :parent_id WHERE id = :id');
         $stmt->execute([
             ':menu_position' => $menuitem['menu_position'],
+            ':parent_id' => $menuitem['parent_id'],
             ':id' => $menuitem['id']
         ]);
 
@@ -257,6 +258,18 @@ class Menu extends Model {
         $stmt = $db->prepare('SELECT m.name, m.language_id, m.css_class, m.link_to, m.type, p.slug FROM menu_items as m INNER JOIN pages as p ON p.id = m.page_id WHERE menu_id = :menu_id ORDER BY menu_position');
         $stmt->execute([
             ':menu_id' => $id
+        ]);
+
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
+    public static function getSubListItemsByListItemId($id) {
+        $db = static::getDB();
+        $stmt = $db->prepare('SELECT * FROM menu_items WHERE parent_id = :id ORDER BY menu_position');
+        $stmt->execute([
+            ':id' => $id
         ]);
 
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);

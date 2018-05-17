@@ -96,3 +96,42 @@
    border-radius: 3px;
    @include box-shadow();
 }
+
+.menu, .submenu {
+    &__item {
+        display: flex;
+        background-color: #eee;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border-radius: 3px;
+
+        & > div {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            padding: 0 1rem;
+
+            & input.form-input, select.form-input {
+                background-color: #fff;
+            }
+
+            & button {
+                background: none;
+                border: none;
+                box-shadow: none;
+                color: $default-text-color;
+                font-size: 2rem;
+                margin: 0 1rem;
+                @include transition(.2s ease-in all);
+
+                &:hover {
+                    color: $primary-color;
+                }
+            }
+        }
+    }
+}
+
+.submenu {
+    margin-left: 4rem;
+}

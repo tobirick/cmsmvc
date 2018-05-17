@@ -31,6 +31,10 @@ class MenuItemsController extends BaseController {
             echo json_encode($data);
         } else {
             $listItems = Menu::getMenuItemsByMenuId($params['params']['id']);
+            foreach($listItems as $key => $listItem) {
+                $subListItems = Menu::getSubListItemsByListItemId($listItem['id']);
+                $listItems[$key]['subListItems'] = $subListItems;
+            }
             echo json_encode($listItems);
         }
 
@@ -83,6 +87,13 @@ class MenuItemsController extends BaseController {
             $data['error'] = self::getTrans('You have not the permission to do that!');
         } else {
             foreach($decoded['menuitems'] as $menuitem) {
+                $menuitem['parent_id'] = 0;
+                if(sizeof($menuitem['subListItems']) > 0) {
+                    foreach($menuitem['subListItems'] as $submenuitem) {
+                        $submenuitem['parent_id'] = $menuitem['id'];
+                        Menu::updateMenuItemPosition($submenuitem);
+                    }
+                }
                 Menu::updateMenuItemPosition($menuitem);
             }
         }

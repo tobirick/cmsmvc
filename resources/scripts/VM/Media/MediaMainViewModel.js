@@ -26,7 +26,7 @@ export default class MediaManViewModel {
 
         this.newFolderName = ko.observable(null);
 
-        this.enableDrop = ko.observable(true);
+        this.enableDrop = ko.observable(false);
 
         this.currentDir.subscribe(() => {
             this.mediaElements([]);
