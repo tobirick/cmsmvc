@@ -2,7 +2,7 @@
         <div class="popup__container">
             <div class="popup__header">
                 <h3 class="popup__title">{{$lang['Choose Image']}}</h3>
-                <button class="button-primary">Upload Image</button>
+                <button style="margin-right: auto; margin-left: 2rem;" class="button-primary">Upload Image</button>
                 <span data-bind="click: closeMediaPopup" class="popup__close"></span>
             </div>
             <div class="popup__content">

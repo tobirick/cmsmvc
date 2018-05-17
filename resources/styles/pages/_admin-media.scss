@@ -100,19 +100,76 @@
 .menu, .submenu {
     &__item {
         display: flex;
-        background-color: #eee;
-        padding: 1rem;
+        padding: 0.5rem;
         margin-bottom: 1rem;
         border-radius: 3px;
+
+        & > div:first-child {
+            & i {
+                font-size: 2rem;
+                color: #fff;
+                padding-right: 1rem;
+            }
+        }
 
         & > div {
             flex: 1;
             display: flex;
             justify-content: center;
+            align-items: center;
             padding: 0 1rem;
 
-            & input.form-input, select.form-input {
-                background-color: #fff;
+            & .form-input {
+                background-color: transparent;
+                color: #fff;
+                box-shadow: none;
+                cursor: text;
+
+                &::-webkit-input-placeholder {
+                    color: #fff;
+                    opacity: .8;
+                }
+                
+                &::-moz-placeholder {
+                    color: #fff;
+                    opacity: .8;
+                }
+                
+                &::-ms-placeholder {
+                    color: #fff;
+                    opacity: .8;
+                }
+                
+                &::placeholder {
+                    color: #fff;
+                    opacity: .8;
+                }
+
+                &:hover,
+                &:focus {
+                    background-color: #fff;
+                    color: $formInputColor;
+
+                    &::-webkit-input-placeholder {
+                        color: $formInputColor;
+                        opacity: .8;
+                    }
+                    
+                    &::-moz-placeholder {
+                        color: $formInputColor;
+                        opacity: .8;
+                    }
+                    
+                    &::-ms-placeholder {
+                        color: $formInputColor;
+                        opacity: .8;
+                    }
+                    
+                    &::placeholder {
+                        color: $formInputColor;
+                        opacity: .8;
+                    }
+                }
             }
 
             & button {
@@ -120,18 +177,39 @@
                 border: none;
                 box-shadow: none;
                 color: $default-text-color;
-                font-size: 2rem;
+                font-size: 1.8rem;
                 margin: 0 1rem;
+                background-color: #fff;
+                padding: 0 1rem;
+                border-radius: 10px;
+                height: 3rem;
+                width: 3rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                @include box-shadow();
                 @include transition(.2s ease-in all);
 
                 &:hover {
-                    color: $primary-color;
+                    @include box-shadow(sm);
+                    @include transform(translateY(-4px));
                 }
             }
         }
     }
 }
 
+.menu {
+
+    &__item {
+        background-color: $primary-color;
+    }
+}
+
 .submenu {
     margin-left: 4rem;
+
+    &__item {
+        background-color: #6d7984;
+    }
 }

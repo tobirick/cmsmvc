@@ -100,6 +100,8 @@
                                     <div class="menu__item-wrapper">
                                         <div class="menu__item">
                                             <div>
+                                                <i data-bind="visible: type() === 'page'" class="fa fa-file"></i>
+                                                <i data-bind="visible: type() === 'link'" class="fa fa-link"></i>
                                                 <input class="form-input" data-bind="value: name, valueUpdate: 'afterkeydown'" type="text" placeholder="Name">
                                             </div>
                                             <div>
@@ -107,7 +109,7 @@
                                                 <select class="form-input" data-bind="visible: type() === 'page', options: $root.pagesList, optionsText: 'name', value: page_id, optionsValue: 'id'"></select>
                                             </div>
                                             <div>
-                                                <input placeholder="z.B. button" data-bind="value: css_class, valueUpdate: 'afterkeydown'" type="text" class="form-input">
+                                                <input placeholder="CSS Klasse" data-bind="value: css_class, valueUpdate: 'afterkeydown'" type="text" class="form-input">
                                             </div>
                                             <div class="action">
                                                 <button data-bind="click: updateMenuListItem"><i class="fa fa-check"></i></button>
@@ -117,6 +119,8 @@
                                                 <div style="min-height: 25px;" data-bind="sortable: {data: subListItems}" class="submenu">
                                                     <div class="submenu__item">
                                                         <div>
+                                                                <i data-bind="visible: type() === 'page'" class="fa fa-file"></i>
+                                                                <i data-bind="visible: type() === 'link'" class="fa fa-link"></i>
                                                             <input data-bind="value: name, valueUpdate: 'afterkeydown'" class="form-input" type="text" placeholder="Name"> 
                                                         </div>
                                                         <div>
@@ -124,7 +128,7 @@
                                                                 <select class="form-input" data-bind="visible: type() === 'page', options: $root.pagesList, optionsText: 'name', value: page_id, optionsValue: 'id'"></select>
                                                             </div>
                                                         <div>
-                                                                <input placeholder="z.B. button" data-bind="value: css_class, valueUpdate: 'afterkeydown'" type="text" class="form-input">
+                                                                <input placeholder="CSS Klasse" data-bind="value: css_class, valueUpdate: 'afterkeydown'" type="text" class="form-input">
                                                         </div>
                                                         <div class="action">
                                                                 <button data-bind="click: updateMenuListItem"><i class="fa fa-check"></i></button>

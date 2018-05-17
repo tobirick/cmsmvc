@@ -156,11 +156,28 @@ input[type=range]::-webkit-slider-thumb {
         cursor: default;
     }
 
-    &::-webkit-input-placeholder,
-    &::-moz-placeholder,
-    &:-ms-input-placeholder,
-    &:-moz-placeholder {
+    &::-webkit-input-placeholder {
         color: $formInputColor;
+        opacity: .8;
+        @include transition(.2s ease-in all);
+    }
+    
+    &::-moz-placeholder {
+        color: $formInputColor;
+        opacity: .8;
+        @include transition(.2s ease-in all);
+    }
+    
+    &::-ms-placeholder {
+        color: $formInputColor;
+        opacity: .8;
+        @include transition(.2s ease-in all);
+    }
+    
+    &::placeholder {
+        color: $formInputColor;
+        opacity: .8;
+        @include transition(.2s ease-in all);
     }
 
     &:-webkit-autofill,
