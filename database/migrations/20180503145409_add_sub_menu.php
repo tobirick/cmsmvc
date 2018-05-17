@@ -30,7 +30,7 @@ class AddSubMenu extends AbstractMigration
     {
         $menuitems = $this->table('menu_items');
         $menuitems
-        ->addColumn('parent_id', 'integer', ['default' => 0])
+        ->addColumn('parent_id', 'integer', ['null' => true])
         ->addForeignKey('parent_id', 'menu_items', 'id', ['delete'=> 'CASCADE', 'update'=> 'NO_ACTION'])
         ->update();
     }

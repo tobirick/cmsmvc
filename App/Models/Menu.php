@@ -120,7 +120,7 @@ class Menu extends Model {
 
     public static function getMenuItemsByMenuId($menuid) {
         $db = static::getDB();
-        $stmt = $db->prepare('SELECT * FROM menu_items WHERE menu_id = :menu_id AND parent_id = 0 ORDER BY menu_position');
+        $stmt = $db->prepare('SELECT * FROM menu_items WHERE menu_id = :menu_id AND parent_id IS NULL ORDER BY menu_position');
         $stmt->execute([
             ':menu_id' => $menuid
         ]);
@@ -244,20 +244,40 @@ class Menu extends Model {
         $id = self::getActiveMenuID()['value'];
 
         $db = static::getDB();
-        $stmt = $db->prepare('SELECT mi.id as menu_id, mi.name, mi.language_id, mi.css_class, mi.type, mi.link_to, p.slug, p.id as page_id FROM menu_items as mi INNER JOIN pages as p ON p.id = mi.page_id WHERE menu_id = :id ORDER BY mi.menu_position');
+        $stmt = $db->prepare('SELECT mi.id as menu_id, mi.name, mi.language_id, mi.css_class, mi.type, mi.link_to, p.slug, p.id as page_id FROM menu_items as mi INNER JOIN pages as p ON p.id = mi.page_id WHERE menu_id = :id AND parent_id IS NULL ORDER BY mi.menu_position');
         $stmt->execute([
             ':id' => $id
         ]);
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach($result as $key => $menuitem) {
+            $result[$key]['submenu'] = self::getMenuSubItemsForFrontendByListItemId($menuitem['menu_id']);
+        }
 
         return $result;
     }
 
     public static function getMenuItemsWithSlugByMenuID($id) {
         $db = static::getDB();
-        $stmt = $db->prepare('SELECT m.name, m.language_id, m.css_class, m.link_to, m.type, p.slug FROM menu_items as m INNER JOIN pages as p ON p.id = m.page_id WHERE menu_id = :menu_id ORDER BY menu_position');
+        $stmt = $db->prepare('SELECT m.id, m.name, m.language_id, m.css_class, m.link_to, m.type, p.slug FROM menu_items as m INNER JOIN pages as p ON p.id = m.page_id WHERE menu_id = :menu_id AND parent_id IS NULL ORDER BY menu_position');
         $stmt->execute([
             ':menu_id' => $id
+        ]);
+
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach($result as $key => $menuitem) {
+            $result[$key]['submenu'] = self::getMenuSubItemsForFrontendByListItemId($menuitem['id']);
+        }
+
+        return $result;
+    }
+
+    public static function getMenuSubItemsForFrontendByListItemId($id) {
+        $db = static::getDB();
+        $stmt = $db->prepare('SELECT mi.id as menu_id, mi.name, mi.language_id, mi.css_class, mi.type, mi.link_to, p.slug, p.id as page_id FROM menu_items as mi INNER JOIN pages as p ON p.id = mi.page_id WHERE parent_id = :id ORDER BY mi.menu_position');        
+        $stmt->execute([
+            ':id' => $id
         ]);
 
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);

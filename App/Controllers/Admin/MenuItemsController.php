@@ -87,7 +87,7 @@ class MenuItemsController extends BaseController {
             $data['error'] = self::getTrans('You have not the permission to do that!');
         } else {
             foreach($decoded['menuitems'] as $menuitem) {
-                $menuitem['parent_id'] = 0;
+                $menuitem['parent_id'] = NULL;
                 if(sizeof($menuitem['subListItems']) > 0) {
                     foreach($menuitem['subListItems'] as $submenuitem) {
                         $submenuitem['parent_id'] = $menuitem['id'];
