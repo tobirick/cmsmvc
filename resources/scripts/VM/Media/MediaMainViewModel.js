@@ -214,9 +214,6 @@ export default class MediaManViewModel {
             type: 'file'
         }
 
-        
-        if(this.enableDrop()) {
-            this.enableDrop(false);
             loading.setTarget('.upload-zone');
             loading.addSpinner();
             const response = await MediaHandler.addFiles(data);
@@ -233,9 +230,7 @@ export default class MediaManViewModel {
                 this.showAlert('error', response.error);
             }
             loading.removeSpinner();
-            this.enableDrop(true);
             csrf.updateToken(response.csrfToken);
-        }
     }
 
     openFolder = (element) => {

@@ -2,7 +2,7 @@
     <div class="popup__container">
         <div class="popup__header">
             <h3 class="popup__title">{{$lang['Upload Image']}}</h3>
-            <span data-bind="click: $root.closePopup" class="popup__close"></span>
+            <span data-bind="click: closePopup" class="popup__close"></span>
         </div>
         <div class="popup__content">
             <div class="row">

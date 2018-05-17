@@ -8,11 +8,13 @@ export default class MediaElementModel {
 
         this.imagePreview = ko.observable(false);
 
-        this.deleteMediaElement = delegates.deleteMediaElement;
-        this.openFolder = delegates.openFolder;
-        this.openFile = delegates.openFile;
-        this.hoverFile = delegates.hoverFile;
-        this.changeFolder = delegates.changeFolder.bind(this);
-        this.removeHoverFile = delegates.removeHoverFile;
+        if(Object.keys(delegates).length > 0) {
+            this.deleteMediaElement = delegates.deleteMediaElement;
+            this.openFolder = delegates.openFolder;
+            this.openFile = delegates.openFile;
+            this.hoverFile = delegates.hoverFile;
+            this.changeFolder = delegates.changeFolder.bind(this);
+            this.removeHoverFile = delegates.removeHoverFile;
+        }
     }
 }

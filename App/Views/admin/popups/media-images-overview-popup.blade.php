@@ -1,8 +1,12 @@
+<div style="display:none; position: relative; z-index: 9999999999;" data-bind="visible: $root.mediaPopupVM().mediaPopupOpen, with: $root.mediaPopupVM()">
+    @component('admin.popups.media-upload-popup')@endcomponent
+    <div style="display: none;;" data-bind="visible: uploadPopupOpen, click: closePopup" class="popup__overlay"></div>
+</div>
 <div style="display:none;" data-bind="visible: $root.mediaPopupVM().mediaPopupOpen, with: $root.mediaPopupVM()" class="popup pagebuilder-media-overview-popup higher-z">
         <div class="popup__container">
             <div class="popup__header">
                 <h3 class="popup__title">{{$lang['Choose Image']}}</h3>
-                <button style="margin-right: auto; margin-left: 2rem;" class="button-primary">Upload Image</button>
+                <button data-bind="click: openUploadPopup" style="margin-right: auto; margin-left: 2rem;" class="button-primary">Upload Image</button>
                 <span data-bind="click: closeMediaPopup" class="popup__close"></span>
             </div>
             <div class="popup__content">
