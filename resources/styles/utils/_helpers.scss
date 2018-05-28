@@ -3,6 +3,10 @@
 .align-left { text-align: left; }
 .center-h-flex { display: flex; justify-content: center; }
 .center-v-flex { display: flex; align-items: center; }
+.start-h-flex { display: flex; justify-content: flex-start; }
+.start-v-flex { display: flex; align-items: flex-start; }
+.end-h-flex { display: flex; justify-content: flex-end; }
+.end-v-flex { display: flex; align-items: flex-end; }
 .hidden { visibility: hidden; }
 .visible { visibility: visible; }
 

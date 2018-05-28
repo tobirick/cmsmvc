@@ -55,40 +55,54 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-12 col-md-5">
+        <div class="col-12 col-md-4">
             <div style="position: sticky; top: 20px;">
                             <div class="admin-box">
                                 <h3 class="admin-box__title">{{$lang['New Menu Item']}}</h3>
-                                    <div class="form-row">
-                                        <div class="col-6">
-                                            <input data-bind="value: newMenuItem.name, valueUpdate: 'afterkeydown'" class="form-input" type="text" placeholder="Name">
-                                        </div>
-                                        <div class="col-4">
-                                            <select class="form-input" data-bind="options: $root.pagesList, optionsText: 'name', optionsValue: 'id', value: newMenuItem.page_id"></select>
-                                        </div>
-                                        <div class="col-1">
-                                            <button data-bind="click: addMenuListItem" class="button-primary-icon"><i class="fa fa-check"></i></button>
-                                        </div>
+                                <div class="admin-box__sub-box">
+                                    <div class="admin-box__sub-header">
+                                        <h4 class="admin-box__sub-title">Add Page</h4>
+                                        <div class="admin-box__sub-toggle"></div>
                                     </div>
-                            </div>
-                            <div class="admin-box">
-                                <h3 class="admin-box__title">Add new Menu Item Link</h3>
-                                    <div class="form-row">
-                                        <div class="col-6">
-                                            <input data-bind="value: newMenuItem.name, valueUpdate: 'afterkeydown'" class="form-input" type="text" placeholder="Name">
-                                        </div>
-                                        <div class="col-4">
-                                            <input type="text" data-bind="value: newMenuItem.link_to, " class="form-input" placeholder="Link">
-                                        </div>
-                                        <div class="col-1">
-                                            <button data-bind="click: addMenuListItemLink" class="button-primary-icon"><i class="fa fa-check"></i></button>
-                                        </div>
+                                    <div class="admin-box__sub-content">
+                                            <div class="form-row">
+                                                <label for="name" class="form-label">Text</label>
+                                                <input id="name" data-bind="value: newMenuItem.name, valueUpdate: 'afterkeydown'" class="form-input" type="text" placeholder="Name">
+                                            </div>
+                                            <div class="form-row">
+                                                <label for="page" class="form-label">Page</label>
+                                                <pre data-bind="text: newMenuItem.page_id"></pre>
+                                                <select id="page" class="form-input" data-bind="value: newMenuItem.page_id, options: $root.pagesList, optionsText: 'name', optionsValue: 'id', select2: {  }"></select>
+                                            </div>
+                                            <div class="form-row end-h-flex">
+                                                <button data-bind="click: addMenuListItem" class="button-primary">Add</button>
+                                            </div>
                                     </div>
+                                </div>
+                                <div class="admin-box__sub-box">
+                                    <div class="admin-box__sub-header">
+                                        <h4 class="admin-box__sub-title">Add Link</h4>
+                                        <div class="admin-box__sub-toggle"></div>
+                                    </div>
+                                    <div class="admin-box__sub-content">
+                                            <div class="form-row">
+                                                <label for="linkname" class="form-label">Text</label>
+                                                <input id="linkname" data-bind="value: newMenuItem.name, valueUpdate: 'afterkeydown'" class="form-input" type="text" placeholder="Name">
+                                            </div>
+                                            <div class="form-row">
+                                                <label for="link" class="form-label">Link</label>
+                                                <input id="link" type="text" data-bind="value: newMenuItem.link_to, " class="form-input" placeholder="Link">
+                                            </div>
+                                            <div class="form-row end-h-flex">
+                                                <button data-bind="click: addMenuListItemLink" class="button-primary">Add</button>
+                                            </div>
+                                        </div>
+                                </div>
                     </div>
                 </div>
             
                     </div>
-        <div class="col-12 col-md-7">
+        <div class="col-12 col-md-8">
             <div class="admin-box">
                 <h3 class="admin-box__title">{{$lang['Menu']}} Item's</h3>
                     <div id="menu-list">

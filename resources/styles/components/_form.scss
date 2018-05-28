@@ -133,7 +133,7 @@ input[type=range]::-webkit-slider-thumb {
    cursor: pointer;
  }
 
-.form-input[type="text"], .form-input[type="number"], .form-input[type="email"], .form-input[type="password"], textarea.form-input, select.form-input, .sp-input {
+.form-input[type="text"], .form-input[type="number"], .form-input[type="email"], .form-input[type="password"], textarea.form-input, select.form-input, .sp-input, .select2, .select2-search__field {
     font-family: inherit;
     outline: none;
     display: block;

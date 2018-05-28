@@ -266,3 +266,26 @@ if(openEditPageEls) {
         openEditPageEl.addEventListener('click', openEditPage);
     });
 }
+
+const openSubBoxEls = document.querySelectorAll('.admin-box__sub-toggle');
+if(openSubBoxEls) {
+    const toggleSubBox = (e) => {
+        const subBox = e.target.parentNode.parentNode;
+        const height = subBox.querySelector('.admin-box__sub-content').clientHeight;
+        const scrollHeight = subBox.querySelector('.admin-box__sub-content').scrollHeight;
+
+        if(subBox.classList.contains('open')) {
+            subBox.querySelector('.admin-box__sub-content').style.height = 0 + 'px';
+            subBox.classList.remove('open');
+        } else {
+            subBox.querySelector('.admin-box__sub-content').style.height = scrollHeight + 'px';
+            subBox.classList.add('open');
+        }
+    };
+
+    openSubBoxEls.forEach(openSubBoxEl => {
+        openSubBoxEl.addEventListener('click', toggleSubBox);
+    });
+}
+
+//$('.searchable-select').select2();
