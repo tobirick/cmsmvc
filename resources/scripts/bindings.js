@@ -125,6 +125,16 @@ ko.bindingHandlers.select2 = {
     }
 };
 
+const toolbarOptions = [
+    [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+    ['bold', 'italic', 'underline'],
+    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+    [{ 'align': [] }],
+    ['link'],
+    [{ 'color': [] }, { 'background': [] }],
+    ['clean']
+  ];
+
 ko.bindingHandlers.quill = {
 
     init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
@@ -139,7 +149,12 @@ ko.bindingHandlers.quill = {
 
         // Initialize the quill editor, and store it in the data section of the
         // element using jQuery.
-        var quill = new Quill(element, { theme: "snow" });
+        var quill = new Quill(element, {
+            theme: "snow",
+            modules: {
+                toolbar: toolbarOptions
+            } 
+        });
         $.data(element, "quill", quill);
 
         // Extract the knockout observables and set the initial value.
