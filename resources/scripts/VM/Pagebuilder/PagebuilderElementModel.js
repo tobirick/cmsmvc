@@ -148,8 +148,7 @@ export default class PagebuilderElementModel {
                 const splitArray = element().value().split('.');
                 const srcImageHtml = `src="${element().value()}" srcset="${splitArray[0]}@2x.${splitArray[1]} 2x, ${splitArray[0]}@3x.${splitArray[1]} 3x"`;
                 html = html.replace(regex, srcImageHtml);
-            } else if(element().type() === 'textarea') {
-                console.log(element().value());
+            } else if(element().type() === 'wysiwyg') {
                html = html.replace(regex, element().value().html);
             } else {
                 html = html.replace(regex, element().value());

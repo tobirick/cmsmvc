@@ -32,6 +32,9 @@
                                  </div>
                             </div>
                             <div data-bind="if: type() === 'textarea'">
+                                <textarea class="form-input" data-bind="value: value, attr:{id: key, placeholder: name}"></textarea>
+                            </div>
+                            <div data-bind="if: type() === 'wysiwyg'">
                                 <div data-bind="quill: value"></div>
                             </div>
                             <div class="center-v-flex" data-bind="if: type() === 'text' || type() === 'range' || type() === 'number'">
