@@ -37,14 +37,24 @@
                     </div>
                     <div data-bind="if: currentMode() === 'grid'" class="media-grid">
                         <div class="media-grid__wrapper" data-bind="visible: mediaElements().length > 0, foreach: {data: mediaElements}">
+                            <div data-bind="if: $index() === 0, visible: $index() === 0 && $root.currentDir() !== '/'" class="col-lg-3 col-md-4 col-12">
+                                <div data-bind="click: $root.goDirBack" class="media-grid__item">
+                                    <div style="margin-top: auto;">
+                                        <i style="font-size: 5rem;" class="fa fa-arrow-left"></i>
+                                    </div>
+                                    <span class="media-grid__item-text">{{$lang['Go back']}}</span>
+                            </div>
+                            </div>
                             <div style="overflow: hidden;" class="col-lg-3 col-md-4 col-12">
                             <div data-bind="click: type() === 'dir' ? openFolder : openFile" class="media-grid__item">
                                 <span class="media-grid__item-delete" data-bind="click: deleteMediaElement" class="cursor-p"><i class="fa fa-trash"></i></span>
-                                <div data-bind="if: type() === 'file'">
-                                    <img data-bind="attr: {src: $root.baseURL + '/content/media' + path() + name()}" class="media-grid__item-img">
-                                </div>
-                                <div data-bind="if: type() ==='dir'">
-                                    <i style="font-size: 5rem;" class="fa fa-folder"></i>
+                                <div style="margin-top: auto;">
+                                    <div data-bind="if: type() === 'file'">
+                                        <img data-bind="attr: {src: $root.baseURL + '/content/media' + path() + name()}" class="media-grid__item-img">
+                                    </div>
+                                    <div data-bind="if: type() ==='dir'">
+                                        <i style="font-size: 5rem;" class="fa fa-folder"></i>
+                                    </div>
                                 </div>
                                 <span class="media-grid__item-text" data-bind="text: name"></span>
                             </div>

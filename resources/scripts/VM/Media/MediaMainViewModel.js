@@ -232,7 +232,7 @@ export default class MediaManViewModel {
         this.currentDir(element.path() + element.name() + '/');
     }
 
-    goDirBack() {
+    goDirBack = () => {
         const dirArr = this.currentDir().split('/');
         const newDir = dirArr.slice(0, dirArr.length - 2).join('/') + '/';
 
