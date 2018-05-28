@@ -71,8 +71,7 @@
                                             </div>
                                             <div class="form-row">
                                                 <label for="page" class="form-label">Page</label>
-                                                <pre data-bind="text: newMenuItem.page_id"></pre>
-                                                <select id="page" class="form-input" data-bind="value: newMenuItem.page_id, options: $root.pagesList, optionsText: 'name', optionsValue: 'id', select2: {  }"></select>
+                                                <select id="page" class="form-input" data-bind="value: newMenuItem.page_id, options: $root.pagesList, optionsText: 'name', optionsValue: 'id'"></select>
                                             </div>
                                             <div class="form-row end-h-flex">
                                                 <button data-bind="click: addMenuListItem" class="button-primary">Add</button>

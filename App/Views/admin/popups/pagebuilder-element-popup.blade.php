@@ -32,7 +32,7 @@
                                  </div>
                             </div>
                             <div data-bind="if: type() === 'textarea'">
-                                <textarea class="form-input" data-bind="value: value, attr:{id: key, placeholder: name}"></textarea>
+                                <div data-bind="quill: value"></div>
                             </div>
                             <div class="center-v-flex" data-bind="if: type() === 'text' || type() === 'range' || type() === 'number'">
                                 <input class="form-input" max="10" min="1" step="0.1" data-bind="textInput: value, attr:{id: key, placeholder: name, type: type, min: 1, max: 10, step: 0.1}">
