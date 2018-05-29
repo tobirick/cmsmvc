@@ -37,7 +37,7 @@
                     </div>
                     <div data-bind="if: currentMode() === 'grid'" class="media-grid">
                         <div class="media-grid__wrapper" data-bind="visible: mediaElements().length > 0, foreach: {data: mediaElements}">
-                            <div data-bind="if: $index() === 0, visible: $index() === 0 && $root.currentDir() !== '/'" class="col-lg-3 col-md-4 col-12">
+                            <div style="overflow: hidden;" data-bind="if: $index() === 0, visible: $index() === 0 && $root.currentDir() !== '/'" class="col-lg-3 col-md-4 col-12">
                                 <div data-bind="click: $root.goDirBack" class="media-grid__item">
                                     <div style="margin-top: auto;">
                                         <i style="font-size: 5rem;" class="fa fa-arrow-left"></i>

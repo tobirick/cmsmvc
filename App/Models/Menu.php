@@ -120,7 +120,7 @@ class Menu extends Model {
 
     public static function getMenuItemsByMenuId($menuid) {
         $db = static::getDB();
-        $stmt = $db->prepare('SELECT * FROM menu_items WHERE menu_id = :menu_id AND parent_id IS NULL ORDER BY menu_position');
+        $stmt = $db->prepare('SELECT * FROM menu_items WHERE (menu_id = :menu_id AND parent_id IS NULL) OR (menu_id = :menu_id AND parent_id = 0) ORDER BY menu_position');
         $stmt->execute([
             ':menu_id' => $menuid
         ]);

@@ -198,7 +198,6 @@ export default class MenuListMainViewModel {
     }
 
     newMenuItemModel = (data) => {
-        console.log(ko.toJS(this));
         return new MenuItemViewModel({subListItems: [], ...data}, {
             deleteMenuListItem: this.deleteMenuListItem,
             updateMenuListItem: this.updateMenuListItem
