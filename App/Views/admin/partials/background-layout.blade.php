@@ -8,6 +8,9 @@
     @include('admin.partials.styles')
 </head>
 <body>
+        @if(isset($flash))
+        @include('admin.components.flash')
+    @endif
     <div id="particles-js"></div>
         @yield('content')
    <input type="hidden" id="csrftoken" value="{{$csrf}}">

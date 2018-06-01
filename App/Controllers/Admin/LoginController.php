@@ -21,6 +21,7 @@ class LoginController extends BaseController {
                     User::doLogin($user);
                     self::redirect('/admin/dashboard');
                 } else {
+                    self::addFlash('error', 'Wrong password or username');
                     self::redirect('/admin/login');
                 }
             } else {
