@@ -18,6 +18,9 @@ function requireLogin($ctrl) {
     return 'Admin\LoginController@index';
 }
 
+// Contact Forms
+$router->map('POST', '/admin/contact', 'Admin\ContactFormController@contact');
+
 ## Base URLs ##
 
 $router->map('GET', $langString . '/admin/dashboard', requireLogin('Admin\DashboardController@index'));

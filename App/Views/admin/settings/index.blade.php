@@ -93,13 +93,12 @@
             <div class="col-12 col-md-5">
                 <div class="admin-box">
                     <h3 class="admin-box__title">Mail Einstellungen</h3>
-                    <span>(Coming soon ...)</span>
                     <div class="form-row">
                         <div class="col-4">
                             <label class="form-label" for="emailsender">E-Mail Sender</label>
                         </div>
                         <div class="col-8">
-                            <input type="text" placeholder="z.B. mail@mail.de" name="settings[emailsender]" id="emailsender" class="form-input">
+                            <input type="text" value="{{$settings['from_mail']}}" placeholder="z.B. mail@mail.de" name="settings[from_mail]" id="emailsender" class="form-input">
                         </div>
                     </div>
                     <div class="form-row">
@@ -107,7 +106,7 @@
                             <label class="form-label" for="emailreveicer">E-Mail Empfänger</label>
                         </div>
                         <div class="col-8">
-                            <input type="text" placeholder="z.B. mail@mail.de" name="settings[emailreveicer]" id="emailreveicer" class="form-input">
+                            <input type="text" value="{{$settings['to_mail']}}" placeholder="z.B. mail@mail.de" name="settings[to_mail]" id="emailreveicer" class="form-input">
                         </div>
                     </div>
                 </div>
