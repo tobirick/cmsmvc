@@ -12,13 +12,13 @@ class LoginController extends BaseController {
     }
 
     public static function login() {
-        CSRF::checkToken();
         if(isset($_POST)) {
             $formErrors = User::validate($_POST['user']);
             if(!$formErrors) {
                 $user = User::startLogin($_POST['user']);
                 if($user) {
                     User::doLogin($user);
+                    CSRF::generateToken();
                     self::redirect('/admin/dashboard');
                 } else {
                     self::addFlash('error', 'Wrong password or username');

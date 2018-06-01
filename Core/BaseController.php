@@ -39,14 +39,16 @@ class BaseController {
 
         // Admin Pages
          if(!in_array(get_class($this), $this->publicPages)) {
-            $csrf = new CSRF();
+            //$csrf = new CSRF();
             $language = Router::getLanguage();
             $languagesArray = $language->getLanguagesArray();
             $currentLanguage = $language->getCurrentLanguage();
             $allLanguages = $language->getAllLanguages();
             $getAllMenuNames = \App\Models\Menu::getAllMenuTypeNames();
 
-            $shares[] = ['key' => 'csrf', 'value' => $csrf->getToken()];
+            if(isset($_SESSION['csrf_token'])) {
+                $shares[] = ['key' => 'csrf', 'value' => $_SESSION['csrf_token']];
+            }
             $shares[] = ['key' => 'lang', 'value' => $languagesArray];
             $shares[] = ['key' => 'curLang', 'value' => $currentLanguage];
             $shares[] = ['key' => 'allLanguages', 'value' => $allLanguages];
