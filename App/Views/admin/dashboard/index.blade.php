@@ -28,8 +28,8 @@
                   <span class="time"></span>
                   <span class="date"></span>
                   <div>
-                     <span class="city">Nice city bro</span>
-                     <span class="weather">Maybe sun</span>
+                     <!-- <span class="city">Nice city bro</span>
+                     <span class="weather">Maybe sun</span> -->
                   </div>
                </div>
             </div>

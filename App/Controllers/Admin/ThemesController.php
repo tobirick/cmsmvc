@@ -86,6 +86,32 @@ class ThemesController extends BaseController {
       }
       file_put_contents(__DIR__  . '/../../../public/' . $decoded['theme']['name'] . '/css/default/typography.css', $typocss);
 
+      $rootcss = ":root { --primary-color: {$decoded['theme']['default_color']}}";
+      file_put_contents(__DIR__  . '/../../../public/' . $decoded['theme']['name'] . '/css/default/root.css', $rootcss);
+
+      $maincssstyles = [
+          'a' => ["color: {$decoded['theme']['default_color']}"],
+          '.button' => [
+                "background-color: {$decoded['theme']['default_color']}",
+                "color: #fff",
+                "text-decoration: none",
+                "padding: 1rem 3rem",
+                "border-radius: 3px",
+                "box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.2)"
+          ],
+          '.to-top-button' => ["background-color: {$decoded['theme']['default_color']}"]
+      ];
+      $maincss = '';
+      
+      foreach($maincssstyles as $type => $styles) {
+          $maincss .= $type . '{';
+            foreach($styles as $style) {
+                $maincss .= $style . ';';
+            }
+            $maincss .= '}';
+      }
+      file_put_contents(__DIR__  . '/../../../public/' . $decoded['theme']['name'] . '/css/default/main.css', $maincss);
+
       Theme::combineCSS($decoded['theme']['name']);
       Theme::combineJS($decoded['theme']['name']);
 

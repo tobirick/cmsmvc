@@ -225,7 +225,7 @@ const monthNames = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
 ];
 const currentDateString = `${currentDate.getDate()}. ${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
-const currentTimeString = `${currentDate.getHours()}:${currentDate.getMinutes()}`;
+const currentTimeString = `${currentDate.getHours()}:${currentDate.getMinutes() < 10 ? '0' : ''}${currentDate.getMinutes()}`;
 const dateEl = document.querySelector('.date');
 const timeEl = document.querySelector('.time');
 
@@ -287,5 +287,3 @@ if(openSubBoxEls) {
         openSubBoxEl.addEventListener('click', toggleSubBox);
     });
 }
-
-//$('.searchable-select').select2();

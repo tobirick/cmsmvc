@@ -26,7 +26,7 @@
     {{$themesettings['header_code']}}
     {{$themesettings['google_analytics']}}
    </head>
-   <body class="{{$white_logo_active === '1' ? 'white-logo' : 'colored-logo'}} {{$currentpubliclanguage['iso']}} {{$user ? 'logged-in' : ''}}{{$themesettings['fixed_navigation'] ? 'fixed' : ''}} {{isset($id) ? 'page-id-' . $id : 'home'}}">
+   <body class="{{$white_logo_active === '1' ? 'white-logo' : 'colored-logo'}} {{$currentpubliclanguage['iso']}} {{$user ? 'logged-in' : ''}} {{$themesettings['fixed_navigation'] ? 'fixed-nav' : ''}} {{isset($id) ? 'page-id-' . $id : 'home'}}">
       @if($user)
       <div class="admin-bar">
          <ul>
@@ -40,7 +40,7 @@
       </div>
       @endif
       @if($themesettings['to_top'])
-         <a href="">To Top</a>
+         <a class="to-top-button"><span></span></a>
       @endif
       {{$themesettings['body_code']}}
 
