@@ -12,14 +12,15 @@ class CustomShortcodes {
 
         $menuItems = \App\Models\Menu::getMenuItemsWithSlugByMenuID($id);
         $currentPublicLanguage = Router::getCurrentPublicLanguage();
+		$defaultLanguageId = \App\Models\Settings::getSettings()['default_language_id'];
 
         $html = '<ul class="footer-_nav">';
 
         foreach ($menuItems as $menuItem) {
             $url = '';
             if ($currentPublicLanguage['id'] === $menuItem['language_id']) {
-                $link = $menuItem['type'] === 'link' ? $menuItem['link_to'] : "/{$currentPublicLanguage['iso']}/{$menuItem['slug']}";
-                $html .= "<li class='footer__nav-item'><a href='{$link}' class='footer__nav-item-link {$menuItem['css_class']}'>{$menuItem['name']}</a></li>";
+                $link = $menuItem['type'] === 'link' ? $menuItem['link_to'] : ($defaultLanguageId === $currentPublicLanguage['id'] ? "/{$menuItem['slug']}" : "/{$currentPublicLanguage['iso']}/{$menuItem['slug']}");
+                $html .= "<li class='footer__nav-item'><a title='{$menuItem['name']}' href='{$link}' class='footer__nav-item-link {$menuItem['css_class']}'>{$menuItem['name']}</a></li>";
             }
         }
 

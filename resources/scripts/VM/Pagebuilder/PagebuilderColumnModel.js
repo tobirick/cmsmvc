@@ -24,6 +24,8 @@ export default class PagebuilderColumnModel {
         }
 
         this.removeCol = delegates.removeCol;
+
+        this.deletedElements = [];
     }
 
     setElement = element => {
@@ -34,6 +36,7 @@ export default class PagebuilderColumnModel {
     };
 
     deleteElement = () => {
+        this.deletedElements.push(this.element().id());
         this.elementSelected(false);
         this.element(null);
     };

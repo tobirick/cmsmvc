@@ -1,5 +1,6 @@
 import ko from 'knockout';
 import csrf from '../../csrf';
+import helpers from '../../helpers';
 
 import PagebuilderSectionModel from './PagebuilderSectionModel';
 import PagebuilderColumnRowModel from './PagebuilderColumnRowModel';
@@ -17,6 +18,7 @@ export default class PagebuilderMainViewModel {
 
         this.possibleColumns = ko.observableArray([]);
         this.pageID = document.getElementById('pageid').value;
+        this.defaultLanguageID = document.getElementById('defaultlanguageid').value;
         this.pageContentID = 1;
         this.sections = ko.observableArray([]);
         this.filteredSections = ko.observableArray([]);
@@ -52,7 +54,7 @@ export default class PagebuilderMainViewModel {
 
         this.currentPageURL = ko.computed(() => {
             if (this.currentLanguage()) {
-                return `${window.location.origin}/${this.currentLanguage().iso}/${this.defaultPageSettings().slug()}`;
+                return `${window.location.origin}/${this.currentLanguage().id === this.defaultLanguageID ? '' : this.currentLanguage().iso + '/'}${this.defaultPageSettings().slug()}`;
             }
         });
 
@@ -61,6 +63,8 @@ export default class PagebuilderMainViewModel {
             text: ko.observable(),
             type: ko.observable()
         });
+
+        this.deletedSections = [];
     }
 
     setInEditInActive = () => {
@@ -131,6 +135,10 @@ export default class PagebuilderMainViewModel {
             defaultPage.white_logo_active(whiteLogoActive);
 
             this.defaultPageSettings(defaultPage);
+
+            this.defaultPageSettings().slug.subscribe(newValue => {
+                this.defaultPageSettings().slug(helpers.createSlug(newValue));
+            });
 
             response.langs.forEach(langPage => {
                 let page = {};
@@ -218,10 +226,13 @@ export default class PagebuilderMainViewModel {
         const data = {
             csrf_token: csrf.getToken(),
             sections: ko.toJS(this.sections),
+            deletedSections: this.deletedSections,
             page_id: this.pageID,
             languages: [],
             defaultPage: ko.toJS(this.defaultPageSettings)
         };
+
+        console.log(data.sections);
 
         this.languages().forEach(language => {
             const sections = ko.toJS(this.sections).filter(section => {
@@ -317,6 +328,7 @@ export default class PagebuilderMainViewModel {
     };
 
     deleteSection = section => {
+        this.deletedSections.push(section.id());
         this.sections.remove(section);
     };
 

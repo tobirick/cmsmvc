@@ -158,29 +158,78 @@ class PagebuilderController extends BaseController {
         CSRF::checkTokenAjax($decoded['csrf_token']);
         $sections = $decoded['sections'];
 
-        // Delete all sections
-        Pagebuilder::deleteSectionsByPageID($decoded['page_id']);
         foreach($decoded['languages'] as $language) {
             Pagebuilder::updatePageContent($decoded['page_id'], $language['language_id'], $language['html'], $language['page']);
+        }
+
+        // Delete Sections
+        foreach($decoded['deletedSections'] as $section) {
+            Pagebuilder::deleteSectionByID($section);
         }
 
         DefaultPage::updatePage($decoded['page_id'], $decoded['defaultPage']);
 
         // Insert updated sections, rows, columnsrows and rows
         foreach($sections as $key => $section) {
-            $sectionID = Pagebuilder::saveSection($decoded['page_id'], $section);
+            // Check if Section exists
+            if(Pagebuilder::checkIfSectionExists($section['id'])) {
+                Pagebuilder::updateSection($section, $key);
+                $sectionID = $section['id'];
+            } else {
+                $sectionID = Pagebuilder::saveSection($decoded['page_id'], $section, $key);
+            }
+
+            // Delete all deleted rows in section
+            foreach($section['deletedRows'] as $row) {
+                Pagebuilder::deleteRowByID($row);
+            }
 
             foreach($section['rows'] as $key2 => $row) {
-                $rowID = Pagebuilder::saveRow($sectionID, $row);
+                // Check if Row exists
+                if(Pagebuilder::checkIfRowExists($row['id'])) {
+                    Pagebuilder::updateRow($sectionID, $row, $key2);
+                    $rowID = $row['id'];
+                } else {
+                    $rowID = Pagebuilder::saveRow($sectionID, $row, $key2);
+                }
 
                     foreach($row['columnrows'] as $key3 => $columnrow) {
+
+                        // Delete columns in column row
+                        foreach($columnrow['deletedColumns'] as $column) {
+                            Pagebuilder::deleteColumnByID($column);
+                        }              
+
+                        // Check if column row exists
                         if(sizeof($columnrow['columns']) !== 0) {
-                            $columndRowID = Pagebuilder::saveColumnRow($rowID, $columnrow);
+                            if(Pagebuilder::checkIfColumnRowExists($columnrow['id'])) {
+                                Pagebuilder::updateColumnRow($rowID, $columnrow, $key3);
+                                $columnRowID = $columnrow['id'];
+                            } else {
+                                $columnRowID = Pagebuilder::saveColumnRow($rowID, $columnrow, $key3);
+                            }
         
                             foreach($columnrow['columns'] as $key4 => $column) {
-                                $columnID = Pagebuilder::saveColumn($columndRowID, $column);
+                                // Check if Column exists
+                                if(Pagebuilder::checkIfColumnExists($column['id'])) {
+                                    Pagebuilder::updateColumn($columnRowID, $column, $key4);
+                                    $columnID = $column['id'];
+                                } else {
+                                    $columnID = Pagebuilder::saveColumn($columnRowID, $column, $key4);
+                                }
+
+                                // Delete elements in columns
+                                foreach($column['deletedElements'] as $element) {
+                                    Pagebuilder::deleteElementByID($element);
+                                } 
+
+                                // Check if Element exists
                                 if($column['element']) {
-                                   Pagebuilder::saveElement($columnID, $column['element']);
+                                    if(Pagebuilder::checkIfElementExists($column['element']['id'])) {
+                                        Pagebuilder::updateElement($columnID, $column['element']);
+                                    } else {
+                                        Pagebuilder::saveElement($columnID, $column['element']);
+                                    }
                                 }
                             }
                         }

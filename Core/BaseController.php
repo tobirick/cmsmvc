@@ -113,7 +113,12 @@ class BaseController {
 
     public static function publicRedirect($url) {
       $currentPublicLanguage = Router::getCurrentPublicLanguage();
-      $redirectTo = '/' . $currentPublicLanguage['iso'] . $url;
+      $defaultLanguageId = \App\Models\Settings::getSettings()['default_language_id'];
+      if($currentPublicLanguage['id'] === $defaultLanguageId) {
+        $redirectTo = $url;
+      } else {
+          $redirectTo = '/' . $currentPublicLanguage['iso'] . $url;
+      }
       header('Location: ' . $redirectTo  );
       exit;
     }

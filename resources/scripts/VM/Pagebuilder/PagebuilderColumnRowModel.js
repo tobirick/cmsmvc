@@ -20,6 +20,8 @@ export default class PagebuilderColumnRowModel {
                 this.columns.push(this.newColumn({ ...column, id: '' }));
             });
         }
+
+        this.deletedColumns = [];
     }
 
     addColumn(column = {}) {
@@ -27,6 +29,7 @@ export default class PagebuilderColumnRowModel {
     }
 
     removeCol = (col) => {
+        this.deletedColumns.push(col.id());
         this.columns.remove(col);
     }
 

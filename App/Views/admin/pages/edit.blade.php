@@ -55,9 +55,6 @@
         <div data-bind="with: page" class="col-12 col-md-7">
             <div class="admin-box">
                <h3 class="admin-box__title">{{$lang['Default Settings']}}</h3>
-                    <div class="dn form-row">
-                        <input class="form-input" data-bind="value: $root.defaultPageSettings().slug" type="text" placeholder="Slug" name="page[slug]">
-                    </div>
                     <div class="form-row">
                        <div class="col-3">
                         <label for="pagename" class="form-label">{{$lang['Page Name']}}</label>
@@ -66,6 +63,14 @@
                           <input id="pagename" autocomplete="off" class="form-input" data-bind="value: $root.defaultPageSettings().name"  type="text" placeholder="Name" name="page[name]">
                           <strong>Permalink: </strong> <a target="_blank" data-bind="text: $root.currentPageURL, attr: {href: $root.currentPageURL()}"></a>
                        </div>
+                    </div>
+                    <div class="form-row">
+                    <div class="col-3">
+                        <label for="slug" class="form-label">Slug</label>
+                       </div>
+                       <div class="col-9">
+                        <input class="form-input" id="slug" data-bind="textInput: $root.defaultPageSettings().slug" type="text" placeholder="Slug" name="page[slug]">
+                        </div>
                     </div>
                     <div class="form-row">
                        <div class="col-3">
@@ -165,4 +170,5 @@
     </div>
 </div>
 <input type="hidden" id="pageid" value="{{$page['id']}}">
+<input type="hidden" id="defaultlanguageid" value="{{$settings['default_language_id']}}">
 @stop
