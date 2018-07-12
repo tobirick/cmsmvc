@@ -240,13 +240,14 @@ class Menu extends Model {
         return $result;
     }
 
-    public static function getActiveMenuPages() {
+    public static function getActiveMenuPages($langID) {
         $id = self::getActiveMenuID()['value'];
 
         $db = static::getDB();
-        $stmt = $db->prepare('SELECT mi.id as menu_id, mi.name, mi.language_id, mi.css_class, mi.type, mi.link_to, p.slug, p.id as page_id FROM menu_items as mi INNER JOIN pages as p ON p.id = mi.page_id WHERE menu_id = :id AND parent_id IS NULL ORDER BY mi.menu_position');
+        $stmt = $db->prepare('SELECT mi.id as menu_id, mi.name, mi.language_id, mi.css_class, mi.type, mi.link_to, pc.slug, p.id as page_id FROM menu_items as mi INNER JOIN pages as p ON p.id = mi.page_id INNER JOIN page_contents as pc ON pc.page_id = p.id WHERE pc.language_id = :language_id AND menu_id = :id AND parent_id IS NULL ORDER BY mi.menu_position');
         $stmt->execute([
-            ':id' => $id
+            ':id' => $id,
+            ':language_id' => $langID
         ]);
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

@@ -69,15 +69,16 @@
                         <label for="slug" class="form-label">Slug</label>
                        </div>
                        <div class="col-9">
-                        <input class="form-input" id="slug" data-bind="textInput: $root.defaultPageSettings().slug" type="text" placeholder="Slug" name="page[slug]">
+                        <input class="form-input" id="slug" data-bind="textInput: slug" type="text" placeholder="Slug" name="page[slug]">
                         </div>
                     </div>
                     <div class="form-row">
                        <div class="col-3">
-                        <label for="pagetitle" class="form-label">{{$lang['Page Title']}}</label>
+                        <label for="pagetitle" class="form-label">{{$lang['Page Title']}}(max. 65)</label>
                        </div>
                        <div class="col-9">
-                          <input id="pagetitle" class="form-input" data-bind="value: title" type="text" placeholder="Title" name="page[title]">
+                          <input id="pagetitle" class="form-input" data-bind="textInput: title, attr: {maxlength: 65}" type="text" placeholder="Title" name="page[title]">
+                          <span class="form-input__length" data-bind="text: title().length"></span>
                        </div>
                     </div>
                     <div class="form-row">
@@ -114,18 +115,20 @@
                <h3 class="admin-box__title">SEO</h3>
                <div class="form-row">
                   <div class="col-3">
-                     <label for="seotitle" class="form-label">SEO {{$lang['Title']}}</label>
+                     <label for="seotitle" class="form-label">SEO {{$lang['Title']}}(max. 65)</label>
                   </div>
                   <div class="col-9">
-                     <input id="seotitle" class="form-input" data-bind="value: seo_title" type="text" placeholder="SEO Title" name="page[seo_title]">
+                     <input id="seotitle" class="form-input" data-bind="textInput: seo_title, attr: {maxlength: 65}" type="text" placeholder="SEO Title" name="page[seo_title]">
+                     <span class="form-input__length" data-bind="text: seo_title().length"></span>
                   </div>
                  </div>
                  <div class="form-row">
                     <div class="col-3">
-                     <label for="seodescription" class="form-label">SEO {{$lang['Description']}}</label>
+                     <label for="seodescription" class="form-label">SEO {{$lang['Description']}}(min. 100, max. 145)</label>
                   </div>
                   <div class="col-9">
-                     <textarea data-bind="value: seo_description" id="seodescription" class="form-input" type="text" placeholder="SEO Description" name="page[seo_description]"></textarea>
+                     <textarea data-bind="textInput: seo_description, attr: {maxlength: 145, minlength: 100}" id="seodescription" class="form-input" type="text" placeholder="SEO Description" name="page[seo_description]"></textarea>
+                     <span class="form-input__length" data-bind="text: seo_description().length, css: {'form-input__length--error': seo_description().length < 100, 'form-input__length--success': seo_description().length >= 100}"></span>
                   </div>
                  </div>
             </div>

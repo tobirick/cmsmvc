@@ -53,8 +53,8 @@ export default class PagebuilderMainViewModel {
         });
 
         this.currentPageURL = ko.computed(() => {
-            if (this.currentLanguage()) {
-                return `${window.location.origin}/${this.currentLanguage().id === this.defaultLanguageID ? '' : this.currentLanguage().iso + '/'}${this.defaultPageSettings().slug()}`;
+            if (this.currentLanguage() && this.page()) {
+                return `${window.location.origin}/${this.currentLanguage().id === this.defaultLanguageID ? '' : this.currentLanguage().iso + '/'}${this.page().slug()}`;
             }
         });
 
@@ -136,10 +136,6 @@ export default class PagebuilderMainViewModel {
 
             this.defaultPageSettings(defaultPage);
 
-            this.defaultPageSettings().slug.subscribe(newValue => {
-                this.defaultPageSettings().slug(helpers.createSlug(newValue));
-            });
-
             response.langs.forEach(langPage => {
                 let page = {};
                 for (let key in langPage) {
@@ -150,6 +146,10 @@ export default class PagebuilderMainViewModel {
             });
 
             this.page(this.langPages()[0]);
+
+            this.page().slug.subscribe(newValue => {
+                this.page().slug(helpers.createSlug(newValue));
+            });
         });
     }
 

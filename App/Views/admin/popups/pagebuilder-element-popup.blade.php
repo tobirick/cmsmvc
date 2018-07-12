@@ -31,6 +31,18 @@
                                     </div>
                                  </div>
                             </div>
+                            <div data-bind="if: type() === 'download-src'">
+                                <div class="center-v-flex">
+                                    <input type="text" class="form-input" data-bind="textInput: value, attr:{id: key, placeholder: name}">
+                                    <button data-bind="click: $root.openMediaPopup" class="ml-1 button-primary">{{$lang['Choose Media']}}</button>
+                                </div>
+                                <div data-bind="visible: value" class="mt-2">
+                                    <strong class="mb-1 dp">{{$lang['Image Preview']}}</strong>
+                                    <div class="center-h-flex center-v-flex p-2" style="border: 1px solid #ddd; border-radius: 2px;">
+                                       <img class="mw-100" data-bind="attr: {src: value}">
+                                    </div>
+                                 </div>
+                            </div>
                             <div data-bind="if: type() === 'textarea'">
                                 <textarea class="form-input" data-bind="value: value, attr:{id: key, placeholder: name}"></textarea>
                             </div>

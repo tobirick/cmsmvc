@@ -42,11 +42,13 @@ export default class MediaManViewModel {
             if(fileArray.length > 0) {
                 const fileArrayToUpload = [];
                 for(let fileItem of fileArray) {
+                    console.log(fileItem);
                     const file = {
                         name: helpers.mediaElementFormat(decodeURI(fileItem.name)),
                         size: fileItem.size,
                         path: this.currentDir(),
-                        base: null
+                        base: null,
+                        fileType: fileItem.type
                     };
     
                     await helpers.getBase64(fileItem).then(base64String => {
@@ -216,7 +218,9 @@ export default class MediaManViewModel {
             if (response.message === 'success' && !response.error) {
                 response.element.forEach(uploadedFile => {
                     if(uploadedFile) {
-                        this.imagePreviews.push(`/content/media${uploadedFile.path}${uploadedFile.name}`);
+                        if(uploadedFile.fileType === 'image/png' || uploadedFile.fileType === 'image/jpg' || uploadedFile.fileType === 'image/jpeg') {
+                            this.imagePreviews.push(`/content/media${uploadedFile.path}${uploadedFile.name}`);
+                        }
                         const file = this.createElement(uploadedFile);
                         this.mediaElements.push(file);
                     }

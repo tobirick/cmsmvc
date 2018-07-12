@@ -9,8 +9,9 @@ class BaseController {
     private $publicPages = ['App\Controllers\IndexController', 'App\Controllers\DefaultPageController', 'App\Controllers\DefaultPostController'];
 
     public function render($template, $args = []) {
-        $pages = \App\Models\DefaultPage::getAllPages();
-        $mainMenuPages = \App\Models\Menu::getActiveMenuPages();
+        // All Pages
+        $pages = \App\Models\DefaultPage::getAllPages(1, 999999, Router::getCurrentPublicLanguage()['id']);
+        $mainMenuPages = \App\Models\Menu::getActiveMenuPages(Router::getCurrentPublicLanguage()['id']);
         $activeTheme = \App\Models\Theme::getActiveTheme();
         $settings = \App\Models\Settings::getSettings();
         $publicLanguages = \App\Models\Language::getAllLanguages();
@@ -24,11 +25,11 @@ class BaseController {
             ['key' => 'publiclanguages', 'value' => $publicLanguages]
         ];
 
-        // Minify CSS and JS
-        if(filter_var(getenv('DEV'), FILTER_VALIDATE_BOOLEAN)) {
-            Theme::combineCSS($activeTheme['name']);
-            Theme::combineJS($activeTheme['name']);
-        }
+       // Minify CSS and JS
+       if(filter_var(getenv('DEV'), FILTER_VALIDATE_BOOLEAN)) {
+           Theme::combineCSS($activeTheme['name']);
+           Theme::combineJS($activeTheme['name']);
+       }
 
         // Flash Messages
         if(isset($_SESSION['flash'])) {

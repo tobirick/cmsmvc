@@ -5,8 +5,8 @@
 <div style="display:none;" data-bind="visible: $root.mediaPopupVM().mediaPopupOpen, with: $root.mediaPopupVM()" class="popup pagebuilder-media-overview-popup higher-z">
         <div class="popup__container">
             <div class="popup__header">
-                <h3 class="popup__title">{{$lang['Choose Image']}}</h3>
-                <button data-bind="click: openUploadPopup" style="margin-right: auto; margin-left: 2rem;" class="button-primary">Upload Image</button>
+                <h3 class="popup__title">Choose Media</h3>
+                <button data-bind="click: openUploadPopup" style="margin-right: auto; margin-left: 2rem;" class="button-primary">Upload Media</button>
                 <span data-bind="click: closeMediaPopup" class="popup__close"></span>
             </div>
             <div class="popup__content">
@@ -27,7 +27,7 @@
                     <div class="col-8">
                         <div data-bind="visible: filteredMediaElements().length === 0" class="empty-state">
                             <span class="empty-state__icon"><i class="fa fa-image"></i></span>
-                            <div class="empty-state__text">No Images</div>
+                            <div class="empty-state__text">No Media</div>
                         </div>
                         <div data-bind="foreach: filteredMediaElements" class="images-preview">
                             <div data-bind="click: $parent.setMediaElement, css: {active: $parent.selectedMediaElement() && $parent.selectedMediaElement().id === id}" class="images-preview__item">

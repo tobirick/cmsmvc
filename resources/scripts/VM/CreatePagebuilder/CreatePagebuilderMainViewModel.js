@@ -9,7 +9,7 @@ import PagebuilderHandler from '../../Handlers/PagebuilderHandler';
 export default class CreatePagebuilderMainViewModel {
     constructor() {
         this.possibleFieldTypes = ko.observableArray([
-            'textarea', 'color', 'range', 'font-style', 'font-orientation', 'number', 'text', 'image-src', 'responsive-image-src', 'button-row', 'wysiwyg'
+            'textarea', 'color', 'range', 'font-style', 'font-orientation', 'number', 'text', 'image-src', 'responsive-image-src', 'button-row', 'wysiwyg', 'download-src'
         ]);
         this.fields = ko.observableArray([]);
         this.pagebuilderItem = ko.observable();

@@ -11,7 +11,7 @@
                         <div class="bigger">{{$lang['Drag your Files']}}</div>
                         <div class="mb-1">{{$lang['or']}}</div>
                         <label class="button-primary upload-zone__button" for="file">
-                            <input id="file" multiple type="file" multiple data-bind="fileInput: fileData" accept="image/*">
+                            <input id="file" multiple type="file" multiple data-bind="fileInput: fileData" accept="application/msword, application/vnd.ms-powerpoint, text/plain, application/pdf, image/*">
                             {{$lang['Choose File']}}
                         </label>
                     </div>
