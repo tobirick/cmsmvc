@@ -96,6 +96,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.3.3/theme-xcode.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.3.3/mode-html.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.3.3/ext-emmet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.3.3/ext-searchbox.js"></script>
     <script>
             var editor = ace.edit("editor");
             editor.setTheme("ace/theme/xcode");
