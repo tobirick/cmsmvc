@@ -22,7 +22,8 @@
                                 <div class="form-row">
                                     <input placeholder="Name" data-bind="value: name" class="form-input" type="text">
                                 </div>
-                                <div class="form-row">
+                                <div class="form-row" style="position: relative;height:500px;">
+                                    <div data-bind="ace: html, aceOptions: {mode: 'html', theme: 'xcode'}" id="editor"></div>
                                     <textarea placeholder="Content" data-bind="value: html" class="form-input"></textarea>
                                 </div>
                                 <div class="form-row">
@@ -61,4 +62,27 @@
                 </div>
     </div>
 </div>
+<style>
+    #editor { 
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 9999;
+        border-radius: 4px;
+        border: 1px solid #ddd;
+    }
+</style>
+<script src="https://cloud9ide.github.io/emmet-core/emmet.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.3.3/ace.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.3.3/theme-xcode.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.3.3/mode-html.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.3.3/ext-emmet.js"></script>
+<script>
+        var editor = ace.edit("editor");
+        editor.setTheme("ace/theme/xcode");
+        editor.session.setMode("ace/mode/html");
+        editor.setOption("enableEmmet", true);
+    </script>
 @stop

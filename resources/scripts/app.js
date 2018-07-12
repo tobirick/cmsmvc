@@ -5,6 +5,7 @@ import "knockout-file-bindings";
 import "jquery-ui";
 import "spectrum-colorpicker";
 import "./bindings";
+import './aceBinding';
 
 import { validator } from "./validate";
 import loading from "./loading";
