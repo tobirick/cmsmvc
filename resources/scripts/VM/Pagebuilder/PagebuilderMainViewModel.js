@@ -78,6 +78,23 @@ export default class PagebuilderMainViewModel {
         csrf.updateToken(response.csrfToken);
     }
 
+    openFeatureImgMediaPopup = () => {
+        this.popupOpen(true);
+        this.mediaPopupVM().openMediaPopup();
+        this.mediaPopupVM().setInitialMediaElement(this.defaultPageSettings().feature_img());
+        const subscription = this.mediaPopupVM().selectedMediaElement.subscribe(() => {
+            const path = this.mediaPopupVM().selectedMediaElementPath();
+            this.defaultPageSettings().feature_img(path);
+        });
+
+        this.mediaPopupVM().mediaPopupOpen.subscribe(() => {
+            if(!this.mediaPopupVM().mediaPopupOpen()) {
+                this.popupOpen(false);
+                subscription.dispose();
+            }
+        });
+    }
+
     openMediaPopup = (element) => {
         this.mediaPopupVM().openMediaPopup();
         this.mediaPopupVM().setInitialMediaElement(element instanceof PagebuilderSectionModel || element instanceof PagebuilderRowModel ? element.bg_image() : element.value());

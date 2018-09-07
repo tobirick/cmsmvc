@@ -128,12 +128,13 @@ class DefaultPage extends Model {
     
     public static function updatePage($pageid, $page) {
         $db = static::getDB();
-        $stmt = $db->prepare('UPDATE pages SET name = :name, updated_at = now(), is_active = :is_active, white_logo_active = :white_logo_active WHERE id = :id');
+        $stmt = $db->prepare('UPDATE pages SET name = :name, updated_at = now(), is_active = :is_active, white_logo_active = :white_logo_active, feature_img = :feature_img WHERE id = :id');
         $stmt->execute([
             ':id' => $pageid,
             ':name' => $page['name'],
             ':is_active' => $page['is_active'] ? 1 : 0,
-            ':white_logo_active' => $page['white_logo_active'] ? 1 : 0
+            ':white_logo_active' => $page['white_logo_active'] ? 1 : 0,
+            ':feature_img' => $page['feature_img']
         ]);
 
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
