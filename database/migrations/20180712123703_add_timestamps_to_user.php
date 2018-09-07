@@ -3,7 +3,7 @@
 
 use Phinx\Migration\AbstractMigration;
 
-class AddSubMenu extends AbstractMigration
+class AddTimestampsToUser extends AbstractMigration
 {
     /**
      * Change Method.
@@ -28,10 +28,10 @@ class AddSubMenu extends AbstractMigration
      */
     public function change()
     {
-        $menuitems = $this->table('menu_items');
-        $menuitems
-        ->addColumn('parent_id', 'integer', ['null' => true])
-        ->addForeignKey('parent_id', 'menu_items', 'id', ['delete'=> 'CASCADE', 'update'=> 'NO_ACTION'])
+        $users = $this->table('users');
+        $users
+        ->addColumn('updated_at', 'timestamp', ['null' => false, 'default' => 'CURRENT_TIMESTAMP'])
+        ->addColumn('last_login', 'timestamp', ['null' => false, 'default' => '0000-00-00 00:00:00'])
         ->update();
     }
 }

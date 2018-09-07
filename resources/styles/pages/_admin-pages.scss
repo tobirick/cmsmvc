@@ -357,7 +357,8 @@
 
          &.active,
          &:hover {
-            background-color: #f1f1f1;
+            background-color: $primary-color;
+            color: #fff;
             @include box-shadow();
             font-weight: bold;
          }

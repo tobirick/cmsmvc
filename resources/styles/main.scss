@@ -1,6 +1,8 @@
 // Vendors
 @import 'vendors/font-awesome/font-awesome.scss';
 @import '../../node_modules/spectrum-colorpicker/spectrum';
+@import 'vendors/quill/core';
+@import 'vendors/quill/snow';
 @import 'vendors/flag-icon/flag-icon.scss';
 
 @import 'utils/functions';
@@ -38,16 +40,3 @@
 @import 'pages/admin-dashboard';
 
 @import 'utils/helpers';
-
-#myProgress {
-    width: 100%;
-}
-
-#myBar {
-    width: 10%;
-    height: 30px;
-    background-color: #4CAF50;
-    text-align: center; /* To center it horizontally (if you want) */
-    line-height: 30px; /* To center it vertically */
-    color: white; 
-}

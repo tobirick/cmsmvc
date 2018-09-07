@@ -41,43 +41,6 @@
                 </form>
             </div>
         </div>
-    <div class="col-12 col-md-12">
-        <div class="row">
-            <div class="col-12 col-md-6">
-                <div class="admin-box">
-                    <h3 class="admin-box__title">{{$lang['New Menu Item']}}</h3>
-                        <div class="form-row">
-                            <div class="col-6">
-                                <input data-bind="value: newMenuItem.name, valueUpdate: 'afterkeydown'" class="form-input" type="text" placeholder="Name">
-                            </div>
-                            <div class="col-4">
-                                <select class="form-input" data-bind="options: $root.pagesList, optionsText: 'name', optionsValue: 'id', value: newMenuItem.page_id"></select>
-                            </div>
-                            <div class="col-1">
-                                <button data-bind="click: addMenuListItem" class="button-primary-icon"><i class="fa fa-check"></i></button>
-                            </div>
-                        </div>
-                </div>
-            </div>
-            <div class="col-12 col-md-6">
-                <div class="admin-box">
-                    <h3 class="admin-box__title">Add new Menu Item Link</h3>
-                        <div class="form-row">
-                            <div class="col-6">
-                                <input data-bind="value: newMenuItem.name, valueUpdate: 'afterkeydown'" class="form-input" type="text" placeholder="Name">
-                            </div>
-                            <div class="col-4">
-                                <input type="text" data-bind="value: newMenuItem.link_to, " class="form-input" placeholder="Link">
-                            </div>
-                            <div class="col-1">
-                                <button data-bind="click: addMenuListItemLink" class="button-primary-icon"><i class="fa fa-check"></i></button>
-                            </div>
-                        </div>
-                </div>
-            </div>
-        </div>
-
-        </div>
     </div>
  
     <div class="row">
@@ -90,40 +53,103 @@
                 </div>
             </div>
         </div>
-        <div class="col-12">
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-4">
+            <div style="position: sticky; top: 20px;">
+                            <div class="admin-box">
+                                <h3 class="admin-box__title">{{$lang['New Menu Item']}}</h3>
+                                <div class="admin-box__sub-box">
+                                    <div class="admin-box__sub-header">
+                                        <h4 class="admin-box__sub-title">Add Page</h4>
+                                        <div class="admin-box__sub-toggle"></div>
+                                    </div>
+                                    <div class="admin-box__sub-content">
+                                            <div class="form-row">
+                                                <label for="name" class="form-label">Text</label>
+                                                <input id="name" data-bind="value: newMenuItem.name, valueUpdate: 'afterkeydown'" class="form-input" type="text" placeholder="Name">
+                                            </div>
+                                            <div class="form-row">
+                                                <label for="page" class="form-label">Page</label>
+                                                <select id="page" class="form-input" data-bind="value: newMenuItem.page_id, options: $root.pagesList, optionsText: 'name', optionsValue: 'id'"></select>
+                                            </div>
+                                            <div class="form-row end-h-flex">
+                                                <button data-bind="click: addMenuListItem" class="button-primary">Add</button>
+                                            </div>
+                                    </div>
+                                </div>
+                                <div class="admin-box__sub-box">
+                                    <div class="admin-box__sub-header">
+                                        <h4 class="admin-box__sub-title">Add Link</h4>
+                                        <div class="admin-box__sub-toggle"></div>
+                                    </div>
+                                    <div class="admin-box__sub-content">
+                                            <div class="form-row">
+                                                <label for="linkname" class="form-label">Text</label>
+                                                <input id="linkname" data-bind="value: newMenuItem.name, valueUpdate: 'afterkeydown'" class="form-input" type="text" placeholder="Name">
+                                            </div>
+                                            <div class="form-row">
+                                                <label for="link" class="form-label">Link</label>
+                                                <input id="link" type="text" data-bind="value: newMenuItem.link_to, " class="form-input" placeholder="Link">
+                                            </div>
+                                            <div class="form-row end-h-flex">
+                                                <button data-bind="click: addMenuListItemLink" class="button-primary">Add</button>
+                                            </div>
+                                        </div>
+                                </div>
+                    </div>
+                </div>
+            
+                    </div>
+        <div class="col-12 col-md-8">
             <div class="admin-box">
                 <h3 class="admin-box__title">{{$lang['Menu']}} Item's</h3>
                     <div id="menu-list">
                         <div data-bind="visible: filteredMenuItems().length > 0" class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>{{$lang['Name']}}</th>
-                                        <th>{{$lang['Connected Page']}}/Link</th>
-                                        <th>CSS {{$lang['Class']}}</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody data-bind="sortable: {data: filteredMenuItems, options: { cancel: 'td:not(.editable), button:not(.sort), input, select' }}">
-                                    <tr>
-                                        <td>
-                                            <input class="form-input" data-bind="value: name, valueUpdate: 'afterkeydown'" type="text" placeholder="Name">
-                                        </td>
-                                        <td>
-                                            <input placeholder="Link" type="text" class="form-input" data-bind="visible: type() === 'link', value: link_to, valueUpdate: 'afterkeydown'">
-                                            <select class="form-input" data-bind="visible: type() === 'page', options: $root.pagesList, optionsText: 'name', value: page_id, optionsValue: 'id'"></select>
-                                        </td>
-                                        <td>
-                                            <input placeholder="z.B. button" data-bind="value: css_class, valueUpdate: 'afterkeydown'" type="text" class="form-input">
-                                        </td>
-                                        <td class="align-right editable auto-width">
-                                            <button data-bind="click: updateMenuListItem" class="button-primary-icon"><i class="fa fa-check"></i></button>
-                                            <button data-bind="click: deleteMenuListItem" class="button-error-icon"><i class="fa fa-trash"></i></button>
-                                            <button class="button-warning-icon sort"><i class="fa fa-arrows"></i></button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="menu">
+                                <div data-bind="sortable: {data: filteredMenuItems}" class="menu__items-wrapper">
+                                    <div class="menu__item-wrapper">
+                                        <div class="menu__item">
+                                            <div>
+                                                <i data-bind="visible: type() === 'page'" class="fa fa-file"></i>
+                                                <i data-bind="visible: type() === 'link'" class="fa fa-link"></i>
+                                                <input class="form-input" data-bind="value: name, valueUpdate: 'afterkeydown'" type="text" placeholder="Name">
+                                            </div>
+                                            <div>
+                                                <input placeholder="Link" type="text" class="form-input" data-bind="visible: type() === 'link', value: link_to, valueUpdate: 'afterkeydown'">
+                                                <select class="form-input" data-bind="visible: type() === 'page', options: $root.pagesList, optionsText: 'name', value: page_id, optionsValue: 'id'"></select>
+                                            </div>
+                                            <div>
+                                                <input placeholder="CSS Klasse" data-bind="value: css_class, valueUpdate: 'afterkeydown'" type="text" class="form-input">
+                                            </div>
+                                            <div class="action">
+                                                <button data-bind="click: updateMenuListItem"><i class="fa fa-check"></i></button>
+                                                <button data-bind="click: deleteMenuListItem"><i class="fa fa-trash"></i></button>
+                                            </div>
+                                        </div>
+                                                <div style="min-height: 10px;" data-bind="sortable: {data: subListItems}" class="submenu">
+                                                    <div class="submenu__item">
+                                                        <div>
+                                                                <i data-bind="visible: type() === 'page'" class="fa fa-file"></i>
+                                                                <i data-bind="visible: type() === 'link'" class="fa fa-link"></i>
+                                                            <input data-bind="value: name, valueUpdate: 'afterkeydown'" class="form-input" type="text" placeholder="Name"> 
+                                                        </div>
+                                                        <div>
+                                                                <input placeholder="Link" type="text" class="form-input" data-bind="visible: type() === 'link', value: link_to, valueUpdate: 'afterkeydown'">
+                                                                <select class="form-input" data-bind="visible: type() === 'page', options: $root.pagesList, optionsText: 'name', value: page_id, optionsValue: 'id'"></select>
+                                                            </div>
+                                                        <div>
+                                                                <input placeholder="CSS Klasse" data-bind="value: css_class, valueUpdate: 'afterkeydown'" type="text" class="form-input">
+                                                        </div>
+                                                        <div class="action">
+                                                                <button data-bind="click: updateMenuListItem"><i class="fa fa-check"></i></button>
+                                                                <button data-bind="click: deleteMenuListItem"><i class="fa fa-trash"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div data-bind="visible: filteredMenuItems().length === 0" class="empty-state">
                             <span class="empty-state__icon"><i class="fa fa-user-secret"></i></span>

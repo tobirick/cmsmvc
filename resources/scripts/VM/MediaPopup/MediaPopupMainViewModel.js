@@ -1,5 +1,9 @@
 import ko from 'knockout';
 import MediaHandler from '../../Handlers/MediaHandler';
+import MediaElementModel from '../Media/MediaElementModel';
+import helpers from '../../helpers';
+import csrf from '../../csrf';
+import loading from '../../loading';
 
 export default class MediaPopupMainViewModel {
     constructor() {
@@ -9,6 +13,36 @@ export default class MediaPopupMainViewModel {
         this.excludeMediaImages = ko.observable(false);
 
         this.mediaPopupOpen = ko.observable(false);
+        this.uploadPopupOpen = ko.observable(false);
+        this.fileData = ko.observable({
+            file: ko.observable(null),
+            dataURL: ko.observable(null),
+            fileArray: ko.observableArray([]),
+            dataURLArray: ko.observableArray([])
+        });
+        this.imagePreviews = ko.observableArray([]);
+
+        this.fileData().fileArray.subscribe(async (fileArray) => {
+            this.imagePreviews([]);
+            if(fileArray.length > 0) {
+                const fileArrayToUpload = [];
+                for(let fileItem of fileArray) {
+                    const file = {
+                        name: helpers.mediaElementFormat(decodeURI(fileItem.name)),
+                        size: fileItem.size,
+                        path: '/',
+                        base: null
+                    };
+    
+                    await helpers.getBase64(fileItem).then(base64String => {
+                        file.base = base64String;
+                        fileArrayToUpload.push(file);
+                    })
+
+                }
+                this.uploadFiles(fileArrayToUpload);
+            }
+        });
 
         this.selectedMediaElement = ko.observable(null);
         this.selectedMediaElementPath = ko.computed(() => {
@@ -59,5 +93,39 @@ export default class MediaPopupMainViewModel {
 
     getActiveMediaElementURL() {
         return '/content/media' + this.selectedMediaElement().path + this.selectedMediaElement().name;
+    }
+
+    closePopup() {
+        this.uploadPopupOpen(false);
+    }
+    
+    async uploadFiles(files) {
+        const data = {
+            csrf_token: csrf.getToken(),
+            files,
+            type: 'file'
+        }
+
+        loading.setTarget('.upload-zone');
+            loading.addSpinner();
+            const response = await MediaHandler.addFiles(data);
+    
+            if (response.message === 'success' && !response.error) {
+                response.element.forEach(uploadedFile => {
+                    if(uploadedFile) {
+                        this.imagePreviews.push(`/content/media${uploadedFile.path}${uploadedFile.name}`);
+                        this.mediaElements.unshift(uploadedFile);
+                    }
+                })
+            } else {
+                console.log(reponse.error);
+            }
+
+            loading.removeSpinner();
+            csrf.updateToken(response.csrfToken);
+    }
+
+    openUploadPopup() {
+        this.uploadPopupOpen(true);
     }
 }

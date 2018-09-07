@@ -3,7 +3,7 @@
 
 use Phinx\Migration\AbstractMigration;
 
-class AddSubMenu extends AbstractMigration
+class AddMailConfigFields extends AbstractMigration
 {
     /**
      * Change Method.
@@ -28,10 +28,11 @@ class AddSubMenu extends AbstractMigration
      */
     public function change()
     {
-        $menuitems = $this->table('menu_items');
-        $menuitems
-        ->addColumn('parent_id', 'integer', ['null' => true])
-        ->addForeignKey('parent_id', 'menu_items', 'id', ['delete'=> 'CASCADE', 'update'=> 'NO_ACTION'])
-        ->update();
+        $configRows = [
+            ['name' => 'from_mail', 'value' => ''],
+            ['name' => 'to_mail', 'value' => '']
+        ];
+
+        $this->insert('config', $configRows);
     }
 }

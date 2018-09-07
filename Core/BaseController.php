@@ -9,8 +9,9 @@ class BaseController {
     private $publicPages = ['App\Controllers\IndexController', 'App\Controllers\DefaultPageController', 'App\Controllers\DefaultPostController'];
 
     public function render($template, $args = []) {
-        $pages = \App\Models\DefaultPage::getAllPages();
-        $mainMenuPages = \App\Models\Menu::getActiveMenuPages();
+        // All Pages
+        $pages = \App\Models\DefaultPage::getAllPages(1, 999999, Router::getCurrentPublicLanguage()['id']);
+        $mainMenuPages = \App\Models\Menu::getActiveMenuPages(Router::getCurrentPublicLanguage()['id']);
         $activeTheme = \App\Models\Theme::getActiveTheme();
         $settings = \App\Models\Settings::getSettings();
         $publicLanguages = \App\Models\Language::getAllLanguages();
@@ -24,11 +25,11 @@ class BaseController {
             ['key' => 'publiclanguages', 'value' => $publicLanguages]
         ];
 
-        // Minify CSS and JS
-        if(filter_var(getenv('DEV'), FILTER_VALIDATE_BOOLEAN)) {
-            Theme::combineCSS($activeTheme['name']);
-            Theme::combineJS($activeTheme['name']);
-        }
+       // Minify CSS and JS
+       if(filter_var(getenv('DEV'), FILTER_VALIDATE_BOOLEAN)) {
+           Theme::combineCSS($activeTheme['name']);
+           Theme::combineJS($activeTheme['name']);
+       }
 
         // Flash Messages
         if(isset($_SESSION['flash'])) {
@@ -39,14 +40,16 @@ class BaseController {
 
         // Admin Pages
          if(!in_array(get_class($this), $this->publicPages)) {
-            $csrf = new CSRF();
+            //$csrf = new CSRF();
             $language = Router::getLanguage();
             $languagesArray = $language->getLanguagesArray();
             $currentLanguage = $language->getCurrentLanguage();
             $allLanguages = $language->getAllLanguages();
             $getAllMenuNames = \App\Models\Menu::getAllMenuTypeNames();
 
-            $shares[] = ['key' => 'csrf', 'value' => $csrf->getToken()];
+            if(isset($_SESSION['csrf_token'])) {
+                $shares[] = ['key' => 'csrf', 'value' => $_SESSION['csrf_token']];
+            }
             $shares[] = ['key' => 'lang', 'value' => $languagesArray];
             $shares[] = ['key' => 'curLang', 'value' => $currentLanguage];
             $shares[] = ['key' => 'allLanguages', 'value' => $allLanguages];
@@ -111,7 +114,12 @@ class BaseController {
 
     public static function publicRedirect($url) {
       $currentPublicLanguage = Router::getCurrentPublicLanguage();
-      $redirectTo = '/' . $currentPublicLanguage['iso'] . $url;
+      $defaultLanguageId = \App\Models\Settings::getSettings()['default_language_id'];
+      if($currentPublicLanguage['id'] === $defaultLanguageId) {
+        $redirectTo = $url;
+      } else {
+          $redirectTo = '/' . $currentPublicLanguage['iso'] . $url;
+      }
       header('Location: ' . $redirectTo  );
       exit;
     }

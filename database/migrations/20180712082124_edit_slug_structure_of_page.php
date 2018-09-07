@@ -3,7 +3,7 @@
 
 use Phinx\Migration\AbstractMigration;
 
-class AddSubMenu extends AbstractMigration
+class EditSlugStructureOfPage extends AbstractMigration
 {
     /**
      * Change Method.
@@ -28,10 +28,14 @@ class AddSubMenu extends AbstractMigration
      */
     public function change()
     {
-        $menuitems = $this->table('menu_items');
-        $menuitems
-        ->addColumn('parent_id', 'integer', ['null' => true])
-        ->addForeignKey('parent_id', 'menu_items', 'id', ['delete'=> 'CASCADE', 'update'=> 'NO_ACTION'])
+        $page = $this->table('pages');
+        $page
+        ->removeColumn('slug')
+        ->update();
+
+        $pagecontent = $this->table('page_contents');
+        $pagecontent
+        ->addColumn('slug', 'string', ['limit' => 255])
         ->update();
     }
 }

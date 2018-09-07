@@ -31,8 +31,23 @@
                                     </div>
                                  </div>
                             </div>
+                            <div data-bind="if: type() === 'download-src'">
+                                <div class="center-v-flex">
+                                    <input type="text" class="form-input" data-bind="textInput: value, attr:{id: key, placeholder: name}">
+                                    <button data-bind="click: $root.openMediaPopup" class="ml-1 button-primary">{{$lang['Choose Media']}}</button>
+                                </div>
+                                <div data-bind="visible: value" class="mt-2">
+                                    <strong class="mb-1 dp">{{$lang['Image Preview']}}</strong>
+                                    <div class="center-h-flex center-v-flex p-2" style="border: 1px solid #ddd; border-radius: 2px;">
+                                       <img class="mw-100" data-bind="attr: {src: value}">
+                                    </div>
+                                 </div>
+                            </div>
                             <div data-bind="if: type() === 'textarea'">
                                 <textarea class="form-input" data-bind="value: value, attr:{id: key, placeholder: name}"></textarea>
+                            </div>
+                            <div data-bind="if: type() === 'wysiwyg'">
+                                <div data-bind="quill: value"></div>
                             </div>
                             <div class="center-v-flex" data-bind="if: type() === 'text' || type() === 'range' || type() === 'number'">
                                 <input class="form-input" max="10" min="1" step="0.1" data-bind="textInput: value, attr:{id: key, placeholder: name, type: type, min: 1, max: 10, step: 0.1}">
@@ -126,8 +141,9 @@
                      <div class="col-3">
                         <label for="bgcolor" class="form-label">{{$lang['Background Color']}}</label>
                      </div>
-                     <div class="col-9">
-                        <input data-bind="value: bg_color" type="text" id="bgcolor" class="form-input" placeholder="#f5f5f5">
+                     <div class="col-9 center-v-flex">
+                        <input class="form-input" type="text" data-bind="colorPicker: bg_color">
+                        <input data-bind="textInput: bg_color, attr: {disabled: true}" type="text" id="bgcolor" class="form-input" placeholder="#f5f5f5">
                      </div>
                   </div>
                </div>

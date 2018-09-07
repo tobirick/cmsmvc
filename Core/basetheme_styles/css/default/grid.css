@@ -5,9 +5,9 @@
   margin-right: auto;
   margin-left: auto; }
 
-  .container-fluid {
-    max-width: none;
-  }
+.container-fluid {
+  max-width: none;
+}
 
 .row {
   display: flex;

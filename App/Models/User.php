@@ -44,7 +44,7 @@ class User extends Model {
         }
 
         $db = static::getDB();
-        $stmt = $db->prepare('UPDATE users SET name = :name, email = :email, user_role_id = :user_role_id, first_name = :first_name, last_name = :last_name, user_desc = :user_desc, user_img = :user_img WHERE id = :id');
+        $stmt = $db->prepare('UPDATE users SET name = :name, email = :email, user_role_id = :user_role_id, first_name = :first_name, last_name = :last_name, user_desc = :user_desc, user_img = :user_img, updated_at = now() WHERE id = :id');
         $stmt->execute([
             ':id' => $id,
             ':name' => $user['name'],
@@ -129,6 +129,12 @@ class User extends Model {
     }
 
     public static function doLogin($user) {
+        $db = static::getDB();
+        $stmt = $db->prepare('UPDATE users SET last_login = now() WHERE id = :id');
+        $stmt->execute([
+            ':id' => $user['id']
+        ]);
+        
         unset($_SESSION['userid']);
         session_regenerate_id(true);
         if(!isset($_SESSION['userid'])) {

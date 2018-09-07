@@ -119,6 +119,8 @@ export default class PagebuilderSectionModel {
 
         this.deleteSection = delegates.deleteSection;
         this.cloneSection = delegates.cloneSection;
+
+        this.deletedRows = [];
     }
 
     changeBackgroundMode = (newMode) => {
@@ -130,6 +132,7 @@ export default class PagebuilderSectionModel {
     }
 
     deleteRow = row => {
+        this.deletedRows.push(row.id());
         this.rows.remove(row);
     };
 

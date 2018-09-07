@@ -125,6 +125,7 @@ class Media extends Model {
             'type' => 'file',
             'size' => $data['size'] . ' KB',
             'path' => $data['path'],
+            'fileType' => $data['fileType'],
             'position' => 0
         ];
 

@@ -8,12 +8,20 @@ use \App\Models\DefaultPage;
 
 class DefaultPageController extends BaseController {
     public function index($args) {
-      $homePage = DefaultPage::getHomePage();
+
+      $homePage = DefaultPage::getHomePage($args['lang_id']);
+
+      if(!$args['page-args']['content']) {
+        self::render('error/404');
+        return;
+      }
 
        if(!$args['page-args']['is_active'] && !self::getUser()) {
          self::render('error/404');
          return;
-       } else if($homePage && $homePage['id'] === $args['page-args']['id'] && isset($args['params']['slug'])) {
+       } 
+       
+       if($homePage && $homePage['id'] === $args['page-args']['id'] && isset($args['params']['slug'])) {
          self::publicRedirect('/');
          return;
        }

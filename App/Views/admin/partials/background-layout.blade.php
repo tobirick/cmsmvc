@@ -8,9 +8,11 @@
     @include('admin.partials.styles')
 </head>
 <body>
+        @if(isset($flash))
+        @include('admin.components.flash')
+    @endif
     <div id="particles-js"></div>
         @yield('content')
-   <input type="hidden" id="csrftoken" value="{{$csrf}}">
     @include('admin.partials.scripts')
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>

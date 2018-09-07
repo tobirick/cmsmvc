@@ -2,7 +2,6 @@
 // ENV
 $dotenv = new Dotenv\Dotenv(__DIR__ . '/..');
 $dotenv->load();
-
 // Errors
 if(filter_var(getenv('SHOW_ERROR'), FILTER_VALIDATE_BOOLEAN)) {
     $whoops = new \Whoops\Run;
@@ -18,12 +17,12 @@ if(!$db) {
 }
 
 // Redirects
-/*
+
 $requestURL = $_SERVER['REQUEST_URI'];
 if($requestURL === '/admin/' || $requestURL === '/admin') {
     header('Location: /admin/dashboard');
 }
-*/
+
 
 // Routes
 require_once(__DIR__ . '/Routes/index.php');

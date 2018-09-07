@@ -53,7 +53,7 @@ export const validator = {
     validate(e) {
         e.preventDefault();
         for (let element of this.data.elements) {
-            if (element.dataset.required === 'true' && element.value.length === 0) {
+            if (element.dataset.required === 'true' && element.value.trim().length === 0) {
                 this.addErrorToElement(element, { message: 'This field is required' });
                 continue;
             }

@@ -18,20 +18,50 @@
         <div class="row">
             <div class="col-12">
                 <div class="admin-box">
-                   <div class="row mb-2">
+                   <div style="justify-content: space-between;" class="row mb-2">
                     <span class="form-checkbox">
                         <label for="enable-drop">
                             <input class="form-checkbox__input" id="enable-drop" type="checkbox" data-bind="checked: enableDrop">
                             <span class="form-checkbox__label">{{$lang['Enable Drop']}}</span>
                         </label>
                     </span>
+                    <div class="media-admin__mode">
+                        <span data-bind="css: {active: currentMode() === 'default'}, click: changeMode.bind(this, 'default')" class="media-admin__mode-item"><i class="fa fa-th-list"></i></span>
+                        <span data-bind="css: {active: currentMode() === 'grid'}, click: changeMode.bind(this, 'grid')" class="media-admin__mode-item"><i class="fa fa-th"></i></span>
+                    </div>
                   </div>
                     <div class="breadcrumbs">
                         <ul data-bind="foreach: pathArr">
                             <li data-bind="text: text, click: $root.changeDir"></li>
                         </ul>
                     </div>
-                    <div class="">
+                    <div data-bind="if: currentMode() === 'grid'" class="media-grid">
+                        <div class="media-grid__wrapper" data-bind="visible: mediaElements().length > 0, foreach: {data: mediaElements}">
+                            <div style="overflow: hidden;" data-bind="if: $index() === 0, visible: $index() === 0 && $root.currentDir() !== '/'" class="col-lg-3 col-md-4 col-12">
+                                <div data-bind="click: $root.goDirBack" class="media-grid__item">
+                                    <div style="margin-top: auto;">
+                                        <i style="font-size: 5rem;" class="fa fa-arrow-left"></i>
+                                    </div>
+                                    <span class="media-grid__item-text">{{$lang['Go back']}}</span>
+                            </div>
+                            </div>
+                            <div style="overflow: hidden;" class="col-lg-3 col-md-4 col-12">
+                            <div data-bind="click: type() === 'dir' ? openFolder : openFile" class="media-grid__item">
+                                <span class="media-grid__item-delete" data-bind="click: deleteMediaElement" class="cursor-p"><i class="fa fa-trash"></i></span>
+                                <div style="margin-top: auto;">
+                                    <div data-bind="if: type() === 'file'">
+                                        <img data-bind="attr: {src: $root.baseURL + '/content/media' + path() + name()}" class="media-grid__item-img">
+                                    </div>
+                                    <div data-bind="if: type() ==='dir'">
+                                        <i style="font-size: 5rem;" class="fa fa-folder"></i>
+                                    </div>
+                                </div>
+                                <span class="media-grid__item-text" data-bind="text: name"></span>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div data-bind="if: currentMode() === 'default'">
                         <table class="table normal">
                         <thead>
                             <tr>

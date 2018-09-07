@@ -21,7 +21,8 @@ class PagesController extends BaseController {
             $numberOfPages = 1;
         }
 
-        $pagesadmin = DefaultPage::getAllPages($pageNumber, $numberOfPagesPerPage);
+        $lang = \App\Models\Language::getDefaultLanguage(true);
+        $pagesadmin = DefaultPage::getAllPages($pageNumber, $numberOfPagesPerPage, $lang['id']);
         self::render('admin/pages/index', [
             'pagesadmin' => $pagesadmin,
             'currentpage' => $pageNumber,
@@ -31,7 +32,8 @@ class PagesController extends BaseController {
     }
 
     public function getAllPages() {
-        $pages = DefaultPage::getAllPages();
+        $lang = \App\Models\Language::getDefaultLanguage(true);
+        $pages = DefaultPage::getAllPages(1, 99999999, $lang['id']);
 
         header('Content-type: application/json');
         echo json_encode($pages);
@@ -76,7 +78,7 @@ class PagesController extends BaseController {
                 $newPage = $page->savePage($userID);
                 $languages = Language::getAllLanguages();
                 foreach($languages as $language) {
-                   DefaultPage::addPageContents($newPage['id'], $language['id']);
+                   DefaultPage::addPageContents($newPage['id'], $language['id'], $_POST['page']['slug']);
                 }
                 self::redirect('/admin/pages/' . $newPage['id'] . '/edit');
             } else {

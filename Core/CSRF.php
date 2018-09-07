@@ -2,13 +2,19 @@
 
 namespace Core;
 
-class CSRF {  
-    public static function getToken() {
+class CSRF {
+    public static function generateToken() {
         $token = new Token();
         $value = $token->getValue();
         $_SESSION["csrf_token"] = $value;
- 
-        return $value;
+    }
+
+    public static function getToken() {
+        if(isset($_SESSION['csrf_token'])) {
+            return $_SESSION["csrf_token"];
+        } else {
+            return false;
+        }
     }
 
     public static function checkToken() {
@@ -21,7 +27,6 @@ class CSRF {
             // Get the token from the session and remove it
             $token = isset($_SESSION['csrf_token']) ? $_SESSION['csrf_token'] : '';
 
-            unset($_SESSION['csrf_token']);
             if ($_POST['csrf_token'] != $token) {
                 header('HTTP/1.0 403 Forbidden');
                 exit('Invalid CSRF token');
@@ -38,7 +43,6 @@ class CSRF {
             // Get the token from the session and remove it
             $token = isset($_SESSION['csrf_token']) ? $_SESSION['csrf_token'] : '';
 
-            unset($_SESSION['csrf_token']);
             if ($formtoken != $token) {
                 header('HTTP/1.0 403 Forbidden');
                 exit('Invalid CSRF token');

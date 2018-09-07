@@ -26,7 +26,7 @@ export default class MediaManViewModel {
 
         this.newFolderName = ko.observable(null);
 
-        this.enableDrop = ko.observable(true);
+        this.enableDrop = ko.observable(false);
 
         this.currentDir.subscribe(() => {
             this.mediaElements([]);
@@ -39,15 +39,16 @@ export default class MediaManViewModel {
 
         this.fileData().fileArray.subscribe(async (fileArray) => {
             this.imagePreviews([]);
-            console.log(ko.toJS(this.fileData));
             if(fileArray.length > 0) {
                 const fileArrayToUpload = [];
                 for(let fileItem of fileArray) {
+                    console.log(fileItem);
                     const file = {
                         name: helpers.mediaElementFormat(decodeURI(fileItem.name)),
                         size: fileItem.size,
                         path: this.currentDir(),
-                        base: null
+                        base: null,
+                        fileType: fileItem.type
                     };
     
                     await helpers.getBase64(fileItem).then(base64String => {
@@ -59,20 +60,9 @@ export default class MediaManViewModel {
                 this.uploadFiles(fileArrayToUpload);
             }
 
-            /*
-            const data = ko.toJS(this.fileData);
-            if (data.base64String) {
-                const file = {
-                    name: helpers.mediaElementFormat(decodeURI(data.file.name)),
-                    size: data.file.size,
-                    path: this.currentDir(),
-                    base: data.base64String
-                }
-                this.uploadFile(file);
-            }
-            */
         });
-
+        
+        this.currentMode = ko.observable(localStorage.getItem('mode') ? localStorage.getItem('mode') : 'default');
         this.baseURL = window.location.origin;
 
         this.alert = ko.observable({
@@ -80,6 +70,11 @@ export default class MediaManViewModel {
             text: ko.observable(),
             type: ko.observable()
         });
+    }
+
+    changeMode = (mode) => {
+        this.currentMode(mode);
+        localStorage.setItem('mode', mode);
     }
 
     showAlert(type, message) {
@@ -189,7 +184,9 @@ export default class MediaManViewModel {
         csrf.updateToken(response.csrfToken);
     }
 
-    deleteMediaElement = async (element) => {
+    deleteMediaElement = async (element, e) => {
+        e.stopPropagation();
+        e.preventDefault();
         const data = {
             csrf_token: csrf.getToken(),
             element: {
@@ -214,9 +211,6 @@ export default class MediaManViewModel {
             type: 'file'
         }
 
-        
-        if(this.enableDrop()) {
-            this.enableDrop(false);
             loading.setTarget('.upload-zone');
             loading.addSpinner();
             const response = await MediaHandler.addFiles(data);
@@ -224,7 +218,9 @@ export default class MediaManViewModel {
             if (response.message === 'success' && !response.error) {
                 response.element.forEach(uploadedFile => {
                     if(uploadedFile) {
-                        this.imagePreviews.push(`/content/media${uploadedFile.path}${uploadedFile.name}`);
+                        if(uploadedFile.fileType === 'image/png' || uploadedFile.fileType === 'image/jpg' || uploadedFile.fileType === 'image/jpeg') {
+                            this.imagePreviews.push(`/content/media${uploadedFile.path}${uploadedFile.name}`);
+                        }
                         const file = this.createElement(uploadedFile);
                         this.mediaElements.push(file);
                     }
@@ -233,16 +229,14 @@ export default class MediaManViewModel {
                 this.showAlert('error', response.error);
             }
             loading.removeSpinner();
-            this.enableDrop(true);
             csrf.updateToken(response.csrfToken);
-        }
     }
 
     openFolder = (element) => {
         this.currentDir(element.path() + element.name() + '/');
     }
 
-    goDirBack() {
+    goDirBack = () => {
         const dirArr = this.currentDir().split('/');
         const newDir = dirArr.slice(0, dirArr.length - 2).join('/') + '/';
 

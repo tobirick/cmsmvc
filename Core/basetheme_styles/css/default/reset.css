@@ -57,3 +57,60 @@ input[type=file],
 button {
     cursor: pointer;
 }
+
+a {
+    -webkit-transition: 0.2s ease-in all;
+    -moz-transition: 0.2s ease-in all;
+    -ms-transition: 0.2s ease-in all;
+    -o-transition: 0.2s ease-in all;
+    transition: 0.2s ease-in all;
+}
+
+.to-top-button {
+    right: 30px;
+    position: fixed;
+    bottom: 30px;
+    color: #fff;
+    padding: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 1px 5px 1px rgba(22,27,53,.15);
+    z-index: 9999;
+    cursor: pointer;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.to-top-button.visible {
+    visibility: visible;
+    opacity: 1;
+}
+
+.to-top-button:hover {
+    -webkit-transform: translateY(-2px);
+    -moz-transform: translateY(-2px);
+    -ms-transform: translateY(-2px);
+    -o-transform: translateY(-2px);
+    transform: translateY(-2px);
+}
+
+.to-top-button span {
+    border-style: solid;
+    border-width: .25em .25em 0 0;
+    content: '';
+    display: inline-block;
+    height: 1.5rem;
+    transform: rotate(-45deg);
+    vertical-align: top;
+    width: 1.5rem;
+    padding: 0.75rem;
+    position: relative;
+    top: 4px;
+}
+
+.button {
+    -webkit-transition: 0.2s ease-in all;
+    -moz-transition: 0.2s ease-in all;
+    -ms-transition: 0.2s ease-in all;
+    -o-transition: 0.2s ease-in all;
+    transition: 0.2s ease-in all;
+}

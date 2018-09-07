@@ -37,4 +37,106 @@
         display: inline-block;
         margin-bottom: 1.2rem;
     }
+
+    &__sub-box {
+        margin-bottom: 2rem;
+
+        &:first-of-type {
+            margin-top: 2rem;
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    &__sub-box {
+
+        &.open {
+            & .admin-box__sub-content {
+            }   
+
+            & .admin-box__sub-toggle {
+                
+                &::before {
+                    opacity: 0;
+                }
+            }
+        }
+    }
+
+    &__sub-content {
+        border: 1px solid #ddd;
+        border-top: none;
+        overflow: hidden;
+        height: 0;
+        @include transition(.3s linear all);
+        transition-property: height, opacity, visibility, padding, padding-top;
+
+        & .form-row {
+            margin-left: 1rem;
+            margin-right: 1rem;
+
+            &:first-child {
+                margin-top: 2rem;
+            }
+        }
+    }
+
+    &__sub-header {
+        padding-bottom: 0.5rem;
+        padding: 0.5rem;
+        padding-left: 1rem;
+        background-color: $primary-color;
+        color: #fff;
+        border-top-right-radius: 3px;
+        border-top-left-radius: 3px;
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+    }
+    
+    &__sub-title {
+        color: #fff;
+    }
+
+    &__sub-toggle {
+        width: 28px;
+        height: 28px;
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        border: 2px solid #fff;
+        border-radius: 50%;
+        cursor: pointer;
+        @include transform(translate(0, -50%));
+
+        &::before,
+        &::after {
+            content: '';
+            display: block;
+            position: absolute;
+            background: #fff;
+            border-radius: 2px;
+        }
+        
+        &::before {
+            width: 2px;
+            left: 50%;
+            margin: 0 0 0 -1px;
+            top: 5px;
+            bottom: 5px;
+            @include transition(all 0.2s ease-in-out);
+        }
+
+        &::after {
+            height: 2px;
+            top: 50%;
+            margin: -1px 0 0 0;
+            left: 5px;
+            right: 5px;
+        }
+    }
 }
