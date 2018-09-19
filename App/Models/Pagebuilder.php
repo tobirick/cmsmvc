@@ -69,7 +69,7 @@ class Pagebuilder extends Model {
 
     public static function getSectionsByPageID($pageID) {
         $db = static::getDB();
-        $stmt = $db->prepare('SELECT * FROM pagebuilder_sections WHERE page_id = :page_id ORDER BY position');
+        $stmt = $db->prepare('SELECT * FROM pagebuilder_sections WHERE page_id = :page_id');
         $stmt->execute([
             ':page_id' => $pageID
         ]);
@@ -80,7 +80,7 @@ class Pagebuilder extends Model {
 
     public static function getRowsBySectionID($sectionID) {
         $db = static::getDB();
-        $stmt = $db->prepare('SELECT * FROM pagebuilder_rows WHERE section_id = :section_id ORDER BY position');
+        $stmt = $db->prepare('SELECT * FROM pagebuilder_rows WHERE section_id = :section_id');
         $stmt->execute([
             ':section_id' => $sectionID
         ]);
@@ -91,7 +91,7 @@ class Pagebuilder extends Model {
 
     public static function getColumnRowsByRowID($rowID) {
         $db = static::getDB();
-        $stmt = $db->prepare('SELECT * FROM pagebuilder_columnrows WHERE row_id = :row_id ORDER BY position');
+        $stmt = $db->prepare('SELECT * FROM pagebuilder_columnrows WHERE row_id = :row_id');
         $stmt->execute([
             ':row_id' => $rowID
         ]);
@@ -102,7 +102,7 @@ class Pagebuilder extends Model {
 
     public static function getColumnsByColumnRowID($columnRowID) {
         $db = static::getDB();
-        $stmt = $db->prepare('SELECT * FROM pagebuilder_columns WHERE columnrow_id = :columnrow_id ORDER BY position');
+        $stmt = $db->prepare('SELECT * FROM pagebuilder_columns WHERE columnrow_id = :columnrow_id');
         $stmt->execute([
             ':columnrow_id' => $columnRowID
         ]);

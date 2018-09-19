@@ -31,6 +31,7 @@ export default class ThemeMainViewModel {
         this.favicon = ko.observable('');
         this.fixed_navigation = ko.observable(Number(0));
         this.google_analytics = ko.observable('');
+        this.cookie_message = ko.observable();
         this.to_top = ko.observable(Number(0));
         this.header_code = ko.observable('');
         this.body_code = ko.observable('');

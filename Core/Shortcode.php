@@ -14,6 +14,6 @@ class Shortcode {
       }
     }
 
-    return CustomShortcodes::$methodName($methodParams);
+        return CustomShortcodes::$methodName($methodParams);
   }
 }

@@ -87,6 +87,14 @@
                     </div>
                     <div class="form-row">
                         <div class="col-3">
+                           <label for="cookiemessage" class="form-label">Cookie Message HTML</label>
+                        </div>
+                        <div class="col-9">
+                           <textarea data-bind="value: cookie_message" id="cookiemessage" class="form-input"></textarea>
+                        </div>
+                     </div>
+                    <div class="form-row">
+                        <div class="col-3">
                            <label for="to-top" class="form-label">Back to Top Button</label>
                         </div>
                         <div class="col-9">

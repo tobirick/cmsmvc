@@ -74,7 +74,7 @@ class Theme extends Model {
    public static function updateThemeSettings($theme, $id) {
       $db = static::getDB();
       $stmt = $db->prepare('UPDATE themes SET logo = :logo, favicon = :favicon, fixed_navigation = :fixed_navigation,
-                           google_analytics = :google_analytics, to_top = :to_top, header_code = :header_code,
+                           google_analytics = :google_analytics, cookie_message = :cookie_message, to_top = :to_top, header_code = :header_code,
                            body_code = :body_code, header_layout = :header_layout, footer_layout = :footer_layout,
                            google_font = :google_font, custom_scripts = :custom_scripts, custom_styles = :custom_styles,
                            font_styles = :font_styles, default_color = :default_color, footer_bottom = :footer_bottom,
@@ -86,6 +86,7 @@ class Theme extends Model {
          ':favicon' => $theme['favicon'],
          ':fixed_navigation' => $theme['fixed_navigation'],
          ':google_analytics' => $theme['google_analytics'],
+         ':cookie_message' => $theme['cookie_message'],
          ':to_top' => $theme['to_top'],
          ':header_code' => $theme['header_code'],
          ':body_code' => $theme['body_code'],

@@ -12,12 +12,16 @@ class DefaultPageController extends BaseController {
       $homePage = DefaultPage::getHomePage($args['lang_id']);
 
       if(!$args['page-args']['content']) {
-        self::render('error/404');
+        self::render('error/404', [
+            'error' => true
+        ]);
         return;
       }
 
        if(!$args['page-args']['is_active'] && !self::getUser()) {
-         self::render('error/404');
+         self::render('error/404', [
+            'error' => true
+        ]);
          return;
        } 
        
@@ -25,12 +29,14 @@ class DefaultPageController extends BaseController {
          self::publicRedirect('/');
          return;
        }
-
+       
       $activeTheme = Theme::getActiveTheme();
       self::render('public/themes/' . $activeTheme['name'] . '/default-page', $args['page-args']);
     }
 
     public function error() {
-        self::render('error/404');
+        self::render('error/404', [
+            'error' => true
+        ]);
     }
 }

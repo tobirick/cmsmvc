@@ -12,7 +12,8 @@ class CustomShortcodes {
 
         $menuItems = \App\Models\Menu::getMenuItemsWithSlugByMenuID($id);
         $currentPublicLanguage = Router::getCurrentPublicLanguage();
-		$defaultLanguageId = \App\Models\Settings::getSettings()['default_language_id'];
+        $defaultLanguageId = \App\Models\Settings::getSettings()['default_language_id'];
+
 
         $html = '<ul class="footer-_nav">';
 

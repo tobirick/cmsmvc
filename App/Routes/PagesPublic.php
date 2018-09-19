@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Routes;
 
 $languages = \App\Models\Language::getAllLanguages();

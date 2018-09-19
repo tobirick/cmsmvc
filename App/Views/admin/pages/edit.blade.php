@@ -37,7 +37,7 @@
     @component('admin.components.alert')@endcomponent
     <div class="container">
         <div class="row">
-            <div class="col-12">
+            <div class="col-12" style="position: sticky;top: 0;z-index: 9;">
                 <div class="admin-box mb-1">
                     <div class="languages-tab">
                         <ul data-bind="foreach: languages">

@@ -78,6 +78,17 @@ class DefaultPage extends Model {
         }
     }
 
+    public static function getHrefLangs($pageId) {
+        $db = static::getDB();
+        $stmt = $db->prepare('SELECT pc.slug, l.iso, l.id as language_id FROM page_contents as pc INNER JOIN languages as l ON l.id = pc.language_id WHERE pc.page_id = :page_id AND pc.content <> ""');
+        $stmt->execute([
+                ':page_id' => $pageId
+        ]);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
     public static function getHomePage($langID) {
         $db = static::getDB();
         $stmt = $db->prepare('SELECT pages.*, pc.slug FROM pages INNER JOIN config ON config.name = "home_page_id" AND config.value = pages.id INNER JOIN page_contents as pc ON pc.page_id = pages.id WHERE pc.language_id = :language_id');
@@ -95,6 +106,16 @@ class DefaultPage extends Model {
         $stmt->bindValue(':numberOfPagesPerPage', $numberOfPagesPerPage, \PDO::PARAM_INT);
         $stmt->bindValue(':offset', $numberOfPagesPerPage * ($pageNumber - 1), \PDO::PARAM_INT);
         $stmt->bindValue(':language_id', $langID, \PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    public static function getAllPagesWithoutLang() {
+        $db = static::getDB();
+        $stmt = $db->prepare('SELECT pages.*, users.name as author, pc.slug FROM pages LEFT JOIN users ON pages.created_by = users.id INNER JOIN page_contents as pc ON pc.page_id = pages.id');
 
         $stmt->execute();
 

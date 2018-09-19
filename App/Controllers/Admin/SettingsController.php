@@ -88,9 +88,9 @@ class SettingsController extends BaseController {
 
         if(!$errors) {
             $language = Language::addLanguage($_POST['language']);
-            $pages = DefaultPage::getAllPages();
+            $pages = DefaultPage::getAllPagesWithoutLang();
             foreach($pages as $page) {
-                DefaultPage::addPageContents($page['id'], $language['id']);
+                DefaultPage::addPageContents($page['id'], $language['id'], '');
             }
             self::redirect('/admin/settings/languages');
         } else {

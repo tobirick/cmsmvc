@@ -82,6 +82,7 @@ class Router {
                $pageData = $page->getPageBySlug($langID);
                if($pageData) {
                   $this->params['page-args'] = $pageData;
+                  $this->params['page-args']['hreflangs'] = DefaultPage::getHrefLangs($pageData["id"]);
                } else {
                     $ctrl = new \App\Controllers\DefaultPageController;
                     call_user_func([$ctrl,'error'], $this->params);

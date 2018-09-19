@@ -260,7 +260,7 @@ class Menu extends Model {
 
     public static function getMenuItemsWithSlugByMenuID($id) {
         $db = static::getDB();
-        $stmt = $db->prepare('SELECT m.id, m.name, m.language_id, m.css_class, m.link_to, m.type, p.slug FROM menu_items as m INNER JOIN pages as p ON p.id = m.page_id WHERE menu_id = :menu_id AND parent_id IS NULL ORDER BY menu_position');
+        $stmt = $db->prepare('SELECT m.id, m.name, m.language_id, m.css_class, m.link_to, m.type, p.slug FROM menu_items as m INNER JOIN page_contents as p ON p.page_id = m.page_id AND p.language_id = m.language_id WHERE menu_id = :menu_id AND parent_id IS NULL ORDER BY menu_position');
         $stmt->execute([
             ':menu_id' => $id
         ]);
@@ -276,7 +276,7 @@ class Menu extends Model {
 
     public static function getMenuSubItemsForFrontendByListItemId($id) {
         $db = static::getDB();
-        $stmt = $db->prepare('SELECT mi.id as menu_id, mi.name, mi.language_id, mi.css_class, mi.type, mi.link_to, p.slug, p.id as page_id FROM menu_items as mi INNER JOIN pages as p ON p.id = mi.page_id WHERE parent_id = :id ORDER BY mi.menu_position');        
+        $stmt = $db->prepare('SELECT mi.id as menu_id, mi.name, mi.language_id, mi.css_class, mi.type, mi.link_to, p.slug, p.page_id FROM menu_items as mi INNER JOIN page_contents as p ON p.page_id = mi.page_id AND p.language_id = mi.language_id WHERE parent_id = :id ORDER BY mi.menu_position');        
         $stmt->execute([
             ':id' => $id
         ]);

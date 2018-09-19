@@ -151,6 +151,7 @@ class PagebuilderController extends BaseController {
         echo json_encode($data);
     }
 
+    /*
     public function savePagebuilder() {
         $content = trim(file_get_contents("php://input"));
         $decoded = json_decode($content, true);
@@ -241,6 +242,43 @@ class PagebuilderController extends BaseController {
         $data = [];
         $data['csrfToken'] = CSRF::getToken();
 
+        echo json_encode($data);
+    }
+    */
+
+    public function savePagebuilder() {
+        $content = trim(file_get_contents("php://input"));
+        $decoded = json_decode($content, true);
+        CSRF::checkTokenAjax($decoded['csrf_token']);
+        $sections = $decoded['sections'];
+        // Delete all sections
+        Pagebuilder::deleteSectionsByPageID($decoded['page_id']);
+        foreach($decoded['languages'] as $language) {
+            Pagebuilder::updatePageContent($decoded['page_id'], $language['language_id'], $language['html'], $language['page']);
+        }
+        DefaultPage::updatePage($decoded['page_id'], $decoded['defaultPage']);
+        // Insert updated sections, rows, columnsrows and rows
+        foreach($sections as $key => $section) {
+            $sectionID = Pagebuilder::saveSection($decoded['page_id'], $section, 0);
+            foreach($section['rows'] as $key2 => $row) {
+                $rowID = Pagebuilder::saveRow($sectionID, $row, 0);
+                    foreach($row['columnrows'] as $key3 => $columnrow) {
+                        if(sizeof($columnrow['columns']) !== 0) {
+                            $columndRowID = Pagebuilder::saveColumnRow($rowID, $columnrow, 0);
+        
+                            foreach($columnrow['columns'] as $key4 => $column) {
+                                $columnID = Pagebuilder::saveColumn($columndRowID, $column, 0);
+                                if($column['element']) {
+                                   Pagebuilder::saveElement($columnID, $column['element']);
+                                }
+                            }
+                        }
+                    }
+            }
+        }
+        header('Content-type: application/json');
+        $data = [];
+        $data['csrfToken'] = CSRF::getToken();
         echo json_encode($data);
     }
 

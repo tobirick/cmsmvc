@@ -25,6 +25,7 @@ class BaseController {
             ['key' => 'publiclanguages', 'value' => $publicLanguages]
         ];
 
+
        // Minify CSS and JS
        if(filter_var(getenv('DEV'), FILTER_VALIDATE_BOOLEAN)) {
            Theme::combineCSS($activeTheme['name']);
@@ -71,6 +72,7 @@ class BaseController {
             $shares[] = ['key' => 'footercols', 'value' => $footercols];
             $shares[] = ['key' => 'settings', 'value' => $settings];
             $shares[] = ['key' => 'currentpubliclanguage', 'value' => $currentPublicLanguage];
+            $shares[] = ['key' => 'cookiemessage', 'value' => self::doShortcode($activeTheme['cookie_message'])];
          }
 
          //Public pages maintenance mode
